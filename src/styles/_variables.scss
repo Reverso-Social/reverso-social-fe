@@ -1,0 +1,41 @@
+// src/styles/_variables.scss
+
+// COLORS 
+$color-primary: #30d5c8;   // turquesa
+$color-secondary: #b57edc; // lila
+$color-dark: #2f2f32;      // gris muy oscuro
+$color-light: #c0c0c0;     // gris claro
+$color-white: #ffffff;
+
+// Opcionales para UI
+$color-success: #2ecc71;
+$color-error: #e74c3c;
+
+// TYPOGRAPHY
+$font-heading: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont,
+  'Segoe UI', sans-serif;
+$font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont,
+  'Segoe UI', sans-serif;
+
+// SCALE 
+$font-size-xs: 0.75rem;   // etiquetas pequeñas
+$font-size-sm: 0.875rem;  // textos secundarios
+$font-size-base: 1rem;    // texto normal
+$font-size-lg: 1.125rem;  // párrafos importantes
+$font-size-xl: 1.375rem;  // subtítulos fuertes
+$font-size-2xl: 1.75rem;  // H3
+$font-size-3xl: 2.25rem;  // H2
+$font-size-4xl: 3rem;     // H1 hero
+
+$line-height-base: 1.6;
+$line-height-heading: 1.2;
+
+// SPACING
+$space-xs: 0.5rem;
+$space-sm: 0.75rem;
+$space-md: 1rem;
+$space-lg: 1.5rem;
+$space-xl: 2rem;
+$space-2xl: 3rem;
+
+$radius-base: 0.75rem;

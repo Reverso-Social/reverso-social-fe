@@ -1,0 +1,24 @@
+
+@use './variables' as *;
+
+@mixin parallax-bg($image, $height: 60vh) {
+  background-image: url(#{$image});
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: $height;
+
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+@mixin parallax-mobile-fallback {
+  @media (max-width: 768px) {
+    background-attachment: scroll;
+    background-position: center top;
+  }
+}
