@@ -1,0 +1,11 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.home {
+  width: 100%;
+ 
+}
+.placeholder {
+  height: 600px;    
+  background-color: $color-white;
+}
