@@ -1,0 +1,30 @@
+@use "../../styles/variables" as vars;
+
+.global-background {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+
+
+  background: linear-gradient(
+    250deg,
+    rgba(177, 137, 255, 0.7) -2%,
+    rgba(154, 178, 237, 0.7) 55%,
+    rgba(92, 225, 230, 0.7) 115%
+  );
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  padding-top: 2rem;
+}
+
+/* --- MOBILE FIX --- */
+@media (max-width: 768px) {
+  .global-background {
+    background-size: 160%;
+    background-position: top;
+    padding-top: 1.5rem;
+  }
+}
