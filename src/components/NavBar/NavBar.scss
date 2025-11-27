@@ -1,11 +1,10 @@
 @use "../../styles/variables" as *;
 
 .nav {
-    flex: 1;
-    display: flex;
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 2rem;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2rem;
 }
 
 .nav-list {
@@ -21,17 +20,58 @@
   }
 
   a {
+    position: relative;
     color: $color-dark;
     text-decoration: none;
+    font-family: $font-body;
     font-weight: 500;
     font-size: 1rem;
-    transition: color 0.2s ease;
+    padding: 0.25rem 0;
+    transition: all 0.3s ease;
 
-    &:hover,
+    &:hover {
+      transform: scale(1.05);
+      background: linear-gradient(
+        90deg,
+        $color-primary 0%,
+        $color-secondary 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
+
     &:focus {
-      text-decoration: underline;
-      outline: 2px solid black; 
+      outline: 2px solid $color-primary;
       outline-offset: 4px;
+      border-radius: 2px;
+    }
+
+    &.active {
+      background: linear-gradient(
+        90deg,
+        $color-primary 0%,
+        $color-secondary 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    margin-right: 1rem;
+  }
+
+  .nav-list {
+    gap: 1rem;
+
+    a {
+      font-size: 0.9rem;
     }
   }
 }
