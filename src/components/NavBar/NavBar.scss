@@ -1,0 +1,37 @@
+@use "../../styles/variables" as *;
+
+.nav {
+    flex: 1;
+    display: flex;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 2rem;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+  }
+
+  a {
+    color: $color-dark;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+      outline: 2px solid black; 
+      outline-offset: 4px;
+    }
+  }
+}
