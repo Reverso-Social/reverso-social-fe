@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Background from "./components/Background/Background";
 import Hero from "./components/Hero/Hero";
+import About from "./components/about/About";
 import Header from "./components/Header/Header";
 import ContactModal from "./components/ContactModal/ContactModal";
 import TeamSection from "./components/TeamSection/TeamSection";
@@ -16,6 +17,7 @@ function App() {
       <Background>
         <Hero />
       </Background>
+      <About />
 
       
       <TeamSection />
