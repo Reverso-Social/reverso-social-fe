@@ -18,11 +18,17 @@ const Hero = () => {
       </div>
 
       <div className="hero-image-wrapper">
-        <img
-          src={heroImage}
-          alt="Equipo Reverso Social"
-          className="hero-image"
-        />
+        <div className="circle circle--1"></div>
+        <div className="circle circle--2"></div>
+        <div className="circle circle--3"></div>
+        
+        <div className="hero-image-container">
+          <img
+            src={heroImage}
+            alt="Equipo Reverso Social trabajando en consultoría de igualdad"
+            className="hero-image"
+          />
+        </div>
       </div>
     </section>
   );
