@@ -1,0 +1,68 @@
+@use "../../styles/variables" as *;
+
+.team-card {
+  background: $color-white;
+  box-shadow: 0 4px 16px $shadow-soft;
+  border-radius: $radius-base;
+  padding: $space-xl;
+  width: 280px;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  transition: transform 0.25s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 20px $shadow-medium;
+  }
+
+  &__photo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: $space-md;
+
+    background: linear-gradient(
+      135deg,
+      $color-turquesa-soft,
+      $color-lila-light
+    );
+  }
+
+  &__name {
+    font-family: $font-heading;
+    font-size: $font-size-xl;
+    margin-bottom: $space-md;
+    color: $color-dark;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-xs;
+    justify-content: center;
+    margin-bottom: $space-md;
+  }
+
+  &__tag {
+    background: $color-silver-light;
+    color: $color-dark;
+    padding: $space-xs $space-sm;
+    border-radius: 20px;
+    font-size: $font-size-sm;
+  }
+
+  &__linkedin {
+    font-size: 1.8rem;
+    color: $color-primary;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: darken($color-primary, 10%);
+    }
+  }
+}

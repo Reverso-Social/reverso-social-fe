@@ -1,0 +1,20 @@
+@use "../../styles/variables" as *;
+
+.team-section {
+  padding: $space-2xl 0;
+
+  &__title {
+    text-align: center;
+    margin-bottom: $space-2xl;
+    color: $color-dark;
+    font-family: $font-heading;
+    font-size: $font-size-3xl;
+  }
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $space-xl;
+  }
+}

@@ -6,6 +6,7 @@ export default function Home() {
   return (
    <div className="home">
     <Hero />
+    
 
     <section className="placeholder">
       <h2>Próximamente más contenido...</h2>
