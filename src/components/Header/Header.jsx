@@ -1,29 +1,28 @@
 import { useState } from "react";
 import "./Header.scss";
 import ContactModal from "../ContactModal/ContactModal";
+import NavBar from "../NavBar/NavBar";
+import logo from "../../assets/logo/logo-rs.png";
 
 export default function Header() {
-
   const [openModal, setOpenModal] = useState(false);
-
   return (
     <>
       <header className="header" role="banner">
-        <nav className="header-nav" aria-label="Menú principal">
-          <ul className="nav-list">
-            <li><a href="#sobre-nosotras">Sobre nosotras</a></li>
-            <li><a href="#nuestro-trabajo">Nuestro trabajo</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li>
-              <button 
-                className="header-contact-btn"
-                onClick={() => setOpenModal(true)}
-              >
-                Contacto
-              </button>
-            </li>
-          </ul>
-        </nav>
+        <div className="header-container">
+          <a href="/" className="header-logo">
+            <img src={logo} alt="Reverso Social logo" />
+          </a>
+          <NavBar />
+
+          <button 
+            className="header-contact-btn"
+            onClick={() => setOpenModal(true)}
+          >
+            Contáctanos
+          </button>
+
+        </div>
       </header>
       <ContactModal 
         open={openModal} 
