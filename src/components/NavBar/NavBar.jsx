@@ -1,5 +1,3 @@
-// src/components/NavBar/NavBar.jsx
-
 import "./NavBar.scss";
 
 export default function NavBar() {
