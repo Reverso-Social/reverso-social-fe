@@ -5,6 +5,7 @@ import About from "./components/about/About";
 import Header from "./components/Header/Header";
 import ContactModal from "./components/ContactModal/ContactModal";
 import TeamSection from "./components/TeamSection/TeamSection";
+import ServiceSection from "./components/ServicesSection/ServicesSection"
 import "./styles/main.scss";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Hero />
       </Background>
       <About />
+      <ServiceSection />
 
       
       <TeamSection />

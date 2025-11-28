@@ -1,0 +1,51 @@
+@use '../../styles/variables' as *;
+
+.service-card {
+  width: 600px;                // tamaño fijo
+  flex-shrink: 0;              // evita que se haga pequeña
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: $font-body;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  &_icon {
+    font-size: 3rem;
+    color: #8a47ff;
+  }
+
+  &_title {
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  &_body {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #555;
+  }
+
+  &_button {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #000;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

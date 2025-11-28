@@ -1,0 +1,45 @@
+.service-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+/* NUEVO MARCO CON EL MISMO GRADIENTE QUE EL HERO */
+.background-frame {
+  display: inline-block;
+  padding: 2.5rem;
+  border-radius: 24px;
+
+  background: linear-gradient(
+    250deg,
+    rgba(177, 137, 255, 0.7) -2%,
+    rgba(154, 178, 237, 0.7) 55%,
+    rgba(92, 225, 230, 0.7) 115%
+  );
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  padding-top: 2rem;  // lo mismo que en el hero
+  margin: 0 auto;
+
+  /* Sombra opcional */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* FILA DE 2 TARJETAS */
+.services-row {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: nowrap;
+}
+
+@media (max-width: 768px) {
+  .services-row {
+    flex-direction: column;
+    align-items: center;
+  }
+}
