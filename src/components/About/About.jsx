@@ -36,7 +36,7 @@ const About = () => {
   ];
 
   return (
-    <section className="about" id="about" aria-labelledby="about-heading">
+    <section className="about" id="sobre-nosotros" aria-labelledby="about-heading">
       <header className="about__intro">
         <h2 id="about-heading" className="about__title">
           Sobre <span className="about__title--highlight">Reverso Social</span>

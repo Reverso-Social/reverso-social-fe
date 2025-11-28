@@ -18,54 +18,58 @@
     display: flex;
     align-items: center;
   }
+}
 
-  a {
-    position: relative;
-    background: none;
-    border: none;
-    color: $color-dark;
-    text-decoration: none;
-    font-family: $font-body;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 0.25rem 0;
-    cursor: pointer;
-    transition: all 0.3s ease;
+.nav-link {
+  position: relative;
+  background: none;
+  border: none;
+  color: $color-dark;
+  text-decoration: none;
+  font-family: $font-body;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.25rem 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
 
-    &:hover {
-      transform: scale(1.05);
-      background: linear-gradient(
-        90deg,
-        $color-primary 0%,
-        $color-secondary 100%
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 600;
-    }
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 
-    &:focus {
-      outline: none;
-    }
+  &:hover {
+    transform: scale(1.05);
+    background: linear-gradient(
+      90deg,
+      $color-primary 0%,
+      $color-secondary 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+  }
 
-    &:focus-visible {
-      outline: 2px solid $color-primary;
-      outline-offset: 4px;
-      border-radius: 2px;
-    }
+  &:focus {
+    outline: none;
+  }
 
-    &.active {
-      background: linear-gradient(
-        90deg,
-        $color-primary 0%,
-        $color-secondary 100%
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 600;
-    }
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  &.active {
+    background: linear-gradient(
+      90deg,
+      $color-primary 0%,
+      $color-secondary 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
   }
 }
 
@@ -76,9 +80,9 @@
 
   .nav-list {
     gap: 1rem;
+  }
 
-    a {
-      font-size: 0.9rem;
-    }
+  .nav-link {
+    font-size: 0.9rem;
   }
 }

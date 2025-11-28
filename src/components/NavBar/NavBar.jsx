@@ -1,51 +1,73 @@
-import { Link, useLocation } from "react-router-dom";
 import "./NavBar.scss";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function NavBar() {
   const location = useLocation();
-  const isHomePage = location.pathname === "/";
+  const navigate = useNavigate();
 
-  // Function to handle smooth scroll on home page or navigation
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const handleNavClick = (e, sectionId) => {
-    if (isHomePage) {
-      e.preventDefault();
-      const element = document.querySelector(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+    e.preventDefault();
+
+    if (location.pathname !== "/") {
+      // Estamos en otra página → Navegar primero al home
+      navigate("/");
+
+      // Esperar a que cargue el home
+      setTimeout(() => scrollToSection(sectionId), 50);
+    } else {
+      // Estamos en el Home → Scroll directo
+      scrollToSection(sectionId);
     }
   };
 
   return (
     <nav className="nav" aria-label="Menú principal">
       <ul className="nav-list">
+
         <li>
-          <Link 
-            to="/#sobre-nosotros"
-            onClick={(e) => handleNavClick(e, "#sobre-nosotros")}
+          <button 
+            className="nav-link"
+            onClick={(e) => handleNavClick(e, "sobre-nosotros")}
           >
             Sobre Nosotres
-          </Link>
+          </button>
         </li>
+
         <li>
-          <Link 
-            to="/#que-hacemos"
-            onClick={(e) => handleNavClick(e, "#que-hacemos")}
+          <button 
+            className="nav-link"
+            onClick={(e) => handleNavClick(e, "que-hacemos")}
           >
             Qué Hacemos
-          </Link>
+          </button>
         </li>
+
         <li>
-          <Link to="/recursos">Recursos</Link>
+          {/* Esta sí es ruta real */}
+          <button 
+            className="nav-link"
+            onClick={() => navigate("/recursos")}
+          >
+            Recursos
+          </button>
         </li>
+
         <li>
-          <Link 
-            to="/#incidencia"
-            onClick={(e) => handleNavClick(e, "#incidencia")}
+          <button 
+            className="nav-link"
+            onClick={(e) => handleNavClick(e, "incidencia")}
           >
             Incidencia
-          </Link>
+          </button>
         </li>
+
       </ul>
     </nav>
   );
