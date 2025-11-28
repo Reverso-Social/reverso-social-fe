@@ -4,10 +4,33 @@ html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background: linear-gradient(
-    90deg,
-    $color-primary 0%,
-    $color-secondary 100%
-  );
+  background: $color-white;
   min-height: 100%;
+}
+
+body {
+  padding-top: 120px; /* Compensa la altura del header fijo (ajusta según tu logo) */
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  body {
+    padding-top: 80px; /* Menos padding en móvil */
+  }
 }

@@ -1,0 +1,325 @@
+@use "../../styles/variables" as *;
+
+.resources-page {
+  min-height: 100vh;
+  background: $color-white;
+}
+
+// Hero Section
+.resources-hero {
+  background: linear-gradient(
+    135deg,
+    rgba($color-turquesa-soft, 0.15) 0%,
+    rgba($color-lila-light, 0.15) 100%
+  );
+  padding: 6rem 2rem 4rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      $color-white 100%
+    );
+  }
+}
+
+.resources-hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: $color-dark;
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba($color-primary, 0.1);
+    color: $color-primary;
+    transform: translateX(-4px);
+  }
+}
+
+.resources-hero-title {
+  font-size: $font-size-4xl;
+  margin-bottom: 1rem;
+  color: $color-dark;
+
+  .title-gradient {
+    background: linear-gradient(90deg, $color-primary 0%, $color-secondary 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+.resources-hero-subtitle {
+  font-size: $font-size-xl;
+  color: $color-dark;
+  opacity: 0.8;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+// Content Section
+.resources-content {
+  padding: 4rem 2rem;
+}
+
+.resources-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.resources-filter {
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.resources-count {
+  font-size: $font-size-lg;
+  color: $color-dark;
+  font-weight: 500;
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.resource-card {
+  background: $color-white;
+  border-radius: $radius-base;
+  padding: 2rem;
+  box-shadow: 0 4px 12px $shadow-soft;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    transition: height 0.3s ease;
+  }
+
+  &.turquesa::before {
+    background: linear-gradient(90deg, $color-primary 0%, $color-turquesa-soft 100%);
+  }
+
+  &.lila::before {
+    background: linear-gradient(90deg, $color-secondary 0%, $color-lila-light 100%);
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px $shadow-medium;
+
+    &::before {
+      height: 8px;
+    }
+
+    .resource-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .resource-btn {
+      background: linear-gradient(90deg, $color-primary 0%, $color-secondary 100%);
+      color: $color-white;
+
+      .btn-arrow {
+        transform: translateX(4px);
+      }
+    }
+  }
+}
+
+.resource-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.resource-icon {
+  font-size: 2.5rem;
+  transition: transform 0.3s ease;
+}
+
+.resource-type {
+  font-size: $font-size-xs;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $color-primary;
+  background: rgba($color-primary, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+}
+
+.resource-badge {
+  margin-left: auto;
+  font-size: $font-size-xs;
+  font-weight: 600;
+  color: $color-secondary;
+  background: rgba($color-secondary, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+}
+
+.resource-title {
+  font-size: $font-size-xl;
+  color: $color-dark;
+  margin: 1rem 0 0.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.resource-description {
+  color: $color-dark;
+  opacity: 0.7;
+  margin-bottom: auto;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.resource-btn {
+  background: transparent;
+  border: 2px solid $color-primary;
+  color: $color-primary;
+  padding: 0.875rem 1.5rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  font-size: $font-size-sm;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
+  width: 100%;
+
+  .btn-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  &:focus {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+// CTA Section
+.resources-cta {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(
+    135deg,
+    rgba($color-turquesa-soft, 0.1) 0%,
+    rgba($color-lila-light, 0.1) 100%
+  );
+  border-radius: $radius-base;
+  margin-top: 2rem;
+
+  h2 {
+    font-size: $font-size-3xl;
+    color: $color-dark;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: $font-size-lg;
+    color: $color-dark;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+  }
+
+  .cta-btn {
+    background: linear-gradient(90deg, $color-primary 0%, $color-secondary 100%);
+    color: $color-white;
+    text-decoration: none;
+    border: none;
+    padding: 1.125rem 3rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    font-size: $font-size-lg;
+    cursor: pointer;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba($color-primary, 0.3);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba($color-primary, 0.4);
+    }
+
+    &:focus {
+      outline: 2px solid $color-white;
+      outline-offset: 2px;
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .resources-hero {
+    padding: 4rem 1rem 3rem;
+  }
+
+  .resources-hero-title {
+    font-size: $font-size-3xl;
+  }
+
+  .resources-hero-subtitle {
+    font-size: $font-size-base;
+  }
+
+  .resources-content {
+    padding: 2rem 1rem;
+  }
+
+  .resources-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .resources-cta {
+    padding: 3rem 1.5rem;
+
+    h2 {
+      font-size: $font-size-2xl;
+    }
+
+    p {
+      font-size: $font-size-base;
+    }
+  }
+}

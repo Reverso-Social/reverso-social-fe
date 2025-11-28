@@ -1,0 +1,86 @@
+@use "../../styles/variables" as *;
+
+.nav {
+  display: flex;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list li {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link {
+  position: relative;
+  background: none;
+  border: none;
+  color: $color-dark;
+  text-decoration: none;
+  font-family: $font-body;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.25rem 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.nav-link:hover {
+  transform: scale(1.05);
+  background: linear-gradient(
+    90deg,
+    $color-primary 0%,
+    $color-secondary 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+.nav-link:focus {
+  outline: none;
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid $color-primary;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.nav-link.active {
+  background: linear-gradient(
+    90deg,
+    $color-primary 0%,
+    $color-secondary 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    width: 100%;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+
+  .nav-link {
+    font-size: 0.95rem;
+  }
+}

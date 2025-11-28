@@ -1,3 +1,6 @@
+@use "../../styles/variables" as vars;
+
+
 .contact-modal__overlay {
   position: fixed;
   inset: 0;
@@ -10,11 +13,11 @@
 }
 
 .contact-modal__container {
-  background: #fff;
+  background: vars.$color-white;
   width: 100%;
   max-width: 520px;
   padding: 2.5rem;
-  border-radius: 1.5rem;
+  border-radius: vars.$radius-lg;
   position: relative;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
   animation: fadeIn 0.25s ease-out;
@@ -32,32 +35,37 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #666;
+  color: vars.$color-dark;
   transition: 0.2s;
 
   &:hover {
-    color: #000;
+    color: vars.$color-black;
   }
 }
 
 .contact-modal__title {
   text-align: center;
   font-size: 1.9rem;
-  font-weight: 600;
+  font-weight: 700;
+  font-family: vars.$font-heading;
+  color: vars.$color-dark;
   margin-bottom: 0.5rem;
 }
 
 .contact-modal__subtitle {
   text-align: center;
-  color: #666;
+  color: vars.$color-dark;
   margin-bottom: 2rem;
+  font-family: vars.$font-body;
 }
+
 
 .contact-modal__form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
+
 
 .contact-modal__field {
   display: flex;
@@ -66,6 +74,8 @@
   label {
     font-weight: 500;
     margin-bottom: 0.4rem;
+    font-family: vars.$font-body;
+    color: vars.$color-dark;
   }
 }
 
@@ -74,14 +84,14 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  border: 1px solid #ddd;
-  border-radius: 1rem;
+  border: 1px solid vars.$color-light;
+  border-radius: vars.$radius-base;
   padding: 0.8rem 1rem;
   transition: 0.25s ease;
 
   &:focus-within {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    border-color: vars.$color-primary;
+    box-shadow: 0 0 0 3px rgba(92, 225, 230, 0.25);
   }
 
   input,
@@ -90,12 +100,14 @@
     border: none;
     outline: none;
     font-size: 1rem;
+    font-family: vars.$font-body;
     resize: none;
+    color: vars.$color-dark;
   }
 }
 
 .icon {
-  color: #a2a2a2;
+  color: vars.$color-light;
 }
 
 .icon--textarea {
@@ -105,18 +117,25 @@
 
 .contact-modal__submit {
   width: 100%;
-  background: #4f46e5;
-  color: white;
+  background: linear-gradient(90deg, #5ce1e6 30%, #C3B4F0 75%);
+  font-family: vars.$font-heading;
   padding: 0.9rem;
-  border-radius: 1rem;
+  border-radius: vars.$radius-md;
   border: none;
-  font-size: 1.1rem;
-  font-weight: 500;
   cursor: pointer;
   transition: 0.22s ease;
+  color: vars.$color-black;
+  font-weight: 600;
+  font-size: 1.1rem;
 
   &:hover {
-    background: #4338ca;
+    background: vars.$color-secondary;
+    color: vars.$color-black;
+  }
+
+  &:focus-visible {
+    outline: 2px solid vars.$color-dark;
+    outline-offset: 4px;
   }
 
   .contact-modal__error {
