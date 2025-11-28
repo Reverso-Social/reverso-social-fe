@@ -1,3 +1,4 @@
+
 .service-section {
   display: flex;
   flex-direction: column;
@@ -5,7 +6,6 @@
   gap: 3rem;
   margin-top: 15%;
 }
-
 
 .background-frame {
   display: inline-block;
@@ -23,13 +23,11 @@
   background-repeat: no-repeat;
   background-position: center;
 
-  padding-top: 2rem; 
+  padding-top: 2rem;
   margin: 0 auto;
 
-  
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
-
 
 .services-row {
   display: flex;
@@ -38,9 +36,31 @@
   flex-wrap: nowrap;
 }
 
+
 @media (max-width: 768px) {
+  .service-section {
+    margin-top: 4rem;
+    gap: 2rem;
+    padding-inline: 1rem; 
+  }
+
   .services-row {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column;   
+    align-items: stretch;    
+    gap: 1.5rem;
+  }
+
+  .background-frame {
+    display: block;
+    width: 100%;              
+    max-width: 480px;         
+    margin: 0 auto;
+    padding: 1.5rem;
+    box-sizing: border-box;
+  }
+
+  .background-frame .service-card {
+    width: 100%;
+    max-width: 100%;
   }
 }
