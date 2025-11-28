@@ -13,7 +13,7 @@ const ServiceSection = () => {
         </h2>
       </header>
 
-      {/* GRUPO 1 */}
+     
       <div className="background-frame">
         <div className="services-row">
           <ServicesCard
@@ -32,7 +32,7 @@ const ServiceSection = () => {
         </div>
       </div>
 
-      {/* GRUPO 2 */}
+     
       <div className="background-frame">
         <div className="services-row">
           <ServicesCard
@@ -51,7 +51,7 @@ const ServiceSection = () => {
         </div>
       </div>
 
-      {/* GRUPO 3 */}
+      
       <div className="background-frame">
         <div className="services-row">
           <ServicesCard
