@@ -4,6 +4,7 @@ import Footer from "./components/Footer/Footer";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import HomePage from "./pages/HomePage/HomePage";
 import ResourcesPage from "./pages/ResourcesPage/ResourcesPage";
+//import ServiceSection from "./components/ServicesSection/ServicesSection"
 import "./styles/main.scss";
 
 function App() {
