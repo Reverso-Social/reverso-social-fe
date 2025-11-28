@@ -5,20 +5,18 @@
   backdrop-filter: blur(10px);
   padding: 0.8rem 2rem;
   border-bottom: 1px solid $color-light;
-  
-  /* Hacer el header sticky */
+
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
   z-index: 1000;
-  
+
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
-  /* Efecto cuando hace scroll */
-  &.scrolled {
+  &.header--scrolled {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 0.5rem 2rem;
   }
@@ -45,20 +43,27 @@
     object-fit: contain;
     margin-bottom: -100px;
     transition: height 0.3s ease;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
   }
 }
 
-/* Logo más pequeño cuando hace scroll */
-.header.scrolled .header-logo img {
+.header--scrolled .header-logo img {
   height: 180px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .header-contact-btn {
   font-family: $font-heading;
   font-size: 1rem;
-  
   background: linear-gradient(90deg, #5ce1e6 45%, #C3B4F0);
-  color: #000;
+  color: $color-black;
   padding: 0.6rem 1.4rem;
   font-weight: 600;
   border: none;
@@ -66,34 +71,117 @@
   cursor: pointer;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
   transition: all 0.25s ease;
-
-  &:hover {
-    background: linear-gradient(90deg, #4dd1d6 45%, #BFA9F8);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  }
-
-  &:focus {
-    outline: 2px solid #000;
-    outline-offset: 4px;
-  }
 }
 
+.header-contact-btn:hover {
+  background: linear-gradient(90deg, #4dd1d6 45%, #BFA9F8);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.header-contact-btn:focus-visible {
+  outline: 2px solid $color-dark;
+  outline-offset: 4px;
+}
+
+.nav-desktop {
+  display: flex;
+}
+
+/* ------------------------------
+   HAMBURGER MENU
+------------------------------ */
+
+.menu-toggle {
+  width: 32px;
+  height: 28px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.menu-toggle span {
+  width: 100%;
+  height: 4px;
+  background: $color-dark;
+  border-radius: 2px;
+  transition: 0.3s ease;
+}
+
+.menu-toggle.open span:nth-child(1) {
+  transform: translateY(12px) rotate(45deg);
+}
+
+.menu-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.open span:nth-child(3) {
+  transform: translateY(-12px) rotate(-45deg);
+}
+
+/* ------------------------------
+   MOBILE MENU
+------------------------------ */
+
+.mobile-menu {
+  display: none;
+  background-color: $color-white;
+  border-top: 1px solid $color-light;
+}
+
+.mobile-menu--open {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1.25rem 2rem 1.5rem;
+}
+
+.mobile-contact-btn {
+  font-family: $font-heading;
+  font-size: 1rem;
+  background: linear-gradient(90deg, #5ce1e6 45%, #C3B4F0);
+  color: $color-black;
+  padding: 0.7rem 1.4rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.mobile-contact-btn:focus-visible {
+  outline: 2px solid $color-dark;
+  outline-offset: 4px;
+}
+
+/* ------------------------------
+   RESPONSIVE
+------------------------------ */
 
 @media (max-width: 768px) {
-  .header {
-    padding: 0.6rem 1rem;
+  .nav-desktop {
+    display: none;
   }
 
-  .header.scrolled {
-    padding: 0.4rem 1rem;
+  .menu-toggle {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .header-container {
+    padding-right: 0.5rem;
   }
 
   .header-logo img {
     height: 150px;
+    margin-bottom: -70px;
   }
 
-  .header.scrolled .header-logo img {
+  .header--scrolled .header-logo img {
     height: 130px;
   }
 

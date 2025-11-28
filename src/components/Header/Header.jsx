@@ -6,6 +6,7 @@ import logo from "../../assets/logo/logo-rs.png";
 
 export default function Header() {
   const [openModal, setOpenModal] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -23,26 +24,54 @@ export default function Header() {
 
   return (
     <>
-      <header className={`header ${scrolled ? "scrolled" : ""}`} role="banner">
+      <header className={`header ${scrolled ? "header--scrolled" : ""}`}>
         <div className="header-container">
           <a href="/" className="header-logo">
             <img src={logo} alt="Reverso Social logo" />
           </a>
-          <NavBar />
 
-          <button 
-            className="header-contact-btn"
-            onClick={() => setOpenModal(true)}
+          <div className="header-right nav-desktop">
+            <NavBar />
+            <button
+              className="header-contact-btn"
+              onClick={() => setOpenModal(true)}
+            >
+              Contáctanos
+            </button>
+          </div>
+
+          <button
+            className={`menu-toggle ${menuOpen ? "open" : ""}`}
+            aria-label="Abrir o cerrar menú de navegación"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMenuOpen(prev => !prev)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+
+        <div
+          id="mobile-menu"
+          className={`mobile-menu ${menuOpen ? "mobile-menu--open" : ""}`}
+        >
+          <NavBar onItemClick={() => setMenuOpen(false)} />
+
+          <button
+            className="mobile-contact-btn"
+            onClick={() => {
+              setOpenModal(true);
+              setMenuOpen(false);
+            }}
           >
             Contáctanos
           </button>
-
         </div>
       </header>
-      <ContactModal 
-        open={openModal} 
-        onClose={() => setOpenModal(false)} 
-      />
+
+      <ContactModal open={openModal} onClose={() => setOpenModal(false)} />
     </>
   );
 }

@@ -1,10 +1,7 @@
 @use "../../styles/variables" as *;
 
 .nav {
-  flex: 1;
   display: flex;
-  justify-content: flex-end;
-  margin-right: 2rem;
 }
 
 .nav-list {
@@ -13,11 +10,11 @@
   gap: 2rem;
   margin: 0;
   padding: 0;
+}
 
-  li {
-    display: flex;
-    align-items: center;
-  }
+.nav-list li {
+  display: flex;
+  align-items: center;
 }
 
 .nav-link {
@@ -32,57 +29,58 @@
   padding: 0.25rem 0;
   cursor: pointer;
   transition: all 0.3s ease;
-
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+}
 
-  &:hover {
-    transform: scale(1.05);
-    background: linear-gradient(
-      90deg,
-      $color-primary 0%,
-      $color-secondary 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 600;
-  }
+.nav-link:hover {
+  transform: scale(1.05);
+  background: linear-gradient(
+    90deg,
+    $color-primary 0%,
+    $color-secondary 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
 
-  &:focus {
-    outline: none;
-  }
+.nav-link:focus {
+  outline: none;
+}
 
-  &:focus-visible {
-    outline: 2px solid $color-primary;
-    outline-offset: 4px;
-    border-radius: 2px;
-  }
+.nav-link:focus-visible {
+  outline: 2px solid $color-primary;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
 
-  &.active {
-    background: linear-gradient(
-      90deg,
-      $color-primary 0%,
-      $color-secondary 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 600;
-  }
+.nav-link.active {
+  background: linear-gradient(
+    90deg,
+    $color-primary 0%,
+    $color-secondary 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {
   .nav {
-    margin-right: 1rem;
+    width: 100%;
   }
 
   .nav-list {
-    gap: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
   }
 
   .nav-link {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 }
