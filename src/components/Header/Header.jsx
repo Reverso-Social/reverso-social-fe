@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./Header.scss";
 import ContactModal from "../ContactModal/ContactModal";
 import NavBar from "../NavBar/NavBar";
-import logo from "../../assets/logo/logo-rs.png";
+import logo from "../../assets/logo/logo.2.svg";
 
 export default function Header() {
   const [openModal, setOpenModal] = useState(false);
@@ -28,6 +28,7 @@ export default function Header() {
         <div className="header-container">
           <a href="/" className="header-logo">
             <img src={logo} alt="Reverso Social logo" />
+            <span className="header-logo__text">Reverso Social</span>
           </a>
 
           <div className="header-right nav-desktop">
