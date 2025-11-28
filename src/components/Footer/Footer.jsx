@@ -1,5 +1,5 @@
 import "./Footer.scss";
-import logoRS from "../../assets/logo/logo-rs.png";
+import logoRS from "../../assets/logo/logo.2.svg";
 import { FaLinkedin, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {

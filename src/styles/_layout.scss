@@ -9,7 +9,7 @@ html, body {
 }
 
 body {
-  padding-top: 120px; /* Compensa la altura del header fijo (ajusta según tu logo) */
+  padding-top: 105px; 
 }
 
 #root {
@@ -31,6 +31,6 @@ body {
 /* Responsive */
 @media (max-width: 768px) {
   body {
-    padding-top: 80px; /* Menos padding en móvil */
+    padding-top: 95px;
   }
 }
