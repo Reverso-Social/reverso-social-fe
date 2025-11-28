@@ -1,5 +1,5 @@
 import "./Hero.scss";
-import heroImage from "../../assets/img/group4.png";
+import heroImage from "../../assets/img/group4.webp";
 
 const Hero = () => {
 

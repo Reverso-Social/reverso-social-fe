@@ -9,7 +9,7 @@ html, body {
 }
 
 body {
-  padding-top: 120px; /* Compensa la altura del header fijo (ajusta según tu logo) */
+  padding-top: 120px;
 }
 
 #root {
@@ -19,18 +19,18 @@ body {
 }
 
 .app-wrapper {
-  min-height: 100vh;
+  flex: 1; 
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .main-content {
-  flex: 1;
+  flex-grow: 1;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   body {
-    padding-top: 80px; /* Menos padding en móvil */
+    padding-top: 80px;
   }
 }
