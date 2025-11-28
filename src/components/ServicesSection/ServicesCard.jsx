@@ -7,7 +7,6 @@ const ServicesCard = ({ icon, title, description, button }) => {
       <div className="service-card_icon">
         {icon}
       </div>
-
       <h3 className="service-card_title">{title}</h3>
       <p className="service-card_body">{description}</p>
       <button className="service-card_button">{button}</button>
