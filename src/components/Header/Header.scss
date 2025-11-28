@@ -1,11 +1,27 @@
 @use "../../styles/variables" as *;
 
 .header {
-  background-color: $color-white;
+  background-color: rgba($color-white, 0.98);
+  backdrop-filter: blur(10px);
   padding: 0.8rem 2rem;
   border-bottom: 1px solid $color-light;
-  position: relative;
-  z-index: 10;
+  
+  /* Hacer el header sticky */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  /* Efecto cuando hace scroll */
+  &.scrolled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 2rem;
+  }
 }
 
 .header-container {
@@ -16,13 +32,26 @@
   margin: 0 auto;
 }
 
-.header-logo img {
-  height: 200px;
-  width: auto;
-  object-fit: contain;
-  margin-bottom: -100px; 
+.header-logo {
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  img {
+    height: 200px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: -100px;
+    transition: height 0.3s ease;
+  }
 }
 
+/* Logo más pequeño cuando hace scroll */
+.header.scrolled .header-logo img {
+  height: 180px;
+}
 
 .header-contact-btn {
   font-family: $font-heading;
@@ -39,12 +68,37 @@
   transition: all 0.25s ease;
 
   &:hover {
-    background-color: #BFA9F8;
-    transform: translateY(-1px);
+    background: linear-gradient(90deg, #4dd1d6 45%, #BFA9F8);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
 
   &:focus {
     outline: 2px solid #000;
     outline-offset: 4px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0.6rem 1rem;
+  }
+
+  .header.scrolled {
+    padding: 0.4rem 1rem;
+  }
+
+  .header-logo img {
+    height: 150px;
+  }
+
+  .header.scrolled .header-logo img {
+    height: 130px;
+  }
+
+  .header-contact-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
   }
 }
