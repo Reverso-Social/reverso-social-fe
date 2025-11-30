@@ -37,7 +37,7 @@ export default function NavBar({ onItemClick = () => {} }) {
             className="nav-link"
             onClick={(e) => handleNavClick(e, "sobre-nosotros")}
           >
-            Sobre Nosotres
+            Sobre Nosotras
           </button>
         </li>
 
