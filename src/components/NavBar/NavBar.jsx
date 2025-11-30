@@ -1,7 +1,7 @@
 import "./NavBar.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export default function NavBar() {
+export default function NavBar({ onItemClick = () => {} }) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -16,14 +16,15 @@ export default function NavBar() {
     e.preventDefault();
 
     if (location.pathname !== "/") {
-      // Estamos en otra página → Navegar primero al home
       navigate("/");
-
-      // Esperar a que cargue el home
-      setTimeout(() => scrollToSection(sectionId), 50);
+      setTimeout(() => {
+        scrollToSection(sectionId);
+        onItemClick();
+      }, 50);
     } else {
-      // Estamos en el Home → Scroll directo
+
       scrollToSection(sectionId);
+      onItemClick();
     }
   };
 
@@ -50,10 +51,12 @@ export default function NavBar() {
         </li>
 
         <li>
-          {/* Esta sí es ruta real */}
           <button 
             className="nav-link"
-            onClick={() => navigate("/recursos")}
+            onClick={() => {
+              navigate("/recursos");
+              onItemClick();
+            }}
           >
             Recursos
           </button>

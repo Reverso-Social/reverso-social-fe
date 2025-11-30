@@ -122,6 +122,7 @@
   background: none;
   border: none;
   padding: 0;
+  margin: 0;
 }
 
 .menu-toggle span {
@@ -153,14 +154,20 @@
   background-color: $color-white;
   border-top: 1px solid $color-light;
   z-index: 999;
+  padding: 0 2rem 1.5rem;
 }
 
-
-.mobile-menu--open {
+.mobile-menu__inner {
+  max-width: 1280px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  padding: 4rem 2rem 1.5rem;
+  padding: 1.5rem 0 1rem;
+}
+
+.mobile-menu--open {
+  display: block;
 }
 
 .mobile-contact-btn {
@@ -193,19 +200,17 @@
     display: none;
   }
 
-  .header {
-    padding: 0.8rem 1rem;
-  }
-
   .menu-toggle {
     display: flex;
     margin-left: auto;
-    margin-right: 40px;
-    
   }
 
-  .mobile-menu--open {
-    padding: 1.25rem 1.5rem 1.5rem;
+  .mobile-menu {
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .mobile-menu__inner {
+    padding: 1.25rem 0 1.5rem;
   }
 
   .header-logo {
@@ -253,7 +258,11 @@
     font-size: $font-size-base;
   }
 
-  .mobile-menu--open {
-    padding: 1.25rem 1rem 1.5rem;
+  .mobile-menu {
+    padding: 0 1rem 1.25rem;
+  }
+
+  .mobile-menu__inner {
+    padding: 1.1rem 0 1.25rem;
   }
 }

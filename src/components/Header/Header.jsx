@@ -22,6 +22,17 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768 && menuOpen) {
+        setMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [menuOpen]);
+
   return (
     <>
       <header className={`header ${scrolled ? "header--scrolled" : ""}`}>
@@ -46,7 +57,7 @@ export default function Header() {
             aria-label="Abrir o cerrar menú de navegación"
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
-            onClick={() => setMenuOpen(prev => !prev)}
+            onClick={() => setMenuOpen((prev) => !prev)}
           >
             <span></span>
             <span></span>
@@ -58,17 +69,19 @@ export default function Header() {
           id="mobile-menu"
           className={`mobile-menu ${menuOpen ? "mobile-menu--open" : ""}`}
         >
-          <NavBar onItemClick={() => setMenuOpen(false)} />
+          <div className="mobile-menu__inner">
+            <NavBar onItemClick={() => setMenuOpen(false)} />
 
-          <button
-            className="mobile-contact-btn"
-            onClick={() => {
-              setOpenModal(true);
-              setMenuOpen(false);
-            }}
-          >
-            Contáctanos
-          </button>
+            <button
+              className="mobile-contact-btn"
+              onClick={() => {
+                setOpenModal(true);
+                setMenuOpen(false);
+              }}
+            >
+              Contáctanos
+            </button>
+          </div>
         </div>
       </header>
 
