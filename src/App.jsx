@@ -4,7 +4,7 @@ import Footer from "./components/Footer/Footer";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import HomePage from "./pages/HomePage/HomePage";
 import ResourcesPage from "./pages/ResourcesPage/ResourcesPage";
-import BlogPage from "./pages/BlogPage/blogPage";
+import BlogPage from "./pages/BlogPage/BlogPage";
 import BlogDetail from "./pages/BlogDetail/BlogDetail";
 import "./styles/main.scss";
 function App() {
