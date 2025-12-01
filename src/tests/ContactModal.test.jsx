@@ -1,6 +1,5 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-
 
 vi.mock("../services/contactMock", () => ({
   contactMock: {
@@ -13,16 +12,20 @@ import ContactModal from "../components/ContactModal/ContactModal";
 import { contactMock } from "../services/contactMock";
 
 describe("ContactModal Component", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it("no renderiza nada si open = false", () => {
-    const { container } = render(<ContactModal open={false} onClose={() => {}} />);
-    expect(container.children.length).to.equal(0);
+    render(<ContactModal open={false} onClose={() => {}} />);
+    const title = screen.queryByText("Contáctanos");
+    expect(title).toBeNull();
   });
 
   it("renderiza el modal cuando open = true", () => {
     render(<ContactModal open={true} onClose={() => {}} />);
-    screen.getByText("Contáctanos");
-    screen.getByText("Estamos aqui para escucharte.");
-    expect(true).to.equal(true);
+    expect(screen.queryByText("Contáctanos")).not.toBeNull();
+    expect(screen.queryByText("Estamos aquí para escucharte.")).not.toBeNull();
   });
 
   it("muestra errores cuando se envía el formulario vacío", () => {
@@ -30,40 +33,50 @@ describe("ContactModal Component", () => {
     const submitBtn = screen.getByRole("button", { name: /enviar/i });
     fireEvent.click(submitBtn);
 
-    screen.getByText("El nombre es obligatorio");
-    screen.getByText("El email es obligatorio");
-    screen.getByText("Cuentanos tus intereses");
-
-    expect(true).to.equal(true);
+    expect(screen.queryByText("El nombre es obligatorio")).not.toBeNull();
+    expect(screen.queryByText("El email es obligatorio")).not.toBeNull();
+    expect(screen.queryByText("Cuéntanos tus intereses")).not.toBeNull();
   });
 
-  it("llama a contactMock.add y onClose al enviar datos válidos", () => {
-    const onClose = vi.fn();
+  it("guarda datos válidos y muestra mensaje de éxito", () => {
+    render(<ContactModal open={true} onClose={() => {}} />);
 
-    render(<ContactModal open={true} onClose={onClose} />);
-
-    const nombreInput = screen.getByPlaceholderText("Tu nombre completo");
-    const emailInput = screen.getByPlaceholderText("tu@email.com");
-    const entidadInput = screen.getByPlaceholderText("Organizacion o colectivo");
-    const interesesTextarea = screen.getByPlaceholderText(
-      "Que te interesa o en que podemos colaborar?"
+    fireEvent.change(screen.getByPlaceholderText("Tu nombre completo"), { target: { value: "Ana" } });
+    fireEvent.change(screen.getByPlaceholderText("tu@email.com"), { target: { value: "ana@example.com" } });
+    fireEvent.change(screen.getByPlaceholderText("Organizacion o colectivo"), { target: { value: "Reverso Social" } });
+    fireEvent.change(
+      screen.getByPlaceholderText("¿Qué te interesa o en qué podemos colaborar?"),
+      { target: { value: "Consultoría en igualdad" } }
     );
 
-    fireEvent.change(nombreInput, { target: { value: "Ana" } });
-    fireEvent.change(emailInput, { target: { value: "ana@example.com" } });
-    fireEvent.change(entidadInput, { target: { value: "Reverso Social" } });
-    fireEvent.change(interesesTextarea, { target: { value: "Consultoría en igualdad" } });
+    fireEvent.click(screen.getByRole("button", { name: /enviar/i }));
 
-    const submitBtn = screen.getByRole("button", { name: /enviar/i });
-    fireEvent.click(submitBtn);
-
-    expect(contactMock.add).toHaveBeenCalled();
     expect(contactMock.add).toHaveBeenCalledWith({
       nombre: "Ana",
       email: "ana@example.com",
       entidad: "Reverso Social",
       intereses: "Consultoría en igualdad",
     });
+
+    expect(screen.queryByText("Datos guardados temporalmente en este navegador.")).not.toBeNull();
+  });
+
+  it("cierra el modal al hacer click en el overlay", () => {
+    const onClose = vi.fn();
+    render(<ContactModal open={true} onClose={onClose} />);
+
+    const overlay = document.querySelector(".contact-modal__overlay");
+    fireEvent.click(overlay);
+
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it("cierra el modal al hacer click en la X", () => {
+    const onClose = vi.fn();
+    render(<ContactModal open={true} onClose={onClose} />);
+
+    const closeBtn = document.querySelector(".contact-modal__close");
+    fireEvent.click(closeBtn);
 
     expect(onClose).toHaveBeenCalled();
   });
