@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './About.scss';
-import VisionIcon from '../../assets/Icons/Vision.svg';
-import MisionIcon from '../../assets/Icons/Visionnn.svg';
+import MisionIcon from '../../assets/Icons/Vision.svg';
+import VisionIcon from '../../assets/Icons/Visionnn.svg';
 import ValoresIcon from '../../assets/Icons/Diamond.svg';
+
 
 const About = () => {
   const [expandedCard, setExpandedCard] = useState(null);
