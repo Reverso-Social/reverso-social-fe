@@ -82,7 +82,18 @@
     font-weight: 800;
 
     .gradient-text {
-      @include brand-gradient-text;
+      font-weight: 900;
+      // Degradado más oscuro e intenso
+      background: linear-gradient(
+        90deg, 
+        darken($color-primary, 10%) 0%, 
+        darken($color-secondary, 15%) 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      // Sombra para darle profundidad
+      filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.25));
     }
   }
 
