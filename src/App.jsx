@@ -4,9 +4,9 @@ import Footer from "./components/Footer/Footer";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import HomePage from "./pages/HomePage/HomePage";
 import ResourcesPage from "./pages/ResourcesPage/ResourcesPage";
-//import ServiceSection from "./components/ServicesSection/ServicesSection"
+import BlogPage from "./pages/BlogPage/blogPage";
+import BlogDetail from "./pages/BlogDetail/BlogDetail";
 import "./styles/main.scss";
-
 function App() {
   return (
     <Router>
@@ -17,6 +17,8 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/recursos" element={<ResourcesPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogDetail />} />
           </Routes>
         </main>
 
@@ -28,3 +30,4 @@ function App() {
 }
 
 export default App;
+

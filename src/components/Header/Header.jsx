@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./Header.scss";
 import ContactModal from "../ContactModal/ContactModal";
 import NavBar from "../NavBar/NavBar";
@@ -8,6 +9,7 @@ export default function Header() {
   const [openModal, setOpenModal] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,6 +34,11 @@ export default function Header() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [menuOpen]);
+
+  useEffect(() => {
+    setOpenModal(false);
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <>

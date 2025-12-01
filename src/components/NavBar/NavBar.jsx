@@ -71,10 +71,13 @@ export default function NavBar({ onItemClick = () => {} }) {
           </button>
         </li>
 
-         <li>
+        <li>
           <button 
             className="nav-link"
-            onClick={(e) => handleNavClick(e, "incidencia")}
+            onClick={() => {
+              navigate("/blog"); // Redirige a la ruta /blog
+              onItemClick();     // Cierra el menú móvil si está abierto
+            }}
           >
             Blog
           </button>

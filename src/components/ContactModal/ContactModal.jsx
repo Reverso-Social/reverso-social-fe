@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ContactModal.scss";
 import { X, User, Mail, Building2, Heart } from "lucide-react";
 import { contactMock } from "../../services/contactMock";
@@ -17,16 +17,23 @@ export default function ContactModal({ open, onClose }) {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState({ type: "", message: "" });
 
+  useEffect(() => {
+    if (open) {
+      setStatus({ type: "", message: "" });
+      setErrors({});
+    }
+  }, [open]);
+
   const validate = () => {
-    let newErrors = {};
+    const newErrors = {};
 
     if (!formData.nombre.trim()) newErrors.nombre = "El nombre es obligatorio";
     if (!formData.email.trim()) newErrors.email = "El email es obligatorio";
     else if (!/\S+@\S+\.\S+/.test(formData.email))
-      newErrors.email = "Formato de email invalido";
+      newErrors.email = "Formato de email inválido";
 
     if (!formData.intereses.trim())
-      newErrors.intereses = "Cuentanos tus intereses";
+      newErrors.intereses = "Cuéntanos tus intereses";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -57,8 +64,6 @@ export default function ContactModal({ open, onClose }) {
 
     // Aqui hariamos el POST al backend
     // fetch("/api/contact", { method: "POST", body: JSON.stringify(formData) })
-
-    onClose();
   };
 
   const handleOverlayClick = (e) => {
@@ -75,7 +80,7 @@ export default function ContactModal({ open, onClose }) {
         </button>
 
         <h2 className="contact-modal__title">Contáctanos</h2>
-        <p className="contact-modal__subtitle">Estamos aqui para escucharte.</p>
+        <p className="contact-modal__subtitle">Estamos aquí para escucharte.</p>
 
         <form className="contact-modal__form" onSubmit={handleSubmit}>
           <div className="contact-modal__field">
@@ -119,7 +124,7 @@ export default function ContactModal({ open, onClose }) {
           </div>
 
           <div className="contact-modal__field">
-            <label>Entidad</label>
+            <label>Entidad (opcional)</label>
             <div className="contact-modal__input-wrapper">
               <Building2 className="icon" size={20} />
               <input
@@ -143,7 +148,7 @@ export default function ContactModal({ open, onClose }) {
               <Heart className="icon icon--textarea" size={20} />
               <textarea
                 rows="3"
-                placeholder="Que te interesa o en que podemos colaborar?"
+                placeholder="¿Qué te interesa o en qué podemos colaborar?"
                 value={formData.intereses}
                 onChange={(e) =>
                   setFormData({ ...formData, intereses: e.target.value })

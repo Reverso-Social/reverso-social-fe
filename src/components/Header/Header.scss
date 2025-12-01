@@ -38,6 +38,9 @@
   gap: $space-md; 
   text-decoration: none;
   transition: transform 0.3s ease;
+  position: relative;
+  transform: translateY(20.75px);
+  z-index: 1001;
 
   &:hover {
     transform: scale(1.02);
@@ -64,6 +67,8 @@
 }
 
 .header--scrolled .header-logo {
+  transform: translateY(14px);
+
   img {
     height: 55px;  
     width: 55px;
