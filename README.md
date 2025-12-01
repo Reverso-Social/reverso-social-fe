@@ -11,7 +11,7 @@ En esta primera entrega se construyó la estructura base del proyecto, los compo
 - **JavaScript (ES6+)**
 - **Vite** como bundler
 - **SASS / SCSS** para los estilos
-- **React Router (si aplica)**
+- **React Router**
 - **ESLint** para estándares de código
 
 ---
@@ -19,7 +19,7 @@ En esta primera entrega se construyó la estructura base del proyecto, los compo
 ## 📁 Estructura del proyecto
 
 La estructura principal del directorio `src/` quedó organizada de la siguiente manera:
-
+```
 src
 │
 ├── assets/ # Imágenes, íconos, recursos estáticos
@@ -55,7 +55,7 @@ src
 Cada componente y página cuenta con sus **dos archivos correspondientes**:  
 - `Nombre.jsx` → Componente funcional  
 - `Nombre.scss` → Estilos específicos del componente
-
+```
 ---
 
 ## 🎯 Objetivos del Sprint 1
