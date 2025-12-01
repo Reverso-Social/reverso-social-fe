@@ -71,6 +71,15 @@ export default function NavBar({ onItemClick = () => {} }) {
           </button>
         </li>
 
+         <li>
+          <button 
+            className="nav-link"
+            onClick={(e) => handleNavClick(e, "incidencia")}
+          >
+            Blog
+          </button>
+        </li>
+
       </ul>
     </nav>
   );

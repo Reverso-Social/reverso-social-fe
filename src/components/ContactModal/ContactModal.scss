@@ -110,6 +110,12 @@
   color: vars.$color-light;
 }
 
+.contact-modal__input-wrapper.error,
+.contact-modal__textarea-wrapper.error {
+  border-color: #d32f2f;
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.12);
+}
+
 .icon--textarea {
   margin-top: 4px;
   align-self: flex-start;
@@ -138,10 +144,25 @@
     outline-offset: 4px;
   }
 
-  .contact-modal__error {
+}
+
+.error-text {
   color: #d32f2f;
   font-size: 0.9rem;
   margin-top: 0.3rem;
 }
 
+.contact-modal__status {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.contact-modal__status--success {
+  color: #1b5e20;
+}
+
+.contact-modal__status--error {
+  color: #d32f2f;
 }
