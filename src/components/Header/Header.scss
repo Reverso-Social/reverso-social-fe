@@ -39,12 +39,12 @@
   text-decoration: none;
   transition: transform 0.3s ease;
   position: relative;
-  transform: translateY(10px);
+  transform: translateY(0px);
   z-index: 1001;
 
-  &:hover {
-    transform: scale(1.02);
-  }
+  // &:hover {
+  //   transform: scale(1.02);
+  // }
 
   img {
     height: 70px;  
@@ -67,7 +67,7 @@
 }
 
 .header--scrolled .header-logo {
-  transform: translateY(6px);
+  transform: translateY(0px);
 
   img {
     height: 55px;  
@@ -246,11 +246,11 @@
   }
 
   .header-logo {
-    transform: translateY(6px);
+    transform: translateY(0px);
   }
 
   .header--scrolled .header-logo {
-    transform: translateY(4px);
+    transform: translateY(0px);
   }
 }
 
@@ -280,10 +280,10 @@
   }
 
   .header-logo {
-    transform: translateY(4px);
+    transform: translateY(0px);
   }
 
   .header--scrolled .header-logo {
-    transform: translateY(2px);
+    transform: translateY(0px);
   }
 }
