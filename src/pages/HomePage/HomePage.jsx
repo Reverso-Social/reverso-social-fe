@@ -13,8 +13,8 @@ export default function HomePage() {
           <Hero />
         </Background>
         <About />
-      <ServiceSection />
         <TeamSection />
+        <ServiceSection />
       </div>
     </div>
   );
