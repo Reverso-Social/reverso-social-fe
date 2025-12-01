@@ -108,10 +108,13 @@ Todos cuentan con su respectivo archivo `.jsx` y `.scss`.
 
 A continuación se añaden algunas capturas del estado del proyecto en este sprint:
 
-![alt text](image.png)
-![alt text](image-1.png)
-![alt text](image-2.png)
-![alt text](image-3.png)
+<img width="1522" height="903" alt="image" src="https://github.com/user-attachments/assets/b3c165bc-501a-4ee1-872e-d5f2614e5b4c" />
+<img width="1876" height="821" alt="image" src="https://github.com/user-attachments/assets/bedb1f94-2927-4757-96be-66e3348ffd90" />
+<img width="1166" height="624" alt="image" src="https://github.com/user-attachments/assets/502dfb16-93e9-4313-9c65-3aa0b5acc30f" />
+<img width="1372" height="812" alt="image" src="https://github.com/user-attachments/assets/8629fd5c-d0a5-4e02-8a53-50e630df944f" />
+<img width="1505" height="407" alt="image" src="https://github.com/user-attachments/assets/5613f75e-3e07-483d-a455-7f949af9bf01" />
+<img width="823" height="826" alt="image" src="https://github.com/user-attachments/assets/0f1d334e-33d3-4ddc-8283-fed40cacd9f9" />
+
 
 ---
 
