@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './About.scss';
+import VisionIcon from '../../assets/Icons/Vision.svg';
+import MisionIcon from '../../assets/Icons/Visionnn.svg';
+import ValoresIcon from '../../assets/Icons/Diamond.svg';
 
 const About = () => {
   const [expandedCard, setExpandedCard] = useState(null);
@@ -12,7 +15,7 @@ const About = () => {
     {
       id: 'vision',
       title: 'Visión',
-      icon: '🚀',
+      icon: VisionIcon,
       color: 'turquesa',
       fullTitle: 'Nuestra Visión',
       content: 'Ser un referente reconocido en innovación social y feminista, impulsando organizaciones más justas, inclusivas y sostenibles en toda España.'
@@ -20,7 +23,7 @@ const About = () => {
     {
       id: 'mision',
       title: 'Misión',
-      icon: '🔍',
+      icon: MisionIcon,
       color: 'lila',
       fullTitle: 'Nuestra Misión',
       content: 'Acompañar a entidades públicas y privadas en su transformación hacia la igualdad efectiva mediante metodologías innovadoras y evidencia contrastada.'
@@ -28,7 +31,7 @@ const About = () => {
     {
       id: 'valores',
       title: 'Valores',
-      icon: '💎',
+      icon: ValoresIcon,
       color: 'azul',
       fullTitle: 'Valores Fundamentales',
       content: 'Feminismo activo, coherencia inquebrantable, transparencia radical, compromiso social profundo y transformación real como horizonte permanente.'
@@ -70,9 +73,12 @@ const About = () => {
               aria-label={`${card.title}: ${expandedCard === card.id ? 'expandido' : 'colapsado'}. Presiona para ${expandedCard === card.id ? 'colapsar' : 'expandir'}`}
             >
               <header className="about-card__front">
-                <span className="about-card__icon" aria-hidden="true" role="img">
-                  {card.icon}
-                </span>
+                <img 
+                  src={card.icon} 
+                  alt="" 
+                  className="about-card__icon"
+                  aria-hidden="true"
+                />
                 <h3 className="about-card__title">{card.title}</h3>
               </header>
               
