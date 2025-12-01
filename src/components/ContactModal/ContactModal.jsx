@@ -74,7 +74,7 @@ export default function ContactModal({ open, onClose }) {
           <X size={22} />
         </button>
 
-        <h2 className="contact-modal__title">Contactanos</h2>
+        <h2 className="contact-modal__title">Contáctanos</h2>
         <p className="contact-modal__subtitle">Estamos aqui para escucharte.</p>
 
         <form className="contact-modal__form" onSubmit={handleSubmit}>
