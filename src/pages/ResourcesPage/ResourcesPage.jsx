@@ -1,5 +1,17 @@
 import { Link } from "react-router-dom";
 import "./ResourcesPage.scss";
+import { IoNewspaperSharp } from "react-icons/io5";
+import { FaChartBar } from "react-icons/fa";
+import { GrWorkshop } from "react-icons/gr";
+import { FaClipboard } from "react-icons/fa";
+import { FaPhotoVideo } from "react-icons/fa";
+import { GoChecklist } from "react-icons/go";
+
+
+
+
+
+
 
 export default function ResourcesPage() {
   const resources = [
@@ -8,7 +20,7 @@ export default function ResourcesPage() {
       title: "Guía de Igualdad",
       description: "Manual práctico para empresas que buscan implementar políticas de igualdad efectivas en sus organizaciones.",
       type: "GUÍA",
-      icon: "📚",
+      icon: <IoNewspaperSharp />,
       color: "turquesa",
       fileUrl: "/resources/equality-guide.pdf",
       isPublic: true
@@ -18,7 +30,7 @@ export default function ResourcesPage() {
       title: "Informe Brecha Salarial 2024",
       description: "Estudio detallado de investigación sobre la brecha salarial de género en España.",
       type: "INFORME",
-      icon: "📊",
+      icon: <FaChartBar />,
       color: "lila",
       fileUrl: "/resources/paygap2024.pdf",
       isPublic: true
@@ -28,7 +40,7 @@ export default function ResourcesPage() {
       title: "Taller de Coeducación",
       description: "Sesión de formación grabada sobre coeducación y educación en igualdad.",
       type: "VÍDEO",
-      icon: "🎥",
+      icon: <GrWorkshop />,
       color: "turquesa",
       fileUrl: "/videos/coeducation.mp4",
       isPublic: false
@@ -38,7 +50,7 @@ export default function ResourcesPage() {
       title: "Protocolo contra el Acoso",
       description: "Documento modelo para implementar un protocolo de prevención y actuación frente al acoso laboral.",
       type: "GUÍA",
-      icon: "📋",
+      icon: <FaClipboard />,
       color: "lila",
       fileUrl: "/resources/harassment-protocol.pdf",
       isPublic: true
@@ -48,7 +60,7 @@ export default function ResourcesPage() {
       title: "Webinar: Liderazgo Feminista",
       description: "Grabación completa de nuestro webinar sobre liderazgo feminista en organizaciones.",
       type: "VÍDEO",
-      icon: "🎬",
+      icon: <FaPhotoVideo />,
       color: "turquesa",
       fileUrl: "/videos/feminist-leadership.mp4",
       isPublic: true
@@ -58,7 +70,7 @@ export default function ResourcesPage() {
       title: "Checklist de Igualdad",
       description: "Herramienta práctica para evaluar el nivel de igualdad en tu organización.",
       type: "HERRAMIENTA",
-      icon: "✅",
+      icon: <GoChecklist />,
       color: "lila",
       fileUrl: "/resources/equality-checklist.pdf",
       isPublic: true
