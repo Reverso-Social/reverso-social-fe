@@ -1,16 +1,139 @@
-# React + Vite
+# Reverso Social – Frontend (Sprint 1)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este repositorio contiene el **frontend del proyecto Reverso Social**, desarrollado con **React (JavaScript)** durante el **Sprint 1**.  
+En esta primera entrega se construyó la estructura base del proyecto, los componentes principales de la interfaz y los estilos iniciales utilizando **SASS**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologías utilizadas
 
-## React Compiler
+- **React JS**
+- **JavaScript (ES6+)**
+- **Vite** como bundler
+- **SASS / SCSS** para los estilos
+- **React Router**
+- **ESLint** para estándares de código
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📁 Estructura del proyecto
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+La estructura principal del directorio `src/` quedó organizada de la siguiente manera:
+```
+src
+│
+├── assets/ # Imágenes, íconos, recursos estáticos
+│
+├── components/ # Componentes reutilizables de la UI
+│ ├── About/
+│ ├── Background/
+│ ├── ContactModal/
+│ ├── Footer/
+│ ├── Header/
+│ ├── Hero/
+│ ├── NavBar/
+│ ├── ScrollToTop/
+│ ├── ServicesSection/
+│ └── TeamSection/
+│
+├── pages/ # Páginas principales
+│ ├── HomePage/
+│ └── ResourcesPage/
+│
+├── styles/ # Estilos globales y configuración SASS
+│ ├── _layout.scss
+│ ├── _mixins.scss
+│ ├── _typography.scss
+│ ├── _variables.scss
+│ └── main.scss
+│
+├── App.jsx
+├── main.jsx
+│
+├── index.html
+└── vite.config.js
+Cada componente y página cuenta con sus **dos archivos correspondientes**:  
+- `Nombre.jsx` → Componente funcional  
+- `Nombre.scss` → Estilos específicos del componente
+```
+---
+
+## 🎯 Objetivos del Sprint 1
+
+✔ Crear la estructura base del proyecto con Vite  
+✔ Configurar SASS y crear arquitectura inicial de estilos (variables, mixins, layout, tipografía)  
+✔ Implementar los primeros componentes básicos del landing page  
+✔ Crear las páginas iniciales: **HomePage** y **ResourcesPage**  
+✔ Añadir la navegación principal  
+✔ Dejar preparado el proyecto para escalar en futuros sprints  
+
+---
+
+## 🖥️ Scripts disponibles
+
+En el directorio raíz puedes ejecutar:
+
+### `npm install`
+Instala todas las dependencias necesarias del proyecto.
+
+### `npm run dev`
+Levanta el entorno de desarrollo con Vite.
+
+### `npm run build`
+Genera la versión optimizada para producción.
+
+### `npm run preview`
+Sirve la build generada para revisión.
+
+---
+
+## 🧩 Componentes implementados (Sprint 1)
+
+- Header  
+- NavBar  
+- Hero  
+- About  
+- ServicesSection  
+- TeamSection  
+- ContactModal  
+- Footer  
+- Background  
+- ScrollToTop  
+
+Todos cuentan con su respectivo archivo `.jsx` y `.scss`.
+
+---
+
+## 🖼️ Capturas de pantalla
+
+A continuación se añaden algunas capturas del estado del proyecto en este sprint:
+
+<img width="1522" height="903" alt="image" src="https://github.com/user-attachments/assets/b3c165bc-501a-4ee1-872e-d5f2614e5b4c" />
+<img width="1876" height="821" alt="image" src="https://github.com/user-attachments/assets/bedb1f94-2927-4757-96be-66e3348ffd90" />
+<img width="1166" height="624" alt="image" src="https://github.com/user-attachments/assets/502dfb16-93e9-4313-9c65-3aa0b5acc30f" />
+<img width="1372" height="812" alt="image" src="https://github.com/user-attachments/assets/8629fd5c-d0a5-4e02-8a53-50e630df944f" />
+<img width="1505" height="407" alt="image" src="https://github.com/user-attachments/assets/5613f75e-3e07-483d-a455-7f949af9bf01" />
+<img width="823" height="826" alt="image" src="https://github.com/user-attachments/assets/0f1d334e-33d3-4ddc-8283-fed40cacd9f9" />
+
+
+---
+
+## 🛠️ Equipo
+
+Frontend colaborativo del proyecto **Reverso Social** — Sprint 1.
+
+| Nombre | GitHub | LinkedIn |
+|--------|--------|----------|
+| **Angela Bello** | [@AngelaBello-creator](https://github.com/AngelaBello-creator) | [Angela Bello](https://www.linkedin.com/in/angela-bello-developer/) |
+| **Andrea Olivera** | [@andreaonweb](https://github.com/andreaonweb) | [Andrea Olivera Romero](https://www.linkedin.com/in/AndreaOliveraRomero) |
+| **Gabi Gallegos** | [@hgall3](https://github.com/hgall3) | [Gabriela Gallegos Anda](https://www.linkedin.com/in/gabrielagallegosanda/) |
+| **Erika Montoya** | [@DevErika](https://github.com/DevErika) | [Erika Montoya](https://www.linkedin.com/in/erikamontoya/) |
+| **Luisa Moreno** | [@LuMorenoM](https://github.com/LuMorenoM) | [Luisa Moreno](https://www.linkedin.com/in/luisa-moreno-474334338/) |
+
+---
+
+## 📄 Licencia
+
+Este proyecto es de uso interno para desarrollo académico/profesional del equipo y no posee licencia pública.
+
+---

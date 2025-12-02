@@ -1,0 +1,332 @@
+@use '../../styles/variables' as *;
+
+$color-turquesa-card: darken($color-turquesa-soft, 5%);
+$color-lila-card: $color-lila-medium;
+$color-azul-card: $color-turquesa-valores;
+
+$color-turquesa-dark: darken($color-primary, 15%);
+$color-lila-dark: darken($color-secondary, 10%);
+$color-azul-dark: darken($color-turquesa-valores, 18%);
+
+.about {
+  padding: $space-2xl $space-lg;
+  background-color: $color-white;
+  position: relative;
+
+  @media (min-width: 768px) {
+    padding: 5rem $space-xl;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 6rem $space-2xl;
+  }
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__intro {
+    text-align: center;
+    margin-bottom: $space-2xl;
+    animation: fadeInUp 0.8s ease-out;
+
+    @media (min-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $font-size-3xl;
+    line-height: $line-height-heading;
+    font-weight: 600;
+    color: $color-black;
+    margin-bottom: $space-md;
+    text-shadow: 
+      2px 2px 4px $shadow-soft,
+      1px 1px 2px rgba($color-black, 0.1);
+    letter-spacing: -0.02em;
+
+    @media (min-width: 768px) {
+      font-size: $font-size-4xl;
+    }
+
+    &--highlight {
+      background: linear-gradient(
+        90deg,
+        $color-primary 0%,
+        darken($color-primary, 5%) 25%,
+        $color-secondary 75%,
+        darken($color-secondary, 5%) 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: none;
+      font-weight: 700;
+    }
+  }
+
+  &__subtitle {
+    font-family: $font-heading;
+    font-size: $font-size-lg;
+    color: $color-dark;
+    margin-bottom: $space-lg;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+
+    @media (min-width: 768px) {
+      font-size: $font-size-xl;
+    }
+  }
+
+  &__description {
+    font-size: $font-size-base;
+    color: $color-black;
+    line-height: $line-height-base;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    
+    @media (min-width: 768px) {
+      text-align: justify;
+      font-size: $font-size-lg;
+      line-height: 1.8;
+    }
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-lg;
+    padding: 0 $space-sm;
+    list-style: none;
+    margin: 0;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: $space-xl;
+    }
+
+    @media (min-width: 1024px) {
+      gap: $space-2xl;
+      padding: 0;
+    }
+  }
+
+  &__cards-item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.about-card {
+  position: relative;
+  border-radius: $radius-base * 2;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-8px);
+  }
+
+  &:focus-visible {
+    outline: 3px solid $color-primary;
+    outline-offset: 4px;
+  }
+
+  &__front {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $space-2xl $space-lg;
+    min-height: 220px;
+    
+    // Silver metallic gradient
+    background: linear-gradient(
+      135deg,
+      rgba($color-silver-light, 0.95) 0%,
+      rgba(220, 220, 220, 1) 25%,
+      rgba(240, 240, 240, 1) 50%,
+      rgba(220, 220, 220, 1) 75%,
+      rgba($color-silver-light, 0.95) 100%
+    );
+    
+    border-radius: $radius-base * 2;
+    position: relative;
+    z-index: 2;
+    border: 1px solid rgba($color-white, 0.5);
+    box-shadow: 
+      0 4px 6px $shadow-soft,
+      0 10px 15px rgba($color-black, 0.05),
+      inset 0 1px 0 rgba($color-white, 0.6),
+      inset 0 -1px 0 rgba($color-black, 0.05);
+    
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+&__icon {
+  width: 4rem; 
+  height: 4rem; 
+  font-size: 4rem;
+  margin-bottom: $space-lg;
+  filter: drop-shadow(0 2px 4px $shadow-soft);
+  transition: transform 0.3s ease;
+
+  @media (min-width: 768px) {
+    width: 5rem;  
+    height: 5rem;  
+    font-size: 5rem;
+  }
+}
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $font-size-2xl;
+    line-height: $line-height-heading;
+    font-weight: 600;
+    color: $color-black;
+    text-align: center;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  &__back {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &__content {
+    padding: $space-xl $space-lg;
+    color: $color-white;
+    border-radius: 0 0 ($radius-base * 2) ($radius-base * 2);
+    box-shadow: 
+      0 8px 16px rgba($color-black, 0.15),
+      0 4px 6px $shadow-soft;
+
+
+    &--turquesa {
+      background: linear-gradient(
+        135deg,
+        $color-turquesa-card 0%,
+        $color-turquesa-dark 100%
+      );
+    }
+
+    &--lila {
+      background: linear-gradient(
+        135deg,
+        $color-lila-card 0%,
+        $color-lila-dark 100%
+      );
+    }
+
+    &--azul {
+      background: linear-gradient(
+        135deg,
+        $color-azul-card 0%,
+        $color-azul-dark 100%
+      );
+    }
+  }
+
+  &__content-title {
+    font-family: $font-heading;
+    font-size: $font-size-xl;
+    font-weight: 500;
+    color: $color-white;
+    margin-bottom: $space-md;
+    font-weight: 600;
+  }
+
+  &__text {
+    font-size: $font-size-base;
+    color: $color-white;
+    line-height: 1.7;
+    margin: 0;
+
+    @media (min-width: 768px) {
+      font-size: $font-size-lg;
+    }
+  }
+
+  &--expanded {
+    .about-card__front {
+      border-radius: ($radius-base * 2) ($radius-base * 2) 0 0;
+      box-shadow: 
+        0 2px 4px $shadow-soft,
+        inset 0 1px 0 rgba($color-white, 0.6);
+    }
+
+    .about-card__icon {
+      transform: scale(0.95);
+    }
+
+    .about-card__back {
+      max-height: 600px;
+    }
+  }
+
+  &:nth-child(1) {
+    animation: fadeInUp 0.8s ease-out 0.1s both;
+  }
+
+  &:nth-child(2) {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
+
+  &:nth-child(3) {
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .about-card {
+    &:hover {
+      transform: none;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+@media print {
+  .about {
+    padding: $space-lg;
+    
+    &__intro {
+      page-break-after: avoid;
+    }
+  }
+
+  .about-card {
+    page-break-inside: avoid;
+    
+    &__back {
+      max-height: none !important;
+    }
+
+    &--expanded {
+      margin-bottom: $space-lg;
+    }
+  }
+}

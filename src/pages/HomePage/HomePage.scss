@@ -1,0 +1,26 @@
+@use "../../styles/mixins" as *;
+
+/*
+  HomePage SCSS
+  This file is primarily for overall structural styling of the page sections.
+  Individual component styling (Hero, About, TeamSection) should remain 
+  in their respective component SCSS files.
+*/
+
+.homepage {
+    width: 100%;
+  
+}
+
+/* Example: You might need to add padding at the top to clear the fixed header */
+.homepage-main-content {
+    padding-top: 10px;
+  /* Since the header is fixed and covers content, 
+     this padding pushes the content down to start below the header. */
+ 
+  
+  @media (max-width: 768px) {
+    /* Reduce padding for smaller screens where the logo is smaller */
+    padding-top: 10px;
+  }
+}
