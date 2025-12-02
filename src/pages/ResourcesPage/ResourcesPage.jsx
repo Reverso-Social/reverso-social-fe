@@ -103,7 +103,7 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* Resources Grid Section */}
+      
       <section className="resources-content">
         <div className="resources-container">
           <div className="resources-filter">
@@ -135,7 +135,7 @@ export default function ResourcesPage() {
             ))}
           </div>
 
-          {/* CTA Section */}
+        
           <div className="resources-cta">
             <h2>¿No encuentras lo que buscas?</h2>
             <p>Podemos crear recursos personalizados para tu organización</p>

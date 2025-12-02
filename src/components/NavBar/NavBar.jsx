@@ -75,8 +75,8 @@ export default function NavBar({ onItemClick = () => {} }) {
           <button 
             className="nav-link"
             onClick={() => {
-              navigate("/blog"); // Redirige a la ruta /blog
-              onItemClick();     // Cierra el menú móvil si está abierto
+              navigate("/blog"); 
+              onItemClick();     
             }}
           >
             Blog

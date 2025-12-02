@@ -92,7 +92,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      // Sombra para darle profundidad
+      
       filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.25));
     }
   }
@@ -185,7 +185,7 @@
   }
 }
 
-// --- GRID LAYOUT ---
+
 .blog-grid-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -209,7 +209,7 @@
   }
 }
 
-// --- RESPONSIVE ---
+
 @media (max-width: 768px) {
   .blog-hero {
     padding: $space-xl $space-sm $space-xl;

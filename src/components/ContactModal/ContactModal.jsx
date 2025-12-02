@@ -62,8 +62,7 @@ export default function ContactModal({ open, onClose }) {
       });
     }
 
-    // Aqui hariamos el POST al backend
-    // fetch("/api/contact", { method: "POST", body: JSON.stringify(formData) })
+    
   };
 
   const handleOverlayClick = (e) => {
