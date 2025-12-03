@@ -1,10 +1,11 @@
-import "./Footer.scss";
+﻿import "./Footer.scss";
 import logoRS from "../../assets/logo/logo.2.svg";
 import { FaLinkedin, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer" aria-label="Pie de página de Reverso Social">
       <div className="footer__container">
         <div className="footer__brand">
           <div className="footer__brand-header">
@@ -17,34 +18,53 @@ const Footer = () => {
           </p>
         </div>
 
-        <div className="footer__nav">
-          <h4 className="footer__heading">Navegación</h4>
+        <nav
+          className="footer__nav"
+          aria-labelledby="footer-nav-heading"
+          role="navigation"
+        >
+          <h4 id="footer-nav-heading" className="footer__heading">
+            Navegación
+          </h4>
           <ul className="footer__links">
             <li>
-              <a href="#sobre-nosotros">Sobre nosotres</a>
+              <Link to="#sobre-nosotros">Sobre nosotres</Link>
             </li>
             <li>
-              <a href="#servicios">Servicios</a>
+              <Link to="#servicios">Servicios</Link>
             </li>
             <li>
-              <a href="#incidencia">Incidencia</a>
+              <Link to="#incidencia">Incidencia</Link>
             </li>
             <li>
-              <a href="/recursos">Recursos</a>
+              <Link to="/recursos">Recursos</Link>
             </li>
           </ul>
-        </div>
+        </nav>
 
-        <div className="footer__contact">
-          <h4 className="footer__heading">Contacto</h4>
+        <div
+          className="footer__contact"
+          aria-labelledby="footer-contact-heading"
+        >
+          <h4 id="footer-contact-heading" className="footer__heading">
+            Contacto
+          </h4>
           <ul className="footer__contact-list">
             <li>
-              <a href="mailto:reversocial@reversocial.org">
+              <a
+                href="mailto:reversocial@reversocial.org"
+                aria-label="Enviar correo a reversocial@reversocial.org"
+              >
                 reversocial@reversocial.org
               </a>
             </li>
             <li>
-              <a href="tel:+34000000000">+34 000 000 000</a>
+              <a
+                href="tel:+34000000000"
+                aria-label="Llamar a Reverso Social al +34 000 000 000"
+              >
+                +34 000 000 000
+              </a>
             </li>
             <li>
               <address>
@@ -56,9 +76,18 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div className="footer__social">
-          <h4 className="footer__heading">Síguenos</h4>
-          <div className="footer__social-icons">
+        <nav
+          className="footer__social"
+          aria-labelledby="footer-social-heading"
+          role="navigation"
+        >
+          <h4 id="footer-social-heading" className="footer__heading">
+            Síguenos
+          </h4>
+          <div
+            className="footer__social-icons"
+            aria-label="Redes sociales de Reverso Social"
+          >
             <a
               href="https://linkedin.com"
               target="_blank"
@@ -84,20 +113,23 @@ const Footer = () => {
               <FaXTwitter />
             </a>
           </div>
-        </div>
+        </nav>
       </div>
 
       <div className="footer__bottom">
         <p className="footer__copyright">
           © 2025 Reverso Social - CIF G22598882. Todos los derechos reservados.
         </p>
-        <div className="footer__legal">
-          <a href="#privacidad">Política de Privacidad</a>
+        <nav
+          className="footer__legal"
+          aria-label="Enlaces legales y de políticas"
+        >
+          <Link to="#privacidad">Política de Privacidad</Link>
           <span className="footer__separator">|</span>
-          <a href="#cookies">Cookies</a>
+          <Link to="#cookies">Cookies</Link>
           <span className="footer__separator">|</span>
-          <a href="#aviso-legal">Aviso Legal</a>
-        </div>
+          <Link to="#aviso-legal">Aviso Legal</Link>
+        </nav>
       </div>
     </footer>
   );

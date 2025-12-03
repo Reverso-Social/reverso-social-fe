@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Header.scss";
 import ContactModal from "../ContactModal/ContactModal";
 import NavBar from "../NavBar/NavBar";
@@ -44,10 +44,10 @@ export default function Header() {
     <>
       <header className={`header ${scrolled ? "header--scrolled" : ""}`}>
         <div className="header-container">
-          <a href="/" className="header-logo">
+          <Link to="/" className="header-logo">
             <img src={logo} alt="Reverso Social logo" />
             <span className="header-logo__text">Reverso Social</span>
-          </a>
+          </Link>
 
           <div className="header-right nav-desktop">
             <NavBar />
