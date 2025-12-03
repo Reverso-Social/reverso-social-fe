@@ -5,7 +5,7 @@
   background: $color-white;
 }
 
-// Hero Section
+
 .resources-hero {
   background: linear-gradient(
     135deg,
@@ -79,7 +79,7 @@
   line-height: 1.6;
 }
 
-// Content Section
+
 .resources-content {
   padding: 4rem 2rem;
 }
@@ -237,7 +237,7 @@
   }
 }
 
-// CTA Section
+
 .resources-cta {
   text-align: center;
   padding: 4rem 2rem;
@@ -288,7 +288,7 @@
   }
 }
 
-// Responsive
+
 @media (max-width: 768px) {
   .resources-hero {
     padding: 4rem 1rem 3rem;

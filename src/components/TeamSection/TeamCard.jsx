@@ -1,7 +1,7 @@
 import { FaLinkedin } from "react-icons/fa";
 import "./TeamCard.scss";
 
-export default function TeamCard({ name, skills, linkedin, photo, alt }) {
+export default function TeamCard({ name, lastName, skills, linkedin, photo, alt }) {
   return (
     <div className="team-card">
       <img
@@ -10,7 +10,7 @@ export default function TeamCard({ name, skills, linkedin, photo, alt }) {
         className="team-card__photo"
       />
 
-      <h3 className="team-card__name">{name}</h3>
+      <h3 className="team-card__name">{name} <br/> {lastName}</h3>
 
       <div className="team-card__tags">
         {skills.map((skill, index) => (

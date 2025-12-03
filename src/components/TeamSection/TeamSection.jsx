@@ -1,22 +1,32 @@
 import TeamCard from "./TeamCard";
 import "./TeamSection.scss";
+import pilarImg from "../../assets/img/team/Pilar.png";
+import lolaImg from "../../assets/img/team/Lola.png";
+import susanaImg from "../../assets/img/team/Susana.png";
 
 export default function TeamSection() {
   const team = [
     {
-      name: "Susana Ruiz Novillo",
-      skills: ["Psicología", "Igualdad", "Normativa"],
-      linkedin: "https://linkedin.com/...",
-    },
-    {
       name: "Lola Mtnez Cueto",
-      skills: ["Antropología", "RR.HH", "Docencia"],
+      skills: [ "RR.HH", "Docencia", "Antropología",],
       linkedin: "https://linkedin.com/...",
+      photo: lolaImg,
+      alt: "Fotografia de Lola Mtnez Cueto",
     },
     {
-      name: "Pilar Limón Fdez-Caballero",
-      skills: ["Derechos LGTBI+", "Human Rights"],
+      name: "Pilar Limón",
+      lastName: "Fdez-Caballero",
+      skills: ["Psicología", "Igualdad", "Formación y Consultoria", ],
       linkedin: "https://linkedin.com/...",
+      photo: pilarImg,
+      alt: "Fotografia de Pilar Limón Fdez-Caballero",
+    },
+    {
+      name: "Susana Ruiz Novillo",
+      skills: ["Psicología", "Salud Mental", "Intervención Social"],
+      linkedin: "https://linkedin.com/...",
+      photo: susanaImg,
+      alt: "Fotografia de Susana Ruiz Novillo",
     },
   ];
 
