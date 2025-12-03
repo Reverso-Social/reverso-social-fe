@@ -1,0 +1,208 @@
+@use "../../styles/variables" as *;
+
+.admin-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $space-xl $space-md $space-2xl;
+  background-color: $color-white;
+}
+
+.admin-header {
+  margin-bottom: $space-lg;
+
+  h1 {
+    font-family: $font-heading;
+    font-size: $font-size-3xl;
+    margin: 0 0 $space-xs;
+    color: $color-dark;
+  }
+
+  .admin-subtitle {
+    margin: 0;
+    font-family: $font-body;
+    font-size: $font-size-base;
+    color: $color-silver-dark;
+  }
+}
+
+.admin-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-md;
+  padding: $space-sm;
+  border-radius: $radius-xl;
+  background: linear-gradient(
+    90deg,
+    rgba($color-turquesa-soft, 0.08),
+    rgba($color-lila-light, 0.08)
+  );
+  margin-bottom: $space-xl;
+}
+
+.admin-tab {
+  border: none;
+  background: transparent;
+  padding: $space-sm $space-lg;
+  border-radius: $radius-xl;
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: $color-dark;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &:hover {
+    background-color: rgba($color-white, 0.8);
+    box-shadow: 0 0 0 1px rgba($color-primary, 0.15);
+  }
+
+  &.is-active {
+    background: linear-gradient(90deg, $color-primary, $color-secondary);
+    color: $color-white;
+    box-shadow: 0 6px 14px rgba($color-primary, 0.4);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+.admin-content {
+  background-color: $color-white;
+  border-radius: $radius-lg;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  padding: $space-xl;
+}
+
+.admin-panel {
+  h2 {
+    font-family: $font-heading;
+    font-size: $font-size-2xl;
+    margin: 0 0 $space-sm;
+    color: $color-dark;
+  }
+
+  .admin-panel-help {
+    margin: 0;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-silver-dark;
+    max-width: 560px;
+  }
+}
+.admin-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: $space-md;
+  margin-bottom: $space-lg;
+}
+
+.admin-primary-btn {
+  border: none;
+  border-radius: $radius-xl;
+  padding: $space-sm $space-xl;
+  font-family: $font-heading;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  background: linear-gradient(90deg, $color-primary, $color-secondary);
+  color: $color-white;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.admin-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: $font-body;
+  font-size: $font-size-sm;
+
+  th,
+  td {
+    padding: $space-sm $space-sm;
+    text-align: left;
+    border-bottom: 1px solid $color-silver-light;
+  }
+
+  th {
+    font-weight: 600;
+    color: $color-silver-dark;
+    font-size: $font-size-xs;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .admin-table-title {
+    font-weight: 600;
+    color: $color-dark;
+  }
+
+  .admin-table-actions-col {
+    text-align: right;
+    width: 180px;
+  }
+}
+
+.admin-table-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-xs;
+}
+
+.admin-action-btn {
+  border-radius: $radius-base;
+  border: 1px solid $color-silver-light;
+  background-color: $color-white;
+  padding: 0.35rem 0.75rem;
+  font-size: $font-size-xs;
+  cursor: not-allowed;
+  color: $color-silver-dark;
+
+  &--secondary {
+    background-color: rgba($color-silver-light, 0.3);
+  }
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  font-size: $font-size-xs;
+  font-weight: 600;
+
+  &--published {
+    background-color: rgba($color-primary, 0.08);
+    color: $color-turquesa-valores;
+  }
+}
+
+.admin-status {
+  font-family: $font-heading;
+  font-size: $font-size-sm;
+  color: $color-silver-dark;
+  margin-top: $space-md;
+
+  &--error {
+    color: #d32f2f;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-dashboard {
+    padding: $space-lg $space-sm $space-2xl;
+  }
+
+  .admin-tabs {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
