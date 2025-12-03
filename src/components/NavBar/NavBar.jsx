@@ -49,8 +49,6 @@ export default function NavBar({ onItemClick = () => {} }) {
             Qué Hacemos
           </button>
         </li>   
-        no se pueden hacer con listas. 
-
         <li>
           <button 
             className="nav-link"

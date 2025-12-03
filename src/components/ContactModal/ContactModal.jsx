@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./ContactModal.scss";
 import { X, User, Mail, Building2, Heart } from "lucide-react";
 import { contactMock } from "../../services/contactMock";
-//quitar los console logs  
 export default function ContactModal({ open, onClose }) {
   if (!open) return null;
 
@@ -51,9 +50,6 @@ export default function ContactModal({ open, onClose }) {
       });
       setErrors({});
       setFormData(initialForm);
-
-      console.log("Contacto guardado:", savedEntry);
-      console.log("Contactos en localStorage:", contactMock.getAll());
     } catch (error) {
       console.error("No se pudo guardar el contacto temporal:", error);
       setStatus({
@@ -61,8 +57,6 @@ export default function ContactModal({ open, onClose }) {
         message: "No pudimos guardar temporalmente. Intenta de nuevo.",
       });
     }
-
-    
   };
 
   const handleOverlayClick = (e) => {
