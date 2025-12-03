@@ -7,11 +7,11 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("blog");
 
   const [posts, setPosts] = useState([]);
-  const [blogLoading, setBlogLoading] = useState(false);
+  const [blogLoading, setBlogLoading] = useState(true);
   const [blogError, setBlogError] = useState("");
 
   const [resources, setResources] = useState([]);
-  const [resourcesLoading, setResourcesLoading] = useState(false);
+  const [resourcesLoading, setResourcesLoading] = useState(true);
   const [resourcesError, setResourcesError] = useState("");
 
   const [showResourceForm, setShowResourceForm] = useState(false);
@@ -33,31 +33,59 @@ export default function AdminDashboard() {
   const resourceFileInputRef = useRef(null);
   const resourceImageInputRef = useRef(null);
 
-  useEffect(() => {
-    if (activeTab !== "blog") return;
 
-    setBlogLoading(true);
-    setBlogError("");
+  useEffect(() => {
+    let cancelled = false;
 
     blogApi
       .listPosts()
-      .then((data) => setPosts(data))
-      .catch(() => setBlogError("No se pudieron cargar las entradas del blog."))
-      .finally(() => setBlogLoading(false));
-  }, [activeTab]);
+      .then((data) => {
+        if (!cancelled) {
+          setPosts(data);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setBlogError("No se pudieron cargar las entradas del blog.");
+        }
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setBlogLoading(false);
+        }
+      });
 
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Cargar recursos al montar
   useEffect(() => {
-    if (activeTab !== "resources") return;
-
-    setResourcesLoading(true);
-    setResourcesError("");
+    let cancelled = false;
 
     resourcesApi
       .listResources()
-      .then((data) => setResources(data))
-      .catch(() => setResourcesError("No se pudieron cargar los recursos."))
-      .finally(() => setResourcesLoading(false));
-  }, [activeTab]);
+      .then((data) => {
+        if (!cancelled) {
+          setResources(data);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setResourcesError("No se pudieron cargar los recursos.");
+        }
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setResourcesLoading(false);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const resetResourceForm = () => {
     setResourceForm({
@@ -124,7 +152,7 @@ export default function AdminDashboard() {
 
   const handleDeleteResource = (resourceId) => {
     const confirmed = window.confirm(
-      "¿Seguro que quieres eliminar este recurso? Esta acción no se puede deshacer en el backend todavía, pero desaparecerá de la lista."
+      "¿Seguro que quieres eliminar este recurso? Esta acción no se puede deshacer todavía en el backend, pero desaparecerá de la lista."
     );
     if (!confirmed) return;
 
