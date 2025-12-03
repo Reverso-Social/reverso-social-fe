@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./ContactModal.scss";
 import { X, User, Mail, Building2, Heart } from "lucide-react";
 import { contactMock } from "../../services/contactMock";
-
+//quitar los console logs  
 export default function ContactModal({ open, onClose }) {
   if (!open) return null;
 

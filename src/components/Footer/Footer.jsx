@@ -2,6 +2,9 @@ import "./Footer.scss";
 import logoRS from "../../assets/logo/logo.2.svg";
 import { FaLinkedin, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
+//revisar semantica no tantos divs. 
+//alts mas descriptivos.
+
 const Footer = () => {
   return (
     <footer className="footer">
