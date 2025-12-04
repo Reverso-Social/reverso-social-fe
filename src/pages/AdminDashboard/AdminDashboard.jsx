@@ -208,7 +208,7 @@ export default function AdminDashboard() {
           className={`admin-tab ${activeTab === "contactos" ? "is-active" : ""}`}
           onClick={() => setActiveTab("contactos")}
         >
-          Contactos
+          Consultas
         </button>
         <button
           className={`admin-tab ${activeTab === "recursos" ? "is-active" : ""}`}
