@@ -6,7 +6,7 @@ $color-azul-card: $color-turquesa-valores;
 
 $color-turquesa-dark: darken($color-primary, 15%);
 $color-lila-dark: darken($color-secondary, 10%);
-$color-azul-dark: darken($color-turquesa-valores, 18%);
+$color-azul-dark:darken(#5ce1e6, 18%); //darken($color-turquesa-valores, 18%)//;
 
 .about {
   padding: $space-2xl $space-lg;
