@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AdminDashboard.scss";
-import { blogApi } from "../../services/blogApiMock";
-import { resourcesApi } from "../../services/resourcesApiMock";
+import { blogApi } from "../../data/blogApiMock";
+import { resourcesApi } from "../../data/resourcesApiMock";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("blog");

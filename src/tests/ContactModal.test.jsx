@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 
-vi.mock("../services/contactMock", () => ({
+vi.mock("../data/contactMock", () => ({
   contactMock: {
     add: vi.fn(() => ({ id: 1 })),
     getAll: vi.fn(() => []),
@@ -9,7 +9,7 @@ vi.mock("../services/contactMock", () => ({
 }));
 
 import ContactModal from "../components/ContactModal/ContactModal";
-import { contactMock } from "../services/contactMock";
+import { contactMock } from "../data/contactMock";
 
 describe("ContactModal Component", () => {
   beforeEach(() => {

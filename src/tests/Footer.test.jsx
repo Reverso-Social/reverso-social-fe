@@ -1,12 +1,17 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import Footer from '../components/Footer/Footer';
 
 //esto va dentro de una carpet llamada data dentro de assets. 
 
 describe("Footer Component", () => {
   it("renderiza el footer y su contenido principal", () => {
-    render(<Footer />);
+    render(
+      <MemoryRouter>
+        <Footer />
+      </MemoryRouter>
+    );
 
   
     const logo = screen.getByAltText("Reverso Social");
