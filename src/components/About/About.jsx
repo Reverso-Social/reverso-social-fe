@@ -4,7 +4,6 @@ import MisionIcon from '../../assets/Icons/Vision.svg';
 import VisionIcon from '../../assets/Icons/Visionnn.svg';
 import ValoresIcon from '../../assets/Icons/Diamond.svg';
 
-
 const About = () => {
   const [expandedCard, setExpandedCard] = useState(null);
 
@@ -19,7 +18,13 @@ const About = () => {
       icon: VisionIcon,
       color: 'turquesa',
       fullTitle: 'Nuestra Visión',
-      content: 'Ser un referente reconocido en innovación social y feminista, impulsando organizaciones más justas, inclusivas y sostenibles en toda España.'
+      content: (
+        <>
+          Desde Reverso Social buscamos construir una visión que vaya más allá del cumplimiento normativo o la implantación interna de medidas de igualdad. Nuestro propósito es transformar estructuras sociales, influir en políticas públicas y generar cambios estructurales culturales duraderos que ayuden a construir sociedades más justas y equitativas, donde la igualdad real prime.
+          <br />
+          <strong>ES UNA VISIÓN POSIBLE</strong>
+        </>
+      ),
     },
     {
       id: 'mision',
@@ -27,7 +32,8 @@ const About = () => {
       icon: MisionIcon,
       color: 'lila',
       fullTitle: 'Nuestra Misión',
-      content: 'Acompañar a entidades públicas y privadas en su transformación hacia la igualdad efectiva mediante metodologías innovadoras y evidencia contrastada.'
+      content:
+        'Ser un agente catalizador de transformaciones sociales que garanticen la igualdad real y la justicia social, impulsando políticas, prácticas institucionales y cambios culturales que reduzcan desigualdades estructurales y fomenten sociedades más inclusivas, diversas y democráticas.',
     },
     {
       id: 'valores',
@@ -35,8 +41,17 @@ const About = () => {
       icon: ValoresIcon,
       color: 'azul',
       fullTitle: 'Valores Fundamentales',
-      content: 'Feminismo activo, coherencia inquebrantable, transparencia radical, compromiso social profundo y transformación real como horizonte permanente.'
-    }
+      content: (
+        <ul>
+  <li><strong>Transformación estructural</strong></li>
+  <li><strong>Incidencia sociopolítica</strong></li>
+  <li><strong>Enfoque en derechos humanos y justicia social</strong></li>
+  <li><strong>Construcción de alianzas</strong></li>
+  <li><strong>Impacto medible y sostenible</strong></li>
+  <li><strong>Diversidad como motor de innovación y cohesión</strong></li>
+</ul>
+      ),
+    },
   ];
 
   return (
@@ -71,7 +86,11 @@ const About = () => {
               tabIndex={0}
               role="button"
               aria-expanded={expandedCard === card.id}
-              aria-label={`${card.title}: ${expandedCard === card.id ? 'expandido' : 'colapsado'}. Presiona para ${expandedCard === card.id ? 'colapsar' : 'expandir'}`}
+              aria-label={`${card.title}: ${
+                expandedCard === card.id ? 'expandido' : 'colapsado'
+              }. Presiona para ${
+                expandedCard === card.id ? 'colapsar' : 'expandir'
+              }`}
             >
               <header className="about-card__front">
                 <img 
