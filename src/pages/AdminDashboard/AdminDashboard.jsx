@@ -60,7 +60,7 @@ export default function AdminDashboard() {
     };
   }, []);
 
-  // Cargar recursos al montar
+  
   useEffect(() => {
     let cancelled = false;
 
@@ -227,9 +227,9 @@ export default function AdminDashboard() {
   return (
     <div className="admin-dashboard">
       <header className="admin-header">
-        <h1>Panel de administración</h1>
+        <h1>Panel de Administración</h1>
         <p className="admin-subtitle">
-          Gestiona el contenido público de Reverso Social de forma sencilla.
+          Gestiona el contenido público de Reverso Social.
         </p>
       </header>
 
@@ -262,7 +262,7 @@ export default function AdminDashboard() {
       </nav>
 
       <section className="admin-content">
-        {/* BLOG */}
+        
         {activeTab === "blog" && (
           <div className="admin-panel">
             <div className="admin-panel-header">
@@ -342,7 +342,7 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* RECURSOS */}
+       
         {activeTab === "resources" && (
           <div className="admin-panel">
             <div className="admin-panel-header">
@@ -624,7 +624,7 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* EMAIL */}
+        
         {activeTab === "email" && (
           <div className="admin-panel">
             <h2>Gestión de email</h2>
