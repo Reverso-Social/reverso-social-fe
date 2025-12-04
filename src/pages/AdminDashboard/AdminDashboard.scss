@@ -1,0 +1,390 @@
+@use "../../styles/variables" as *;
+
+.admin-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $space-xl $space-md $space-2xl;
+  background-color: $color-white;
+}
+
+/* ---------------- HEADER ---------------- */
+
+.admin-header {
+  margin-bottom: $space-lg;
+
+  h1 {
+    font-family: $font-heading;
+    font-size: $font-size-3xl;
+    margin: 0 0 $space-xs;
+    color: $color-dark;
+  }
+
+  .admin-subtitle {
+    margin: 0;
+    font-family: $font-body;
+    font-size: $font-size-base;
+    color: $color-silver-dark;
+  }
+}
+
+/* ---------------- TABS ---------------- */
+
+.admin-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-md;
+  padding: $space-sm;
+  border-radius: $radius-xl;
+  background: linear-gradient(
+    90deg,
+    rgba($color-turquesa-soft, 0.08),
+    rgba($color-lila-light, 0.08)
+  );
+  margin-bottom: $space-xl;
+}
+
+.admin-tab {
+  border: none;
+  background: transparent;
+  padding: $space-sm $space-lg;
+  border-radius: $radius-xl;
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: $color-dark;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba($color-white, 0.8);
+    box-shadow: 0 0 0 1px rgba($color-primary, 0.15);
+  }
+
+  &.is-active {
+    background: linear-gradient(90deg, $color-primary, $color-secondary);
+    color: $color-white;
+    box-shadow: 0 6px 14px rgba($color-primary, 0.4);
+  }
+}
+
+/* ---------------- PANEL ---------------- */
+
+.admin-content {
+  background-color: $color-white;
+  border-radius: $radius-lg;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  padding: $space-xl;
+}
+
+.admin-panel {
+  h2 {
+    font-family: $font-heading;
+    font-size: $font-size-2xl;
+    margin: 0 0 $space-sm;
+    color: $color-dark;
+  }
+
+  .admin-panel-help {
+    margin: 0;
+    font-family: $font-body;
+    font-size: $font-size-sm;
+    color: $color-silver-dark;
+  }
+}
+
+.admin-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: $space-md;
+  margin-bottom: $space-lg;
+}
+
+/* ---------------- BUTTONS ---------------- */
+
+.admin-primary-btn {
+  border: none;
+  border-radius: $radius-xl;
+  padding: $space-sm $space-xl;
+  font-family: $font-heading;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  background: linear-gradient(90deg, $color-primary, $color-secondary);
+  color: $color-white;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba($color-primary, 0.4);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+/* ---------------- TABLE ---------------- */
+
+.admin-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: $font-body;
+  font-size: $font-size-sm;
+
+  th,
+  td {
+    padding: $space-sm;
+    text-align: left;
+    border-bottom: 1px solid $color-silver-light;
+  }
+
+  th {
+    font-weight: 600;
+    color: $color-silver-dark;
+    font-size: $font-size-xs;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .admin-table-title {
+    font-weight: 600;
+    color: $color-dark;
+  }
+}
+
+.admin-table-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-xs;
+}
+
+.admin-action-btn {
+  border-radius: $radius-base;
+  border: 1px solid $color-silver-light;
+  background-color: $color-white;
+  padding: 0.35rem 0.75rem;
+  font-size: $font-size-xs;
+  cursor: pointer;
+  color: $color-dark;
+  transition: background-color 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background-color: rgba($color-primary, 0.06);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: $color-silver-dark;
+    background-color: $color-white;
+  }
+
+  &.admin-action-btn--secondary {
+    background-color: rgba($color-silver-light, 0.3);
+
+    &:hover:not(:disabled) {
+      background-color: rgba($color-silver-dark, 0.4);
+    }
+  }
+}
+
+/* ---------------- STATUS ---------------- */
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  font-size: $font-size-xs;
+  font-weight: 600;
+
+  &--published,
+  &--public {
+    background-color: rgba($color-primary, 0.08);
+    color: $color-turquesa-valores;
+  }
+
+  &--private {
+    background-color: rgba($color-silver-dark, 0.08);
+    color: $color-silver-dark;
+  }
+}
+
+.admin-status {
+  font-family: $font-heading;
+  font-size: $font-size-sm;
+  color: $color-silver-dark;
+  margin-top: $space-md;
+
+  &--error {
+    color: #d32f2f;
+  }
+}
+
+/* ---------------- FORM ---------------- */
+
+.admin-form-wrapper {
+  margin-top: $space-xl;
+  padding: $space-lg;
+  border-radius: $radius-lg;
+  border: 1px solid $color-silver-light;
+  background: linear-gradient(
+    135deg,
+    rgba($color-turquesa-soft, 0.04),
+    rgba($color-lila-light, 0.04)
+  );
+}
+
+.admin-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 {
+    margin: 0;
+    font-family: $font-heading;
+    font-size: $font-size-xl;
+  }
+}
+
+.admin-form-close {
+  border: none;
+  background: transparent;
+  font-size: $font-size-xl;
+  cursor: pointer;
+  color: $color-silver-dark;
+
+  &:hover {
+    color: $color-dark;
+  }
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-lg;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.admin-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+
+  label {
+    font-size: $font-size-sm;
+    font-weight: 600;
+  }
+
+  input,
+  select,
+  textarea {
+    font-family: $font-body;
+    padding: $space-sm;
+    font-size: $font-size-sm;
+    border-radius: $radius-base;
+    border: 1px solid $color-silver-light;
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 2px rgba($color-primary, 0.15);
+    }
+  }
+
+  textarea {
+    min-height: 90px;
+    resize: vertical;
+  }
+
+  &--full {
+    grid-column: span 2;
+  }
+
+  &--inline {
+    flex-direction: row;
+    align-items: center;
+    gap: $space-sm;
+  }
+}
+
+/* ---------------- FILE UPLOAD ---------------- */
+
+.admin-form-field--file {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.admin-file-control {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  background-color: $color-white;
+  padding: $space-sm;
+  border-radius: $radius-base;
+  border: 1px solid $color-silver-light;
+}
+
+.admin-file-btn {
+  border: none;
+  padding: $space-xs $space-lg;
+  border-radius: $radius-base;
+  background: linear-gradient(90deg, $color-primary, $color-secondary);
+  color: $color-white;
+  font-family: $font-heading;
+  font-size: $font-size-xs;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.admin-file-name {
+  font-size: $font-size-xs;
+  color: $color-dark;
+  opacity: 0.7;
+}
+
+/* input real oculto */
+.admin-file-input {
+  display: none;
+}
+
+/* ---------------- FORM ACTIONS ---------------- */
+
+.admin-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-sm;
+}
+
+.admin-secondary-btn {
+  border: 1px solid $color-silver-light;
+  background-color: $color-white;
+  padding: $space-sm $space-lg;
+  border-radius: $radius-xl;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba($color-silver-light, 0.3);
+  }
+}
