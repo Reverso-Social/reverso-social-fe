@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./BlogPage.scss";
 import BlogCard from "../../components/BlogCard/BlogCard";
-import { blogApi } from "../../services/blogApiMock";
+import { blogApi } from "../../data/blogApiMock";
 import blogHeroImage from "../../assets/img/group1.webp";
 import Background from "../../components/Background/Background";
 

@@ -1,74 +1,148 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ServicesCard from "./ServicesCard";
+import "./ServicesSection.scss";
+import serviceService from "../../data/serviceService";
 import { FaBalanceScale, FaArrowRight } from "react-icons/fa";
 import { PiMoneyFill } from "react-icons/pi";
 import { RiMentalHealthLine } from "react-icons/ri";
 import { GiGraduateCap } from "react-icons/gi";
 import { BsHouses, BsFillPersonLinesFill } from "react-icons/bs";
-import "./ServicesSection.scss";
+
+// Mapeo de iconos por categoría (puedes ajustar según tus necesidades)
+const categoryIcons = {
+  "Consultoría de Género": <FaBalanceScale />,
+  "Protocolos de Actuación": <PiMoneyFill />,
+  "Formación Especializada": <GiGraduateCap />,
+  "Proyectos Sociocomunitarios": <BsHouses />,
+};
+
+// Función para obtener el icono por defecto según el índice
+const getDefaultIcon = (index) => {
+  const icons = [
+    <FaBalanceScale />,
+    <PiMoneyFill />,
+    <RiMentalHealthLine />,
+    <GiGraduateCap />,
+    <BsHouses />,
+    <BsFillPersonLinesFill />
+  ];
+  return icons[index % icons.length];
+};
 
 const ServiceSection = () => {
+  const [categories, setCategories] = useState([]);
+  const [servicesByCategory, setServicesByCategory] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Obtener categorías activas
+        const categoriesData = await serviceService.getActiveCategories();
+        setCategories(categoriesData);
+
+        // Obtener servicios para cada categoría
+        const servicesPromises = categoriesData.map(category =>
+          serviceService.getServicesByCategory(category.id)
+            .then(services => ({ categoryId: category.id, services }))
+        );
+
+        const servicesResults = await Promise.all(servicesPromises);
+        
+        // Organizar servicios por categoría
+        const servicesMap = {};
+        servicesResults.forEach(result => {
+          servicesMap[result.categoryId] = result.services;
+        });
+        
+        setServicesByCategory(servicesMap);
+      } catch (err) {
+        console.error("Error al cargar servicios:", err);
+        setError("No se pudieron cargar los servicios");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="service-section">
+        <header className="about__intro">
+          <h2 className="about__title">
+            Servicios Integrales con{" "}
+            <span className="about__title--highlight">Impacto Real</span>
+          </h2>
+        </header>
+        <div className="service-section-loading">
+          <p>Cargando servicios...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="service-section">
+        <header className="about__intro">
+          <h2 className="about__title">
+            Servicios Integrales con{" "}
+            <span className="about__title--highlight">Impacto Real</span>
+          </h2>
+        </header>
+        <div className="service-section-error">
+          <p>{error}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="service-section">
       <header className="about__intro">
         <h2 id="about-heading" className="about__title">
-          Servicios Integrales con <span className="about__title--highlight">Impacto Real</span>
+          Servicios Integrales con{" "}
+          <span className="about__title--highlight">Impacto Real</span>
         </h2>
       </header>
 
-      <div className="background-frame">
-        <div className="services-row">
-          <ServicesCard
-            icon={<FaBalanceScale />}
-            title="Planes de Igualdad"
-            description="Diagnóstico exhaustivo, diseño personalizado, implantación efectiva y seguimiento continuo para garantizar resultados medibles y sostenibles en tu organización."
-            button={<>Más información <FaArrowRight /></>}
-          />
+      {categories.map((category, categoryIndex) => {
+        const services = servicesByCategory[category.id] || [];
+        
+        // Mostrar máximo 2 servicios por categoría en el landing
+        const displayServices = services.slice(0, 2);
+        
+        if (displayServices.length === 0) return null;
 
-          <ServicesCard
-            icon={<PiMoneyFill />}
-            title="Empleo y Brecha Salarial"
-            description="Evaluaciones rigurosas, planes de equidad retributiva, auditorías salariales profesionales y acompañamiento individualizado para cerrar brechas de género."
-            button={<>Más información <FaArrowRight /></>}
-          />
-        </div>
-      </div>
-
-      <div className="background-frame">
-        <div className="services-row">
-          <ServicesCard
-            icon={<RiMentalHealthLine />}
-            title="Salud Integral"
-            description="Programas de salud y bienestar con perspectiva de género que consideran las necesidades específicas y abordan desigualdades en el ámbito sanitario."
-            button={<>Más información <FaArrowRight /></>}
-          />
-
-          <ServicesCard
-            icon={<GiGraduateCap />}
-            title="Coeducación"
-            description="Programas educativos y formativos innovadores en igualdad, diseñados para transformar espacios educativos en entornos verdaderamente igualitarios."
-            button={<>Más información <FaArrowRight /></>}
-          />
-        </div>
-      </div>
-
-      <div className="background-frame">
-        <div className="services-row">
-          <ServicesCard
-            icon={<BsHouses />}
-            title="Tercer Sector"
-            description="Acompañamiento especializado a entidades sociales en su camino hacia la igualdad, fortaleciendo capacidades y maximizando su impacto social."
-            button={<>Más información <FaArrowRight /></>}
-          />
-
-          <ServicesCard
-            icon={<BsFillPersonLinesFill />}
-            title="Microservicios"
-            description="Intervenciones breves y efectivas, asesorías puntuales especializadas y formaciones temáticas adaptadas a necesidades concretas y urgentes."
-            button={<>Más información <FaArrowRight /></>}
-          />
-        </div>
-      </div>
+        return (
+          <div key={category.id} className="background-frame">
+            <div className="services-row">
+              {displayServices.map((service, serviceIndex) => (
+                <ServicesCard
+                  key={service.id}
+                  id={service.id}
+                  icon={
+                    categoryIcons[category.name] || 
+                    getDefaultIcon(categoryIndex * 2 + serviceIndex)
+                  }
+                  title={service.name}
+                  description={service.shortDescription || service.fullDescription}
+                  button={
+                    <>
+                      Más información <FaArrowRight />
+                    </>
+                  }
+                />
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./BlogDetail.scss";
-import { blogApi } from "../../services/blogApiMock";
+import { blogApi } from "../../data/blogApiMock";
 
 const BlogDetail = () => {
   const { slug } = useParams();

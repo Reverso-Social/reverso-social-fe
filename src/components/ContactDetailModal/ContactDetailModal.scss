@@ -1,0 +1,189 @@
+@use "../../styles/variables" as *;
+
+.contact-detail-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1400;
+  padding: $space-md;
+}
+
+.contact-detail-modal__container {
+  background: $color-white;
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: $space-2xl;
+  border-radius: $radius-lg;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.contact-detail-modal__close {
+  position: absolute;
+  top: $space-lg;
+  right: $space-lg;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: $color-dark;
+  transition: all 0.2s ease;
+  padding: $space-xs;
+  border-radius: $radius-base;
+
+  &:hover {
+    background-color: rgba($color-dark, 0.1);
+    color: $color-black;
+  }
+}
+
+.contact-detail-modal__header {
+  margin-bottom: $space-xl;
+  padding-right: $space-2xl;
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+  flex-wrap: wrap;
+}
+
+.contact-detail-modal__title {
+  font-family: $font-heading;
+  font-size: $font-size-2xl;
+  font-weight: 700;
+  color: $color-dark;
+  margin: 0;
+}
+
+.contact-detail-modal__status {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 1rem;
+  border-radius: 999px;
+  font-size: $font-size-xs;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &.status--pending {
+    background-color: rgba(255, 152, 0, 0.1);
+    color: #f57c00;
+  }
+
+  &.status--progress {
+    background-color: rgba(33, 150, 243, 0.1);
+    color: #1976d2;
+  }
+
+  &.status--resolved {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #388e3c;
+  }
+}
+
+.contact-detail-modal__content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-lg;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-detail-field {
+  display: flex;
+  gap: $space-md;
+  padding: $space-md;
+  background: linear-gradient(
+    135deg,
+    rgba($color-turquesa-soft, 0.03) 0%,
+    rgba($color-lila-light, 0.03) 100%
+  );
+  border-radius: $radius-base;
+  border-left: 3px solid $color-primary;
+
+  &--full {
+    grid-column: span 2;
+
+    @media (max-width: 640px) {
+      grid-column: span 1;
+    }
+  }
+}
+
+.contact-detail-field__icon {
+  flex-shrink: 0;
+  color: $color-primary;
+  margin-top: 2px;
+}
+
+.contact-detail-field__content {
+  flex: 1;
+  min-width: 0;
+
+  label {
+    display: block;
+    font-size: $font-size-xs;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: $color-silver-dark;
+    margin-bottom: $space-xs;
+  }
+
+  p {
+    margin: 0;
+    font-size: $font-size-base;
+    color: $color-dark;
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+
+  a {
+    color: $color-primary;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: darken($color-primary, 10%);
+      text-decoration: underline;
+    }
+  }
+}
+
+.contact-detail-message {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .contact-detail-modal__container {
+    padding: $space-xl $space-lg;
+  }
+
+  .contact-detail-modal__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contact-detail-modal__title {
+    font-size: $font-size-xl;
+  }
+}
