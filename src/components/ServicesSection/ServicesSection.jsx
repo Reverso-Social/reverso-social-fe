@@ -72,7 +72,7 @@ const ServiceSection = () => {
       <div className="background-frame">
         <div className="services-row">
           <ServicesCard
-            icon={<BsHouses />}
+            icon= "🏳️‍🌈"
             title=" Diseño e Implantación de Protocolos y Planes LGTBI+"
             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             button={
