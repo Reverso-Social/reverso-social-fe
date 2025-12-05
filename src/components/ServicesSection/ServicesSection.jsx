@@ -22,7 +22,7 @@ const ServiceSection = () => {
           <ServicesCard
             icon={<FaBalanceScale />}
             title="Consultoría de Género: Planes de Igualdad"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            description="Realizamos Planes de igualdad cumpliendo con el marco normativo establecido por el Real Decreto 901/2020 y 902/2020."
             button={
               <>
                 Más información <FaArrowRight />
@@ -32,8 +32,8 @@ const ServiceSection = () => {
 
           <ServicesCard
             icon={<PiMoneyFill />}
-            title="Asesoramiento en Igualdad Retributiva"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            title="Igualdad Retributiva"
+            description="Realizamos informes de Auditoría Retributiva cumpliendo con el marco normativo establecido por el Real Decreto 902/2020."
             button={
               <>
                 Más información <FaArrowRight />
@@ -47,8 +47,8 @@ const ServiceSection = () => {
         <div className="services-row">
           <ServicesCard
             icon={<RiMentalHealthLine />}
-            title=" Protocolos contra el Acoso Sexual y por Razón de Sexo"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            title="Acoso Sexual y por Razón de Sexo"
+            description="Realizamos Protocolos contra el Acoso Sexual y por razón de sexo cumpliendo con la normativa actualmente vigente."
             button={
               <>
                 Más información <FaArrowRight />
@@ -58,8 +58,8 @@ const ServiceSection = () => {
 
           <ServicesCard
             icon={<GiGraduateCap />}
-            title=" Formación Especializada"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            title="Formación"
+            description="Realizamos todo tipo de formación relacionada con la materia que nos ocupa ajustándonos al 100 x 100 a las necesidades de su entidad."
             button={
               <>
                 Más información <FaArrowRight />
@@ -73,8 +73,8 @@ const ServiceSection = () => {
         <div className="services-row">
           <ServicesCard
             icon= "🏳️‍🌈"
-            title=" Diseño e Implantación de Protocolos y Planes LGTBI+"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            title="Protocolos LGTBI+"
+            description="Realizamos Protocolos y Planes LGTBI+ de acuerdo con la Ley 4/2023 y en línea con los principios de inclusión y no discriminación."
             button={
               <>
                 Más información <FaArrowRight />
@@ -84,8 +84,8 @@ const ServiceSection = () => {
 
           <ServicesCard
             icon={<BsFillPersonLinesFill />}
-            title="Proyectos Sociocomunitarios con Perspectiva de género:"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            title="Gestión proyectos sociales"
+            description="Desarrollamos, gestionamos y evaluamos proyectos sociales y comunitarios dirigidos a administración pública y colaboraciones institucionales con perspectiva de género inclusiva."
             button={
               <>
                 Más información <FaArrowRight />
@@ -100,8 +100,8 @@ const ServiceSection = () => {
         <div className="services-row">
           <ServicesCard
             icon={<FaBalanceScale />}
-            title="Gestión de fondos del Pacto de Estado contra la Violencia de Género:"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            title="Pacto estado Violencia de Género:"
+            description="Ayudamos a su entidad a gestionar y desarrollar proyectos dentro de los Fondos del Pacto de Estado contra la Violencia de Género de nuestro país."
             button={
               <>
                 Más información <FaArrowRight />
