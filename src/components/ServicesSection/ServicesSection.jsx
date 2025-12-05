@@ -40,11 +40,11 @@ const ServiceSection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Obtener categorías activas
+       
         const categoriesData = await serviceService.getActiveCategories();
         setCategories(categoriesData);
 
-        // Obtener servicios para cada categoría
+        
         const servicesPromises = categoriesData.map(category =>
           serviceService.getServicesByCategory(category.id)
             .then(services => ({ categoryId: category.id, services }))
@@ -52,7 +52,7 @@ const ServiceSection = () => {
 
         const servicesResults = await Promise.all(servicesPromises);
         
-        // Organizar servicios por categoría
+        
         const servicesMap = {};
         servicesResults.forEach(result => {
           servicesMap[result.categoryId] = result.services;
