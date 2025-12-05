@@ -41,8 +41,8 @@
 }
 
 .hero-button {
-  width: 200px;
-  height: 55px;
+  width: 150px;
+  height: 40px;
 
   display: flex;
   align-items: center;
@@ -50,7 +50,7 @@
   margin-top: 0.5rem;
 
   font-family: vars.$font-heading;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 600;
 
   background: linear-gradient(90deg, #e5e5e5 0%, #999 100%);
@@ -192,6 +192,7 @@
   .hero-text {
     max-width: 100%;
     padding-right: 0;
+    
   }
 
   .hero-button {
@@ -232,9 +233,10 @@
   }
 
   .hero-button {
-    width: 170px;
-    height: 50px;
-    font-size: 1.2rem;
+    width: 110px;
+    height: 35px;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
   }
 
   .hero-image-wrapper {
