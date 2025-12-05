@@ -18,6 +18,7 @@ const ServicesCard = ({ id, icon, title, description, button }) => {
       <button 
         className="service-card_button" 
         onClick={handleClick}
+        type="button"
         aria-label={`Ver más información sobre ${title}`}
       >
         {button}

@@ -6,6 +6,8 @@ const authService = {
       email,
       password,
     });
+
+     console.log('🔑 Respuesta del login:', response.data); 
     
     if (response.data.token) {
       localStorage.setItem('reverso_token', response.data.token);
