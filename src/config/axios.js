@@ -14,12 +14,22 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('reverso_token');
+    console.log('🔐 Interceptor - Token encontrado:', token ? 'Sí' : 'No');
+    console.log('🌐 Interceptor - URL:', config.url);
+    
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+      console.log('✅ Token añadido al header');
+    } else {
+      console.warn('⚠️ No hay token para enviar');
     }
+    
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    console.error('❌ Error en request interceptor:', error);
+    return Promise.reject(error);
+  }
 );
 
 // Interceptor para manejar respuestas y errores
