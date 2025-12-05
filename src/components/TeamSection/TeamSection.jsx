@@ -1,8 +1,8 @@
 import TeamCard from "./TeamCard";
 import "./TeamSection.scss";
-import pilarImg from "../../assets/img/team/Pilar.png";
-import lolaImg from "../../assets/img/team/Lola.png";
-import susanaImg from "../../assets/img/team/Susana.png";
+import pilarImg from "../../assets/img/team/Pilar copy.png";
+import lolaImg from "../../assets/img/team/Lola copy.png";
+import susanaImg from "../../assets/img/team/Susana copy.png";
 
 export default function TeamSection() {
   const team = [
