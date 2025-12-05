@@ -5,6 +5,14 @@ import { PiMoneyFill } from "react-icons/pi";
 import { RiMentalHealthLine } from "react-icons/ri";
 import { GiGraduateCap } from "react-icons/gi";
 import { BsHouses, BsFillPersonLinesFill } from "react-icons/bs";
+import { FaTransgenderAlt } from "react-icons/fa";
+import { FaExternalLinkAlt } from "react-icons/fa";
+import { FaShieldAlt } from "react-icons/fa";
+import { FaFlag } from "react-icons/fa6";
+
+
+
+
 import "./ServicesSection.scss";
 
 const ServiceSection = () => {
@@ -46,7 +54,7 @@ const ServiceSection = () => {
       <div className="background-frame">
         <div className="services-row">
           <ServicesCard
-            icon={<RiMentalHealthLine />}
+            icon= {<FaShieldAlt />}
             title="Acoso Sexual y por Razón de Sexo"
             description="Realizamos Protocolos contra el Acoso Sexual y por razón de sexo cumpliendo con la normativa actualmente vigente."
             button={
@@ -72,7 +80,7 @@ const ServiceSection = () => {
       <div className="background-frame">
         <div className="services-row">
           <ServicesCard
-            icon= "🏳️‍🌈"
+            icon= {<FaFlag />}
             title="Protocolos LGTBI+"
             description="Realizamos Protocolos y Planes LGTBI+ de acuerdo con la Ley 4/2023 y en línea con los principios de inclusión y no discriminación."
             button={
@@ -99,7 +107,7 @@ const ServiceSection = () => {
       <div className="background-frame">
         <div className="services-row">
           <ServicesCard
-            icon={<FaBalanceScale />}
+            icon={<FaTransgenderAlt />}
             title="Pacto estado Violencia de Género:"
             description="Ayudamos a su entidad a gestionar y desarrollar proyectos dentro de los Fondos del Pacto de Estado contra la Violencia de Género de nuestro país."
             button={
@@ -110,8 +118,8 @@ const ServiceSection = () => {
           />
 
           <ServicesCard
-            icon={<PiMoneyFill />}
-            title="Conoce nuestros servicios a más profundidad"
+            icon={<FaExternalLinkAlt />}
+            title="Conoce todos nuestros servicios a más profundidad"
             description=""
             button={
               <>
