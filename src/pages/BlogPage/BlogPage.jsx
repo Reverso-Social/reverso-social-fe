@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./BlogPage.scss";
 import BlogCard from "../../components/BlogCard/BlogCard";
-import { blogApi } from "../../data/blogApiMock";
+import blogApi from "../../api/blogApi";
 import blogHeroImage from "../../assets/img/group1.webp";
 import Background from "../../components/Background/Background";
 
@@ -12,7 +12,7 @@ const BlogPage = () => {
 
   useEffect(() => {
     blogApi
-      .listPosts()
+      .getPublished()
       .then((data) => setPosts(data))
       .catch(() => setError("No pudimos cargar los artículos."))
       .finally(() => setLoading(false));
@@ -28,8 +28,7 @@ const BlogPage = () => {
               Noticias y <span className="gradient-text">actualidad</span>
             </h1>
             <p>
-              Explora nuestros artículos, análisis y novedades sobre incidencia
-              social y política. Un espacio para la reflexión y el cambio.
+              Explora artículos, análisis y novedades sobre incidencia social y política.
             </p>
           </div>
 
@@ -39,11 +38,7 @@ const BlogPage = () => {
             <div className="circle circle--3"></div>
 
             <div className="blog-hero__image-frame">
-              <img
-                src={blogHeroImage}
-                alt="Personas colaborando en Reverso Social"
-                className="blog-hero__image"
-              />
+              <img src={blogHeroImage} alt="Personas colaborando" className="blog-hero__image" />
             </div>
           </div>
         </div>
@@ -51,9 +46,8 @@ const BlogPage = () => {
 
       <section className="blog-grid-container">
         {loading && <p className="blog-status">Cargando artículos...</p>}
-        {error && !loading && (
-          <p className="blog-status blog-status--error">{error}</p>
-        )}
+        {error && !loading && <p className="blog-status blog-status--error">{error}</p>}
+
         {!loading && !error && (
           <div className="blog-grid">
             {posts.map((post) => (

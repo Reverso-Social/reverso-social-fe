@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./BlogDetail.scss";
-import { blogApi } from "../../data/blogApiMock";
+import blogApi from "../../api/blogApi";
 
 const BlogDetail = () => {
   const { slug } = useParams();
@@ -11,43 +11,41 @@ const BlogDetail = () => {
 
   useEffect(() => {
     blogApi
-      .getPostBySlug(slug)
+      .getBySlug(slug)
       .then((data) => setPost(data))
-      .catch(() => setError("Articulo no encontrado."))
+      .catch(() => setError("Artículo no encontrado."))
       .finally(() => setLoading(false));
   }, [slug]);
 
+  if (loading) return <p className="blog-status">Cargando artículo...</p>;
+  if (error) return <p className="blog-status blog-status--error">{error}</p>;
+
   return (
     <div className="blog-detail-page">
-      {loading && <p className="blog-status">Cargando articulo...</p>}
-      {error && !loading && <p className="blog-status blog-status--error">{error}</p>}
+      <section className="blog-detail-hero">
+        <div className="blog-detail-hero__text">
+          <span className="pill-label">{post.category}</span>
+          <h1>{post.title}</h1>
 
-      {post && !loading && (
-        <>
-          <section className="blog-detail-hero">
-            <div className="blog-detail-hero__text">
-              <span className="pill-label">{post.category}</span>
-              <h1>{post.title}</h1>
-              <p className="detail-meta">
-                {post.date} · {post.author} · {post.readingTime} min de lectura
-              </p>
-            </div>
-            <div className="blog-detail-hero__image-wrapper">
-              <img src={post.image} alt={post.title} />
-            </div>
-          </section>
+          <p className="detail-meta">
+            {post.createdAt?.split("T")[0]} · {post.author}
+          </p>
+        </div>
 
-          <section className="blog-detail-content">
-            <p>{post.body}</p>
-          </section>
+        <div className="blog-detail-hero__image-wrapper">
+          <img src={post.coverImageUrl} alt={post.title} />
+        </div>
+      </section>
 
-          <div className="blog-detail-actions">
-            <Link to="/blog" className="back-link">
-              ← Volver al blog
-            </Link>
-          </div>
-        </>
-      )}
+      <section className="blog-detail-content">
+        <p>{post.content}</p>
+      </section>
+
+      <div className="blog-detail-actions">
+        <Link to="/blog" className="back-link">
+          ← Volver al blog
+        </Link>
+      </div>
     </div>
   );
 };
