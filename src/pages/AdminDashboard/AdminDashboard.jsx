@@ -529,7 +529,7 @@ export default function AdminDashboard() {
                       )}
                     </div>
 
-                    <div className="admin-form-field">
+                    {/* <div className="admin-form-field">
                       <label htmlFor="resource-file-url">
                         URL del archivo *
                       </label>
@@ -556,9 +556,9 @@ export default function AdminDashboard() {
                           {resourceFormErrors.fileUrl}
                         </p>
                       )}
-                    </div>
+                    </div> */}
 
-                    <div className="admin-form-field">
+                    {/* <div className="admin-form-field">
                       <label htmlFor="resource-preview-image-url">
                         URL de imagen
                       </label>
@@ -580,11 +580,11 @@ export default function AdminDashboard() {
                           Subir imagen
                         </button>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="admin-form-field">
                       <label htmlFor="resource-file-local">
-                        Documento desde tu ordenador (opcional)
+                        Documento
                       </label>
                       <div className="admin-file-upload">
                         <input
@@ -613,7 +613,7 @@ export default function AdminDashboard() {
 
                     <div className="admin-form-field">
                       <label htmlFor="resource-image-local">
-                        Imagen desde tu ordenador (opcional)
+                        Imágen
                       </label>
                       <div className="admin-file-upload">
                         <input
@@ -885,7 +885,7 @@ export default function AdminDashboard() {
                       )}
                     </div>
 
-                    <div className="admin-form-field">
+                    {/* <div className="admin-form-field">
                       <label htmlFor="blog-image-url">URL de imagen</label>
                       <input
                         id="blog-image-url"
@@ -896,11 +896,11 @@ export default function AdminDashboard() {
                         placeholder="/img/blog/mi-imagen.webp"
                         disabled={blogFormLoading}
                       />
-                    </div>
+                    </div> */}
 
                     <div className="admin-form-field">
                       <label htmlFor="blog-image-local">
-                        Imagen desde tu ordenador (opcional)
+                        Imágen
                       </label>
                       <div className="admin-file-upload">
                         <input

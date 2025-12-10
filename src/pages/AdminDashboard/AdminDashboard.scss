@@ -488,7 +488,7 @@
   }
 }
 
-/* FILE UPLOAD UI (SOLO FRONT) */
+/* FILE UPLOAD UI */
 
 .admin-file-upload {
   display: flex;
@@ -607,6 +607,13 @@
   .admin-table th,
   .admin-table td {
     padding: $space-sm $space-xs;
+  }
+
+  /* 🚀 Botones de subir archivo/imagen más pequeños en mobile */
+  .admin-file-upload__button {
+    padding: $space-xs $space-sm;   // más pequeño
+    font-size: $font-size-xs;       // texto más pequeño
+    border-radius: 2rem;    // más compacto
   }
 }
 
