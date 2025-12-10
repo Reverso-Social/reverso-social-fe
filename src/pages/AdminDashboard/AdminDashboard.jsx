@@ -630,12 +630,12 @@ export default function AdminDashboard() {
                           htmlFor="resource-image-local"
                           className="admin-file-upload__button"
                         >
-                          Subir imagen
+                          Subir imágen
                         </label>
                         <span className="admin-file-upload__filename">
                           {resourceFiles.localImage
                             ? resourceFiles.localImage.name
-                            : "Ninguna imagen seleccionada"}
+                            : "Ninguna imágen seleccionada"}
                         </span>
                       </div>
                     </div>
@@ -917,7 +917,7 @@ export default function AdminDashboard() {
                           htmlFor="blog-image-local"
                           className="admin-file-upload__button"
                         >
-                          Subir imagen
+                          Subir imágen
                         </label>
                         <span className="admin-file-upload__filename">
                           {blogLocalImage

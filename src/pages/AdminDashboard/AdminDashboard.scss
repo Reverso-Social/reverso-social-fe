@@ -152,9 +152,10 @@
     }
 
     .admin-primary-btn {
-      width: 100%;
+      width: 75%;
       justify-content: center;
       text-align: center;
+      font-size: 0.7rem;
     }
   }
 }
@@ -507,12 +508,12 @@
   font-size: $font-size-sm;
   font-weight: 600;
   background: linear-gradient(90deg, $color-primary, $color-secondary);
-  color: $color-white;
+  color: $color-white !important;
   cursor: pointer;
   border: none;
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  align-items: center ;
+  justify-content: center ;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 
   &:hover:not(:disabled) {
@@ -595,40 +596,76 @@
 
 /* RESPONSIVE */
 
+// @media (max-width: 768px) {
+//   .admin-dashboard {
+//     padding: $space-xl $space-sm $space-xl;
+//   }
+
+//   .admin-content {
+//     padding: $space-lg $space-md;
+//   }
+
+//   .admin-table th,
+//   .admin-table td {
+//     padding: $space-sm $space-xs;
+//   }
+
+//   /* 🚀 Botones de subir archivo/imagen más pequeños en mobile */
+//   .admin-file-upload__button {
+//     padding: $space-xs $space-sm;   // más pequeño
+//     font-size: 1rem;       // texto más pequeño
+//     border-radius: 2rem;    // más compacto
+//   }
+// }
+
+// @media (min-width: 1440px) {
+//   .admin-dashboard {
+//     max-width: 1400px;
+//     padding: $space-2xl $space-xl $space-2xl;
+//   }
+
+//   .admin-content {
+//     padding: $space-2xl;
+//   }
+
+//   .admin-table th,
+//   .admin-table td {
+//     padding: $space-md $space-md;
+//   }
+// }
 @media (max-width: 768px) {
   .admin-dashboard {
-    padding: $space-xl $space-sm $space-xl;
+    padding: 2rem 1rem 2rem;
   }
 
   .admin-content {
-    padding: $space-lg $space-md;
+    padding: 1.5rem 1rem;
   }
 
   .admin-table th,
   .admin-table td {
-    padding: $space-sm $space-xs;
+    padding: 0.75rem 0.5rem;
   }
 
-  /* 🚀 Botones de subir archivo/imagen más pequeños en mobile */
   .admin-file-upload__button {
-    padding: $space-xs $space-sm;   // más pequeño
-    font-size: $font-size-xs;       // texto más pequeño
-    border-radius: 2rem;    // más compacto
+    padding: 0.25rem 0.75rem;
+    font-size: 0.70rem;
+    border-radius: 1.5rem;
   }
 }
 
 @media (min-width: 1440px) {
   .admin-dashboard {
     max-width: 1400px;
-    padding: $space-2xl $space-xl $space-2xl;
+    padding: 3rem 2rem 3rem;
   }
 
   .admin-content {
-    padding: $space-2xl;
+    padding: 3rem;
   }
 
   .admin-table th,
   .admin-table td {
-    padding: $space-md $space-md;
+    padding: 1rem 1rem;
   }
 }
