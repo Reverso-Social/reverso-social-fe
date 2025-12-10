@@ -633,6 +633,7 @@
 //     padding: $space-md $space-md;
 //   }
 // }
+
 @media (max-width: 768px) {
   .admin-dashboard {
     padding: 2rem 1rem 2rem;
@@ -649,8 +650,35 @@
 
   .admin-file-upload__button {
     padding: 0.25rem 0.75rem;
-    font-size: 0.70rem;
-    border-radius: 1.5rem;
+    font-size: 0.85rem;
+    border-radius: 1rem;
+  }
+
+  /* BOTÓN CENTRADO */
+  .admin-primary-btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    border-radius: 1rem;
+    align-self: center;
+    width: auto;
+    min-width: 140px;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .admin-panel-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .admin-panel-header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
   }
 }
 
