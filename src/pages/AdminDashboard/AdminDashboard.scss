@@ -8,7 +8,7 @@
   margin-top: $space-xl;
 }
 
-/* ---------------- HEADER ---------------- */
+/* HEADER */
 
 .admin-header {
   margin-bottom: $space-2xl;
@@ -37,7 +37,7 @@
   }
 }
 
-/* ---------------- LOGOUT BUTTON ---------------- */
+/* LOGOUT BUTTON */
 
 .admin-logout-btn {
   border: 2px solid #d32f2f;
@@ -64,7 +64,7 @@
   }
 }
 
-/* ---------------- TABS ---------------- */
+/* TABS */
 
 .admin-tabs {
   display: inline-flex;
@@ -104,7 +104,7 @@
   }
 }
 
-/* ---------------- PANEL ---------------- */
+/* CONTENT + PANELS */
 
 .admin-content {
   background-color: $color-white;
@@ -137,7 +137,29 @@
   margin-bottom: $space-lg;
 }
 
-/* ---------------- BUTTONS ---------------- */
+.admin-panel-header-actions {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+
+    .search-bar {
+      width: 100%;
+    }
+
+    .admin-primary-btn {
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+}
+
+/* BUTTONS */
 
 .admin-primary-btn {
   border: none;
@@ -150,6 +172,9 @@
   color: $color-white;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     transform: translateY(-1px);
@@ -164,7 +189,7 @@
   }
 }
 
-/* ---------------- TABLE ---------------- */
+/* TABLE */
 
 .admin-table-wrapper {
   width: 100%;
@@ -284,7 +309,7 @@
   }
 }
 
-/* ---------------- STATUS ---------------- */
+/* STATUS */
 
 .status-pill {
   display: inline-flex;
@@ -321,6 +346,8 @@
   }
 }
 
+/* STATUS TEXT */
+
 .admin-status {
   font-family: $font-heading;
   font-size: $font-size-sm;
@@ -334,7 +361,7 @@
   }
 }
 
-/* ---------------- FORM ---------------- */
+/* FORM WRAPPER */
 
 .admin-form-wrapper {
   margin-top: $space-2xl;
@@ -380,6 +407,8 @@
     color: $color-dark;
   }
 }
+
+/* FORM */
 
 .admin-form {
   display: flex;
@@ -459,7 +488,82 @@
   }
 }
 
-/* ---------------- FORM ACTIONS ---------------- */
+/* FILE UPLOAD UI (SOLO FRONT) */
+
+.admin-file-upload {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+
+  input[type="text"] {
+    flex: 1;
+  }
+}
+
+.admin-file-upload__button {
+  border-radius: $radius-xl;
+  padding: $space-sm $space-lg;
+  font-family: $font-heading;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  background: linear-gradient(90deg, $color-primary, $color-secondary);
+  color: $color-white;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba($color-primary, 0.4);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+.admin-file-upload__button--secondary {
+  background: $color-white;
+  color: $color-dark;
+  border: 1px solid $color-silver-light;
+  box-shadow: none;
+
+  &:hover:not(:disabled) {
+    background-color: rgba($color-silver-light, 0.4);
+    transform: translateY(-1px);
+  }
+}
+
+/* FORM ERRORS + HELPERS */
+
+.admin-form-error {
+  margin: 0;
+  font-size: $font-size-xs;
+  color: #d32f2f;
+}
+
+.admin-form-helper-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: $space-xs;
+}
+
+.admin-form-helper-count {
+  font-size: $font-size-xs;
+  color: $color-silver-dark;
+
+  &--error {
+    color: #d32f2f;
+  }
+}
+
+/* FORM ACTIONS */
 
 .admin-form-actions {
   display: flex;
@@ -479,12 +583,45 @@
   font-weight: 600;
   transition: all 0.2s ease;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: rgba($color-silver-light, 0.3);
   }
 
   &:disabled {
     cursor: not-allowed;
     opacity: 0.6;
+  }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .admin-dashboard {
+    padding: $space-xl $space-sm $space-xl;
+  }
+
+  .admin-content {
+    padding: $space-lg $space-md;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: $space-sm $space-xs;
+  }
+}
+
+@media (min-width: 1440px) {
+  .admin-dashboard {
+    max-width: 1400px;
+    padding: $space-2xl $space-xl $space-2xl;
+  }
+
+  .admin-content {
+    padding: $space-2xl;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: $space-md $space-md;
   }
 }
