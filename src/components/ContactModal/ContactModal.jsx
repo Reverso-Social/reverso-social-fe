@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ContactModal.scss";
 import { X, User, Mail, Building2, Heart } from "lucide-react";
-import contactService from "../../data/contactService";
-
+import { contactMock } from "../../data/contactMock";
 export default function ContactModal({ open, onClose }) {
   if (!open) return null;
 
@@ -16,7 +15,6 @@ export default function ContactModal({ open, onClose }) {
   const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState({ type: "", message: "" });
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -40,33 +38,24 @@ export default function ContactModal({ open, onClose }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
 
-    setLoading(true);
-    setStatus({ type: "", message: "" });
-
     try {
-      await contactService.create(formData);
+      const savedEntry = contactMock.add(formData);
       setStatus({
         type: "success",
-        message: "¡Mensaje enviado! Nos pondremos en contacto contigo pronto.",
+        message: "Datos guardados temporalmente en este navegador.",
       });
       setErrors({});
       setFormData(initialForm);
-
-      setTimeout(() => {
-        onClose();
-      }, 2000);
     } catch (error) {
-      console.error("Error al enviar contacto:", error);
+      console.error("No se pudo guardar el contacto temporal:", error);
       setStatus({
         type: "error",
-        message: "No pudimos enviar tu mensaje. Por favor, intenta de nuevo.",
+        message: "No pudimos guardar temporalmente. Intenta de nuevo.",
       });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -79,7 +68,7 @@ export default function ContactModal({ open, onClose }) {
   return (
     <div className="contact-modal__overlay" onClick={handleOverlayClick}>
       <div className="contact-modal__container">
-        <button className="contact-modal__close" onClick={onClose} aria-label="Cerrar">
+        <button className="contact-modal__close" onClick={onClose}>
           <X size={22} />
         </button>
 
@@ -88,7 +77,7 @@ export default function ContactModal({ open, onClose }) {
 
         <form className="contact-modal__form" onSubmit={handleSubmit}>
           <div className="contact-modal__field">
-            <label htmlFor="contact-nombre">Nombre</label>
+            <label>Nombre</label>
             <div
               className={`contact-modal__input-wrapper ${
                 errors.nombre ? "error" : ""
@@ -96,21 +85,19 @@ export default function ContactModal({ open, onClose }) {
             >
               <User className="icon" size={20} />
               <input
-                id="contact-nombre"
                 type="text"
                 placeholder="Tu nombre completo"
                 value={formData.nombre}
                 onChange={(e) =>
                   setFormData({ ...formData, nombre: e.target.value })
                 }
-                disabled={loading}
               />
             </div>
             {errors.nombre && <span className="error-text">{errors.nombre}</span>}
           </div>
 
           <div className="contact-modal__field">
-            <label htmlFor="contact-email">Email</label>
+            <label>Email</label>
             <div
               className={`contact-modal__input-wrapper ${
                 errors.email ? "error" : ""
@@ -118,38 +105,34 @@ export default function ContactModal({ open, onClose }) {
             >
               <Mail className="icon" size={20} />
               <input
-                id="contact-email"
                 type="email"
                 placeholder="tu@email.com"
                 value={formData.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                disabled={loading}
               />
             </div>
             {errors.email && <span className="error-text">{errors.email}</span>}
           </div>
 
           <div className="contact-modal__field">
-            <label htmlFor="contact-entidad">Entidad (opcional)</label>
+            <label>Entidad (opcional)</label>
             <div className="contact-modal__input-wrapper">
               <Building2 className="icon" size={20} />
               <input
-                id="contact-entidad"
                 type="text"
                 placeholder="Organizacion o colectivo"
                 value={formData.entidad}
                 onChange={(e) =>
                   setFormData({ ...formData, entidad: e.target.value })
                 }
-                disabled={loading}
               />
             </div>
           </div>
 
           <div className="contact-modal__field">
-            <label htmlFor="contact-intereses">Intereses</label>
+            <label>Intereses</label>
             <div
               className={`contact-modal__textarea-wrapper ${
                 errors.intereses ? "error" : ""
@@ -157,14 +140,12 @@ export default function ContactModal({ open, onClose }) {
             >
               <Heart className="icon icon--textarea" size={20} />
               <textarea
-                id="contact-intereses"
                 rows="3"
                 placeholder="¿Qué te interesa o en qué podemos colaborar?"
                 value={formData.intereses}
                 onChange={(e) =>
                   setFormData({ ...formData, intereses: e.target.value })
                 }
-                disabled={loading}
               />
             </div>
             {errors.intereses && (
@@ -172,8 +153,8 @@ export default function ContactModal({ open, onClose }) {
             )}
           </div>
 
-          <button type="submit" className="contact-modal__submit" disabled={loading}>
-            {loading ? "Enviando..." : "Enviar"}
+          <button type="submit" className="contact-modal__submit">
+            Enviar
           </button>
 
           {status.message && (

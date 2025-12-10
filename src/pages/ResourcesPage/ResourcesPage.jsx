@@ -1,68 +1,94 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./ResourcesPage.scss";
 import { IoNewspaperSharp } from "react-icons/io5";
-import { FaChartBar, FaClipboard, FaPhotoVideo } from "react-icons/fa";
+import { FaChartBar } from "react-icons/fa";
 import { GrWorkshop } from "react-icons/gr";
+import { FaClipboard } from "react-icons/fa";
+import { FaPhotoVideo } from "react-icons/fa";
 import { GoChecklist } from "react-icons/go";
-import resourceService from "../../data/resourceService";
-import authService from "../../data/authService";
 
-// Mapeo de iconos por tipo de recurso
-const resourceIcons = {
-  GUIDE: <IoNewspaperSharp />,
-  REPORT: <FaChartBar />,
-  VIDEO: <FaPhotoVideo />,
-  ARTICLE: <FaClipboard />,
-  OTHER: <GoChecklist />,
-};
 
-// Mapeo de colores por tipo
-const resourceColors = {
-  GUIDE: "turquesa",
-  REPORT: "lila",
-  VIDEO: "turquesa",
-  ARTICLE: "lila",
-  OTHER: "turquesa",
-};
+
+
+
+
 
 export default function ResourcesPage() {
-  const [resources, setResources] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const isAuthenticated = authService.isAuthenticated();
-
-  useEffect(() => {
-    const fetchResources = async () => {
-      try {
-        const data = isAuthenticated
-          ? await resourceService.getAll()
-          : await resourceService.getPublic();
-        setResources(data);
-      } catch (err) {
-        console.error("Error al cargar recursos:", err);
-        setError("No se pudieron cargar los recursos");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchResources();
-  }, [isAuthenticated]);
+  const resources = [
+    {
+      id: 1,
+      title: "Guía de Igualdad",
+      description: "Manual práctico para empresas que buscan implementar políticas de igualdad efectivas en sus organizaciones.",
+      type: "GUÍA",
+      icon: <IoNewspaperSharp />,
+      color: "turquesa",
+      fileUrl: "/resources/equality-guide.pdf",
+      isPublic: true
+    },
+    {
+      id: 2,
+      title: "Informe Brecha Salarial 2024",
+      description: "Estudio detallado de investigación sobre la brecha salarial de género en España.",
+      type: "INFORME",
+      icon: <FaChartBar />,
+      color: "lila",
+      fileUrl: "/resources/paygap2024.pdf",
+      isPublic: true
+    },
+    {
+      id: 3,
+      title: "Taller de Coeducación",
+      description: "Sesión de formación grabada sobre coeducación y educación en igualdad.",
+      type: "VÍDEO",
+      icon: <GrWorkshop />,
+      color: "turquesa",
+      fileUrl: "/videos/coeducation.mp4",
+      isPublic: false
+    },
+    {
+      id: 4,
+      title: "Protocolo contra el Acoso",
+      description: "Documento modelo para implementar un protocolo de prevención y actuación frente al acoso laboral.",
+      type: "GUÍA",
+      icon: <FaClipboard />,
+      color: "lila",
+      fileUrl: "/resources/harassment-protocol.pdf",
+      isPublic: true
+    },
+    {
+      id: 5,
+      title: "Webinar: Liderazgo Feminista",
+      description: "Grabación completa de nuestro webinar sobre liderazgo feminista en organizaciones.",
+      type: "VÍDEO",
+      icon: <FaPhotoVideo />,
+      color: "turquesa",
+      fileUrl: "/videos/feminist-leadership.mp4",
+      isPublic: true
+    },
+    {
+      id: 6,
+      title: "Checklist de Igualdad",
+      description: "Herramienta práctica para evaluar el nivel de igualdad en tu organización.",
+      type: "HERRAMIENTA",
+      icon: <GoChecklist />,
+      color: "lila",
+      fileUrl: "/resources/equality-checklist.pdf",
+      isPublic: true
+    }
+  ];
 
   const handleDownload = (resource) => {
-    if (!resource.isPublic && !isAuthenticated) {
-      alert("Este recurso requiere registro. Por favor, inicia sesión para acceder.");
+    if (!resource.isPublic) {
+      alert("Este recurso requiere registro. Por favor, contáctanos para acceder.");
       return;
     }
-    
     // Aquí iría la lógica de descarga real
     console.log("Descargando:", resource.title);
-    window.open(resource.fileUrl, "_blank");
   };
 
   return (
     <div className="resources-page">
+      {/* Header/Hero Section */}
       <section className="resources-hero">
         <div className="resources-hero-content">
           <Link to="/" className="back-link">
@@ -72,86 +98,48 @@ export default function ResourcesPage() {
             <span className="title-gradient">Recursos</span> para el cambio
           </h1>
           <p className="resources-hero-subtitle">
-            Herramientas, guías y materiales para impulsar la igualdad en tu
-            organización
+            Herramientas, guías y materiales para impulsar la igualdad en tu organización
           </p>
         </div>
       </section>
 
+      
       <section className="resources-content">
         <div className="resources-container">
-          {loading && (
-            <div className="resources-loading">
-              <div className="spinner"></div>
-              <p>Cargando recursos...</p>
-            </div>
-          )}
+          <div className="resources-filter">
+            <p className="resources-count">{resources.length} recursos disponibles</p>
+          </div>
 
-          {error && !loading && (
-            <div className="resources-error">
-              <p>{error}</p>
-            </div>
-          )}
+          <div className="resources-grid">
+            {resources.map((resource) => (
+              <article key={resource.id} className={`resource-card ${resource.color}`}>
+                <div className="resource-header">
+                  <div className="resource-icon">{resource.icon}</div>
+                  <span className="resource-type">{resource.type}</span>
+                  {!resource.isPublic && (
+                    <span className="resource-badge">🔒 Privado</span>
+                  )}
+                </div>
 
-          {!loading && !error && resources.length === 0 && (
-            <div className="resources-empty">
-              <p>No hay recursos disponibles en este momento.</p>
-            </div>
-          )}
+                <h3 className="resource-title">{resource.title}</h3>
+                <p className="resource-description">{resource.description}</p>
 
-          {!loading && !error && resources.length > 0 && (
-            <>
-              <div className="resources-filter">
-                <p className="resources-count">
-                  {resources.length} recurso{resources.length !== 1 ? "s" : ""} disponible
-                  {resources.length !== 1 ? "s" : ""}
-                </p>
-              </div>
+                <button 
+                  className="resource-btn"
+                  onClick={() => handleDownload(resource)}
+                >
+                  {resource.isPublic ? "Descargar" : "Solicitar acceso"}
+                  <span className="btn-arrow">→</span>
+                </button>
+              </article>
+            ))}
+          </div>
 
-              <div className="resources-grid">
-                {resources.map((resource) => (
-                  <article
-                    key={resource.id}
-                    className={`resource-card ${resourceColors[resource.type] || "turquesa"}`}
-                  >
-                    <div className="resource-header">
-                      <div className="resource-icon">
-                        {resourceIcons[resource.type] || <IoNewspaperSharp />}
-                      </div>
-                      <span className="resource-type">{resource.type}</span>
-                      {!resource.isPublic && (
-                        <span className="resource-badge">🔒 Privado</span>
-                      )}
-                    </div>
-
-                    <h3 className="resource-title">{resource.title}</h3>
-                    <p className="resource-description">{resource.description}</p>
-
-                    {resource.downloadCount > 0 && (
-                      <p className="resource-downloads">
-                        {resource.downloadCount} descarga{resource.downloadCount !== 1 ? "s" : ""}
-                      </p>
-                    )}
-
-                    <button
-                      className="resource-btn"
-                      onClick={() => handleDownload(resource)}
-                    >
-                      {resource.isPublic || isAuthenticated
-                        ? "Descargar"
-                        : "Solicitar acceso"}
-                      <span className="btn-arrow">→</span>
-                    </button>
-                  </article>
-                ))}
-              </div>
-            </>
-          )}
-
+        
           <div className="resources-cta">
             <h2>¿No encuentras lo que buscas?</h2>
             <p>Podemos crear recursos personalizados para tu organización</p>
-            <Link to="/#contacto" className="cta-btn">
+            <Link to="/" className="cta-btn">
               Contáctanos
             </Link>
           </div>

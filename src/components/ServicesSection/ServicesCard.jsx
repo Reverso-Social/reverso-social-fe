@@ -1,30 +1,22 @@
-import { useNavigate } from "react-router-dom";
-import "./ServicesCard.scss";
+import React from 'react';
+import './ServicesCard.scss';
 
-const ServicesCard = ({ id, icon, title, description, button }) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    if (id) {
-      navigate(`/servicios/${id}`);
-    }
-  };
-
+const ServicesCard = ({ icon, title, description, button }) => {
   return (
-    <article className="service-card">
-      <div className="service-card_icon">{icon}</div>
+    <div className="service-card">
+      <div className="service-card_icon">
+        {icon}
+      </div>
       <h3 className="service-card_title">{title}</h3>
       <p className="service-card_body">{description}</p>
-      <button 
-        className="service-card_button" 
-        onClick={handleClick}
-        type="button"
-        aria-label={`Ver más información sobre ${title}`}
-      >
-        {button}
-      </button>
-    </article>
+      <button className="service-card_button">{button}</button>
+    </div>
   );
 };
 
 export default ServicesCard;
+
+
+
+
+
