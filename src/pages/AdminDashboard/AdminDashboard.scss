@@ -8,7 +8,7 @@
   margin-top: $space-xl;
 }
 
-/* HEADER */
+
 
 .admin-header {
   margin-bottom: $space-2xl;
@@ -37,7 +37,7 @@
   }
 }
 
-/* LOGOUT BUTTON */
+
 
 .admin-logout-btn {
   border: 2px solid #d32f2f;
@@ -64,7 +64,7 @@
   }
 }
 
-/* TABS */
+
 
 .admin-tabs {
   display: inline-flex;
@@ -104,7 +104,7 @@
   }
 }
 
-/* CONTENT + PANELS */
+
 
 .admin-content {
   background-color: $color-white;
@@ -160,7 +160,7 @@
   }
 }
 
-/* BUTTONS */
+
 
 .admin-primary-btn {
   border: none;
@@ -190,7 +190,7 @@
   }
 }
 
-/* TABLE */
+
 
 .admin-table-wrapper {
   width: 100%;
@@ -310,7 +310,7 @@
   }
 }
 
-/* STATUS */
+
 
 .status-pill {
   display: inline-flex;
@@ -347,7 +347,7 @@
   }
 }
 
-/* STATUS TEXT */
+
 
 .admin-status {
   font-family: $font-heading;
@@ -361,8 +361,6 @@
     color: #d32f2f;
   }
 }
-
-/* FORM WRAPPER */
 
 .admin-form-wrapper {
   margin-top: $space-2xl;
@@ -409,7 +407,7 @@
   }
 }
 
-/* FORM */
+
 
 .admin-form {
   display: flex;
@@ -489,7 +487,7 @@
   }
 }
 
-/* FILE UPLOAD UI */
+
 
 .admin-file-upload {
   display: flex;
@@ -541,7 +539,6 @@
   }
 }
 
-/* FORM ERRORS + HELPERS */
 
 .admin-form-error {
   margin: 0;
@@ -564,7 +561,7 @@
   }
 }
 
-/* FORM ACTIONS */
+
 
 .admin-form-actions {
   display: flex;
@@ -654,7 +651,7 @@
     border-radius: 1rem;
   }
 
-  /* BOTÓN CENTRADO */
+  
   .admin-primary-btn {
     padding: 0.4rem 1rem;
     font-size: 0.85rem;
