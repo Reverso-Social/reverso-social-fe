@@ -1,78 +1,29 @@
-// src/pages/AdminDashboard/AdminDashboard.jsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye } from "lucide-react";
 import "./AdminDashboard.scss";
+
 import authService from "../../data/authService";
-import contactService from "../../data/contactService";
-import resourceService from "../../data/resourceService";
 import ContactDetailModal from "../../components/ContactDetailModal/ContactDetailModal";
 import GlobalModal from "../../components/GlobalModal/GlobalModal";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Pagination from "../../components/Pagination/Pagination";
 
-const RESOURCES_PAGE_SIZE = 6;
-const BLOG_PAGE_SIZE = 6;
-
-function countWords(text) {
-  if (!text) return 0;
-  const words = text.trim().split(/\s+/).filter(Boolean);
-  return words.length;
-}
+import useContactsAdmin from "../../hooks/useContactsAdmin";
+import useResourcesAdmin from "../../hooks/useResourcesAdmin";
+import useBlogAdmin from "../../hooks/useBlogAdmin";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("contactos");
-  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  const [contacts, setContacts] = useState([]);
-  const [contactsLoading, setContactsLoading] = useState(true);
-  const [contactsError, setContactsError] = useState("");
-  const [selectedContact, setSelectedContact] = useState(null);
-  const [showContactDetail, setShowContactDetail] = useState(false);
+  const currentUser = authService.getCurrentUser();
 
-  const [resources, setResources] = useState([]);
-  const [resourcesLoading, setResourcesLoading] = useState(true);
-  const [resourcesError, setResourcesError] = useState("");
-
-  const [showResourceForm, setShowResourceForm] = useState(false);
-  const [resourceFormMode, setResourceFormMode] = useState("create");
-  const [editingResourceId, setEditingResourceId] = useState(null);
-  const [resourceForm, setResourceForm] = useState({
-    title: "",
-    description: "",
-    type: "GUIDE",
-    fileUrl: "",
-    previewImageUrl: "",
-    isPublic: true,
-  });
-  const [resourceFormErrors, setResourceFormErrors] = useState({});
-  const [resourceFormLoading, setResourceFormLoading] = useState(false);
-  const [resourceFiles, setResourceFiles] = useState({
-    localFile: null,
-    localImage: null,
-  });
-
-  const [resourceSearch, setResourceSearch] = useState("");
-  const [resourcePage, setResourcePage] = useState(1);
-
-  const [blogs, setBlogs] = useState([]);
-  const [blogSearch, setBlogSearch] = useState("");
-  const [blogPage, setBlogPage] = useState(1);
-  const [showBlogForm, setShowBlogForm] = useState(false);
-  const [blogFormMode, setBlogFormMode] = useState("create");
-  const [editingBlogId, setEditingBlogId] = useState(null);
-  const [blogForm, setBlogForm] = useState({
-    title: "",
-    subtitle: "",
-    content: "",
-    category: "",
-    status: "PUBLISHED",
-    imageUrl: "",
-  });
-  const [blogFormErrors, setBlogFormErrors] = useState({});
-  const [blogFormLoading] = useState(false);
-  const [blogLocalImage, setBlogLocalImage] = useState(null);
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/");
+    }
+  }, [navigate, currentUser]);
 
   const [confirmModal, setConfirmModal] = useState({
     open: false,
@@ -88,84 +39,70 @@ export default function AdminDashboard() {
     onConfirm: null,
   });
 
-  useEffect(() => {
-    const currentUser = authService.getCurrentUser();
+  const {
+    contacts,
+    contactsLoading,
+    contactsError,
+    selectedContact,
+    showContactDetail,
+    handleViewContact,
+    closeContactDetail,
+    handleContactStatusChange,
+    deleteContact,
+  } = useContactsAdmin();
 
-    if (!currentUser) {
-      navigate("/");
-      return;
-    }
-    setUser(currentUser);
+  const {
+    resourcesLoading,
+    resourcesError,
+    resourceSearch,
+    setResourceSearch,
+    resourcePage,
+    setResourcePage,
+    pageSize: RESOURCES_PAGE_SIZE,
+    filteredResourcesCount,
+    paginatedResources,
+    showResourceForm,
+    resourceFormMode,
+    resourceForm,
+    resourceFormErrors,
+    resourceFormLoading,
+    resourceFiles,
+    descriptionWordCount,
+    handleOpenResourceFormCreate,
+    handleOpenResourceFormEdit,
+    handleCloseResourceForm,
+    handleResourceFieldChange,
+    handleLocalFileChange,
+    handleResourceSubmit,
+    deleteResource,
+  } = useResourcesAdmin();
 
-    contactService
-      .getAll()
-      .then((data) => {
-        setContacts(data);
-      })
-      .catch((error) => {
-        console.error("Error al cargar contactos:", error);
-        setContactsError("No se pudieron cargar los contactos");
-      })
-      .finally(() => setContactsLoading(false));
-
-    loadResources();
-  }, [navigate]);
-
-  const loadResources = () => {
-    setResourcesLoading(true);
-    resourceService
-      .getAll()
-      .then((data) => setResources(data))
-      .catch(() => setResourcesError("No se pudieron cargar los recursos"))
-      .finally(() => setResourcesLoading(false));
-  };
+  const {
+    blogSearch,
+    setBlogSearch,
+    blogPage,
+    setBlogPage,
+    pageSize: BLOG_PAGE_SIZE,
+    filteredBlogsCount,
+    paginatedBlogs,
+    showBlogForm,
+    blogFormMode,
+    blogForm,
+    blogFormErrors,
+    blogFormLoading,
+    blogLocalImage,
+    handleOpenBlogFormCreate,
+    handleOpenBlogFormEdit,
+    handleCloseBlogForm,
+    handleBlogFieldChange,
+    handleBlogImageChange,
+    handleBlogSubmit,
+    deleteBlog,
+  } = useBlogAdmin();
 
   const handleLogout = () => {
     authService.logout();
     navigate("/");
-  };
-
-  const handleViewContact = (contact) => {
-    setSelectedContact(contact);
-    setShowContactDetail(true);
-  };
-
-  const handleContactStatusChange = async (id, newStatus) => {
-    try {
-      const updated = await contactService.updateStatus(id, newStatus);
-      setContacts((prev) => prev.map((c) => (c.id === id ? updated : c)));
-    } catch (error) {
-      console.error("Error al actualizar estado:", error);
-    }
-  };
-
-  const deleteContact = async (id) => {
-    try {
-      await contactService.delete(id);
-      setContacts((prev) => prev.filter((c) => c.id !== id));
-    } catch (error) {
-      console.error("Error al eliminar:", error);
-    }
-  };
-
-  const deleteResource = async (id) => {
-    try {
-      await resourceService.delete(id);
-      setResources((prev) => prev.filter((r) => r.id !== id));
-      if (editingResourceId === id) {
-        handleCloseResourceForm();
-      }
-    } catch (error) {
-      console.error("Error al eliminar recurso:", error);
-      alert("Error al eliminar el recurso");
-    }
-  };
-
-  const deleteBlog = (id) => {
-    setBlogs((prev) => prev.filter((b) => b.id !== id));
-    if (editingBlogId === id) {
-      handleCloseBlogForm();
-    }
   };
 
   const openDeleteContactModal = (contact) => {
@@ -219,328 +156,42 @@ export default function AdminDashboard() {
     });
   };
 
-  const resetResourceForm = () => {
-    setResourceForm({
-      title: "",
-      description: "",
-      type: "GUIDE",
-      fileUrl: "",
-      previewImageUrl: "",
-      isPublic: true,
-    });
-    setResourceFormErrors({});
-    setResourceFiles({
-      localFile: null,
-      localImage: null,
-    });
-    setEditingResourceId(null);
-    setResourceFormMode("create");
-  };
+  const handleResourceFormSubmit = (e) => {
+    e.preventDefault();
 
-  const handleOpenResourceFormCreate = () => {
-    resetResourceForm();
-    setShowResourceForm(true);
-  };
-
-  const handleOpenResourceFormEdit = (resource) => {
-    setResourceFormMode("edit");
-    setEditingResourceId(resource.id);
-    setResourceForm({
-      title: resource.title || "",
-      description: resource.description || "",
-      type: resource.type || "GUIDE",
-      fileUrl: resource.fileUrl || "",
-      previewImageUrl: resource.previewImageUrl || "",
-      isPublic: resource.isPublic !== undefined ? resource.isPublic : true,
-    });
-    setResourceFormErrors({});
-    setResourceFiles({
-      localFile: null,
-      localImage: null,
-    });
-    setShowResourceForm(true);
-  };
-
-  const handleCloseResourceForm = () => {
-    setShowResourceForm(false);
-    resetResourceForm();
-  };
-
-  const handleResourceFieldChange = (event) => {
-    const { name, value, type, checked } = event.target;
-
-    if (name === "description") {
-      const words = value.trim().split(/\s+/).filter(Boolean);
-      const limited =
-        words.length > 50 ? words.slice(0, 50).join(" ") : value;
-
-      setResourceForm((prev) => ({
-        ...prev,
-        [name]: limited,
-      }));
-      setResourceFormErrors((prev) => ({
-        ...prev,
-        description: "",
-      }));
-      return;
-    }
-
-    setResourceForm((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setResourceFormErrors((prev) => ({
-      ...prev,
-      [name]: "",
-    }));
-  };
-
-  const handleLocalFileChange = (event) => {
-    const { name, files } = event.target;
-    const file = files && files[0] ? files[0] : null;
-    setResourceFiles((prev) => ({
-      ...prev,
-      [name]: file,
-    }));
-  };
-
-  const validateResourceForm = () => {
-    const errors = {};
-
-    if (!resourceForm.title.trim()) {
-      errors.title = "Agrega un título.";
-    }
-
-    if (!resourceForm.type) {
-      errors.type = "Selecciona un tipo.";
-    }
-
-    const descriptionWords = countWords(resourceForm.description);
-    if (descriptionWords > 50) {
-      errors.description = "La descripción no puede superar las 50 palabras.";
-    }
-
-    if (!resourceForm.fileUrl.trim()) {
-      errors.fileUrl = "Agrega la URL del archivo.";
-    }
-
-    return errors;
-  };
-
-  const handleResourceSubmit = async (e, options = {}) => {
-    if (e) e.preventDefault();
-    const { skipConfirm } = options;
-
-    if (!skipConfirm && resourceFormMode === "edit") {
+    if (resourceFormMode === "edit") {
       setSaveConfirmModal({
         open: true,
-        onConfirm: () => handleResourceSubmit(null, { skipConfirm: true }),
+        onConfirm: () => handleResourceSubmit(null),
       });
       return;
     }
 
-    setResourceFormErrors({});
-
-    const errors = validateResourceForm();
-    if (Object.keys(errors).length > 0) {
-      setResourceFormErrors(errors);
-      return;
-    }
-
-    setResourceFormLoading(true);
-
-    try {
-      if (resourceFormMode === "create") {
-        await resourceService.create(resourceForm);
-      } else if (resourceFormMode === "edit" && editingResourceId) {
-        await resourceService.update(editingResourceId, resourceForm);
-      }
-
-      loadResources();
-      handleCloseResourceForm();
-    } catch (error) {
-      console.error("Error al guardar recurso:", error);
-    } finally {
-      setResourceFormLoading(false);
-    }
+    handleResourceSubmit(e);
   };
 
-  const resetBlogForm = () => {
-    setBlogForm({
-      title: "",
-      subtitle: "",
-      content: "",
-      category: "",
-      status: "PUBLISHED",
-      imageUrl: "",
-    });
-    setBlogFormErrors({});
-    setBlogLocalImage(null);
-    setEditingBlogId(null);
-    setBlogFormMode("create");
-  };
+  const handleBlogFormSubmit = (e) => {
+    e.preventDefault();
 
-  const handleOpenBlogFormCreate = () => {
-    resetBlogForm();
-    setShowBlogForm(true);
-  };
-
-  const handleOpenBlogFormEdit = (blog) => {
-    setBlogFormMode("edit");
-    setEditingBlogId(blog.id);
-    setBlogForm({
-      title: blog.title || "",
-      subtitle: blog.subtitle || "",
-      content: blog.content || "",
-      category: blog.category || "",
-      status: blog.status || "PUBLISHED",
-      imageUrl: blog.imageUrl || "",
-    });
-    setBlogFormErrors({});
-    setBlogLocalImage(null);
-    setShowBlogForm(true);
-  };
-
-  const handleCloseBlogForm = () => {
-    setShowBlogForm(false);
-    resetBlogForm();
-  };
-
-  const handleBlogFieldChange = (event) => {
-    const { name, value } = event.target;
-    setBlogForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    setBlogFormErrors((prev) => ({
-      ...prev,
-      [name]: "",
-    }));
-  };
-
-  const handleBlogImageChange = (event) => {
-    const file =
-      event.target.files && event.target.files[0] ? event.target.files[0] : null;
-    setBlogLocalImage(file);
-  };
-
-  const validateBlogForm = () => {
-    const errors = {};
-
-    if (!blogForm.title.trim()) {
-      errors.title = "Agrega un título.";
-    }
-    if (!blogForm.content.trim()) {
-      errors.content = "Agrega contenido.";
-    }
-    if (!blogForm.category.trim()) {
-      errors.category = "Agrega una categoría.";
-    }
-    if (!blogForm.status) {
-      errors.status = "Selecciona un estado.";
-    }
-
-    return errors;
-  };
-
-  const handleBlogSubmit = (e, options = {}) => {
-    if (e) e.preventDefault();
-    const { skipConfirm } = options;
-
-    if (!skipConfirm && blogFormMode === "edit") {
+    if (blogFormMode === "edit") {
       setSaveConfirmModal({
         open: true,
-        onConfirm: () => handleBlogSubmit(null, { skipConfirm: true }),
+        onConfirm: () => handleBlogSubmit(null),
       });
       return;
     }
 
-    setBlogFormErrors({});
-
-    const errors = validateBlogForm();
-    if (Object.keys(errors).length > 0) {
-      setBlogFormErrors(errors);
-      return;
-    }
-
-    if (blogFormMode === "create") {
-      const newBlog = {
-        id: Date.now().toString(),
-        title: blogForm.title,
-        subtitle: blogForm.subtitle,
-        content: blogForm.content,
-        category: blogForm.category,
-        status: blogForm.status,
-        imageUrl: blogForm.imageUrl,
-        createdAt: new Date().toISOString(),
-      };
-      setBlogs((prev) => [newBlog, ...prev]);
-    } else if (blogFormMode === "edit" && editingBlogId) {
-      setBlogs((prev) =>
-        prev.map((b) =>
-          b.id === editingBlogId
-            ? {
-                ...b,
-                title: blogForm.title,
-                subtitle: blogForm.subtitle,
-                content: blogForm.content,
-                category: blogForm.category,
-                status: blogForm.status,
-                imageUrl: blogForm.imageUrl,
-              }
-            : b
-        )
-      );
-    }
-
-    handleCloseBlogForm();
+    handleBlogSubmit(e);
   };
 
-  useEffect(() => {
-    setResourcePage(1);
-  }, [resourceSearch, resources.length]);
-
-  useEffect(() => {
-    setBlogPage(1);
-  }, [blogSearch, blogs.length]);
-
-  if (!user) return null;
-
-  const filteredResources = resources.filter((resource) =>
-    resource.title
-      ? resource.title.toLowerCase().includes(resourceSearch.toLowerCase())
-      : false
-  );
-
-  const startIndex = (resourcePage - 1) * RESOURCES_PAGE_SIZE;
-  const paginatedResources = filteredResources.slice(
-    startIndex,
-    startIndex + RESOURCES_PAGE_SIZE
-  );
-
-  const descriptionWordCount = countWords(resourceForm.description);
-
-  const filteredBlogs = blogs.filter((blog) => {
-    const query = blogSearch.toLowerCase();
-    return (
-      (blog.title && blog.title.toLowerCase().includes(query)) ||
-      (blog.subtitle && blog.subtitle.toLowerCase().includes(query)) ||
-      (blog.content && blog.content.toLowerCase().includes(query))
-    );
-  });
-
-  const blogStartIndex = (blogPage - 1) * BLOG_PAGE_SIZE;
-  const paginatedBlogs = filteredBlogs.slice(
-    blogStartIndex,
-    blogStartIndex + BLOG_PAGE_SIZE
-  );
+  if (!currentUser) return null;
 
   return (
     <div className="admin-dashboard">
       <header className="admin-header">
         <div>
           <h1>Panel de Administración</h1>
-          <p className="admin-subtitle">Bienvenida, {user.fullName}</p>
+          <p className="admin-subtitle">Bienvenida, {currentUser.fullName}</p>
         </div>
         <button onClick={handleLogout} className="admin-logout-btn">
           Cerrar Sesión
@@ -702,7 +353,7 @@ export default function AdminDashboard() {
 
             {!resourcesLoading &&
               !resourcesError &&
-              filteredResources.length === 0 && (
+              filteredResourcesCount === 0 && (
                 <p className="admin-status">
                   No hay recursos disponibles.
                 </p>
@@ -710,7 +361,7 @@ export default function AdminDashboard() {
 
             {!resourcesLoading &&
               !resourcesError &&
-              filteredResources.length > 0 && (
+              filteredResourcesCount > 0 && (
                 <>
                   <div className="admin-table-wrapper">
                     <table className="admin-table">
@@ -778,7 +429,7 @@ export default function AdminDashboard() {
 
                   <Pagination
                     currentPage={resourcePage}
-                    totalItems={filteredResources.length}
+                    totalItems={filteredResourcesCount}
                     pageSize={RESOURCES_PAGE_SIZE}
                     onPageChange={setResourcePage}
                     ariaLabel="Paginación de recursos"
@@ -804,7 +455,7 @@ export default function AdminDashboard() {
 
                 <form
                   className="admin-form"
-                  onSubmit={handleResourceSubmit}
+                  onSubmit={handleResourceFormSubmit}
                 >
                   <div className="admin-form-grid">
                     <div className="admin-form-field">
@@ -984,7 +635,7 @@ export default function AdminDashboard() {
                         <span className="admin-file-upload__filename">
                           {resourceFiles.localImage
                             ? resourceFiles.localImage.name
-                            : "Ningún archivo seleccionado"}
+                            : "Ninguna imagen seleccionada"}
                         </span>
                       </div>
                     </div>
@@ -1051,13 +702,13 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {filteredBlogs.length === 0 && (
+            {filteredBlogsCount === 0 && (
               <p className="admin-status">
                 No hay entradas de blog disponibles.
               </p>
             )}
 
-            {filteredBlogs.length > 0 && (
+            {filteredBlogsCount > 0 && (
               <>
                 <div className="admin-table-wrapper">
                   <table className="admin-table">
@@ -1125,7 +776,7 @@ export default function AdminDashboard() {
 
                 <Pagination
                   currentPage={blogPage}
-                  totalItems={filteredBlogs.length}
+                  totalItems={filteredBlogsCount}
                   pageSize={BLOG_PAGE_SIZE}
                   onPageChange={setBlogPage}
                   ariaLabel="Paginación de entradas de blog"
@@ -1149,7 +800,7 @@ export default function AdminDashboard() {
                   </button>
                 </div>
 
-                <form className="admin-form" onSubmit={handleBlogSubmit}>
+                <form className="admin-form" onSubmit={handleBlogFormSubmit}>
                   <div className="admin-form-grid">
                     <div className="admin-form-field">
                       <label htmlFor="blog-title">Título *</label>
@@ -1306,7 +957,7 @@ export default function AdminDashboard() {
       <ContactDetailModal
         contact={selectedContact}
         open={showContactDetail}
-        onClose={() => setShowContactDetail(false)}
+        onClose={closeContactDetail}
       />
 
       <GlobalModal
