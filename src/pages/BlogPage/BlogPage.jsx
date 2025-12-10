@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./BlogPage.scss";
 import BlogCard from "../../components/BlogCard/BlogCard";
-import { blogApi } from "../../data/blogApiMock";
+import blogApi from "../../api/blogApi"; 
 import blogHeroImage from "../../assets/img/group1.webp";
 import Background from "../../components/Background/Background";
 
@@ -11,8 +11,10 @@ const BlogPage = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    setLoading(true);
+
     blogApi
-      .listPosts()
+      .getPublished()
       .then((data) => setPosts(data))
       .catch(() => setError("No pudimos cargar los artículos."))
       .finally(() => setLoading(false));
@@ -54,6 +56,7 @@ const BlogPage = () => {
         {error && !loading && (
           <p className="blog-status blog-status--error">{error}</p>
         )}
+
         {!loading && !error && (
           <div className="blog-grid">
             {posts.map((post) => (
