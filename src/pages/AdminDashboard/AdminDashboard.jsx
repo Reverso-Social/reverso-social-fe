@@ -39,22 +39,35 @@ export default function AdminDashboard() {
   const [resourceFormError, setResourceFormError] = useState("");
   const [resourceFormLoading, setResourceFormLoading] = useState(false);
 
-  useEffect(() => {
-    const currentUser = authService.getCurrentUser();
-    if (!currentUser) {
-      navigate("/");
-      return;
-    }
-    setUser(currentUser);
+useEffect(() => {
+  const currentUser = authService.getCurrentUser();
+  console.log('👤 Usuario actual:', currentUser);
+  console.log('🔑 Token guardado:', localStorage.getItem('reverso_token'));
+  
+  if (!currentUser) {
+    console.error('❌ No hay usuario, redirigiendo...');
+    navigate("/");
+    return;
+  }
+  setUser(currentUser);
 
-    contactService
-      .getAll()
-      .then((data) => setContacts(data))
-      .catch(() => setContactsError("No se pudieron cargar los contactos"))
-      .finally(() => setContactsLoading(false));
+  console.log('📞 Iniciando carga de contactos...');
+  
+  contactService
+    .getAll()
+    .then((data) => {
+      console.log('✅ Contactos recibidos:', data);
+      setContacts(data);
+    })
+    .catch((error) => {
+      console.error('❌ Error al cargar contactos:', error);
+      console.error('❌ Response:', error.response);
+      setContactsError("No se pudieron cargar los contactos");
+    })
+    .finally(() => setContactsLoading(false));
 
-    loadResources();
-  }, [navigate]);
+  loadResources();
+}, [navigate]);
 
   const loadResources = () => {
     setResourcesLoading(true);

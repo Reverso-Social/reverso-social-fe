@@ -35,7 +35,10 @@ export default function LoginModal({ open, onClose }) {
     setStatus({ type: "", message: "" });
 
     try {
+      console.log("Intentando login con:", formData.email);
       const response = await authService.login(formData.email, formData.password);
+      console.log("Login exitoso:", response);
+      
       setStatus({ type: "success", message: "¡Bienvenida!" });
       
       setTimeout(() => {
@@ -43,7 +46,13 @@ export default function LoginModal({ open, onClose }) {
         navigate("/admin");
       }, 800);
     } catch (error) {
-      const message = error.response?.data?.error || "Error al iniciar sesión. Verifica tus credenciales.";
+      console.error("Error en login:", error);
+      console.error("Response completa:", error.response);
+      
+      const message = error.response?.data?.error || 
+                     error.response?.data?.message ||
+                     "Error al iniciar sesión. Verifica tus credenciales.";
+      
       setStatus({ type: "error", message });
     } finally {
       setLoading(false);
@@ -78,6 +87,7 @@ export default function LoginModal({ open, onClose }) {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 disabled={loading}
+                autoComplete="email"
               />
             </div>
             {errors.email && <span className="error-text">{errors.email}</span>}
@@ -94,6 +104,7 @@ export default function LoginModal({ open, onClose }) {
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 disabled={loading}
+                autoComplete="current-password"
               />
             </div>
             {errors.password && <span className="error-text">{errors.password}</span>}
