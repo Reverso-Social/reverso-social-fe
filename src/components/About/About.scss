@@ -12,13 +12,15 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
   padding: $space-2xl $space-lg;
   background-color: $color-white;
   position: relative;
+  margin-bottom: $space-2xl;
 
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     padding: 5rem $space-xl;
   }
 
   @media (min-width: 1024px) {
     padding: 6rem $space-2xl;
+    margin-bottom: 4rem;
   }
 
   &__container {
@@ -31,7 +33,7 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
     margin-bottom: $space-2xl;
     animation: fadeInUp 0.8s ease-out;
 
-    @media (min-width: 768px) {
+    @media (min-width: 769px) {
       margin-bottom: 4rem;
     }
   }
@@ -48,7 +50,7 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
       1px 1px 2px rgba($color-black, 0.1);
     letter-spacing: -0.02em;
 
-    @media (min-width: 768px) {
+    @media (min-width: 769px) {
       font-size: $font-size-4xl;
     }
 
@@ -76,7 +78,7 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
     font-weight: 500;
     letter-spacing: 0.01em;
 
-    @media (min-width: 768px) {
+    @media (min-width: 769px) {
       font-size: $font-size-xl;
     }
   }
@@ -89,7 +91,7 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
     margin: 0 auto;
     text-align: center;
     
-    @media (min-width: 768px) {
+    @media (min-width: 769px) {
       text-align: justify;
       font-size: $font-size-lg;
       line-height: 1.8;
@@ -99,14 +101,15 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
   &__cards {
     display: grid;
     grid-template-columns: 1fr;
-    gap: $space-lg;
-    padding: 0 $space-sm;
+    gap: $space-2xl;
+    padding: 0;
     list-style: none;
     margin: 0;
 
-    @media (min-width: 768px) {
+    @media (min-width: 769px) {
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: $space-xl;
+      padding: 0 $space-sm;
     }
 
     @media (min-width: 1024px) {
@@ -124,19 +127,53 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
 
 .about-card {
   position: relative;
-  border-radius: $radius-base * 2;
   cursor: pointer;
-  overflow: hidden;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   
-  &:hover {
-    transform: translateY(-8px);
-  }
-
   &:focus-visible {
     outline: 3px solid $color-primary;
     outline-offset: 4px;
+    border-radius: $radius-base * 2;
+  }
+
+  // Desktop: comportamiento expandible original
+  @media (min-width: 769px) {
+    border-radius: $radius-base * 2;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &:hover {
+      transform: translateY(-8px);
+    }
+  }
+
+  // Mobile: configuración para flip 3D
+  @media (max-width: 768px) {
+    perspective: 1200px;
+    height: 320px;
+    margin-bottom: 0;
+  }
+
+  &__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    
+    @media (max-width: 768px) {
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+  }
+
+  &__front,
+  &__back {
+    @media (max-width: 768px) {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
   }
 
   &__front {
@@ -145,9 +182,7 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
     align-items: center;
     justify-content: center;
     padding: $space-2xl $space-lg;
-    min-height: 220px;
     
-    // Silver metallic gradient
     background: linear-gradient(
       135deg,
       rgba($color-silver-light, 0.95) 0%,
@@ -158,8 +193,6 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
     );
     
     border-radius: $radius-base * 2;
-    position: relative;
-    z-index: 2;
     border: 1px solid rgba($color-white, 0.5);
     box-shadow: 
       0 4px 6px $shadow-soft,
@@ -168,22 +201,32 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
       inset 0 -1px 0 rgba($color-black, 0.05);
     
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    @media (min-width: 769px) {
+      min-height: 220px;
+      position: relative;
+      z-index: 2;
+    }
+
+    @media (max-width: 768px) {
+      transform: rotateY(0deg);
+    }
   }
 
-&__icon {
-  width: 4rem; 
-  height: 4rem; 
-  font-size: 4rem;
-  margin-bottom: $space-lg;
-  filter: drop-shadow(0 2px 4px $shadow-soft);
-  transition: transform 0.3s ease;
+  &__icon {
+    width: 4rem; 
+    height: 4rem; 
+    font-size: 4rem;
+    margin-bottom: $space-lg;
+    filter: drop-shadow(0 2px 4px $shadow-soft);
+    transition: transform 0.3s ease;
 
-  @media (min-width: 768px) {
-    width: 5rem;  
-    height: 5rem;  
-    font-size: 5rem;
+    @media (min-width: 769px) {
+      width: 5rem;  
+      height: 5rem;  
+      font-size: 5rem;
+    }
   }
-}
 
   &__title {
     font-family: $font-heading;
@@ -197,19 +240,37 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
   }
 
   &__back {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    @media (min-width: 769px) {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @media (max-width: 768px) {
+      transform: rotateY(180deg);
+    }
   }
 
   &__content {
     padding: $space-xl $space-lg;
     color: $color-white;
-    border-radius: 0 0 ($radius-base * 2) ($radius-base * 2);
+    border-radius: $radius-base * 2;
     box-shadow: 
       0 8px 16px rgba($color-black, 0.15),
       0 4px 6px $shadow-soft;
+    
+    @media (max-width: 768px) {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
 
+    @media (min-width: 769px) {
+      border-radius: 0 0 ($radius-base * 2) ($radius-base * 2);
+    }
 
     &--turquesa {
       background: linear-gradient(
@@ -239,10 +300,14 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
   &__content-title {
     font-family: $font-heading;
     font-size: $font-size-xl;
-    font-weight: 500;
+    font-weight: 600;
     color: $color-white;
     margin-bottom: $space-md;
-    font-weight: 600;
+
+    @media (max-width: 768px) {
+      font-size: $font-size-lg;
+      margin-bottom: $space-sm;
+    }
   }
 
   &__text {
@@ -251,25 +316,41 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
     line-height: 1.7;
     margin: 0;
 
-    @media (min-width: 768px) {
+    @media (min-width: 769px) {
       font-size: $font-size-lg;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+      line-height: 1.6;
     }
   }
 
   &--expanded {
-    .about-card__front {
-      border-radius: ($radius-base * 2) ($radius-base * 2) 0 0;
-      box-shadow: 
-        0 2px 4px $shadow-soft,
-        inset 0 1px 0 rgba($color-white, 0.6);
-    }
+    @media (min-width: 769px) {
+      .about-card__front {
+        border-radius: ($radius-base * 2) ($radius-base * 2) 0 0;
+        box-shadow: 
+          0 2px 4px $shadow-soft,
+          inset 0 1px 0 rgba($color-white, 0.6);
+      }
 
-    .about-card__icon {
-      transform: scale(0.95);
-    }
+      .about-card__icon {
+        transform: scale(0.95);
+      }
 
-    .about-card__back {
-      max-height: 600px;
+      .about-card__back {
+        max-height: 600px;
+      }
+    }
+  }
+
+
+  &--flipped {
+    @media (max-width: 768px) {
+      .about-card__inner {
+        transform: rotateY(180deg);
+      }
     }
   }
 
@@ -299,12 +380,14 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
 
 @media (hover: none) and (pointer: coarse) {
   .about-card {
-    &:hover {
-      transform: none;
-    }
+    @media (min-width: 769px) {
+      &:hover {
+        transform: none;
+      }
 
-    &:active {
-      transform: scale(0.98);
+      &:active {
+        transform: scale(0.98);
+      }
     }
   }
 }

@@ -1,15 +1,24 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Header.scss";
 import ContactModal from "../ContactModal/ContactModal";
 import NavBar from "../NavBar/NavBar";
+import UserMenu from "../UserMenu/UserMenu";
 import logo from "../../assets/logo/logo.2.svg";
+import authService from "../../data/authService";
 
 export default function Header() {
   const [openModal, setOpenModal] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [user, setUser] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const currentUser = authService.getCurrentUser();
+    setUser(currentUser);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +49,12 @@ export default function Header() {
     setMenuOpen(false);
   }, [location.pathname]);
 
+  const handleLogout = () => {
+    authService.logout();
+    setUser(null);
+    navigate("/");
+  };
+
   return (
     <>
       <header className={`header ${scrolled ? "header--scrolled" : ""}`}>
@@ -51,12 +66,16 @@ export default function Header() {
 
           <div className="header-right nav-desktop">
             <NavBar />
-            <button
-              className="header-contact-btn"
-              onClick={() => setOpenModal(true)}
-            >
-              Contáctanos
-            </button>
+            {user ? (
+              <UserMenu user={user} onLogout={handleLogout} />
+            ) : (
+              <button
+                className="header-contact-btn"
+                onClick={() => setOpenModal(true)}
+              >
+                Contáctanos
+              </button>
+            )}
           </div>
 
           <button
@@ -79,15 +98,24 @@ export default function Header() {
           <div className="mobile-menu__inner">
             <NavBar onItemClick={() => setMenuOpen(false)} />
 
-            <button
-              className="mobile-contact-btn"
-              onClick={() => {
-                setOpenModal(true);
-                setMenuOpen(false);
-              }}
-            >
-              Contáctanos
-            </button>
+            {user ? (
+              <UserMenu 
+                user={user} 
+                onLogout={handleLogout}
+                isMobile={true}
+                onClose={() => setMenuOpen(false)}
+              />
+            ) : (
+              <button
+                className="mobile-contact-btn"
+                onClick={() => {
+                  setOpenModal(true);
+                  setMenuOpen(false);
+                }}
+              >
+                Contáctanos
+              </button>
+            )}
           </div>
         </div>
       </header>
