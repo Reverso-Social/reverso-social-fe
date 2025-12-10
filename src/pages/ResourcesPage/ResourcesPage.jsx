@@ -7,6 +7,7 @@ import { GrWorkshop } from "react-icons/gr";
 import { GoChecklist } from "react-icons/go";
 import resourceService from "../../data/resourceService";
 import authService from "../../data/authService";
+import DownloadFormModal from "../../components/DownloadModal/DownloadModal";
 
 // Mapeo de iconos por tipo de recurso
 const resourceIcons = {
@@ -31,6 +32,8 @@ export default function ResourcesPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const isAuthenticated = authService.isAuthenticated();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedResource, setSelectedResource] = useState(null);
 
   useEffect(() => {
     const fetchResources = async () => {
@@ -55,7 +58,7 @@ export default function ResourcesPage() {
       alert("Este recurso requiere registro. Por favor, inicia sesión para acceder.");
       return;
     }
-    
+
     // Aquí iría la lógica de descarga real
     console.log("Descargando:", resource.title);
     window.open(resource.fileUrl, "_blank");
@@ -135,7 +138,12 @@ export default function ResourcesPage() {
 
                     <button
                       className="resource-btn"
-                      onClick={() => handleDownload(resource)}
+
+                      // ⬇⬇⬇ CAMBIO IMPORTANTE AQUÍ
+                      onClick={() => {
+                        setSelectedResource(resource);
+                        setShowModal(true); // abre modal
+                      }}
                     >
                       {resource.isPublic || isAuthenticated
                         ? "Descargar"
@@ -157,6 +165,17 @@ export default function ResourcesPage() {
           </div>
         </div>
       </section>
+
+      <DownloadFormModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        resource={selectedResource}
+        onSubmit={(formData) => {
+          handleDownload(selectedResource);
+          setShowModal(false);
+        }}
+      />
+
     </div>
   );
 }
