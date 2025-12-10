@@ -6,7 +6,9 @@ import HomePage from "./pages/HomePage/HomePage";
 import ResourcesPage from "./pages/ResourcesPage/ResourcesPage";
 import BlogPage from "./pages/BlogPage/BlogPage";
 import BlogDetail from "./pages/BlogDetail/BlogDetail";
+import ServiceDetails from "./pages/ServiceDetails/ServiceDetails";
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
+
 import "./styles/main.scss";
 
 function App() {
@@ -21,6 +23,7 @@ function App() {
             <Route path="/recursos" element={<ResourcesPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogDetail />} />
+            <Route path="/servicios/:id" element={<ServiceDetails />} />
             <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
         </main>

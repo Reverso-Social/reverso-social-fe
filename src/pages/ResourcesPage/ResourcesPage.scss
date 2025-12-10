@@ -1,10 +1,60 @@
 @use "../../styles/variables" as *;
 
+// Estilos existentes de ResourcesPage...
+
+.resources-loading,
+.resources-error,
+.resources-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  padding: $space-2xl $space-md;
+  text-align: center;
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba($color-primary, 0.2);
+    border-top-color: $color-primary;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: $space-lg;
+  }
+
+  p {
+    font-family: $font-heading;
+    font-size: $font-size-lg;
+    color: $color-dark;
+    margin: 0;
+  }
+}
+
+.resources-error {
+  p {
+    color: #d32f2f;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.resource-downloads {
+  font-size: $font-size-sm;
+  color: rgba($color-dark, 0.6);
+  margin-top: auto;
+  padding-top: $space-sm;
+  font-style: italic;
+}
+
 .resources-page {
   min-height: 100vh;
   background: $color-white;
 }
-
 
 .resources-hero {
   background: linear-gradient(
@@ -22,11 +72,7 @@
     left: 0;
     right: 0;
     height: 100px;
-    background: linear-gradient(
-      180deg,
-      transparent 0%,
-      $color-white 100%
-    );
+    background: linear-gradient(180deg, transparent 0%, $color-white 100%);
   }
 }
 
@@ -79,7 +125,6 @@
   line-height: 1.6;
 }
 
-
 .resources-content {
   padding: 4rem 2rem;
 }
@@ -131,7 +176,11 @@
   }
 
   &.turquesa::before {
-    background: linear-gradient(90deg, $color-primary 0%, $color-turquesa-soft 100%);
+    background: linear-gradient(
+      90deg,
+      $color-primary 0%,
+      $color-turquesa-soft 100%
+    );
   }
 
   &.lila::before {
@@ -237,7 +286,6 @@
   }
 }
 
-
 .resources-cta {
   text-align: center;
   padding: 4rem 2rem;
@@ -287,7 +335,6 @@
     }
   }
 }
-
 
 @media (max-width: 768px) {
   .resources-hero {
