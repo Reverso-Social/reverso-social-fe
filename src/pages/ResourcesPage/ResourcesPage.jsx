@@ -66,7 +66,6 @@ export default function ResourcesPage() {
 
       console.log('✅ Lead guardado:', response);
 
-      // Verifica que el recurso tenga fileUrl antes de descargar
       if (selectedResource?.fileUrl) {
         console.log('📥 Descargando archivo:', selectedResource.fileUrl);
         window.open(selectedResource.fileUrl, "_blank");
