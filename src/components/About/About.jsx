@@ -6,16 +6,9 @@ import ValoresIcon from '../../assets/Icons/Diamond.svg';
 
 const About = () => {
   const [expandedCard, setExpandedCard] = useState(null);
-  const [flippedCard, setFlippedCard] = useState(null);
 
   const handleCardClick = (cardId) => {
-    const isMobile = window.innerWidth <= 768;
-    
-    if (isMobile) {
-      setFlippedCard(flippedCard === cardId ? null : cardId);
-    } else {
-      setExpandedCard(expandedCard === cardId ? null : cardId);
-    }
+    setExpandedCard(expandedCard === cardId ? null : cardId);
   };
 
   const handleMouseEnter = (cardId) => {
@@ -76,7 +69,7 @@ const About = () => {
             <article
               className={`about-card about-card--${card.color} ${
                 expandedCard === card.id ? 'about-card--expanded' : ''
-              } ${flippedCard === card.id ? 'about-card--flipped' : ''}`}
+              }`}
               onClick={() => handleCardClick(card.id)}
               onMouseEnter={() => handleMouseEnter(card.id)}
               onMouseLeave={handleMouseLeave}
@@ -88,8 +81,8 @@ const About = () => {
               }}
               tabIndex={0}
               role="button"
-              aria-expanded={expandedCard === card.id || flippedCard === card.id}
-              aria-label={`${card.title}: ${expandedCard === card.id || flippedCard === card.id ? 'expandido' : 'colapsado'}. Presiona para ${expandedCard === card.id || flippedCard === card.id ? 'colapsar' : 'expandir'}`}
+              aria-expanded={expandedCard === card.id}
+              aria-label={`${card.title}: ${expandedCard === card.id ? 'expandido' : 'colapsado'}. Presiona para ${expandedCard === card.id ? 'colapsar' : 'expandir'}`}
             >
               <div className="about-card__inner">
                 <header className="about-card__front">
@@ -104,7 +97,7 @@ const About = () => {
                 
                 <section 
                   className="about-card__back"
-                  aria-hidden={!(expandedCard === card.id || flippedCard === card.id)}
+                  aria-hidden={expandedCard !== card.id}
                 >
                   <div className={`about-card__content about-card__content--${card.color}`}>
                     <h4 className="about-card__content-title">{card.fullTitle}</h4>

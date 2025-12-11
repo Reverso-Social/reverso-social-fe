@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye } from "lucide-react";
 import "./AdminDashboard.scss";
-import authService from "../../data/authService";
-import contactService from "../../data/contactService";
-import resourceService from "../../data/resourceService";
+import authService from "../../api/authService";
+import contactService from "../../api/contactService";
+import resourceService from "../../api/resourceService";
 import ContactDetailModal from "../../components/ContactDetailModal/ContactDetailModal";
 
 export default function AdminDashboard() {
@@ -12,19 +12,16 @@ export default function AdminDashboard() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  // Estados de contactos
   const [contacts, setContacts] = useState([]);
   const [contactsLoading, setContactsLoading] = useState(true);
   const [contactsError, setContactsError] = useState("");
   const [selectedContact, setSelectedContact] = useState(null);
   const [showContactDetail, setShowContactDetail] = useState(false);
 
-  // Estados de recursos
   const [resources, setResources] = useState([]);
   const [resourcesLoading, setResourcesLoading] = useState(true);
   const [resourcesError, setResourcesError] = useState("");
 
-  // Estados del formulario de recursos
   const [showResourceForm, setShowResourceForm] = useState(false);
   const [resourceFormMode, setResourceFormMode] = useState("create");
   const [editingResourceId, setEditingResourceId] = useState(null);
@@ -39,35 +36,27 @@ export default function AdminDashboard() {
   const [resourceFormError, setResourceFormError] = useState("");
   const [resourceFormLoading, setResourceFormLoading] = useState(false);
 
-useEffect(() => {
-  const currentUser = authService.getCurrentUser();
-  console.log('👤 Usuario actual:', currentUser);
-  console.log('🔑 Token guardado:', localStorage.getItem('reverso_token'));
-  
-  if (!currentUser) {
-    console.error('❌ No hay usuario, redirigiendo...');
-    navigate("/");
-    return;
-  }
-  setUser(currentUser);
+  useEffect(() => {
+    const currentUser = authService.getCurrentUser();
+    
+    if (!currentUser) {
+      navigate("/");
+      return;
+    }
+    setUser(currentUser);
+    
+    contactService
+      .getAll()
+      .then((data) => {
+        setContacts(data);
+      })
+      .catch((error) => {
+        setContactsError("No se pudieron cargar los contactos");
+      })
+      .finally(() => setContactsLoading(false));
 
-  console.log('📞 Iniciando carga de contactos...');
-  
-  contactService
-    .getAll()
-    .then((data) => {
-      console.log('✅ Contactos recibidos:', data);
-      setContacts(data);
-    })
-    .catch((error) => {
-      console.error('❌ Error al cargar contactos:', error);
-      console.error('❌ Response:', error.response);
-      setContactsError("No se pudieron cargar los contactos");
-    })
-    .finally(() => setContactsLoading(false));
-
-  loadResources();
-}, [navigate]);
+    loadResources();
+  }, [navigate]);
 
   const loadResources = () => {
     setResourcesLoading(true);

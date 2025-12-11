@@ -5,8 +5,8 @@ import { IoNewspaperSharp } from "react-icons/io5";
 import { FaChartBar, FaClipboard, FaPhotoVideo } from "react-icons/fa";
 import { GrWorkshop } from "react-icons/gr";
 import { GoChecklist } from "react-icons/go";
-import resourceService from "../../data/resourceService";
-import authService from "../../data/authService";
+import resourceService from "../../api/resourceService";
+import authService from "../../api/authService";
 
 // Mapeo de iconos por tipo de recurso
 const resourceIcons = {

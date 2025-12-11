@@ -5,7 +5,7 @@ import ContactModal from "../ContactModal/ContactModal";
 import NavBar from "../NavBar/NavBar";
 import UserMenu from "../UserMenu/UserMenu";
 import logo from "../../assets/logo/logo.2.svg";
-import authService from "../../data/authService";
+import authService from "../../api/authService";
 
 export default function Header() {
   const [openModal, setOpenModal] = useState(false);

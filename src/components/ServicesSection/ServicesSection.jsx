@@ -6,7 +6,6 @@ import { PiMoneyFill } from "react-icons/pi";
 import { GiGraduateCap } from "react-icons/gi";
 import { BsHouses } from "react-icons/bs";
 
-// Mapa de iconos
 const iconMap = {
   FaBalanceScale: <FaBalanceScale />,
   PiMoneyFill: <PiMoneyFill />,
@@ -16,7 +15,7 @@ const iconMap = {
 
 const ServiceSection = () => {
   return (
-    <div className="service-section">
+    <div className="service-section" id="servicios">
       <header className="about__intro">
         <h2 id="about-heading" className="about__title">
           Servicios Integrales con{" "}

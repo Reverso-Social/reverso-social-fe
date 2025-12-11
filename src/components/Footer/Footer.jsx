@@ -4,7 +4,7 @@ import "./Footer.scss";
 import logoRS from "../../assets/logo/logo.2.svg";
 import { FaLinkedin, FaInstagram, FaXTwitter } from "react-icons/fa6";
 import LoginModal from "../LoginModal/LoginModal";
-import authService from "../../data/authService";
+import authService from "../../api/authService";
 
 const Footer = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);

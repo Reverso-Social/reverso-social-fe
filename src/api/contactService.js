@@ -2,18 +2,8 @@ import axiosInstance from '../config/axios';
 
 const contactService = {
   getAll: async () => {
-    try {
-      console.log('📞 Intentando obtener contactos...');
-      console.log('🔑 Token actual:', localStorage.getItem('reverso_token'));
-      
-      const response = await axiosInstance.get('/contacts');
-      
-      console.log('✅ Contactos recibidos:', response.data);
-      return response.data;
-    } catch (error) {
-      console.error('❌ Error al obtener contactos:', error.response || error);
-      throw error;
-    }
+    const response = await axiosInstance.get('/contacts');
+    return response.data;
   },
 
   create: async (contactData) => {

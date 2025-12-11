@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { X, Mail, Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import authService from "../../data/authService";
+import authService from "../../api/authService";
 import "./LoginModal.scss";
 
 export default function LoginModal({ open, onClose }) {

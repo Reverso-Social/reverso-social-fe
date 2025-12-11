@@ -8,8 +8,6 @@
   margin-top: $space-xl;
 }
 
-/* ---------------- HEADER ---------------- */
-
 .admin-header {
   margin-bottom: $space-2xl;
   display: flex;
@@ -37,8 +35,6 @@
   }
 }
 
-/* ---------------- LOGOUT BUTTON ---------------- */
-
 .admin-logout-btn {
   border: 2px solid #d32f2f;
   background-color: $color-white;
@@ -63,8 +59,6 @@
     transform: translateY(0);
   }
 }
-
-/* ---------------- TABS ---------------- */
 
 .admin-tabs {
   display: inline-flex;
@@ -104,8 +98,6 @@
   }
 }
 
-/* ---------------- PANEL ---------------- */
-
 .admin-content {
   background-color: $color-white;
   border-radius: $radius-lg;
@@ -137,8 +129,6 @@
   margin-bottom: $space-lg;
 }
 
-/* ---------------- BUTTONS ---------------- */
-
 .admin-primary-btn {
   border: none;
   border-radius: $radius-xl;
@@ -163,8 +153,6 @@
     transform: none;
   }
 }
-
-/* ---------------- TABLE ---------------- */
 
 .admin-table-wrapper {
   width: 100%;
@@ -284,8 +272,6 @@
   }
 }
 
-/* ---------------- STATUS ---------------- */
-
 .status-pill {
   display: inline-flex;
   align-items: center;
@@ -333,8 +319,6 @@
     color: #d32f2f;
   }
 }
-
-/* ---------------- FORM ---------------- */
 
 .admin-form-wrapper {
   margin-top: $space-2xl;
@@ -458,8 +442,6 @@
     }
   }
 }
-
-/* ---------------- FORM ACTIONS ---------------- */
 
 .admin-form-actions {
   display: flex;
