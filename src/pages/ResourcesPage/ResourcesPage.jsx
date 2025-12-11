@@ -7,6 +7,8 @@ import { GrWorkshop } from "react-icons/gr";
 import { GoChecklist } from "react-icons/go";
 import resourceService from "../../api/resourceService";
 import authService from "../../api/authService";
+import DownloadFormModal from "../../components/DownloadModal/DownloadModal";
+import downloadLeadService from "../../data/downloadLeadService";
 
 // Mapeo de iconos por tipo de recurso
 const resourceIcons = {
@@ -31,6 +33,8 @@ export default function ResourcesPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const isAuthenticated = authService.isAuthenticated();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedResource, setSelectedResource] = useState(null);
 
   useEffect(() => {
     const fetchResources = async () => {
@@ -50,15 +54,42 @@ export default function ResourcesPage() {
     fetchResources();
   }, [isAuthenticated]);
 
+  const handleLeadSubmit = async (formData) => {
+    console.log('📤 Enviando lead:', formData);
+
+    try {
+      const response = await downloadLeadService.createLead({
+        name: formData.name,
+        email: formData.email,
+        resourceId: formData.resourceId
+      });
+
+      console.log('✅ Lead guardado:', response);
+
+      if (selectedResource?.fileUrl) {
+        console.log('📥 Descargando archivo:', selectedResource.fileUrl);
+        window.open(selectedResource.fileUrl, "_blank");
+      } else {
+        console.warn('⚠️ El recurso no tiene fileUrl:', selectedResource);
+        alert("Recurso guardado, pero el archivo no está disponible temporalmente.");
+      }
+
+      setShowModal(false);
+
+    } catch (error) {
+      console.error("❌ Error al guardar lead:", error.response?.data || error);
+      alert("Hubo un error al guardar tus datos. Por favor, intenta de nuevo.");
+    }
+  };
+
   const handleDownload = (resource) => {
     if (!resource.isPublic && !isAuthenticated) {
       alert("Este recurso requiere registro. Por favor, inicia sesión para acceder.");
       return;
     }
-    
-    // Aquí iría la lógica de descarga real
-    console.log("Descargando:", resource.title);
-    window.open(resource.fileUrl, "_blank");
+
+    setSelectedResource(resource);
+    setShowModal(true);
   };
 
   return (
@@ -135,7 +166,12 @@ export default function ResourcesPage() {
 
                     <button
                       className="resource-btn"
-                      onClick={() => handleDownload(resource)}
+
+
+                      onClick={() => {
+                        setSelectedResource(resource);
+                        setShowModal(true);
+                      }}
                     >
                       {resource.isPublic || isAuthenticated
                         ? "Descargar"
@@ -157,6 +193,14 @@ export default function ResourcesPage() {
           </div>
         </div>
       </section>
+
+      <DownloadFormModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        resource={selectedResource}
+        onSubmit={handleLeadSubmit}
+      />
+
     </div>
   );
 }

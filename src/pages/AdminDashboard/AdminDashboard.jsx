@@ -200,17 +200,15 @@ export default function AdminDashboard() {
 
       <nav className="admin-tabs" aria-label="Secciones">
         <button
-          className={`admin-tab ${
-            activeTab === "contactos" ? "is-active" : ""
-          }`}
+          className={`admin-tab ${activeTab === "contactos" ? "is-active" : ""
+            }`}
           onClick={() => setActiveTab("contactos")}
         >
           Consultas
         </button>
         <button
-          className={`admin-tab ${
-            activeTab === "recursos" ? "is-active" : ""
-          }`}
+          className={`admin-tab ${activeTab === "recursos" ? "is-active" : ""
+            }`}
           onClick={() => setActiveTab("recursos")}
         >
           Recursos
@@ -220,6 +218,12 @@ export default function AdminDashboard() {
           onClick={() => setActiveTab("blog")}
         >
           Blog
+        </button>
+        <button
+          className={`admin-tab ${activeTab === "leads" ? "is-active" : ""}`}
+          onClick={() => setActiveTab("leads")}
+        >
+          Descargas
         </button>
       </nav>
 
@@ -386,11 +390,10 @@ export default function AdminDashboard() {
                             <td>{resource.type}</td>
                             <td>
                               <span
-                                className={`status-pill ${
-                                  resource.isPublic
-                                    ? "status-pill--public"
-                                    : "status-pill--private"
-                                }`}
+                                className={`status-pill ${resource.isPublic
+                                  ? "status-pill--public"
+                                  : "status-pill--private"
+                                  }`}
                               >
                                 {resource.isPublic
                                   ? "Público"
@@ -513,11 +516,10 @@ export default function AdminDashboard() {
                       />
                       <div className="admin-form-helper-row">
                         <span
-                          className={`admin-form-helper-count ${
-                            descriptionWordCount > 50
-                              ? "admin-form-helper-count--error"
-                              : ""
-                          }`}
+                          className={`admin-form-helper-count ${descriptionWordCount > 50
+                            ? "admin-form-helper-count--error"
+                            : ""
+                            }`}
                         >
                           {descriptionWordCount}/50 palabras
                         </span>
@@ -672,8 +674,8 @@ export default function AdminDashboard() {
                       {resourceFormLoading
                         ? "Guardando..."
                         : resourceFormMode === "create"
-                        ? "Crear Recurso"
-                        : "Guardar Cambios"}
+                          ? "Crear Recurso"
+                          : "Guardar Cambios"}
                     </button>
                   </div>
                 </form>
@@ -734,11 +736,10 @@ export default function AdminDashboard() {
                           <td>{blog.category}</td>
                           <td>
                             <span
-                              className={`status-pill ${
-                                blog.status === "PUBLISHED"
-                                  ? "status-pill--public"
-                                  : "status-pill--private"
-                              }`}
+                              className={`status-pill ${blog.status === "PUBLISHED"
+                                ? "status-pill--public"
+                                : "status-pill--private"
+                                }`}
                             >
                               {blog.status === "PUBLISHED"
                                 ? "Publicado"
@@ -748,8 +749,8 @@ export default function AdminDashboard() {
                           <td>
                             {blog.createdAt
                               ? new Date(
-                                  blog.createdAt
-                                ).toLocaleDateString()
+                                blog.createdAt
+                              ).toLocaleDateString()
                               : "-"}
                           </td>
                           <td className="admin-table-actions">
@@ -950,6 +951,31 @@ export default function AdminDashboard() {
                 </form>
               </div>
             )}
+          </div>
+        )}
+
+        {activeTab === "leads" && (
+          <div className="admin-panel">
+            <div className="admin-panel-header">
+              <h2>Contactos de Descarga</h2>
+            </div>
+
+            <div className="admin-table-wrapper">
+              <table className="admin-table">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Recurso</th>
+                    <th>Fecha</th>
+                    <th className="admin-table-actions-col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* Mapear leads aquí */}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </section>
