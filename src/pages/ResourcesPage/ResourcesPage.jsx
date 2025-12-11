@@ -8,6 +8,7 @@ import { GoChecklist } from "react-icons/go";
 import resourceService from "../../data/resourceService";
 import authService from "../../data/authService";
 import DownloadFormModal from "../../components/DownloadModal/DownloadModal";
+import downloadLeadService from "../../data/downloadLeadService";
 
 // Mapeo de iconos por tipo de recurso
 const resourceIcons = {
@@ -53,15 +54,43 @@ export default function ResourcesPage() {
     fetchResources();
   }, [isAuthenticated]);
 
+  const handleLeadSubmit = async (formData) => {
+    console.log('📤 Enviando lead:', formData);
+
+    try {
+      const response = await downloadLeadService.createLead({
+        name: formData.name,
+        email: formData.email,
+        resourceId: formData.resourceId
+      });
+
+      console.log('✅ Lead guardado:', response);
+
+      // Verifica que el recurso tenga fileUrl antes de descargar
+      if (selectedResource?.fileUrl) {
+        console.log('📥 Descargando archivo:', selectedResource.fileUrl);
+        window.open(selectedResource.fileUrl, "_blank");
+      } else {
+        console.warn('⚠️ El recurso no tiene fileUrl:', selectedResource);
+        alert("Recurso guardado, pero el archivo no está disponible temporalmente.");
+      }
+
+      setShowModal(false);
+
+    } catch (error) {
+      console.error("❌ Error al guardar lead:", error.response?.data || error);
+      alert("Hubo un error al guardar tus datos. Por favor, intenta de nuevo.");
+    }
+  };
+
   const handleDownload = (resource) => {
     if (!resource.isPublic && !isAuthenticated) {
       alert("Este recurso requiere registro. Por favor, inicia sesión para acceder.");
       return;
     }
 
-    // Aquí iría la lógica de descarga real
-    console.log("Descargando:", resource.title);
-    window.open(resource.fileUrl, "_blank");
+    setSelectedResource(resource);
+    setShowModal(true);
   };
 
   return (
@@ -139,10 +168,10 @@ export default function ResourcesPage() {
                     <button
                       className="resource-btn"
 
-                      // ⬇⬇⬇ CAMBIO IMPORTANTE AQUÍ
+
                       onClick={() => {
                         setSelectedResource(resource);
-                        setShowModal(true); // abre modal
+                        setShowModal(true);
                       }}
                     >
                       {resource.isPublic || isAuthenticated
@@ -170,10 +199,7 @@ export default function ResourcesPage() {
         open={showModal}
         onClose={() => setShowModal(false)}
         resource={selectedResource}
-        onSubmit={(formData) => {
-          handleDownload(selectedResource);
-          setShowModal(false);
-        }}
+        onSubmit={handleLeadSubmit}
       />
 
     </div>
