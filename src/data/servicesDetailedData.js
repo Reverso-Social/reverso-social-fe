@@ -1,35 +1,35 @@
 export const servicesDetailedData = {
   1: {
     id: 1,
-    title: "Planes de Igualdad",
-    category: "Consultoría de Género",
+    title: "Consultoría de Género",
+    category: "Planes de Igualdad", // esto he puesto yo 
     iconName: "FaBalanceScale",
-    shortDescription: "Elaboración de Planes de Igualdad cumpliendo con el RD 901/2020 y 902/2020, desde el diagnóstico hasta el seguimiento.",
+    // shortDescription: "Elaboración de Planes de Igualdad cumpliendo con el RD 901/2020 y 902/2020, desde el diagnóstico hasta el seguimiento.",
     fullDescription: "Realizamos Planes de igualdad cumpliendo con el marco normativo establecido por el Real Decreto 901/2020 y 902/2020.",
     features: [
       {
         title: "Auditoría previa de diagnóstico de situación",
-        description: "Análisis exhaustivo de la situación actual de la empresa en materia de igualdad"
+        description: " "
       },
       {
-        title: "Diseño de medidas adaptadas",
-        description: "Medidas personalizadas según la realidad específica de la empresa"
+        title: "Diseño de medidas adaptadas a la realidad de la empresa",
+        description: " "
       },
       {
-        title: "Negociación y apoyo",
-        description: "Negociación con la representación legal de las personas trabajadoras y apoyo en los procesos negociadores"
+        title: "Negociación con la representación legal de las personas trabajadoras y apoyo en los procesos negociadores.",
+        description: ""
       },
       {
         title: "Redacción del Plan de Igualdad",
-        description: "Documento completo y conforme a normativa"
+        description: ""
       },
       {
         title: "Registro en REGCON",
-        description: "Gestión del registro oficial del plan"
+        description: ""
       },
       {
-        title: "Formación especializada",
-        description: "Formación para la Comisión Paritaria de Negociación y a la plantilla"
+        title: "Formación para la Comisión Paritaria de Negociación y a la plantilla",
+        description: ""
       },
       {
         title: "Seguimiento y evaluación anual",
@@ -38,28 +38,28 @@ export const servicesDetailedData = {
     ],
     additionalServices: [
       {
-        title: "Investigación",
-        description: "Estudios de género así como de impacto social con perspectiva de género"
+        title: "Investigación: Estudios de género así como de impacto social con perspectiva de género",
+        description: ""
       },
       {
-        title: "Sistemas predictivos IA",
-        description: "I+D en sistemas predictivos a través de la IA en materia de Violencia de género"
+        title: "Sistemas predictivos IA en materia de Violencia de género: I+D",
+        // description: "I+D en sistemas predictivos a través de la IA en materia de Violencia de género"
       },
       {
         title: "Informes con impacto de género",
-        description: "Análisis y evaluación con perspectiva de género"
+        // description: "Análisis y evaluación con perspectiva de género"
       },
       {
-        title: "Estudios sobre brechas de género",
-        description: "Investigación y análisis de desigualdades"
+        title: "Informes y estudios sobre brechas de género",
+        // description: "Investigación y análisis de desigualdades"
       },
       {
-        title: "Organización de eventos",
-        description: "Jornadas, Seminarios, encuentros, desayunos y cualquier otra actividad enmarcada"
+        title: "Organización de Jornadas, Seminarios, encuentros, desayunos y cualquier otra actividad enmarcada.",
+        // description: "Jornadas, Seminarios, encuentros, desayunos y cualquier otra actividad enmarcada"
       },
       {
-        title: "RSC con Perspectiva de Género",
-        description: "Integración de la igualdad en políticas de Responsabilidad Social Corporativa"
+        title: "Integración de la igualdad en políticas de RSC. Asesoramiento en RSC con Perspectiva de Género",
+        // description: "Integración de la igualdad en políticas de Responsabilidad Social Corporativa"
       }
     ]
   },

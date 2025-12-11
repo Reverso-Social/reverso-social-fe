@@ -6,30 +6,30 @@ export const servicesData = [
     services: [
       {
         id: 1,
-        title: "Planes de Igualdad",
-        shortDescription: "Elaboración de Planes de Igualdad cumpliendo con el RD 901/2020 y 902/2020, desde el diagnóstico hasta el seguimiento.",
+        title: "Consultoría en Igualdad",//a)
+        shortDescription: "Realizamos Planes de igualdad cumpliendo con el marco normativo establecido por el Real Decreto 901/2020 y 902/2020.",
       },
       {
         id: 2,
-        title: "Igualdad Retributiva",
-        shortDescription: "Auditorías retributivas, registros salariales y corrección de brechas salariales con perspectiva de género.",
+        title: "Igualdad Retributiva",//b)
+        shortDescription: "Realizamos informes de Auditoría Retributiva cumpliendo con el marco normativo establecido por el Real Decreto 902/2020.",
       }
     ]
   },
   {
     id: 2,
-    category: "Protocolos de Actuación",
+    category: "Acoso Sexual y por Razón de Sexo",
     iconName: "PiMoneyFill",
     services: [
       {
         id: 3,
-        title: "Protocolo Acoso Sexual",
-        shortDescription: "Protocolos contra el acoso sexual y por razón de sexo con formación especializada y servicio técnico.",
+        title: "Acoso Sexual y por Razón de Sexo",//c)
+        shortDescription: "Realizamos Protocolos contra el Acoso Sexual y por razón de sexo cumpliendo con la normativa actualmente vigente",
       },
       {
         id: 4,
-        title: "Protocolos LGTBI+",
-        shortDescription: "Planes y protocolos LGTBI+ según Ley 4/2023, con diagnóstico y medidas de inclusión y no discriminación.",
+        title: "Protocolos LGTBI+", //d)
+        shortDescription: "Realizamos Protocolos y Planes LGTBI+ de acuerdo con la Ley 4/2023 y en línea con los principios de inclusión y no discriminación.",
       }
     ]
   },
@@ -40,13 +40,13 @@ export const servicesData = [
     services: [
       {
         id: 5,
-        title: "Formación en Igualdad",
-        shortDescription: "Capacitaciones personalizadas en igualdad, diversidad, lenguaje inclusivo y liderazgo con perspectiva de género.",
+        title: "Formación", //e)
+        shortDescription: "Realizamos todo tipo de formación relacionada con la materia que nos ocupa ajustándonos al 100 x 100 a las necesidades de su entidad.",
       },
       {
         id: 6,
-        title: "Formación Protocolos",
-        shortDescription: "Formación especializada en protocolos de prevención y actuación frente al acoso y LGTBIfobia.",
+        title: "Gestión proyectos sociales", //f)
+        shortDescription: "Desarrollamos, gestionamos y evaluamos proyectos sociales y comunitarios dirigidos a administración pública y colaboraciones institucionales con perspectiva de género inclusiva.",
       }
     ]
   },
@@ -57,13 +57,13 @@ export const servicesData = [
     services: [
       {
         id: 7,
-        title: "Gestión de Proyectos Sociales",
-        shortDescription: "Desarrollo y gestión de proyectos sociales con perspectiva de género para administración pública y colectivos vulnerables.",
+        title: "Pacto Estado Violencia de Género",//g)
+        shortDescription: "Ayudamos a su entidad a gestionar y desarrollar proyectos dentro de los Fondos del Pacto de Estado contra la Violencia de Género de nuestro país.",
       },
       {
         id: 8,
-        title: "Pacto Estado Violencia de Género",
-        shortDescription: "Gestión de proyectos del Pacto de Estado: campañas de sensibilización, coeducación y protocolos de coordinación.",
+        title: "Contáctanos para saber más sobre nuestros Servicios", 
+        shortDescription: "",
       }
     ]
   }
