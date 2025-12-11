@@ -45,8 +45,8 @@ export const servicesData = [
       },
       {
         id: 6,
-        title: "Gestión proyectos sociales", //f)
-        shortDescription: "Desarrollamos, gestionamos y evaluamos proyectos sociales y comunitarios dirigidos a administración pública y colaboraciones institucionales con perspectiva de género inclusiva.",
+        title: "Pacto Estado Violencia de Género", //f)
+        shortDescription: "Ayudamos a su entidad a gestionar y desarrollar proyectos dentro de los Fondos del Pacto de Estado contra la Violencia de Género de nuestro país..",
       }
     ]
   },
@@ -57,8 +57,8 @@ export const servicesData = [
     services: [
       {
         id: 7,
-        title: "Pacto Estado Violencia de Género",//g)
-        shortDescription: "Ayudamos a su entidad a gestionar y desarrollar proyectos dentro de los Fondos del Pacto de Estado contra la Violencia de Género de nuestro país.",
+        title: " Gestión proyectos sociales",//g)
+        shortDescription: "Desarrollamos, gestionamos y evaluamos proyectos sociales y comunitarios dirigidos a administración pública y colaboraciones institucionales con perspectiva de género inclusiva.",
       },
       {
         id: 8,

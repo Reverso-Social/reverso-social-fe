@@ -1,7 +1,7 @@
 export const servicesDetailedData = {
   1: {
     id: 1,
-    title: "Consultoría de Género",
+    title: "Consultoría en Igualdad",
     category: "Planes de Igualdad", // esto he puesto yo 
     iconName: "FaBalanceScale",
     // shortDescription: "Elaboración de Planes de Igualdad cumpliendo con el RD 901/2020 y 902/2020, desde el diagnóstico hasta el seguimiento.",
@@ -74,55 +74,55 @@ export const servicesDetailedData = {
     features: [
       {
         title: "Elaboración de registros retributivos",
-        description: "Documentación completa y conforme a normativa sobre retribuciones"
+        // description: "Documentación completa y conforme a normativa sobre retribuciones"
       },
       {
         title: "Auditoría salarial con perspectiva de género",
-        description: "Análisis exhaustivo de la estructura salarial detectando posibles brechas"
+        // description: "Análisis exhaustivo de la estructura salarial detectando posibles brechas"
       },
       {
         title: "Diseño de sistemas de clasificación profesional igualitarios",
-        description: "Creación de estructuras de clasificación que garanticen la igualdad"
+        // description: "Creación de estructuras de clasificación que garanticen la igualdad"
       },
       {
         title: "Acompañamiento para corregir brechas salariales",
-        description: "Asesoramiento y seguimiento en la implementación de medidas correctoras"
+        // description: "Asesoramiento y seguimiento en la implementación de medidas correctoras"
       }
     ]
   },
 
   3: {
     id: 3,
-    title: "Protocolo Acoso Sexual",
+    title: "Acoso Sexual y por Razón de Sexo",
     category: "Protocolos de Actuación",
     iconName: "PiMoneyFill",
     shortDescription: "Protocolos contra el acoso sexual y por razón de sexo con formación especializada y servicio técnico.",
     fullDescription: "Realizamos Protocolos contra el Acoso Sexual y por razón de sexo cumpliendo con la normativa actualmente vigente.",
     features: [
       {
-        title: "Redacción del protocolo",
-        description: "Elaboración del documento completo adaptado a la empresa"
+        title: "Redacción, negociación y seguimiento del protocolo",
+        // description: "Elaboración del documento completo adaptado a la empresa"
       },
       {
-        title: "Negociación",
-        description: "Proceso negociador con todas las partes implicadas"
+        title: "Formación a la Comisión designada por la empresa de Prevención e Intervención en caso de acoso sexual y/o por razón de sexo",
+        // description: "Proceso negociador con todas las partes implicadas"
       },
       {
-        title: "Seguimiento",
-        description: "Monitorización continua de la implementación del protocolo"
+        title: "Provisión en caso necesario de Servicio Técnico de Técnica de Igualdad especializada en Violencias Machistas y Sexuales, así como de Psicóloga especializada en Violencia de Género",
+        // description: "Monitorización continua de la implementación del protocolo"
       },
-      {
-        title: "Formación a la Comisión",
-        description: "Capacitación especializada a la Comisión de Prevención e Intervención en casos de acoso sexual y/o por razón de sexo"
-      },
-      {
-        title: "Servicio Técnico Especializado",
-        description: "Provisión de Técnica de Igualdad especializada en Violencias Machistas y Sexuales"
-      },
-      {
-        title: "Apoyo Psicológico",
-        description: "Servicio de Psicóloga especializada en Violencia de Género cuando sea necesario"
-      }
+      // {
+      //   title: "Formación a la Comisión",
+      //   description: "Capacitación especializada a la Comisión de Prevención e Intervención en casos de acoso sexual y/o por razón de sexo"
+      // },
+      // {
+      //   title: "Servicio Técnico Especializado",
+      //   description: "Provisión de Técnica de Igualdad especializada en Violencias Machistas y Sexuales"
+      // },
+      // {
+      //   title: "Apoyo Psicológico",
+      //   description: "Servicio de Psicóloga especializada en Violencia de Género cuando sea necesario"
+      // }
     ]
   },
 
@@ -136,128 +136,134 @@ export const servicesDetailedData = {
     legalNote: "📍 Obligatorio para empresas de más de 50 personas trabajadoras según Ley 4/2023, art. 15.",
     features: [
       {
-        title: "Diagnóstico de situación",
-        description: "Informe de diversidad completo de la organización"
+        title: "Diagnóstico de situación (informe de diversidad)",
+        // description: "Informe de diversidad completo de la organización"
       },
       {
-        title: "Evaluación de políticas existentes",
-        description: "Análisis de protocolos y políticas actuales de la empresa"
+        title: "Evaluación de políticas y protocolos existentes",
+        // description: "Análisis de protocolos y políticas actuales de la empresa"
       },
       {
         title: "Diseño de medidas y objetivos específicos",
-        description: "Plan personalizado con medidas concretas y alcanzables"
+        // description: "Plan personalizado con medidas concretas y alcanzables"
       },
       {
-        title: "Protocolos de prevención",
-        description: "Medidas preventivas frente a la LGTBIfobia"
+        title: "Protocolos de prevención y actuación frente a la LGTBIfobia",
+        // description: "Medidas preventivas frente a la LGTBIfobia"
       },
       {
-        title: "Protocolos de actuación",
-        description: "Procedimientos claros de intervención ante situaciones de discriminación"
+        title: "Registro y comunicación interna del protocolo.",
+        // description: "Procedimientos claros de intervención ante situaciones de discriminación"
       },
       {
-        title: "Registro y comunicación interna",
-        description: "Formalización y difusión del protocolo en la organización"
+        title: "Formación especializada  para plantilla y dirección.",
+        // description: "Formalización y difusión del protocolo en la organización"
       },
-      {
-        title: "Formación especializada",
-        description: "Capacitación tanto para plantilla como para dirección"
-      }
+      // {
+      //   title: "Formación especializada",
+      //   description: "Capacitación tanto para plantilla como para dirección"
+      // }
     ]
   },
 
   5: {
     id: 5,
-    title: "Formación en Igualdad",
+    title: "Formación ",
     category: "Formación Especializada",
     iconName: "GiGraduateCap",
     shortDescription: "Capacitaciones personalizadas en igualdad, diversidad, lenguaje inclusivo y liderazgo con perspectiva de género.",
-    fullDescription: "Realizamos todo tipo de formación relacionada con la materia que nos ocupa ajustándonos al 100% a las necesidades de su entidad.",
+    fullDescription: "Realizamos todo tipo de formación relacionada con la materia que nos ocupa ajustándonos al 100 x 100 a las necesidades de su entidad.",
     topics: [
       {
-        title: "Formación en materia de igualdad",
-        description: "Planes de igualdad y normativa actualizada"
+        title: "Formación en materia de igualdad, planes de igualdad y normativa actualizada en la materia.",
+        // description: "Planes de igualdad y normativa actualizada"
       },
       {
-        title: "Protocolo de prevención y actuación",
-        description: "Empresarial frente al acoso sexual y/o por razón de sexo"
+        title: "Protocolo de prevención y actuación empresarial frente al acoso sexual y/o por razón de sexo",
+        // description: "Empresarial frente al acoso sexual y/o por razón de sexo"
       },
       {
-        title: "Conciliación y corresponsabilidad",
-        description: "Más allá de la teoría, aplicación práctica"
+        title: "Conciliación y corresponsabilidad: más allá de la teoría",
+        // description: "Más allá de la teoría, aplicación práctica"
       },
       {
-        title: "Lenguaje y Comunicación Inclusiva",
-        description: "En el entorno empresarial"
+        title: "Lenguaje y Comunicación Inclusiva en la empresa",
+        // description: "En el entorno empresarial"
       },
       {
-        title: "Liderazgo Eficaz",
-        description: "De Equipos de trabajo con Perspectiva de Género"
+        title: "Liderazgo Eficaz de Equipos de trabajo con Perspectiva de Género",
+        // description: "De Equipos de trabajo con Perspectiva de Género"
       },
       {
-        title: "Resolución de conflictos",
-        description: "Organizacionales y toma de decisiones con perspectiva de género"
+        title: "Resolución de conflictos organizacionales y toma de decisiones con perspectiva de género",
+        // description: "Organizacionales y toma de decisiones con perspectiva de género"
       },
       {
-        title: "IA con perspectiva de género",
-        description: "En entornos laborales"
-      }
+        title: "Diversidad Sexual y de Género – LGTBI en el entorno laboral. Planes y protocolos LGTBI",
+        // description: "En entornos laborales"
+      },
+      {
+        title: "IA con perspectiva de género en entornos laborales.",
+      },
+      {
+        title: "Cualquier otra formación que la empresa necesite en las materias que nos ocupan.",
+      },
     ],
     characteristics: [
       {
-        title: "Capacitaciones adaptadas por niveles",
-        description: "Dirección/cargos políticos/cuadros sindicales, mandos superiores, mandos intermedios, personal técnico, resto de plantilla"
+        title: "Capacitaciones totalmente adaptadas",
+        description: "Por niveles (dirección/cargos políticos/cuadros sindicales, mandos superiores, mandos intermedios, personal técnico, resto de plantilla). "
       },
       {
         title: "Diseño personalizado",
-        description: "Según el tamaño, sector y cultura empresarial, tanto en modalidad, duración, metodología, etc."
+        description: "De la formación según el tamaño, sector y cultura empresarial, tanto en modalidad, duración, metodología, etc."
       },
       {
-        title: "Múltiples modalidades",
-        description: "Formaciones presenciales, online, virtuales y/o híbridas"
+        title: "Formaciones presenciales, online, virtuales y/o híbridas",
+        description: "Utilizando la pedagogía activa como motor educativo."
       },
-      {
-        title: "Pedagogía activa",
-        description: "Utilizamos la pedagogía activa como motor educativo"
-      }
+      // {
+      //   title: "Pedagogía activa",
+      //   description: "Utilizamos la pedagogía activa como motor educativo"
+      // }
     ]
   },
 
   6: {
     id: 6,
-    title: "Formación en Protocolos",
+    title: "Pacto estado Violencia de Género",
     category: "Formación Especializada",
     iconName: "GiGraduateCap",
-    shortDescription: "Formación especializada en protocolos de prevención y actuación frente al acoso y LGTBIfobia.",
-    fullDescription: "Formación especializada para la correcta implementación y gestión de protocolos en la organización.",
+    shortDescription: "",
+    fullDescription: "Ayudamos a su entidad a gestionar y desarrollar proyectos dentro de los Fondos del Pacto de Estado contra la Violencia de Género de nuestro país.",
     topics: [
       {
-        title: "Diversidad Sexual y de Género",
-        description: "LGTBI en el entorno laboral. Planes y protocolos LGTBI"
+        title: "Campañas Publicitarias de Sensibilización y Concienciación",
+        // description: "LGTBI en el entorno laboral. Planes y protocolos LGTBI"
       },
       {
-        title: "Protocolos de Acoso",
-        description: "Prevención y actuación frente al acoso sexual y por razón de sexo"
+        title: "Coeducación: Actividades socioeducativas de sensibilización y concienciación de las Violencias Machistas, el acoso sexual, por razón de sexo, intercultural y/o LGTBI.",
+        // description: "Prevención y actuación frente al acoso sexual y por razón de sexo"
       },
       {
-        title: "Formación para Comisiones",
-        description: "Capacitación específica para miembros de comisiones de igualdad y protocolos"
+        title: "Talleres y formación especializada para para colectivos como para profesionales.",
+        // description: "Capacitación específica para miembros de comisiones de igualdad y protocolos"
       }
     ],
-    characteristics: [
-      {
-        title: "Formación ajustada 100%",
-        description: "A las necesidades específicas de cada entidad"
-      },
-      {
-        title: "Múltiples modalidades",
-        description: "Presencial, online, virtual o híbrida"
-      },
-      {
-        title: "Pedagogía activa",
-        description: "Metodología participativa y práctica"
-      }
-    ]
+    // characteristics: [
+    //   {
+    //     title: "Formación ajustada 100%",
+    //     description: "A las necesidades específicas de cada entidad"
+    //   },
+    //   {
+    //     title: "Múltiples modalidades",
+    //     description: "Presencial, online, virtual o híbrida"
+    //   },
+    //   {
+    //     title: "Pedagogía activa",
+    //     description: "Metodología participativa y práctica"
+    //   }
+    // ]
   },
 
   7: {
@@ -266,31 +272,31 @@ export const servicesDetailedData = {
     category: "Proyectos Sociocomunitarios",
     iconName: "BsHouses",
     shortDescription: "Desarrollo y gestión de proyectos sociales con perspectiva de género para administración pública y colectivos vulnerables.",
-    fullDescription: "Desarrollamos, gestionamos y evaluamos proyectos sociales y comunitarios dirigidos a administración pública y colaboraciones institucionales con perspectiva de género inclusiva.",
+    fullDescription: "Desarrollamos, gestionamos y evaluamos proyectos sociales y comunitarios dirigidos a administración pública y colaboraciones institucionales con perspectiva de género inclusiva:",
     projectAreas: [
       {
-        title: "Soledad no deseada",
-        description: "Proyectos dirigidos a población mayor y otros colectivos vulnerables"
+        title: "Proyectos en el marco de la soledad no deseada, distintos colectivos (población mayor, otros colectivos vulnerables).",
+        // description: "Proyectos dirigidos a población mayor y otros colectivos vulnerables"
       },
       {
-        title: "Procesos sociocomunitarios inclusivos",
-        description: "Intervención con colectivos en situación de vulnerabilidad social"
+        title: "Procesos sociocomunitarios inclusivos de colectivos en situación de vulnerabilidad social",
+        // description: "Intervención con colectivos en situación de vulnerabilidad social"
       },
       {
-        title: "Intervención con mujeres",
-        description: "Empoderamiento Femenino e Inserción Sociolaboral"
+        title: "Intervención con mujeres: Empoderamiento Femenino, Inserción Sociolaboral",
+        // description: "Empoderamiento Femenino e Inserción Sociolaboral"
       },
       {
-        title: "Lucha contra el acoso escolar",
-        description: "Por razón de diversidad afectivo-sexual, intercultural, funcional o cualesquiera. Combatir el odio a la juventud diversa desde la prevención"
+        title: "Lucha contra el acoso escolar por razón de diversidad afectivo-sexual, intercultural, funcional o cualesquiera. Combatir el odio a la juventud diversa desde la prevención.",
+        // description: "Por razón de diversidad afectivo-sexual, intercultural, funcional o cualesquiera. Combatir el odio a la juventud diversa desde la prevención"
       },
-      {
+       {
         title: "Salud con perspectiva de género",
-        description: "Proyectos de salud integral con enfoque de género"
-      },
+        // description: "Proyectos de salud integral con enfoque de género"
+       },
       {
-        title: "IA con perspectiva de género",
-        description: "Impacto en la juventud y formación en nuevas tecnologías"
+       title: "IA con perspectiva de género e impacto en la juventud.",
+      //  description: "Impacto en la juventud y formación en nuevas tecnologías"
       }
     ]
   },
