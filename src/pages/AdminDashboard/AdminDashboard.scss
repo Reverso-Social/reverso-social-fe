@@ -140,6 +140,9 @@
   color: $color-white;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     transform: translateY(-1px);
@@ -307,6 +310,8 @@
   }
 }
 
+
+
 .admin-status {
   font-family: $font-heading;
   font-size: $font-size-sm;
@@ -364,6 +369,8 @@
     color: $color-dark;
   }
 }
+
+
 
 .admin-form {
   display: flex;
@@ -461,12 +468,116 @@
   font-weight: 600;
   transition: all 0.2s ease;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: rgba($color-silver-light, 0.3);
   }
 
   &:disabled {
     cursor: not-allowed;
     opacity: 0.6;
+  }
+}
+
+/* RESPONSIVE */
+
+// @media (max-width: 768px) {
+//   .admin-dashboard {
+//     padding: $space-xl $space-sm $space-xl;
+//   }
+
+//   .admin-content {
+//     padding: $space-lg $space-md;
+//   }
+
+//   .admin-table th,
+//   .admin-table td {
+//     padding: $space-sm $space-xs;
+//   }
+
+//   /* 🚀 Botones de subir archivo/imagen más pequeños en mobile */
+//   .admin-file-upload__button {
+//     padding: $space-xs $space-sm;   // más pequeño
+//     font-size: 1rem;       // texto más pequeño
+//     border-radius: 2rem;    // más compacto
+//   }
+// }
+
+// @media (min-width: 1440px) {
+//   .admin-dashboard {
+//     max-width: 1400px;
+//     padding: $space-2xl $space-xl $space-2xl;
+//   }
+
+//   .admin-content {
+//     padding: $space-2xl;
+//   }
+
+//   .admin-table th,
+//   .admin-table td {
+//     padding: $space-md $space-md;
+//   }
+// }
+
+@media (max-width: 768px) {
+  .admin-dashboard {
+    padding: 2rem 1rem 2rem;
+  }
+
+  .admin-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .admin-file-upload__button {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.85rem;
+    border-radius: 1rem;
+  }
+
+  
+  .admin-primary-btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    border-radius: 1rem;
+    align-self: center;
+    width: auto;
+    min-width: 140px;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .admin-panel-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .admin-panel-header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .admin-dashboard {
+    max-width: 1400px;
+    padding: 3rem 2rem 3rem;
+  }
+
+  .admin-content {
+    padding: 3rem;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 1rem 1rem;
   }
 }
