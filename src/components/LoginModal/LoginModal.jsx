@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { X, Mail, Lock } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import authService from "../../api/authService";
 import "./LoginModal.scss";
 
@@ -9,7 +8,6 @@ export default function LoginModal({ open, onClose }) {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState({ type: "", message: "" });
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   if (!open) return null;
 
@@ -35,20 +33,14 @@ export default function LoginModal({ open, onClose }) {
     setStatus({ type: "", message: "" });
 
     try {
-      console.log("Intentando login con:", formData.email);
-      const response = await authService.login(formData.email, formData.password);
-      console.log("Login exitoso:", response);
+      await authService.login(formData.email, formData.password);
       
       setStatus({ type: "success", message: "¡Bienvenida!" });
       
       setTimeout(() => {
-        onClose();
-        navigate("/admin");
+        onClose(true);
       }, 800);
     } catch (error) {
-      console.error("Error en login:", error);
-      console.error("Response completa:", error.response);
-      
       const message = error.response?.data?.error || 
                      error.response?.data?.message ||
                      "Error al iniciar sesión. Verifica tus credenciales.";
@@ -61,14 +53,14 @@ export default function LoginModal({ open, onClose }) {
 
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains("login-modal__overlay")) {
-      onClose();
+      onClose(false);
     }
   };
 
   return (
     <div className="login-modal__overlay" onClick={handleOverlayClick}>
       <div className="login-modal__container">
-        <button className="login-modal__close" onClick={onClose} aria-label="Cerrar">
+        <button className="login-modal__close" onClick={() => onClose(false)} aria-label="Cerrar">
           <X size={22} />
         </button>
 

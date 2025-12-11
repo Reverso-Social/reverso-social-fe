@@ -1,5 +1,5 @@
 ﻿import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Footer.scss";
 import logoRS from "../../assets/logo/logo.2.svg";
 import { FaLinkedin, FaInstagram, FaXTwitter } from "react-icons/fa6";
@@ -10,6 +10,7 @@ const Footer = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkAuth = () => {
@@ -20,11 +21,16 @@ const Footer = () => {
     checkAuth();
   }, [location.pathname]);
 
-  const handleModalClose = () => {
+  const handleModalClose = (loginSuccess = false) => {
     setOpenLoginModal(false);
-    setTimeout(() => {
-      setIsAuthenticated(authService.isAuthenticated());
-    }, 100);
+    
+    if (loginSuccess) {
+      navigate("/admin");
+    } else {
+      setTimeout(() => {
+        setIsAuthenticated(authService.isAuthenticated());
+      }, 100);
+    }
   };
 
   return (
@@ -116,11 +122,7 @@ const Footer = () => {
             <Link to="#aviso-legal">Aviso Legal</Link>
             <span className="footer__separator">|</span>
             
-            {isAuthenticated ? (
-              <Link to="/admin" className="footer__dashboard-link">
-                Dashboard
-              </Link>
-            ) : (
+            {!isAuthenticated && (
               <button onClick={() => setOpenLoginModal(true)} className="footer__intranet-btn">
                 Intranet
               </button>

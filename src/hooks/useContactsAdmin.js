@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import contactService from "../data/contactService";
+import contactService from "../api/contactService";
 
 export default function useContactsAdmin() {
   const [contacts, setContacts] = useState([]);
