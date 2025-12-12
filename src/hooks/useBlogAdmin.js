@@ -1,4 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
+import blogApi from "../api/blogApi";
+
+export const BLOG_STATUS = ["DRAFT", "PUBLISHED", "ARCHIVED"];
 
 const BLOG_PAGE_SIZE = 6;
 
@@ -10,17 +13,32 @@ export default function useBlogAdmin() {
   const [showBlogForm, setShowBlogForm] = useState(false);
   const [blogFormMode, setBlogFormMode] = useState("create");
   const [editingBlogId, setEditingBlogId] = useState(null);
+
   const [blogForm, setBlogForm] = useState({
     title: "",
     subtitle: "",
     content: "",
     category: "",
     status: "PUBLISHED",
-    imageUrl: "",
-  });
+    imageUrl: "",  
+    });
+
   const [blogFormErrors, setBlogFormErrors] = useState({});
-  const [blogFormLoading] = useState(false);
+  const [blogFormLoading, setBlogFormLoading] = useState(false);
   const [blogLocalImage, setBlogLocalImage] = useState(null);
+
+  const loadBlogs = async () => {
+    try {
+      const data = await blogApi.getAll();
+      setBlogs(data);
+    } catch (error) {
+      console.error("Error loading blogs:", error);
+    }
+  };
+
+  useEffect(() => {
+    loadBlogs();
+  }, []);
 
   useEffect(() => {
     setBlogPage(1);
@@ -49,14 +67,18 @@ export default function useBlogAdmin() {
   const handleOpenBlogFormEdit = (blog) => {
     setBlogFormMode("edit");
     setEditingBlogId(blog.id);
+
     setBlogForm({
       title: blog.title || "",
       subtitle: blog.subtitle || "",
       content: blog.content || "",
       category: blog.category || "",
+
       status: blog.status || "PUBLISHED",
-      imageUrl: blog.imageUrl || "",
+
+      imageUrl: blog.coverImageUrl || blog.imageUrl || "",
     });
+
     setBlogFormErrors({});
     setBlogLocalImage(null);
     setShowBlogForm(true);
@@ -99,12 +121,14 @@ export default function useBlogAdmin() {
     }
     if (!blogForm.status) {
       errors.status = "Selecciona un estado.";
+    } else if (!BLOG_STATUS.includes(blogForm.status)) {
+
+      errors.status = "Estado inválido.";
     }
 
     return errors;
   };
-
-  const handleBlogSubmit = (e) => {
+  const handleBlogSubmit = async (e) => {
     if (e) e.preventDefault();
     setBlogFormErrors({});
 
@@ -114,46 +138,69 @@ export default function useBlogAdmin() {
       return;
     }
 
-    if (blogFormMode === "create") {
-      const newBlog = {
-        id: Date.now().toString(),
-        title: blogForm.title,
-        subtitle: blogForm.subtitle,
-        content: blogForm.content,
-        category: blogForm.category,
-        status: blogForm.status,
-        imageUrl: blogForm.imageUrl,
-        createdAt: new Date().toISOString(),
-      };
-      setBlogs((prev) => [newBlog, ...prev]);
-    } else if (blogFormMode === "edit" && editingBlogId) {
-      setBlogs((prev) =>
-        prev.map((b) =>
-          b.id === editingBlogId
-            ? {
-                ...b,
-                title: blogForm.title,
-                subtitle: blogForm.subtitle,
-                content: blogForm.content,
-                category: blogForm.category,
-                status: blogForm.status,
-                imageUrl: blogForm.imageUrl,
-              }
-            : b
-        )
-      );
-    }
+    setBlogFormLoading(true);
 
-    handleCloseBlogForm();
-  };
+    try {
+      if (blogFormMode === "create") {
+        const createdBlog = await blogApi.create({
+          title: blogForm.title,
+          subtitle: blogForm.subtitle,
+          content: blogForm.content,
+          category: blogForm.category,
+          status: blogForm.status,
+          image: blogLocalImage,
+        });
 
-  const deleteBlog = (id) => {
-    setBlogs((prev) => prev.filter((b) => b.id !== id));
-    if (editingBlogId === id) {
+        setBlogs((prev) => [createdBlog, ...prev]);
+      } else if (blogFormMode === "edit" && editingBlogId) {
+        const updatedBlog = await blogApi.update(editingBlogId, {
+          title: blogForm.title,
+          subtitle: blogForm.subtitle,
+          content: blogForm.content,
+          category: blogForm.category,
+          status: blogForm.status,
+          image: blogLocalImage, 
+        });
+
+        setBlogs((prev) =>
+          prev.map((b) => (b.id === editingBlogId ? updatedBlog : b))
+        );
+      }
+
       handleCloseBlogForm();
+    } catch (error) {
+      console.error("Error saving blog:", error);
+
+      if (error.response) {
+        console.error(
+          "Backend error detail (blog):",
+          error.response.status,
+          error.response.data
+        );
+      }
+
+    } finally {
+      setBlogFormLoading(false);
     }
   };
-
+  const deleteBlog = async (id) => {
+    try {
+      await blogApi.remove(id);
+      setBlogs((prev) => prev.filter((b) => b.id !== id));
+      if (editingBlogId === id) {
+        handleCloseBlogForm();
+      }
+    } catch (error) {
+      console.error("Error deleting blog:", error);
+      if (error.response) {
+        console.error(
+          "Backend error detail (delete):",
+          error.response.status,
+          error.response.data
+        );
+      }
+    }
+  };
   const filteredBlogs = useMemo(() => {
     const query = blogSearch.toLowerCase();
     return blogs.filter((blog) => {

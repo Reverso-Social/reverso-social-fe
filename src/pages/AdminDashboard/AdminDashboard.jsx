@@ -613,7 +613,7 @@ export default function AdminDashboard() {
 
                     <div className="admin-form-field">
                       <label htmlFor="resource-image-local">
-                        Imágen
+                        Imagen
                       </label>
                       <div className="admin-file-upload">
                         <input
@@ -630,7 +630,7 @@ export default function AdminDashboard() {
                           htmlFor="resource-image-local"
                           className="admin-file-upload__button"
                         >
-                          Subir imágen
+                          Subir imagen
                         </label>
                         <span className="admin-file-upload__filename">
                           {resourceFiles.localImage
@@ -877,6 +877,7 @@ export default function AdminDashboard() {
                       >
                         <option value="PUBLISHED">Publicado</option>
                         <option value="DRAFT">Borrador</option>
+                        <option value="ARCHIVED">Archivado</option>
                       </select>
                       {blogFormErrors.status && (
                         <p className="admin-form-error">
@@ -900,7 +901,7 @@ export default function AdminDashboard() {
 
                     <div className="admin-form-field">
                       <label htmlFor="blog-image-local">
-                        Imágen
+                        Imagen
                       </label>
                       <div className="admin-file-upload">
                         <input
@@ -917,7 +918,7 @@ export default function AdminDashboard() {
                           htmlFor="blog-image-local"
                           className="admin-file-upload__button"
                         >
-                          Subir imágen
+                          Subir imagen
                         </label>
                         <span className="admin-file-upload__filename">
                           {blogLocalImage

@@ -1,19 +1,18 @@
-const BASE_URL = "http://localhost:8080/api/blogposts";
+import axiosInstance from "../config/axios";
+const BASE_PATH = "/blogposts";
 
 const blogApi = {
   async getAll({ status, category } = {}) {
     try {
-      const params = new URLSearchParams();
+      const params = {};
 
-      if (status) params.append("status", status);
-      if (category) params.append("category", category);
+      if (status) params.status = status;
+      if (category) params.category = category;
 
-      const res = await fetch(`${BASE_URL}?${params.toString()}`);
-      if (!res.ok) throw new Error("Error fetching blog posts");
-
-      return await res.json();
+      const res = await axiosInstance.get(BASE_PATH, { params });
+      return res.data;
     } catch (error) {
-      console.error("blogApi.getAll:", error);
+      console.error("blogApi.getAll error:", error);
       throw error;
     }
   },
@@ -24,103 +23,134 @@ const blogApi = {
 
   async getLatest(limit = 5) {
     try {
-      const res = await fetch(`${BASE_URL}/latest?limit=${limit}`);
-      if (!res.ok) throw new Error("Error fetching latest posts");
-      return await res.json();
+      const res = await axiosInstance.get(`${BASE_PATH}/latest`, {
+        params: { limit },
+      });
+      return res.data;
     } catch (error) {
-      console.error("blogApi.getLatest:", error);
+      console.error("blogApi.getLatest error:", error);
       throw error;
     }
   },
 
   async getById(id) {
     try {
-      const res = await fetch(`${BASE_URL}/${id}`);
-      if (!res.ok) throw new Error("Error fetching post by ID");
-      return await res.json();
+      const res = await axiosInstance.get(`${BASE_PATH}/${id}`);
+      return res.data;
     } catch (error) {
-      console.error("blogApi.getById:", error);
+      console.error("blogApi.getById error:", error);
       throw error;
     }
   },
 
   async getBySlug(slug) {
     try {
-      const res = await fetch(`${BASE_URL}/slug/${slug}`);
-      if (!res.ok) throw new Error("Error fetching post by slug");
-      return await res.json();
+      const res = await axiosInstance.get(`${BASE_PATH}/slug/${slug}`);
+      return res.data;
     } catch (error) {
-      console.error("blogApi.getBySlug:", error);
+      console.error("blogApi.getBySlug error:", error);
       throw error;
     }
   },
 
-  async create({ title, category, content, status, image }) {
+  async create({ title, subtitle, content, category, status, image }) {
     try {
+      const dto = {
+        title,
+        subtitle,
+        content,
+        category,
+        status,
+      };
+
       const formData = new FormData();
-      formData.append("title", title);
-      formData.append("category", category);
-      formData.append("content", content);
-      formData.append("status", status);
-      if (image) formData.append("image", image);
-
-      const res = await fetch(BASE_URL, {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => null);
-        throw new Error(errorData?.message || "Error creating blog post");
+      formData.append(
+        "data",
+        new Blob([JSON.stringify(dto)], {
+          type: "application/json",
+        })
+      );
+      if (image) {
+        formData.append("image", image);
       }
 
-      return await res.json();
+      const res = await axiosInstance.post(BASE_PATH, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      return res.data;
     } catch (error) {
-      console.error("blogApi.create:", error);
+      if (error.response) {
+        console.error("blogApi.create 400/500:", {
+          status: error.response.status,
+          data: error.response.data,
+        });
+      } else {
+        console.error("blogApi.create error:", error);
+      }
       throw error;
     }
   },
-
-  async update(id, { title, category, content, status, image }) {
+  async update(id, { title, subtitle, content, category, status, image }) {
     try {
+      const dto = {
+        title,
+        subtitle,
+        content,
+        category,
+        status,
+      };
+
       const formData = new FormData();
-      formData.append("title", title);
-      formData.append("category", category);
-      formData.append("content", content);
-      formData.append("status", status);
-      if (image) formData.append("image", image);
 
-      const res = await fetch(`${BASE_URL}/${id}`, {
-        method: "PUT",
-        body: formData,
-      });
+      formData.append(
+        "data",
+        new Blob([JSON.stringify(dto)], {
+          type: "application/json",
+        })
+      );
 
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => null);
-        throw new Error(errorData?.message || "Error updating blog post");
+      if (image) {
+        formData.append("image", image);
       }
 
-      return await res.json();
+      const res = await axiosInstance.put(`${BASE_PATH}/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      return res.data;
     } catch (error) {
-      console.error("blogApi.update:", error);
+      if (error.response) {
+        console.error("blogApi.update 400/500:", {
+          status: error.response.status,
+          data: error.response.data,
+        });
+      } else {
+        console.error("blogApi.update error:", error);
+      }
       throw error;
     }
   },
 
   async remove(id) {
     try {
-      const res = await fetch(`${BASE_URL}/${id}`, {
-        method: "DELETE",
-      });
-
-      if (!res.ok) throw new Error("Error deleting blog post");
-
+      await axiosInstance.delete(`${BASE_PATH}/${id}`);
       return true;
     } catch (error) {
-      console.error("blogApi.remove:", error);
+      if (error.response) {
+        console.error("blogApi.remove 400/500:", {
+          status: error.response.status,
+          data: error.response.data,
+        });
+      } else {
+        console.error("blogApi.remove error:", error);
+      }
       throw error;
     }
-    
   },
 };
 
