@@ -678,6 +678,11 @@ export default function AdminDashboard() {
                           : "Guardar Cambios"}
                     </button>
                   </div>
+                  {resourceFormErrors.submit && (
+                    <p className="admin-form-error" style={{ marginBottom: '1rem' }}>
+                      {resourceFormErrors.submit}
+                    </p>
+                  )}
                 </form>
               </div>
             )}
