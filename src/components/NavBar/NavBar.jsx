@@ -6,13 +6,14 @@ export default function NavBar({ onItemClick = () => {} }) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const navLinks = [
-    { label: "Sobre Nosotras", path: "/", hash: "sobre-nosotros" },
-    { label: "Qué Hacemos", path: "/", hash: "que-hacemos" },
-    { label: "Recursos", path: "/recursos", hash: null },
-    { label: "Incidencia", path: "/", hash: "incidencia" },
-    { label: "Blog", path: "/blog", hash: null },
-  ];
+const navLinks = [
+  { label: "Sobre Nosotras", path: "/", hash: "sobre-nosotros" },
+  { label: "Qué Hacemos", path: "/", hash: "servicios" }, 
+  { label: "Recursos", path: "/recursos", hash: null },
+  { label: "Incidencia", path: "/", hash: "incidencia" },
+  { label: "Blog", path: "/blog", hash: null },
+];
+
   const handleScrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {

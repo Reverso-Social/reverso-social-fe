@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./ContactModal.scss";
 import { X, User, Mail, Building2, Heart } from "lucide-react";
-import contactService from "../../data/contactService";
+import contactService from "../../api/contactService";
 
 export default function ContactModal({ open, onClose }) {
   if (!open) return null;

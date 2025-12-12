@@ -1,5 +1,17 @@
-import { X, User, Mail, Building2, MessageSquare, Calendar, Tag } from "lucide-react";
+import { X, User, Mail, MessageSquare, Calendar, Tag } from "lucide-react";
 import "./ContactDetailModal.scss";
+
+const ContactField = ({ icon: Icon, label, children, fullWidth = false }) => (
+  <div className={`contact-detail-field ${fullWidth ? 'contact-detail-field--full' : ''}`}>
+    <div className="contact-detail-field__icon">
+      <Icon size={20} />
+    </div>
+    <div className="contact-detail-field__content">
+      <label>{label}</label>
+      {children}
+    </div>
+  </div>
+);
 
 export default function ContactDetailModal({ contact, open, onClose }) {
   if (!open || !contact) return null;
@@ -28,6 +40,14 @@ export default function ContactDetailModal({ contact, open, onClose }) {
     return classes[status] || "";
   };
 
+  const formatDate = (date) => new Date(date).toLocaleString('es-ES', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+
   return (
     <div className="contact-detail-modal__overlay" onClick={handleOverlayClick}>
       <div className="contact-detail-modal__container">
@@ -43,93 +63,37 @@ export default function ContactDetailModal({ contact, open, onClose }) {
         </header>
 
         <div className="contact-detail-modal__content">
-          <div className="contact-detail-field">
-            <div className="contact-detail-field__icon">
-              <User size={20} />
-            </div>
-            <div className="contact-detail-field__content">
-              <label>Nombre completo</label>
-              <p>{contact.fullName}</p>
-            </div>
-          </div>
+          <ContactField icon={User} label="Nombre completo">
+            <p>{contact.fullName}</p>
+          </ContactField>
 
-          <div className="contact-detail-field">
-            <div className="contact-detail-field__icon">
-              <Mail size={20} />
-            </div>
-            <div className="contact-detail-field__content">
-              <label>Email</label>
-              <p>
-                <a href={`mailto:${contact.email}`}>{contact.email}</a>
-              </p>
-            </div>
-          </div>
+          <ContactField icon={Mail} label="Email">
+            <p><a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+          </ContactField>
 
           {contact.userName && (
-            <div className="contact-detail-field">
-              <div className="contact-detail-field__icon">
-                <User size={20} />
-              </div>
-              <div className="contact-detail-field__content">
-                <label>Gestionado por</label>
-                <p>{contact.userName}</p>
-              </div>
-            </div>
+            <ContactField icon={User} label="Gestionado por">
+              <p>{contact.userName}</p>
+            </ContactField>
           )}
 
-          <div className="contact-detail-field contact-detail-field--full">
-            <div className="contact-detail-field__icon">
-              <MessageSquare size={20} />
-            </div>
-            <div className="contact-detail-field__content">
-              <label>Mensaje</label>
-              <p className="contact-detail-message">{contact.message}</p>
-            </div>
-          </div>
+          <ContactField icon={MessageSquare} label="Mensaje" fullWidth>
+            <p className="contact-detail-message">{contact.message}</p>
+          </ContactField>
 
-          <div className="contact-detail-field">
-            <div className="contact-detail-field__icon">
-              <Calendar size={20} />
-            </div>
-            <div className="contact-detail-field__content">
-              <label>Fecha de contacto</label>
-              <p>{new Date(contact.createdAt).toLocaleString('es-ES', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-              })}</p>
-            </div>
-          </div>
+          <ContactField icon={Calendar} label="Fecha de contacto">
+            <p>{formatDate(contact.createdAt)}</p>
+          </ContactField>
 
           {contact.updatedAt && contact.updatedAt !== contact.createdAt && (
-            <div className="contact-detail-field">
-              <div className="contact-detail-field__icon">
-                <Calendar size={20} />
-              </div>
-              <div className="contact-detail-field__content">
-                <label>Última actualización</label>
-                <p>{new Date(contact.updatedAt).toLocaleString('es-ES', {
-                  day: '2-digit',
-                  month: '2-digit',
-                  year: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit'
-                })}</p>
-              </div>
-            </div>
+            <ContactField icon={Calendar} label="Última actualización">
+              <p>{formatDate(contact.updatedAt)}</p>
+            </ContactField>
           )}
 
-          <div className="contact-detail-field">
-            <div className="contact-detail-field__icon">
-              <Tag size={20} />
-            </div>
-            <div className="contact-detail-field__content">
-              <label>Acepta política de privacidad</label>
-              <p>{contact.acceptsPrivacy ? "Sí" : "No"}</p>
-            </div>
-          </div>
+          <ContactField icon={Tag} label="Acepta política de privacidad">
+            <p>{contact.acceptsPrivacy ? "Sí" : "No"}</p>
+          </ContactField>
         </div>
       </div>
     </div>

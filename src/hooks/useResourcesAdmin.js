@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import resourceService from "../data/resourceService";
+import resourceService from "../api/resourceService";
 
 const RESOURCES_PAGE_SIZE = 6;
 

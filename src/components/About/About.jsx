@@ -4,12 +4,23 @@ import MisionIcon from '../../assets/Icons/Vision.svg';
 import VisionIcon from '../../assets/Icons/Visionnn.svg';
 import ValoresIcon from '../../assets/Icons/Diamond.svg';
 
-
 const About = () => {
   const [expandedCard, setExpandedCard] = useState(null);
 
-  const handleCardInteraction = (cardId) => {
+  const handleCardClick = (cardId) => {
     setExpandedCard(expandedCard === cardId ? null : cardId);
+  };
+
+  const handleMouseEnter = (cardId) => {
+    if (window.innerWidth > 768) {
+      setExpandedCard(cardId);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (window.innerWidth > 768) {
+      setExpandedCard(null);
+    }
   };
 
   const cardsData = [
@@ -59,13 +70,13 @@ const About = () => {
               className={`about-card about-card--${card.color} ${
                 expandedCard === card.id ? 'about-card--expanded' : ''
               }`}
-              onClick={() => handleCardInteraction(card.id)}
-              onMouseEnter={() => handleCardInteraction(card.id)}
-              onMouseLeave={() => setExpandedCard(null)}
+              onClick={() => handleCardClick(card.id)}
+              onMouseEnter={() => handleMouseEnter(card.id)}
+              onMouseLeave={handleMouseLeave}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
-                  handleCardInteraction(card.id);
+                  handleCardClick(card.id);
                 }
               }}
               tabIndex={0}
@@ -73,25 +84,27 @@ const About = () => {
               aria-expanded={expandedCard === card.id}
               aria-label={`${card.title}: ${expandedCard === card.id ? 'expandido' : 'colapsado'}. Presiona para ${expandedCard === card.id ? 'colapsar' : 'expandir'}`}
             >
-              <header className="about-card__front">
-                <img 
-                  src={card.icon} 
-                  alt="" 
-                  className="about-card__icon"
-                  aria-hidden="true"
-                />
-                <h3 className="about-card__title">{card.title}</h3>
-              </header>
-              
-              <section 
-                className="about-card__back"
-                aria-hidden={expandedCard !== card.id}
-              >
-                <div className={`about-card__content about-card__content--${card.color}`}>
-                  <h4 className="about-card__content-title">{card.fullTitle}</h4>
-                  <p className="about-card__text">{card.content}</p>
-                </div>
-              </section>
+              <div className="about-card__inner">
+                <header className="about-card__front">
+                  <img 
+                    src={card.icon} 
+                    alt="" 
+                    className="about-card__icon"
+                    aria-hidden="true"
+                  />
+                  <h3 className="about-card__title">{card.title}</h3>
+                </header>
+                
+                <section 
+                  className="about-card__back"
+                  aria-hidden={expandedCard !== card.id}
+                >
+                  <div className={`about-card__content about-card__content--${card.color}`}>
+                    <h4 className="about-card__content-title">{card.fullTitle}</h4>
+                    <p className="about-card__text">{card.content}</p>
+                  </div>
+                </section>
+              </div>
             </article>
           </li>
         ))}
