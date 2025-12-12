@@ -141,6 +141,13 @@ export default function useResourcesAdmin() {
       ...prev,
       [name]: file,
     }));
+    // Limpiar error cuando se selecciona un archivo
+    if (file && name === "localFile") {
+      setResourceFormErrors((prev) => ({
+        ...prev,
+        fileUrl: "",
+      }));
+    }
   };
 
   const validateResourceForm = () => {
@@ -159,8 +166,9 @@ export default function useResourcesAdmin() {
       errors.description = "La descripción no puede superar las 50 palabras.";
     }
 
-    if (!resourceForm.fileUrl.trim()) {
-      errors.fileUrl = "Agrega la URL del archivo.";
+    // ✅ CORREGIDO: Validar archivo solo en modo create
+    if (resourceFormMode === "create" && !resourceFiles.localFile) {
+      errors.fileUrl = "Debes subir un documento.";
     }
 
     return errors;
@@ -179,16 +187,68 @@ export default function useResourcesAdmin() {
     setResourceFormLoading(true);
 
     try {
+      // ✅ CORREGIDO: Crear FormData para enviar archivos
+      const formData = new FormData();
+      
+      // Agregar campos de texto
+      formData.append('title', resourceForm.title);
+      formData.append('description', resourceForm.description || '');
+      formData.append('type', resourceForm.type);
+      formData.append('isPublic', resourceForm.isPublic.toString());
+      
+      // Agregar archivos si existen
+      if (resourceFiles.localFile) {
+        formData.append('file', resourceFiles.localFile);
+      }
+      
+      if (resourceFiles.localImage) {
+        formData.append('image', resourceFiles.localImage);
+      }
+
+      // 🔍 DEBUG: Ver qué estamos enviando
+      console.log('📦 Datos del formulario:');
+      console.log('- Title:', resourceForm.title);
+      console.log('- Description:', resourceForm.description);
+      console.log('- Type:', resourceForm.type);
+      console.log('- IsPublic:', resourceForm.isPublic);
+      console.log('- Local File:', resourceFiles.localFile?.name);
+      console.log('- Local Image:', resourceFiles.localImage?.name);
+      console.log('- Modo:', resourceFormMode);
+      
+      // Ver el contenido del FormData
+      console.log('📋 FormData entries:');
+      for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+      }
+
       if (resourceFormMode === "create") {
-        await resourceService.create(resourceForm);
+        await resourceService.create(formData);
       } else if (resourceFormMode === "edit" && editingResourceId) {
-        await resourceService.update(editingResourceId, resourceForm);
+        await resourceService.update(editingResourceId, formData);
       }
 
       await loadResources();
       handleCloseResourceForm();
     } catch (error) {
       console.error("Error al guardar recurso:", error);
+      
+      // 🔍 DEBUG: Ver detalles del error
+      console.log('❌ Error completo:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        headers: error.response?.headers,
+      });
+      
+      // ✅ AGREGADO: Mostrar error al usuario
+      const errorMessage = error.response?.data?.message || 
+                          error.response?.data?.error ||
+                          error.message || 
+                          "Error al guardar el recurso. Por favor, intenta de nuevo.";
+      
+      setResourceFormErrors({
+        submit: errorMessage
+      });
     } finally {
       setResourceFormLoading(false);
     }
