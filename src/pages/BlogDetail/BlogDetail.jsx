@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import SEO from "../../components/SEO/SEO";
 import "./BlogDetail.scss";
 import blogApi from "../../api/blogApi";
 
@@ -44,6 +45,12 @@ const BlogDetail = () => {
 
   return (
     <div className="blog-detail-page">
+      <SEO
+        title={`${post.title} | Reverso Social`}
+        description={post.content ? post.content.substring(0, 160) + "..." : "Artículo en Reverso Social"}
+        name="Reverso Social"
+        type="article"
+      />
       <section className="blog-detail-hero">
         <div className="blog-detail-hero__text">
           <span className="pill-label">{post.category}</span>

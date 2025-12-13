@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @use "../../styles/variables" as *;
 
 .global-modal-backdrop {
@@ -131,7 +133,7 @@
   box-shadow: 0 6px 14px rgba(211, 47, 47, 0.4);
 
   &:hover:not(:disabled) {
-    background: darken(#d32f2f, 4%);
+    background: color.adjust(#d32f2f, $lightness: -4%, $space: hsl);
     box-shadow: 0 8px 18px rgba(211, 47, 47, 0.5);
   }
 }
