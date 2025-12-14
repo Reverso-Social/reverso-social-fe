@@ -20,8 +20,8 @@ export default function useBlogAdmin() {
     content: "",
     category: "",
     status: "PUBLISHED",
-    imageUrl: "",  
-    });
+    imageUrl: "",
+  });
 
   const [blogFormErrors, setBlogFormErrors] = useState({});
   const [blogFormLoading, setBlogFormLoading] = useState(false);
@@ -110,24 +110,58 @@ export default function useBlogAdmin() {
   const validateBlogForm = () => {
     const errors = {};
 
+    // Validar Título (5-100 caracteres)
     if (!blogForm.title.trim()) {
-      errors.title = "Agrega un título.";
+      errors.title = "El título es obligatorio.";
+    } else if (blogForm.title.trim().length < 5) {
+      errors.title = "El título debe tener al menos 5 caracteres.";
+    } else if (blogForm.title.trim().length > 100) {
+      errors.title = "El título no puede exceder los 100 caracteres.";
     }
+
+    // Validar Subtítulo (Max 250 caracteres)
+    if (blogForm.subtitle && blogForm.subtitle.trim().length > 250) {
+      errors.subtitle = "El subtítulo no puede exceder los 250 caracteres.";
+    }
+
+    // Validar Contenido (10-5000 caracteres)
     if (!blogForm.content.trim()) {
-      errors.content = "Agrega contenido.";
+      errors.content = "El contenido es obligatorio.";
+    } else if (blogForm.content.trim().length < 10) {
+      errors.content = "El contenido debe tener al menos 10 caracteres.";
+    } else if (blogForm.content.trim().length > 5000) {
+      errors.content = "El contenido no puede exceder los 5000 caracteres.";
     }
+
+    // Validar Categoría (Max 50 caracteres)
     if (!blogForm.category.trim()) {
-      errors.category = "Agrega una categoría.";
+      errors.category = "La categoría es obligatoria.";
+    } else if (blogForm.category.trim().length > 50) {
+      errors.category = "La categoría no puede exceder los 50 caracteres.";
     }
+
+    // Validar Estado
     if (!blogForm.status) {
       errors.status = "Selecciona un estado.";
     } else if (!BLOG_STATUS.includes(blogForm.status)) {
-
       errors.status = "Estado inválido.";
+    }
+
+    // Validar Imagen (si se ha seleccionado una nueva)
+    if (blogLocalImage) {
+      const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+      const maxSize = 5 * 1024 * 1024; // 5MB
+
+      if (!allowedTypes.includes(blogLocalImage.type)) {
+        errors.image = "Solo se permiten imágenes JPG, PNG o WEBP.";
+      } else if (blogLocalImage.size > maxSize) {
+        errors.image = "La imagen no debe superar los 5MB.";
+      }
     }
 
     return errors;
   };
+
   const handleBlogSubmit = async (e) => {
     if (e) e.preventDefault();
     setBlogFormErrors({});
@@ -159,7 +193,7 @@ export default function useBlogAdmin() {
           content: blogForm.content,
           category: blogForm.category,
           status: blogForm.status,
-          image: blogLocalImage, 
+          image: blogLocalImage,
         });
 
         setBlogs((prev) =>
@@ -171,14 +205,26 @@ export default function useBlogAdmin() {
     } catch (error) {
       console.error("Error saving blog:", error);
 
+      let errorMessage = "Ocurrió un error al guardar. Inténtalo de nuevo.";
+
       if (error.response) {
-        console.error(
-          "Backend error detail (blog):",
-          error.response.status,
-          error.response.data
-        );
+        const { status, data } = error.response;
+        console.error("Backend error detail (blog):", status, data);
+
+        // Si el backend envía un mensaje específico, úsalo (asumiendo estructura estandar)
+        if (data && data.message) {
+          errorMessage = data.message;
+        } else if (status === 409) {
+          errorMessage = "Conflicto: Es posible que el título ya exista.";
+        } else if (status === 413) {
+          errorMessage = "El archivo es demasiado grande.";
+        }
       }
 
+      setBlogFormErrors((prev) => ({
+        ...prev,
+        submit: errorMessage,
+      }));
     } finally {
       setBlogFormLoading(false);
     }

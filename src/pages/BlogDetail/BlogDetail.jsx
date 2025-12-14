@@ -1,44 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams, Link } from "react-router-dom";
 import SEO from "../../components/SEO/SEO";
 import "./BlogDetail.scss";
-import blogApi from "../../api/blogApi";
-
-const API_ORIGIN = (
-  import.meta.env.VITE_API_URL || "http://localhost:8080"
-).replace(/\/api\/?$/, "");
-
-const getImageSrc = (coverImageUrl) => {
-  if (!coverImageUrl) return null;
-
-  if (
-    coverImageUrl.startsWith("http://") ||
-    coverImageUrl.startsWith("https://")
-  ) {
-    return coverImageUrl;
-  }
-
-  const normalized =
-    coverImageUrl.startsWith("/") ? coverImageUrl : `/${coverImageUrl}`;
-
-  return `${API_ORIGIN}${normalized}`;
-};
+import useFetchPost from "../../hooks/useFetchPost";
+import useBlogUrl from "../../hooks/useBlogUrl";
 
 const BlogDetail = () => {
   const { slug } = useParams();
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const { post, loading, error } = useFetchPost(slug);
+  const { getImageUrl } = useBlogUrl();
 
-  useEffect(() => {
-    blogApi
-      .getBySlug(slug)
-      .then((data) => setPost(data))
-      .catch(() => setError("Artículo no encontrado."))
-      .finally(() => setLoading(false));
-  }, [slug]);
-
-  const imageSrc = getImageSrc(post?.coverImageUrl);
+  const imageSrc = getImageUrl(post?.coverImageUrl);
 
   if (loading) return <p className="blog-status">Cargando artículo...</p>;
   if (error) return <p className="blog-status blog-status--error">{error}</p>;

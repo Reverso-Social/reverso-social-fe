@@ -835,6 +835,11 @@ export default function AdminDashboard() {
                         onChange={handleBlogFieldChange}
                         disabled={blogFormLoading}
                       />
+                      {blogFormErrors.subtitle && (
+                        <p className="admin-form-error">
+                          {blogFormErrors.subtitle}
+                        </p>
+                      )}
                     </div>
 
                     <div className="admin-form-field admin-form-field--full">
@@ -862,7 +867,7 @@ export default function AdminDashboard() {
                         type="text"
                         value={blogForm.category}
                         onChange={handleBlogFieldChange}
-                        placeholder="comunidad"
+                        placeholder="Ej. Comunidad"
                         disabled={blogFormLoading}
                       />
                       {blogFormErrors.category && (
@@ -932,6 +937,11 @@ export default function AdminDashboard() {
                             : "Ningún archivo seleccionado"}
                         </span>
                       </div>
+                      {blogFormErrors.image && (
+                        <p className="admin-form-error">
+                          {blogFormErrors.image}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -954,6 +964,11 @@ export default function AdminDashboard() {
                         : "Guardar cambios"}
                     </button>
                   </div>
+                  {blogFormErrors.submit && (
+                    <p className="admin-form-error" style={{ textAlign: "right", marginTop: "1rem" }}>
+                      {blogFormErrors.submit}
+                    </p>
+                  )}
                 </form>
               </div>
             )}
