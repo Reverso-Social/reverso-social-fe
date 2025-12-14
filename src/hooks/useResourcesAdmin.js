@@ -190,30 +190,47 @@ export default function useResourcesAdmin() {
     setResourceFormLoading(true);
 
     try {
-      let fileUrl = resourceForm.fileUrl;
-      let previewImageUrl = resourceForm.previewImageUrl;
+    let fileUrl = resourceForm.fileUrl;
+    let previewImageUrl = resourceForm.previewImageUrl;
 
-      if (resourceFiles.localFile) {
-        console.log('📤 Subiendo archivo a /resources/upload...');
-        fileUrl = await resourceService.uploadFile(resourceFiles.localFile);
-        console.log('✅ Archivo subido, URL:', fileUrl);
+    if (resourceFormMode === "create") {
+      if (!resourceFiles.localFile) {
+        setResourceFormErrors({ fileUrl: "Debes subir un documento." });
+        setResourceFormLoading(false);
+        return;
       }
+      
+      console.log('📤 Subiendo archivo obligatorio...');
+      fileUrl = await resourceService.uploadFile(resourceFiles.localFile);
+      console.log('✅ Archivo subido, URL:', fileUrl);
+    } else if (resourceFormMode === "edit" && resourceFiles.localFile) {
+      console.log('📤 Subiendo nuevo archivo...');
+      fileUrl = await resourceService.uploadFile(resourceFiles.localFile);
+      console.log('✅ Archivo actualizado, URL:', fileUrl);
+    }
 
-      if (resourceFiles.localImage) {
-        console.log('📤 Subiendo imagen a /resources/upload...');
-        previewImageUrl = await resourceService.uploadFile(resourceFiles.localImage);
-        console.log('✅ Imagen subida, URL:', previewImageUrl);
-      }
+    if (resourceFiles.localImage) {
+      console.log('📤 Subiendo imagen...');
+      previewImageUrl = await resourceService.uploadFile(resourceFiles.localImage);
+      console.log('✅ Imagen subida, URL:', previewImageUrl);
+    }
+
+    if (!fileUrl || fileUrl.trim() === '') {
+      setResourceFormErrors({ 
+        fileUrl: "Error: No se pudo obtener la URL del archivo." 
+      });
+      setResourceFormLoading(false);
+      return;
+    }
 
       const resourceData = {
-        title: resourceForm.title.trim(),
-        description: resourceForm.description?.trim() || null,
-        type: resourceForm.type,
-        fileUrl: fileUrl,
-        previewImageUrl: previewImageUrl || null,
-        isPublic: resourceForm.isPublic
-      };
-
+      title: resourceForm.title.trim(),
+      description: resourceForm.description?.trim() || "", 
+      type: resourceForm.type,
+      fileUrl: fileUrl, 
+      previewImageUrl: previewImageUrl || "", 
+      isPublic: resourceForm.isPublic ?? true 
+    };
       console.log('📦 Guardando recurso con JSON:', resourceData);
       console.log('🔑 Token presente:', !!localStorage.getItem('reverso_token'));
 
