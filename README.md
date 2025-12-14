@@ -5,7 +5,7 @@ En esta primera entrega se construyó la estructura base del proyecto, los compo
 
 ---
 
-## 🚀 Tecnologías utilizadas
+## Tecnologías utilizadas
 
 - **React JS**
 - **JavaScript (ES6+)**
@@ -16,7 +16,7 @@ En esta primera entrega se construyó la estructura base del proyecto, los compo
 
 ---
 
-## 📁 Estructura del proyecto
+## Estructura del proyecto
 
 La estructura principal del directorio `src/` quedó organizada de la siguiente manera:
 ```
@@ -70,19 +70,7 @@ src
 
 Cada componente y página cuenta con sus **dos archivos correspondientes**:
 - `Nombre.jsx` → Componente funcional
-- `Nombre.scss` → Estilos específicos del componente
-
-## 🎯 Objetivos del Sprint 1
-
-✔ Crear la estructura base del proyecto con Vite  
-✔ Configurar SASS y crear arquitectura inicial de estilos (variables, mixins, layout, tipografía)  
-✔ Implementar los primeros componentes básicos del landing page  
-✔ Crear las páginas iniciales: **HomePage** y **ResourcesPage**  
-✔ Añadir la navegación principal  
-✔ Dejar preparado el proyecto para escalar en futuros sprints  
-
----
-
+   - `Nombre.scss` → Estilos específicos del componente
 ## 🖥️ Scripts disponibles
 
 En el directorio raíz puedes ejecutar:
@@ -101,7 +89,7 @@ Sirve la build generada para revisión.
 
 ---
 
-## ⚙️ Stack Tecnológico
+## Stack Tecnológico
 
 | Tecnología       | Versión   | Propósito                      |
 |------------------|-----------|--------------------------------|
@@ -128,7 +116,7 @@ El backend de este proyecto está construido con **Java y Spring Boot**.
 
 ---
 
-## 🚀 Instrucciones de Despliegue
+##  Instrucciones de Despliegue
 
 Para desplegar la aplicación en un entorno de producción, sigue estos pasos:
 
@@ -156,7 +144,7 @@ Para desplegar la aplicación en un entorno de producción, sigue estos pasos:
 
 ---
 
-## 🖼️ Capturas de pantalla
+##  Capturas de pantalla
 
 A continuación se añaden algunas capturas del estado del proyecto en este sprint:
 
@@ -170,7 +158,7 @@ A continuación se añaden algunas capturas del estado del proyecto en este spri
 
 ---
 
-## 🛠️ Equipo
+##  Equipo
 
 Frontend colaborativo del proyecto **Reverso Social** — Sprint 1.
 
@@ -184,7 +172,7 @@ Frontend colaborativo del proyecto **Reverso Social** — Sprint 1.
 
 ---
 
-## 📄 Licencia
+## Licencia
 
 Este proyecto es de uso interno para desarrollo académico/profesional del equipo y no posee licencia pública.
 
