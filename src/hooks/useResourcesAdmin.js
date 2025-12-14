@@ -141,7 +141,7 @@ export default function useResourcesAdmin() {
       ...prev,
       [name]: file,
     }));
-    // Limpiar error cuando se selecciona un archivo
+
     if (file && name === "localFile") {
       setResourceFormErrors((prev) => ({
         ...prev,
@@ -157,6 +157,10 @@ export default function useResourcesAdmin() {
       errors.title = "Agrega un título.";
     }
 
+    if (resourceForm.title.length > 60) {
+      errors.title = "El título no puede superar 60 caracteres.";
+    }
+
     if (!resourceForm.type) {
       errors.type = "Selecciona un tipo.";
     }
@@ -166,7 +170,6 @@ export default function useResourcesAdmin() {
       errors.description = "La descripción no puede superar las 50 palabras.";
     }
 
-    // ✅ CORREGIDO: Validar archivo solo en modo create
     if (resourceFormMode === "create" && !resourceFiles.localFile) {
       errors.fileUrl = "Debes subir un documento.";
     }
@@ -187,64 +190,67 @@ export default function useResourcesAdmin() {
     setResourceFormLoading(true);
 
     try {
-      // ✅ CORREGIDO: Crear FormData para enviar archivos
-      const formData = new FormData();
-      
-      // Agregar campos de texto
-      formData.append('title', resourceForm.title);
-      formData.append('description', resourceForm.description || '');
-      formData.append('type', resourceForm.type);
-      formData.append('isPublic', resourceForm.isPublic.toString());
-      
-      // Agregar archivos si existen
+      let fileUrl = resourceForm.fileUrl;
+      let previewImageUrl = resourceForm.previewImageUrl;
+
       if (resourceFiles.localFile) {
-        formData.append('file', resourceFiles.localFile);
-      }
-      
-      if (resourceFiles.localImage) {
-        formData.append('image', resourceFiles.localImage);
+        console.log('📤 Subiendo archivo a /resources/upload...');
+        fileUrl = await resourceService.uploadFile(resourceFiles.localFile);
+        console.log('✅ Archivo subido, URL:', fileUrl);
       }
 
-      // 🔍 DEBUG: Ver qué estamos enviando
-      console.log('📦 Datos del formulario:');
-      console.log('- Title:', resourceForm.title);
-      console.log('- Description:', resourceForm.description);
-      console.log('- Type:', resourceForm.type);
-      console.log('- IsPublic:', resourceForm.isPublic);
-      console.log('- Local File:', resourceFiles.localFile?.name);
-      console.log('- Local Image:', resourceFiles.localImage?.name);
-      console.log('- Modo:', resourceFormMode);
-      
-      // Ver el contenido del FormData
-      console.log('📋 FormData entries:');
-      for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
+      if (resourceFiles.localImage) {
+        console.log('📤 Subiendo imagen a /resources/upload...');
+        previewImageUrl = await resourceService.uploadFile(resourceFiles.localImage);
+        console.log('✅ Imagen subida, URL:', previewImageUrl);
       }
+
+      const resourceData = {
+        title: resourceForm.title.trim(),
+        description: resourceForm.description?.trim() || null,
+        type: resourceForm.type,
+        fileUrl: fileUrl,
+        previewImageUrl: previewImageUrl || null,
+        isPublic: resourceForm.isPublic
+      };
+
+      console.log('📦 Guardando recurso con JSON:', resourceData);
+      console.log('🔑 Token presente:', !!localStorage.getItem('reverso_token'));
 
       if (resourceFormMode === "create") {
-        await resourceService.create(formData);
+        const response = await resourceService.create(resourceData);
+        console.log('✅ Recurso creado:', response);
       } else if (resourceFormMode === "edit" && editingResourceId) {
-        await resourceService.update(editingResourceId, formData);
+        const response = await resourceService.update(editingResourceId, resourceData);
+        console.log('✅ Recurso actualizado:', response);
       }
 
       await loadResources();
       handleCloseResourceForm();
     } catch (error) {
-      console.error("Error al guardar recurso:", error);
+      console.error("❌ Error al guardar recurso:", error);
+
+      let errorMessage = "Error al guardar el recurso.";
       
-      // 🔍 DEBUG: Ver detalles del error
-      console.log('❌ Error completo:', {
-        message: error.message,
-        response: error.response?.data,
-        status: error.response?.status,
-        headers: error.response?.headers,
-      });
+      if (error.response?.data) {
+        const errorData = error.response.data;
+        
+        if (errorData.message) {
+          errorMessage = errorData.message;
+        } else if (errorData.error) {
+          errorMessage = errorData.error;
+        } else if (errorData.errors) {
+          if (Array.isArray(errorData.errors)) {
+            errorMessage = errorData.errors.join(', ');
+          } else if (typeof errorData.errors === 'object') {
+            errorMessage = Object.values(errorData.errors).join(', ');
+          }
+        }
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
       
-      // ✅ AGREGADO: Mostrar error al usuario
-      const errorMessage = error.response?.data?.message || 
-                          error.response?.data?.error ||
-                          error.message || 
-                          "Error al guardar el recurso. Por favor, intenta de nuevo.";
+      console.log('🔍 Error detallado:', errorMessage);
       
       setResourceFormErrors({
         submit: errorMessage
