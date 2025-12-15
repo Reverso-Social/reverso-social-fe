@@ -12,6 +12,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import useContactsAdmin from "../../hooks/useContactsAdmin";
 import useResourcesAdmin from "../../hooks/useResourcesAdmin";
 import useBlogAdmin from "../../hooks/useBlogAdmin";
+import useDownloadLeadsAdmin from "../../hooks/useDownloadLeadsAdmin";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("contactos");
@@ -100,6 +101,20 @@ export default function AdminDashboard() {
     deleteBlog,
   } = useBlogAdmin();
 
+  const {
+    leadsLoading,
+    leadsError,
+    leadSearch,
+    setLeadSearch,
+    leadPage,
+    setLeadPage,
+    pageSize: LEADS_PAGE_SIZE,
+    filteredLeadsCount,
+    paginatedLeads,
+    deleteLead,
+    exportLeadsToCSV,
+  } = useDownloadLeadsAdmin();
+
   const handleLogout = () => {
     authService.logout();
     navigate("/");
@@ -135,6 +150,17 @@ export default function AdminDashboard() {
       confirmLabel: "Eliminar",
       variant: "danger",
       onConfirm: () => deleteBlog(blog.id),
+    });
+  };
+
+    const openDeleteLeadModal = (lead) => {
+    setConfirmModal({
+      open: true,
+      title: "Eliminar contacto de descarga",
+      description: `¿Seguro que quieres eliminar el lead de «${lead.name}» (${lead.email})? Esta acción no se puede deshacer.`,
+      confirmLabel: "Eliminar",
+      variant: "danger",
+      onConfirm: () => deleteLead(lead.id),
     });
   };
 
@@ -978,27 +1004,96 @@ export default function AdminDashboard() {
         {activeTab === "leads" && (
           <div className="admin-panel">
             <div className="admin-panel-header">
-              <h2>Contactos de Descarga</h2>
+              <h2>Leads de Descarga</h2>
+              <div className="admin-panel-header-actions">
+                <SearchBar
+                  value={leadSearch}
+                  onChange={setLeadSearch}
+                  placeholder="Buscar por nombre, email o recurso..."
+                  ariaLabel="Buscar leads"
+                />
+                <button
+                  className="admin-secondary-btn"
+                  onClick={exportLeadsToCSV}
+                  disabled={filteredLeadsCount === 0}
+                >
+                  📥 Exportar CSV
+                </button>
+              </div>
             </div>
 
-            <div className="admin-table-wrapper">
-              <table className="admin-table">
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Recurso</th>
-                    <th>Fecha</th>
-                    <th className="admin-table-actions-col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* Mapear leads aquí */}
-                </tbody>
-              </table>
-            </div>
+            {leadsLoading && (
+              <p className="admin-status">Cargando leads...</p>
+            )}
+            
+            {leadsError && (
+              <p className="admin-status admin-status--error">
+                {leadsError}
+              </p>
+            )}
+
+            {!leadsLoading && !leadsError && filteredLeadsCount === 0 && (
+              <p className="admin-status">
+                No hay leads de descarga disponibles.
+              </p>
+            )}
+
+            {!leadsLoading && !leadsError && filteredLeadsCount > 0 && (
+              <>
+                <div className="admin-table-wrapper">
+                  <table className="admin-table">
+                    <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Recurso Descargado</th>
+                        <th>Fecha</th>
+                        <th className="admin-table-actions-col">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {paginatedLeads.map((lead) => (
+                        <tr key={lead.id}>
+                          <td className="admin-table-title">{lead.name}</td>
+                          <td>{lead.email}</td>
+                          <td>{lead.resourceTitle}</td>
+                          <td>
+                            {new Date(lead.createdAt).toLocaleDateString('es-ES', {
+                              year: 'numeric',
+                              month: 'short',
+                              day: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                          </td>
+                          <td className="admin-table-actions">
+                            {authService.isAdmin() && (
+                              <button
+                                className="admin-action-btn admin-action-btn--delete"
+                                onClick={() => openDeleteLeadModal(lead)}
+                              >
+                                Eliminar
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <Pagination
+                  currentPage={leadPage}
+                  totalItems={filteredLeadsCount}
+                  pageSize={LEADS_PAGE_SIZE}
+                  onPageChange={setLeadPage}
+                  ariaLabel="Paginación de leads"
+                />
+              </>
+            )}
           </div>
         )}
+
       </section>
 
       <ContactDetailModal

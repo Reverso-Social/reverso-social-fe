@@ -22,11 +22,6 @@ export default function ContactModal({ open, onClose }) {
     message: ""
   });
 
-  // Si ni el modal de contacto ni el de feedback están abiertos, no renderizar nada
-  // Renderizado condicional en JSX maneja esto, y el early return rompe las reglas de Hooks
-  // if (!open && !modalState.open) return null;
-
-  // Store the element that had focus before opening the modal
   const lastActiveElement = useRef(null);
 
   useEffect(() => {
@@ -34,7 +29,6 @@ export default function ContactModal({ open, onClose }) {
       lastActiveElement.current = document.activeElement;
       setErrors({});
     } else if (lastActiveElement.current) {
-      // Restore focus when modal closes
       lastActiveElement.current.focus();
     }
   }, [open]);
@@ -63,14 +57,11 @@ export default function ContactModal({ open, onClose }) {
     try {
       await contactService.create(formData);
 
-      // Cerrar modal de contacto
       onClose();
 
-      // Resetear formulario
       setFormData(initialForm);
       setErrors({});
 
-      // Mostrar modal de éxito
       setModalState({
         open: true,
         type: "success",
@@ -80,7 +71,6 @@ export default function ContactModal({ open, onClose }) {
 
     } catch (error) {
       console.error("Error al enviar contacto:", error);
-      // Mostrar modal de error
       setModalState({
         open: true,
         type: "error",

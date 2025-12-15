@@ -1,14 +1,13 @@
-import privateApi, { publicApi } from '../config/axios';
+import axiosInstance from '../config/axios';
 
 const contactService = {
   getAll: async () => {
-    const response = await privateApi.get('/contacts');
+    const response = await axiosInstance.get('/contacts');
     return response.data;
   },
 
   create: async (contactData) => {
-    // Usamos publicApi para enviar el contacto sin token
-    const response = await publicApi.post('/contacts', {
+    const response = await axiosInstance.post('/contacts', {
       fullName: contactData.nombre,
       email: contactData.email,
       message: contactData.intereses,
@@ -18,19 +17,19 @@ const contactService = {
   },
 
   getById: async (id) => {
-    const response = await privateApi.get(`/contacts/${id}`);
+    const response = await axiosInstance.get(`/contacts/${id}`);
     return response.data;
   },
 
   updateStatus: async (id, status) => {
-    const response = await privateApi.patch(`/contacts/${id}/status`, null, {
+    const response = await axiosInstance.patch(`/contacts/${id}/status`, null, {
       params: { status }
     });
     return response.data;
   },
 
   delete: async (id) => {
-    await privateApi.delete(`/contacts/${id}`);
+    await axiosInstance.delete(`/contacts/${id}`);
   },
 };
 

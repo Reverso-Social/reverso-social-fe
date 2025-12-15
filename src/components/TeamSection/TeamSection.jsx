@@ -1,15 +1,15 @@
 import TeamCard from "./TeamCard";
 import "./TeamSection.scss";
-import pilarImg from "../../assets/img/team/Pilar copy.png";
-import lolaImg from "../../assets/img/team/Lola copy.png";
-import susanaImg from "../../assets/img/team/Susana copy.png";
+import pilarImg from "../../assets/img/team/Pilar2.png";
+import lolaImg from "../../assets/img/team/lola2.png";
+import susanaImg from "../../assets/img/team/susana2.png";
 
 export default function TeamSection() {
   const team = [
     {
       name: "Lola Mtnez Cueto",
       skills: [ "RR.HH", "Docencia", "Antropología",],
-      linkedin: "https://linkedin.com/...",
+      linkedin: "https://www.linkedin.com/in/lola-mart%C3%ADnez-cueto/?utm_source=share_via&utm_content=profile&utm_medium=member_android",
       photo: lolaImg,
       alt: "Fotografia de Lola Mtnez Cueto",
     },
@@ -17,7 +17,7 @@ export default function TeamSection() {
       name: "Pilar Limón",
       lastName: "Fdez-Caballero",
       skills: ["Psicología", "Igualdad", "Formación y Consultoria", ],
-      linkedin: "https://linkedin.com/...",
+      linkedin: "https://www.linkedin.com/in/pilar-lim%C3%B3n-f-c-442752372/?utm_source=share_via&utm_content=profile&utm_medium=member_android",
       photo: pilarImg,
       alt: "Fotografia de Pilar Limón Fdez-Caballero",
     },

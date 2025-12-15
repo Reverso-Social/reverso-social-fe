@@ -17,7 +17,6 @@ export default function GlobalModal({
   useEffect(() => {
     if (!open) return;
 
-    // Focus Trap & ESC key
     const handleKeyDown = (event) => {
       if (closeOnEsc && event.key === "Escape") {
         onClose?.();
@@ -34,12 +33,12 @@ export default function GlobalModal({
         const firstElement = focusableElements[0];
         const lastElement = focusableElements[focusableElements.length - 1];
 
-        if (event.shiftKey) { // Shift + Tab
+        if (event.shiftKey) {
           if (document.activeElement === firstElement) {
             lastElement.focus();
             event.preventDefault();
           }
-        } else { // Tab
+        } else {
           if (document.activeElement === lastElement) {
             firstElement.focus();
             event.preventDefault();
@@ -48,10 +47,8 @@ export default function GlobalModal({
       }
     };
 
-    // Store last active element
     const lastActiveElement = document.activeElement;
 
-    // Set initial focus to primary button or close button or modal itself
     const timer = setTimeout(() => {
       if (modalRef.current) {
         const autoFocusElement = modalRef.current.querySelector('[data-autofocus="true"]') ||
@@ -63,13 +60,12 @@ export default function GlobalModal({
           modalRef.current.focus();
         }
       }
-    }, 50); // Small delay to ensure render
+    }, 50);
 
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       clearTimeout(timer);
-      // Restore focus on unmount/close
       if (lastActiveElement) {
         lastActiveElement.focus();
       }

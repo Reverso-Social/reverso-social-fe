@@ -11,14 +11,9 @@ const baseConfig = {
   timeout: 10000,
 };
 
-// Instancia pública (sin interceptores de auth)
-export const publicApi = axios.create(baseConfig);
+const axiosInstance = axios.create(baseConfig);
 
-// Instancia privada (con interceptores)
-export const privateApi = axios.create(baseConfig);
-
-// Interceptor para añadir el token JWT a todas las peticiones privadas
-privateApi.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('reverso_token');
     console.log('🔐 Interceptor - Token encontrado:', token ? 'Sí' : 'No');
@@ -30,6 +25,10 @@ privateApi.interceptors.request.use(
     } else {
       console.warn('⚠️ No hay token para enviar en petición privada');
     }
+    if (config.data instanceof FormData) {
+      delete config.headers['Content-Type'];
+      console.log('📦 FormData detectado, Content-Type eliminado');
+    }
 
     return config;
   },
@@ -39,8 +38,7 @@ privateApi.interceptors.request.use(
   }
 );
 
-// Interceptor para manejar respuestas y errores (401)
-privateApi.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
@@ -53,4 +51,4 @@ privateApi.interceptors.response.use(
 );
 
 // Mantenemos el default export como privateApi para no romper código existente
-export default privateApi;
+export default axiosInstance;
