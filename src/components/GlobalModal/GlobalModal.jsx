@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import "./GlobalModal.scss";
 
 export default function GlobalModal({
@@ -12,17 +12,68 @@ export default function GlobalModal({
   closeOnOverlayClick = true,
   closeOnEsc = true,
 }) {
-  useEffect(() => {
-    if (!open || !closeOnEsc) return;
+  const modalRef = useRef(null);
 
+  useEffect(() => {
+    if (!open) return;
+
+    // Focus Trap & ESC key
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
+      if (closeOnEsc && event.key === "Escape") {
         onClose?.();
+        return;
+      }
+
+      if (event.key === "Tab") {
+        const focusableElements = modalRef.current?.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+
+        if (!focusableElements || focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (event.shiftKey) { // Shift + Tab
+          if (document.activeElement === firstElement) {
+            lastElement.focus();
+            event.preventDefault();
+          }
+        } else { // Tab
+          if (document.activeElement === lastElement) {
+            firstElement.focus();
+            event.preventDefault();
+          }
+        }
       }
     };
 
+    // Store last active element
+    const lastActiveElement = document.activeElement;
+
+    // Set initial focus to primary button or close button or modal itself
+    const timer = setTimeout(() => {
+      if (modalRef.current) {
+        const autoFocusElement = modalRef.current.querySelector('[data-autofocus="true"]') ||
+          modalRef.current.querySelector('.global-modal__btn--primary') ||
+          modalRef.current.querySelector('.global-modal__close-btn');
+        if (autoFocusElement) {
+          autoFocusElement.focus();
+        } else {
+          modalRef.current.focus();
+        }
+      }
+    }, 50); // Small delay to ensure render
+
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      clearTimeout(timer);
+      // Restore focus on unmount/close
+      if (lastActiveElement) {
+        lastActiveElement.focus();
+      }
+    };
   }, [open, closeOnEsc, onClose]);
 
   if (!open) return null;
@@ -43,12 +94,14 @@ export default function GlobalModal({
       aria-hidden="true"
     >
       <div
+        ref={modalRef}
         className={`global-modal global-modal--${variant}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={modalTitleId}
         aria-describedby={modalBodyId}
         onClick={(e) => e.stopPropagation()}
+        tabIndex={-1}
       >
         <header className="global-modal__header">
           {title && (
@@ -88,11 +141,10 @@ export default function GlobalModal({
             {primaryAction && (
               <button
                 type="button"
-                className={`global-modal__btn global-modal__btn--primary ${
-                  variant === "danger"
-                    ? "global-modal__btn--primary-danger"
-                    : ""
-                }`}
+                className={`global-modal__btn global-modal__btn--primary ${variant === "danger"
+                  ? "global-modal__btn--primary-danger"
+                  : ""
+                  }`}
                 onClick={primaryAction.onClick}
                 disabled={primaryAction.disabled}
               >

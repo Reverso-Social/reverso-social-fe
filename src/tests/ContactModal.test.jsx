@@ -1,15 +1,15 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 
-vi.mock("../data/contactMock", () => ({
-  contactMock: {
-    add: vi.fn(() => ({ id: 1 })),
-    getAll: vi.fn(() => []),
+// Mock del servicio
+vi.mock("../api/contactService", () => ({
+  default: {
+    create: vi.fn(() => Promise.resolve({ success: true })),
   },
 }));
 
 import ContactModal from "../components/ContactModal/ContactModal";
-import { contactMock } from "../data/contactMock";
+import contactService from "../api/contactService";
 
 describe("ContactModal Component", () => {
   beforeEach(() => {
@@ -17,19 +17,19 @@ describe("ContactModal Component", () => {
   });
 
   it("no renderiza nada si open = false", () => {
-    render(<ContactModal open={false} onClose={() => {}} />);
+    render(<ContactModal open={false} onClose={() => { }} />);
     const title = screen.queryByText("Contáctanos");
     expect(title).toBeNull();
   });
 
   it("renderiza el modal cuando open = true", () => {
-    render(<ContactModal open={true} onClose={() => {}} />);
+    render(<ContactModal open={true} onClose={() => { }} />);
     expect(screen.queryByText("Contáctanos")).not.toBeNull();
     expect(screen.queryByText("Estamos aquí para escucharte.")).not.toBeNull();
   });
 
   it("muestra errores cuando se envía el formulario vacío", () => {
-    render(<ContactModal open={true} onClose={() => {}} />);
+    render(<ContactModal open={true} onClose={() => { }} />);
     const submitBtn = screen.getByRole("button", { name: /enviar/i });
     fireEvent.click(submitBtn);
 
@@ -38,8 +38,9 @@ describe("ContactModal Component", () => {
     expect(screen.queryByText("Cuéntanos tus intereses")).not.toBeNull();
   });
 
-  it("guarda datos válidos y muestra mensaje de éxito", () => {
-    render(<ContactModal open={true} onClose={() => {}} />);
+  it("guarda datos válidos y muestra mensaje de éxito", async () => {
+    const onClose = vi.fn();
+    render(<ContactModal open={true} onClose={onClose} />);
 
     fireEvent.change(screen.getByPlaceholderText("Tu nombre completo"), { target: { value: "Ana" } });
     fireEvent.change(screen.getByPlaceholderText("tu@email.com"), { target: { value: "ana@example.com" } });
@@ -51,14 +52,27 @@ describe("ContactModal Component", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /enviar/i }));
 
-    expect(contactMock.add).toHaveBeenCalledWith({
-      nombre: "Ana",
-      email: "ana@example.com",
-      entidad: "Reverso Social",
-      intereses: "Consultoría en igualdad",
+    await waitFor(() => {
+      expect(contactService.create).toHaveBeenCalledWith({
+        nombre: "Ana",
+        email: "ana@example.com",
+        entidad: "Reverso Social",
+        intereses: "Consultoría en igualdad",
+      });
     });
 
-    expect(screen.queryByText("Datos guardados temporalmente en este navegador.")).not.toBeNull();
+    // Validar que se llamó a onClose para cerrar el formulario
+    expect(onClose).toHaveBeenCalled();
+
+    // Validar que aparece el modal de éxito (GlobalModal)
+    // Nota: El GlobalModal se renderiza incluso si open=false (manejado por estado interno)
+    // Pero en el test, al llamar a onClose (mock), el componente ContactModal NO se desmonta
+    // porque 'render' mantiene el componente montado con las props iniciales a menos que hagamos rerender.
+    // Sin embargo, el componente usa la prop 'open' para decidir si mostrar el FORMULARIO.
+    // El GlobalModal depende de 'modalState.open'.
+
+    expect(screen.queryByText("Mensaje enviado")).not.toBeNull();
+    expect(screen.queryByText("¡Gracias por escribirnos! Nos pondremos en contacto contigo pronto.")).not.toBeNull();
   });
 
   it("cierra el modal al hacer click en el overlay", () => {

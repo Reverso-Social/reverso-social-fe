@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./ContactModal.scss";
 import { X, User, Mail, Building2, Heart } from "lucide-react";
 import contactService from "../../api/contactService";
+import GlobalModal from "../GlobalModal/GlobalModal";
 
 export default function ContactModal({ open, onClose }) {
-  if (!open) return null;
-
   const initialForm = {
     nombre: "",
     email: "",
@@ -15,13 +14,28 @@ export default function ContactModal({ open, onClose }) {
 
   const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState({ type: "", message: "" });
   const [loading, setLoading] = useState(false);
+  const [modalState, setModalState] = useState({
+    open: false,
+    type: "success",
+    title: "",
+    message: ""
+  });
+
+  // Si ni el modal de contacto ni el de feedback están abiertos, no renderizar nada
+  // Renderizado condicional en JSX maneja esto, y el early return rompe las reglas de Hooks
+  // if (!open && !modalState.open) return null;
+
+  // Store the element that had focus before opening the modal
+  const lastActiveElement = useRef(null);
 
   useEffect(() => {
     if (open) {
-      setStatus({ type: "", message: "" });
+      lastActiveElement.current = document.activeElement;
       setErrors({});
+    } else if (lastActiveElement.current) {
+      // Restore focus when modal closes
+      lastActiveElement.current.focus();
     }
   }, [open]);
 
@@ -45,29 +59,41 @@ export default function ContactModal({ open, onClose }) {
     if (!validate()) return;
 
     setLoading(true);
-    setStatus({ type: "", message: "" });
 
     try {
       await contactService.create(formData);
-      setStatus({
-        type: "success",
-        message: "¡Mensaje enviado! Nos pondremos en contacto contigo pronto.",
-      });
-      setErrors({});
-      setFormData(initialForm);
 
-      setTimeout(() => {
-        onClose();
-      }, 2000);
+      // Cerrar modal de contacto
+      onClose();
+
+      // Resetear formulario
+      setFormData(initialForm);
+      setErrors({});
+
+      // Mostrar modal de éxito
+      setModalState({
+        open: true,
+        type: "success",
+        title: "Mensaje enviado",
+        message: "¡Gracias por escribirnos! Nos pondremos en contacto contigo pronto."
+      });
+
     } catch (error) {
       console.error("Error al enviar contacto:", error);
-      setStatus({
+      // Mostrar modal de error
+      setModalState({
+        open: true,
         type: "error",
-        message: "No pudimos enviar tu mensaje. Por favor, intenta de nuevo.",
+        title: "Error de envío",
+        message: "No pudimos enviar tu mensaje. Por favor, verifica tu conexión e intenta de nuevo."
       });
     } finally {
       setLoading(false);
     }
+  };
+
+  const closeGlobalModal = () => {
+    setModalState(prev => ({ ...prev, open: false }));
   };
 
   const handleOverlayClick = (e) => {
@@ -77,115 +103,119 @@ export default function ContactModal({ open, onClose }) {
   };
 
   return (
-    <div className="contact-modal__overlay" onClick={handleOverlayClick}>
-      <div className="contact-modal__container">
-        <button className="contact-modal__close" onClick={onClose} aria-label="Cerrar">
-          <X size={22} />
-        </button>
+    <>
+      {open && (
+        <div className="contact-modal__overlay" onClick={handleOverlayClick}>
+          <div className="contact-modal__container">
+            <button className="contact-modal__close" onClick={onClose} aria-label="Cerrar">
+              <X size={22} />
+            </button>
 
-        <h2 className="contact-modal__title">Contáctanos</h2>
-        <p className="contact-modal__subtitle">Estamos aquí para escucharte.</p>
+            <h2 className="contact-modal__title">Contáctanos</h2>
+            <p className="contact-modal__subtitle">Estamos aquí para escucharte.</p>
 
-        <form className="contact-modal__form" onSubmit={handleSubmit}>
-          <div className="contact-modal__field">
-            <label htmlFor="contact-nombre">Nombre</label>
-            <div
-              className={`contact-modal__input-wrapper ${
-                errors.nombre ? "error" : ""
-              }`}
-            >
-              <User className="icon" size={20} />
-              <input
-                id="contact-nombre"
-                type="text"
-                placeholder="Tu nombre completo"
-                value={formData.nombre}
-                onChange={(e) =>
-                  setFormData({ ...formData, nombre: e.target.value })
-                }
-                disabled={loading}
-              />
-            </div>
-            {errors.nombre && <span className="error-text">{errors.nombre}</span>}
+            <form className="contact-modal__form" onSubmit={handleSubmit}>
+              <div className="contact-modal__field">
+                <label htmlFor="contact-nombre">Nombre</label>
+                <div
+                  className={`contact-modal__input-wrapper ${errors.nombre ? "error" : ""}`}
+                >
+                  <User className="icon" size={20} />
+                  <input
+                    id="contact-nombre"
+                    type="text"
+                    placeholder="Tu nombre completo"
+                    value={formData.nombre}
+                    onChange={(e) =>
+                      setFormData({ ...formData, nombre: e.target.value })
+                    }
+                    disabled={loading}
+                  />
+                </div>
+                {errors.nombre && <span className="error-text">{errors.nombre}</span>}
+              </div>
+
+              <div className="contact-modal__field">
+                <label htmlFor="contact-email">Email</label>
+                <div
+                  className={`contact-modal__input-wrapper ${errors.email ? "error" : ""}`}
+                >
+                  <Mail className="icon" size={20} />
+                  <input
+                    id="contact-email"
+                    type="email"
+                    placeholder="tu@email.com"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    disabled={loading}
+                  />
+                </div>
+                {errors.email && <span className="error-text">{errors.email}</span>}
+              </div>
+
+              <div className="contact-modal__field">
+                <label htmlFor="contact-entidad">Entidad (opcional)</label>
+                <div className="contact-modal__input-wrapper">
+                  <Building2 className="icon" size={20} />
+                  <input
+                    id="contact-entidad"
+                    type="text"
+                    placeholder="Organizacion o colectivo"
+                    value={formData.entidad}
+                    onChange={(e) =>
+                      setFormData({ ...formData, entidad: e.target.value })
+                    }
+                    disabled={loading}
+                  />
+                </div>
+              </div>
+
+              <div className="contact-modal__field">
+                <label htmlFor="contact-intereses">Intereses</label>
+                <div
+                  className={`contact-modal__textarea-wrapper ${errors.intereses ? "error" : ""}`}
+                >
+                  <Heart className="icon icon--textarea" size={20} />
+                  <textarea
+                    id="contact-intereses"
+                    rows="3"
+                    placeholder="¿Qué te interesa o en qué podemos colaborar?"
+                    value={formData.intereses}
+                    onChange={(e) =>
+                      setFormData({ ...formData, intereses: e.target.value })
+                    }
+                    disabled={loading}
+                  />
+                </div>
+                {errors.intereses && (
+                  <span className="error-text">{errors.intereses}</span>
+                )}
+              </div>
+
+              <button type="submit" className="contact-modal__submit" disabled={loading}>
+                {loading ? "Enviando..." : "Enviar"}
+              </button>
+            </form>
           </div>
+        </div>
+      )}
 
-          <div className="contact-modal__field">
-            <label htmlFor="contact-email">Email</label>
-            <div
-              className={`contact-modal__input-wrapper ${
-                errors.email ? "error" : ""
-              }`}
-            >
-              <Mail className="icon" size={20} />
-              <input
-                id="contact-email"
-                type="email"
-                placeholder="tu@email.com"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                disabled={loading}
-              />
-            </div>
-            {errors.email && <span className="error-text">{errors.email}</span>}
-          </div>
-
-          <div className="contact-modal__field">
-            <label htmlFor="contact-entidad">Entidad (opcional)</label>
-            <div className="contact-modal__input-wrapper">
-              <Building2 className="icon" size={20} />
-              <input
-                id="contact-entidad"
-                type="text"
-                placeholder="Organizacion o colectivo"
-                value={formData.entidad}
-                onChange={(e) =>
-                  setFormData({ ...formData, entidad: e.target.value })
-                }
-                disabled={loading}
-              />
-            </div>
-          </div>
-
-          <div className="contact-modal__field">
-            <label htmlFor="contact-intereses">Intereses</label>
-            <div
-              className={`contact-modal__textarea-wrapper ${
-                errors.intereses ? "error" : ""
-              }`}
-            >
-              <Heart className="icon icon--textarea" size={20} />
-              <textarea
-                id="contact-intereses"
-                rows="3"
-                placeholder="¿Qué te interesa o en qué podemos colaborar?"
-                value={formData.intereses}
-                onChange={(e) =>
-                  setFormData({ ...formData, intereses: e.target.value })
-                }
-                disabled={loading}
-              />
-            </div>
-            {errors.intereses && (
-              <span className="error-text">{errors.intereses}</span>
-            )}
-          </div>
-
-          <button type="submit" className="contact-modal__submit" disabled={loading}>
-            {loading ? "Enviando..." : "Enviar"}
-          </button>
-
-          {status.message && (
-            <p
-              className={`contact-modal__status contact-modal__status--${status.type}`}
-              role={status.type === "error" ? "alert" : "status"}
-            >
-              {status.message}
-            </p>
-          )}
-        </form>
-      </div>
-    </div>
+      {modalState.open && (
+        <GlobalModal
+          open={modalState.open}
+          title={modalState.title}
+          onClose={closeGlobalModal}
+          variant={modalState.type === "error" ? "danger" : "default"}
+          primaryAction={{
+            label: "Cerrar",
+            onClick: closeGlobalModal
+          }}
+        >
+          <p>{modalState.message}</p>
+        </GlobalModal>
+      )}
+    </>
   );
 }
