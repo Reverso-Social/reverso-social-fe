@@ -67,8 +67,16 @@ export default function ResourcesPage() {
       console.log('✅ Lead guardado:', response);
 
       if (selectedResource?.fileUrl) {
-        console.log('📥 Descargando archivo:', selectedResource.fileUrl);
-        window.open(selectedResource.fileUrl, "_blank");
+        let downloadUrl = selectedResource.fileUrl;
+      
+      if (!downloadUrl.startsWith('http')) {
+        const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+        const BASE_URL = API_BASE.replace('/api', ''); // Remover /api del final
+        downloadUrl = `${BASE_URL}${downloadUrl}`;
+      }
+      
+      console.log('📥 Descargando archivo:', downloadUrl);
+      window.open(downloadUrl, "_blank");
       } else {
         console.warn('⚠️ El recurso no tiene fileUrl:', selectedResource);
         alert("Recurso guardado, pero el archivo no está disponible temporalmente.");

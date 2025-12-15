@@ -10,7 +10,6 @@ const axiosInstance = axios.create({
   timeout: 10000,
 });
 
-// Interceptor para añadir el token JWT a todas las peticiones
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('reverso_token');
@@ -23,6 +22,10 @@ axiosInstance.interceptors.request.use(
     } else {
       console.warn('⚠️ No hay token para enviar');
     }
+    if (config.data instanceof FormData) {
+      delete config.headers['Content-Type'];
+      console.log('📦 FormData detectado, Content-Type eliminado');
+    }
     
     return config;
   },
@@ -32,7 +35,6 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// Interceptor para manejar respuestas y errores
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {

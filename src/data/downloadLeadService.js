@@ -1,24 +1,23 @@
-import apiClient from '../config/axios';
+import axiosInstance from '../config/axios';
 
 const downloadLeadService = {
   async createLead(data) {
-    const response = await apiClient.post('/download-leads', data);
+    const response = await axiosInstance.post('/download-leads', data); 
     return response.data;
   },
 
   async getAllLeads() {
-    const response = await apiClient.get('/download-leads');
+    const response = await axiosInstance.get('/download-leads'); 
     return response.data;
   },
 
   async getLeadsByResource(resourceId) {
-    const response = await apiClient.get(`/download-leads/resource/${resourceId}`);
+    const response = await axiosInstance.get(`/download-leads/resource/${resourceId}`); 
     return response.data;
   },
 
   async deleteLead(id) {
-    const response = await apiClient.delete(`/download-leads/${id}`);
-    return response.data;
+    await axiosInstance.delete(`/download-leads/${id}`); 
   }
 };
 
