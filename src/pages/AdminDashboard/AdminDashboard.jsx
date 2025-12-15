@@ -115,10 +115,10 @@ export default function AdminDashboard() {
     exportLeadsToCSV,
   } = useDownloadLeadsAdmin();
 
-  const handleLogout = () => {
-    authService.logout();
-    navigate("/");
-  };
+  // const handleLogout = () => {
+  //   authService.logout();
+  //   navigate("/");
+  // };
 
   const openDeleteContactModal = (contact) => {
     setConfirmModal({
@@ -219,9 +219,9 @@ export default function AdminDashboard() {
           <h1>Panel de Administración</h1>
           <p className="admin-subtitle">Bienvenida, {currentUser.fullName}</p>
         </div>
-        <button onClick={handleLogout} className="admin-logout-btn">
+        {/* <button onClick={handleLogout} className="admin-logout-btn">
           Cerrar Sesión
-        </button>
+        </button> */}
       </header>
 
       <nav className="admin-tabs" aria-label="Secciones">
