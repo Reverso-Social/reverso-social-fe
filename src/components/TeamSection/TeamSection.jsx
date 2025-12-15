@@ -33,6 +33,9 @@ export default function TeamSection() {
   return (
     <section className="team-section" id="team">
       <h2 className="team-section__title">¡Hola! <span className="about__title--highlight">somos:</span></h2>
+      <p className="about__description">
+         Tres caminos paralelos que durante más de 20 años nos hemos dedicado a la igualdad, a la diversidad, a la inclusión social, a la coordinación y gestión de proyectos, a la formación y a la consultoría que han bifurcado en este proyecto que aborda todos los ámbitos laborales, empresariales, sociales y educativos relacionado con igualdad, género y diversidad.
+        </p>
 
       <div className="team-section__grid">
         {team.map((member, index) => (

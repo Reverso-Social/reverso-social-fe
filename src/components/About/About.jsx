@@ -72,7 +72,7 @@ const About = () => {
         <h2 id="about-heading" className="about__title">
           Sobre <span className="about__title--highlight">Reverso Social</span>
         </h2>
-        <p className="about__subtitle">Expertise Feminista para el Cambio</p>
+        <p className="about__subtitle">Pericia Feminista para el Cambio</p>
         <p className="about__description">
           Somos un equipo de mujeres con amplia experiencia en políticas públicas, consultoría especializada 
           y formación transformadora en igualdad. Una entidad de nueva generación comprometida con la justicia social.
