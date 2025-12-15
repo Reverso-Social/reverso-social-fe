@@ -27,13 +27,13 @@ axiosInstance.interceptors.request.use(
     }
     if (config.data instanceof FormData) {
       delete config.headers['Content-Type'];
-      console.log('📦 FormData detectado, Content-Type eliminado');
+      console.log('FormData detectado, Content-Type eliminado');
     }
 
     return config;
   },
   (error) => {
-    console.error('❌ Error en request interceptor:', error);
+    console.error(' Error en request interceptor:', error);
     return Promise.reject(error);
   }
 );
