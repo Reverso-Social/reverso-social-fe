@@ -1,12 +1,14 @@
+@use "sass:color";
+
 @use '../../styles/variables' as *;
 
-$color-turquesa-card: darken($color-turquesa-soft, 5%);
+$color-turquesa-card: color.adjust($color-turquesa-soft, $lightness: -5%, $space: hsl);
 $color-lila-card: $color-lila-medium;
 $color-azul-card: $color-turquesa-valores;
 
-$color-turquesa-dark: darken($color-primary, 15%);
-$color-lila-dark: darken($color-secondary, 10%);
-$color-azul-dark: darken($color-turquesa-valores, 18%);
+$color-turquesa-dark: color.adjust($color-primary, $lightness: -15%, $space: hsl);
+$color-lila-dark: color.adjust($color-secondary, $lightness: -10%, $space: hsl);
+$color-azul-dark: color.adjust($color-turquesa-valores, $lightness: -18%, $space: hsl);
 
 .about {
   padding: $space-2xl $space-lg;
@@ -58,9 +60,9 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
       background: linear-gradient(
         90deg,
         $color-primary 0%,
-        darken($color-primary, 5%) 25%,
+        color.adjust($color-primary, $lightness: -5%, $space: hsl) 25%,
         $color-secondary 75%,
-        darken($color-secondary, 5%) 100%
+        color.adjust($color-secondary, $lightness: -5%, $space: hsl) 100%
       );
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;

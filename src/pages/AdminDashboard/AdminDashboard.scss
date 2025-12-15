@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @use "../../styles/variables" as *;
 
 .admin-dashboard {
@@ -261,7 +263,7 @@
 
   &:hover {
     background-color: rgba($color-primary, 0.1);
-    color: darken($color-primary, 10%);
+    color: color.adjust($color-primary, $lightness: -10%, $space: hsl);
     transform: scale(1.1);
   }
 

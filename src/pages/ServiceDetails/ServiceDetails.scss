@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @use '../../styles/variables' as *;
 
 .service-details {
@@ -274,7 +276,7 @@
     gap: 0.5rem;
 
     &:hover {
-      background: darken($color-lila-light, 10%);
+      background: color.adjust($color-lila-light, $lightness: -10%, $space: hsl);
     }
   }
 }
