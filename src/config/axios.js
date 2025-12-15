@@ -13,24 +13,24 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('reverso_token');
-    console.log('🔐 Interceptor - Token encontrado:', token ? 'Sí' : 'No');
-    console.log('🌐 Interceptor - URL:', config.url);
+    console.log('Interceptor - Token encontrado:', token ? 'Sí' : 'No');
+    console.log(' Interceptor - URL:', config.url);
     
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-      console.log('✅ Token añadido al header');
+      console.log('Token añadido al header');
     } else {
-      console.warn('⚠️ No hay token para enviar');
+      console.warn('No hay token para enviar');
     }
     if (config.data instanceof FormData) {
       delete config.headers['Content-Type'];
-      console.log('📦 FormData detectado, Content-Type eliminado');
+      console.log('FormData detectado, Content-Type eliminado');
     }
     
     return config;
   },
   (error) => {
-    console.error('❌ Error en request interceptor:', error);
+    console.error(' Error en request interceptor:', error);
     return Promise.reject(error);
   }
 );
