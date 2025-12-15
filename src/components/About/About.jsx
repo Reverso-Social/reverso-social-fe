@@ -30,7 +30,13 @@ const About = () => {
       icon: VisionIcon,
       color: 'turquesa',
       fullTitle: 'Nuestra Visión',
-      content: 'Ser un referente reconocido en innovación social y feminista, impulsando organizaciones más justas, inclusivas y sostenibles en toda España.'
+      content: (
+        <>
+          Desde Reverso Social buscamos construir una visión que vaya más allá del cumplimiento normativo o la implantación interna de medidas de igualdad. Nuestro propósito es transformar estructuras sociales, influir en políticas públicas y generar cambios estructurales culturales duraderos que ayuden a construir sociedades más justas y equitativas, donde la igualdad real prime.
+          <br />
+          <strong>ES UNA VISIÓN POSIBLE</strong>
+        </>
+      )
     },
     {
       id: 'mision',
@@ -38,7 +44,8 @@ const About = () => {
       icon: MisionIcon,
       color: 'lila',
       fullTitle: 'Nuestra Misión',
-      content: 'Acompañar a entidades públicas y privadas en su transformación hacia la igualdad efectiva mediante metodologías innovadoras y evidencia contrastada.'
+      content:
+        'Ser un agente catalizador de transformaciones sociales que garanticen la igualdad real y la justicia social, impulsando políticas, prácticas institucionales y cambios culturales que reduzcan desigualdades estructurales y fomenten sociedades más inclusivas, diversas y democráticas.'
     },
     {
       id: 'valores',
@@ -46,7 +53,16 @@ const About = () => {
       icon: ValoresIcon,
       color: 'azul',
       fullTitle: 'Valores Fundamentales',
-      content: 'Feminismo activo, coherencia inquebrantable, transparencia radical, compromiso social profundo y transformación real como horizonte permanente.'
+      content: (
+        <ul>
+          <li>Transformación estructural</li>
+          <li>Incidencia sociopolítica</li>
+          <li>Enfoque en derechos humanos y justicia social</li>
+          <li>Construcción de alianzas</li>
+          <li>Impacto medible y sostenible</li>
+          <li>Diversidad como motor de innovación y cohesión</li>
+        </ul>
+      )
     }
   ];
 
@@ -101,7 +117,11 @@ const About = () => {
                 >
                   <div className={`about-card__content about-card__content--${card.color}`}>
                     <h4 className="about-card__content-title">{card.fullTitle}</h4>
-                    <p className="about-card__text">{card.content}</p>
+
+                    <div className="about-card__text">
+                      {card.content}
+                    </div>
+
                   </div>
                 </section>
               </div>
