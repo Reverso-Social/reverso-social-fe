@@ -9,6 +9,7 @@ import resourceService from "../../api/resourceService";
 import authService from "../../api/authService";
 import DownloadFormModal from "../../components/DownloadModal/DownloadModal";
 import downloadLeadService from "../../data/downloadLeadService";
+import ContactModal from "../../components/ContactModal/ContactModal";
 
 // Mapeo de iconos por tipo de recurso
 const resourceIcons = {
@@ -36,6 +37,8 @@ export default function ResourcesPage() {
   const [showModal, setShowModal] = useState(false);
   const [selectedResource, setSelectedResource] = useState(null);
 
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
   useEffect(() => {
     const fetchResources = async () => {
       try {
@@ -53,6 +56,17 @@ export default function ResourcesPage() {
 
     fetchResources();
   }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (!isContactOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isContactOpen]);
 
   const handleLeadSubmit = async (formData) => {
     console.log('📤 Enviando lead:', formData);
@@ -102,6 +116,12 @@ export default function ResourcesPage() {
 
   return (
     <div className="resources-page">
+      <ContactModal
+        open={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
+        defaultIntereses={"Hola, me interesa hablar sobre recursos personalizados para mi organización."}
+      />
+
       <section className="resources-hero">
         <div className="resources-hero-content">
           <Link to="/" className="back-link">
@@ -195,9 +215,13 @@ export default function ResourcesPage() {
           <div className="resources-cta">
             <h2>¿No encuentras lo que buscas?</h2>
             <p>Podemos crear recursos personalizados para tu organización</p>
-            <Link to="/#contacto" className="cta-btn">
+            <button
+              className="cta-btn"
+              onClick={() => setIsContactOpen(true)}
+              type="button"
+            >
               Contáctanos
-            </Link>
+            </button>
           </div>
         </div>
       </section>
