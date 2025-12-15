@@ -8,7 +8,7 @@ export default function TeamSection() {
   const team = [
     {
       name: "Lola Mtnez Cueto",
-      skills: [ "RR.HH", "Docencia", "Antropología",],
+      skills: [ "Desarollo Organizacional", "Docencia", "Antropología",],
       linkedin: "https://www.linkedin.com/in/lola-mart%C3%ADnez-cueto/?utm_source=share_via&utm_content=profile&utm_medium=member_android",
       photo: lolaImg,
       alt: "Fotografia de Lola Mtnez Cueto",
