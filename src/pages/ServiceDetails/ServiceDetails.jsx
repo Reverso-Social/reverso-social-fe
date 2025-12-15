@@ -1,10 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { servicesData } from "../../data/serviceData";
 import { servicesDetailedData } from "../../data/servicesDetailedData";
 import { FaBalanceScale, FaShieldAlt, FaHandsHelping, FaEnvelope, FaArrowLeft, FaCheck } from "react-icons/fa";
 import { PiMoneyFill } from "react-icons/pi";
 import { GiGraduateCap } from "react-icons/gi";
 import { BsHouses } from "react-icons/bs";
+import ContactModal from "../../components/ContactModal/ContactModal";
 import "./ServiceDetails.scss";
 
 const iconMap = {
@@ -21,6 +23,19 @@ const iconMap = {
 const ServiceDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isContactOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isContactOpen]);
   
   let selectedService = null;
   let categoryName = "";
@@ -42,6 +57,11 @@ const ServiceDetails = () => {
 
   return (
     <div className="service-details">
+      <ContactModal
+        open={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
+      />
+
       <div className="service-details__hero">
         <div className="service-details__hero-content">
           <button 
@@ -222,7 +242,7 @@ const ServiceDetails = () => {
             </p>
             <button 
               className="service-details__cta-button"
-              onClick={() => navigate('/contacto')}
+              onClick={() => setIsContactOpen(true)}
             >
               Solicitar Información
             </button>
