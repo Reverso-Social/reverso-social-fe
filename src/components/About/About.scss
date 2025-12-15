@@ -157,7 +157,6 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
     padding: $space-2xl $space-lg;
     min-height: 220px;
     position: relative;
-
     
     background: linear-gradient(
       135deg,
@@ -175,7 +174,6 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
       0 10px 15px rgba($color-black, 0.05),
       inset 0 1px 0 rgba($color-white, 0.6),
       inset 0 -1px 0 rgba($color-black, 0.05);
-    
 
     @media (min-width: 769px) {
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -183,13 +181,8 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
     }
 
     @media (max-width: 768px) {
-      transition: opacity 0.5s ease, 
-                  transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                  max-height 0.5s ease;
-      max-height: 500px;
-      overflow: hidden;
-      padding-bottom: $space-2xl;
-
+      transition: border-radius 0.4s ease;
+      
       &::after {
         content: 'Toca para ver más';
         position: absolute;
@@ -241,7 +234,7 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
                 transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 
     @media (max-width: 768px) {
-      transform: scale(0.95);
+      transform: translateY(-10px);
     }
   }
 
@@ -254,7 +247,6 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
       0 4px 6px $shadow-soft;
 
     @media (max-width: 768px) {
-      border-radius: $radius-base * 2;
       text-align: center;
     }
 
@@ -322,17 +314,11 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
       }
 
       @media (max-width: 768px) {
-        // En mobile: colapsar el frente
-        max-height: 0;
-        opacity: 0;
-        transform: scale(1.05);
-        padding-top: 0;
-        padding-bottom: 0;
-        min-height: 0;
-
-        // Ocultar el indicador cuando está expandido
+        border-radius: ($radius-base * 2) ($radius-base * 2) 0 0;
+        
         &::after {
-          opacity: 0;
+          content: 'Toca para ocultar';
+          opacity: 0.5;
         }
       }
     }
@@ -346,7 +332,7 @@ $color-azul-dark: darken($color-turquesa-valores, 18%);
       opacity: 1;
       
       @media (max-width: 768px) {
-        transform: scale(1);
+        transform: translateY(0);
       }
     }
   }
