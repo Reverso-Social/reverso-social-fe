@@ -26,8 +26,6 @@ export default function DownloadFormModal({ open, onClose, resource, onSubmit })
 
   const handleBlur = (e) => {
     const { name: fieldName, value } = e.target;
-    // Map input names to state if needed, or just use separate handlers.
-    // Easier to use generic handler if inputs have name attribute.
     const error = validateField(fieldName, value);
     setErrors((prev) => ({ ...prev, [fieldName]: error }));
   };
@@ -69,7 +67,7 @@ export default function DownloadFormModal({ open, onClose, resource, onSubmit })
         </h2>
 
         <p className="download-modal__text">
-          Déjanos tu nombre y correo electrónico para acceder a tu descarga 💌
+          Déjanos tu nombre y correo electrónico para acceder al recurso 💌
         </p>
 
         <form className="download-modal__form" onSubmit={handleSubmit} noValidate>

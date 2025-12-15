@@ -88,7 +88,6 @@ export default function GlobalModal({
     <div
       className="global-modal-backdrop"
       onClick={handleOverlayClick}
-      aria-hidden="true"
     >
       <div
         ref={modalRef}

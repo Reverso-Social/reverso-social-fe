@@ -190,70 +190,65 @@ export default function useResourcesAdmin() {
     setResourceFormLoading(true);
 
     try {
-    let fileUrl = resourceForm.fileUrl;
-    let previewImageUrl = resourceForm.previewImageUrl;
+      let fileUrl = resourceForm.fileUrl;
+      let previewImageUrl = resourceForm.previewImageUrl;
 
-    if (resourceFormMode === "create") {
-      if (!resourceFiles.localFile) {
-        setResourceFormErrors({ fileUrl: "Debes subir un documento." });
+      if (resourceFormMode === "create") {
+        if (!resourceFiles.localFile) {
+          setResourceFormErrors({ fileUrl: "Debes subir un documento." });
+          setResourceFormLoading(false);
+          return;
+        }
+
+        fileUrl = await resourceService.uploadFile(resourceFiles.localFile);
+      } else if (resourceFormMode === "edit" && resourceFiles.localFile) {
+        fileUrl = await resourceService.uploadFile(resourceFiles.localFile);
+      }
+
+      if (resourceFiles.localImage) {
+        previewImageUrl = await resourceService.uploadFile(resourceFiles.localImage);
+      }
+
+      if (!fileUrl || fileUrl.trim() === '') {
+        setResourceFormErrors({
+          fileUrl: "Error: No se pudo obtener la URL del archivo."
+        });
         setResourceFormLoading(false);
         return;
       }
-      
-      console.log('📤 Subiendo archivo obligatorio...');
-      fileUrl = await resourceService.uploadFile(resourceFiles.localFile);
-      console.log('✅ Archivo subido, URL:', fileUrl);
-    } else if (resourceFormMode === "edit" && resourceFiles.localFile) {
-      console.log('📤 Subiendo nuevo archivo...');
-      fileUrl = await resourceService.uploadFile(resourceFiles.localFile);
-      console.log('✅ Archivo actualizado, URL:', fileUrl);
-    }
-
-    if (resourceFiles.localImage) {
-      console.log('📤 Subiendo imagen...');
-      previewImageUrl = await resourceService.uploadFile(resourceFiles.localImage);
-      console.log('✅ Imagen subida, URL:', previewImageUrl);
-    }
-
-    if (!fileUrl || fileUrl.trim() === '') {
-      setResourceFormErrors({ 
-        fileUrl: "Error: No se pudo obtener la URL del archivo." 
-      });
-      setResourceFormLoading(false);
-      return;
-    }
 
       const resourceData = {
-      title: resourceForm.title.trim(),
-      description: resourceForm.description?.trim() || "", 
-      type: resourceForm.type,
-      fileUrl: fileUrl, 
-      previewImageUrl: previewImageUrl || "", 
-      isPublic: resourceForm.isPublic ?? true 
-    };
-      console.log('📦 Guardando recurso con JSON:', resourceData);
-      console.log('🔑 Token presente:', !!localStorage.getItem('reverso_token'));
+        title: resourceForm.title.trim(),
+        description: resourceForm.description?.trim() || "",
+        type: resourceForm.type,
+        fileUrl: fileUrl,
+        previewImageUrl: previewImageUrl || "",
+        isPublic: resourceForm.isPublic ?? true
+      };
 
       if (resourceFormMode === "create") {
-        const response = await resourceService.create(resourceData);
-        console.log('✅ Recurso creado:', response);
+        await resourceService.create(resourceData);
       } else if (resourceFormMode === "edit" && editingResourceId) {
-        const response = await resourceService.update(editingResourceId, resourceData);
-        console.log('✅ Recurso actualizado:', response);
+        await resourceService.update(editingResourceId, resourceData);
       }
 
       await loadResources();
       handleCloseResourceForm();
+      return { success: true };
     } catch (error) {
-      console.error("❌ Error al guardar recurso:", error);
+      console.error("Error al guardar recurso:", error);
 
       let errorMessage = "Error al guardar el recurso.";
-      
-      if (error.response?.data) {
+
+      if (error.response?.status === 400 && error.response?.data?.message?.includes("description")) {
+        errorMessage = "La descripción no puede exceder de 50 palabras";
+      } else if (error.response?.data) {
         const errorData = error.response.data;
-        
+
         if (errorData.message) {
-          errorMessage = errorData.message;
+          errorMessage = errorData.message === "Input validation failed"
+            ? "Por favor, verifica los datos del formulario."
+            : errorData.message;
         } else if (errorData.error) {
           errorMessage = errorData.error;
         } else if (errorData.errors) {
@@ -266,12 +261,11 @@ export default function useResourcesAdmin() {
       } else if (error.message) {
         errorMessage = error.message;
       }
-      
-      console.log('🔍 Error detallado:', errorMessage);
-      
+
       setResourceFormErrors({
         submit: errorMessage
       });
+      return { success: false, error: errorMessage };
     } finally {
       setResourceFormLoading(false);
     }
@@ -281,8 +275,22 @@ export default function useResourcesAdmin() {
     try {
       await resourceService.delete(id);
       setResources((prev) => prev.filter((r) => r.id !== id));
+      return { success: true };
     } catch (error) {
       console.error("Error al eliminar recurso:", error);
+      let errorMessage = "No se ha podido borrar el recurso, inténtalo nuevamente";
+
+      if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      } else if (error.response?.data?.error) {
+        errorMessage = error.response.data.error;
+      }
+
+      if (errorMessage.includes("constraint") || errorMessage.includes("download_leads")) {
+        errorMessage = "No se puede eliminar el recurso porque tiene descargas asociadas.";
+      }
+
+      return { success: false, error: errorMessage };
     }
   };
 

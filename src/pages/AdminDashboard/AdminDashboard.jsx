@@ -46,6 +46,12 @@ export default function AdminDashboard() {
     title: "Éxito",
   });
 
+  const [errorModal, setErrorModal] = useState({
+    open: false,
+    message: "",
+    title: "Error",
+  });
+
 
   const {
     contacts,
@@ -145,7 +151,16 @@ export default function AdminDashboard() {
       description: `¿Seguro que quieres eliminar el recurso «${resource.title}»? Esta acción no se puede deshacer.`,
       confirmLabel: "Eliminar",
       variant: "danger",
-      onConfirm: () => deleteResource(resource.id),
+      onConfirm: async () => {
+        const result = await deleteResource(resource.id);
+        if (!result.success) {
+          setErrorModal({
+            open: true,
+            title: "Error al eliminar",
+            message: result.error || "No se pudo eliminar el recurso. Inténtalo de nuevo."
+          });
+        }
+      },
     });
   };
 
@@ -189,18 +204,34 @@ export default function AdminDashboard() {
     });
   };
 
-  const handleResourceFormSubmit = (e) => {
+  const handleResourceFormSubmit = async (e) => {
     e.preventDefault();
 
     if (resourceFormMode === "edit") {
       setSaveConfirmModal({
         open: true,
-        onConfirm: () => handleResourceSubmit(null),
+        onConfirm: async () => {
+          const result = await handleResourceSubmit(null);
+          if (!result.success) {
+            setErrorModal({
+              open: true,
+              title: "Error al guardar",
+              message: result.error || "No se pudieron guardar los cambios"
+            });
+          }
+        },
       });
       return;
     }
 
-    handleResourceSubmit(e);
+    const result = await handleResourceSubmit(e);
+    if (!result.success) {
+      setErrorModal({
+        open: true,
+        title: "Error al guardar",
+        message: result.error || "No se pudo crear el recurso"
+      });
+    }
   };
 
   const handleBlogSuccess = (blog) => {
@@ -1195,6 +1226,23 @@ export default function AdminDashboard() {
       >
         <p style={{ textAlign: 'center', fontSize: '1.1rem', marginTop: '0.5rem', marginBottom: '0.5rem' }}>
           <strong>{successModal.message}</strong>
+        </p>
+      </GlobalModal>
+
+      <GlobalModal
+        open={errorModal.open}
+        title={errorModal.title || "Error"}
+        onClose={() => setErrorModal({ ...errorModal, open: false })}
+        variant="danger"
+        closeOnOverlayClick={true}
+        showCloseButton={true}
+        primaryAction={{
+          label: "Cerrar",
+          onClick: () => setErrorModal({ ...errorModal, open: false })
+        }}
+      >
+        <p style={{ textAlign: 'center', fontSize: '1rem', marginTop: '1rem', marginBottom: '1rem' }}>
+          {errorModal.message}
         </p>
       </GlobalModal>
     </div>

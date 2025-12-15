@@ -8,10 +8,10 @@ import { GoChecklist } from "react-icons/go";
 import resourceService from "../../api/resourceService";
 import authService from "../../api/authService";
 import DownloadFormModal from "../../components/DownloadModal/DownloadModal";
+import GlobalModal from "../../components/GlobalModal/GlobalModal";
 import downloadLeadService from "../../data/downloadLeadService";
 import ContactModal from "../../components/ContactModal/ContactModal";
 
-// Mapeo de iconos por tipo de recurso
 const resourceIcons = {
   GUIDE: <IoNewspaperSharp />,
   REPORT: <FaChartBar />,
@@ -20,7 +20,6 @@ const resourceIcons = {
   OTHER: <GoChecklist />,
 };
 
-// Mapeo de colores por tipo
 const resourceColors = {
   GUIDE: "turquesa",
   REPORT: "lila",
@@ -34,26 +33,27 @@ export default function ResourcesPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const isAuthenticated = authService.isAuthenticated();
+  const [downloadSuccessModal, setDownloadSuccessModal] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [selectedResource, setSelectedResource] = useState(null);
-
   const [isContactOpen, setIsContactOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchResources = async () => {
-      try {
-        const data = isAuthenticated
-          ? await resourceService.getAll()
-          : await resourceService.getPublic();
-        setResources(data);
-      } catch (err) {
-        console.error("Error al cargar recursos:", err);
-        setError("No se pudieron cargar los recursos");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchResources = async () => {
+    try {
+      const data = isAuthenticated
+        ? await resourceService.getAll()
+        : await resourceService.getPublic();
+      setResources(data);
+    } catch (err) {
+      console.error("Error al cargar recursos:", err);
+      setError("No se pudieron cargar los recursos");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchResources();
   }, [isAuthenticated]);
 
@@ -69,37 +69,43 @@ export default function ResourcesPage() {
   }, [isContactOpen]);
 
   const handleLeadSubmit = async (formData) => {
-    console.log('📤 Enviando lead:', formData);
-
     try {
-      const response = await downloadLeadService.createLead({
+      await downloadLeadService.createLead({
         name: formData.name,
         email: formData.email,
         resourceId: formData.resourceId
       });
 
-      console.log('✅ Lead guardado:', response);
-
+      // Prepare URL
+      let url = "";
       if (selectedResource?.fileUrl) {
-        let downloadUrl = selectedResource.fileUrl;
-      
-      if (!downloadUrl.startsWith('http')) {
-        const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
-        const BASE_URL = API_BASE.replace('/api', ''); // Remover /api del final
-        downloadUrl = `${BASE_URL}${downloadUrl}`;
-      }
-      
-      console.log('📥 Descargando archivo:', downloadUrl);
-      window.open(downloadUrl, "_blank");
-      } else {
-        console.warn('⚠️ El recurso no tiene fileUrl:', selectedResource);
-        alert("Recurso guardado, pero el archivo no está disponible temporalmente.");
+        url = selectedResource.fileUrl;
+        if (!url.startsWith('http')) {
+          const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+          const BASE_URL = API_BASE.replace('/api', '');
+          url = `${BASE_URL}${url}`;
+        }
       }
 
+      setDownloadUrl(url);
       setShowModal(false);
+      setDownloadSuccessModal(true);
+
+      setDownloadSuccessModal(true);
+
+      await fetchResources();
+
+      setTimeout(() => {
+        if (url) {
+          window.open(url, "_blank");
+        } else {
+          alert("Recurso guardado, pero el archivo no está disponible temporalmente.");
+        }
+        setDownloadSuccessModal(false);
+      }, 3000);
 
     } catch (error) {
-      console.error("❌ Error al guardar lead:", error.response?.data || error);
+      console.error("Error al guardar lead:", error.response?.data || error);
       alert("Hubo un error al guardar tus datos. Por favor, intenta de nuevo.");
     }
   };
@@ -232,6 +238,18 @@ export default function ResourcesPage() {
         resource={selectedResource}
         onSubmit={handleLeadSubmit}
       />
+
+      <GlobalModal
+        open={downloadSuccessModal}
+        title="¡Descarga iniciada!"
+        variant="small"
+        showCloseButton={false}
+        onClose={() => setDownloadSuccessModal(false)}
+      >
+        <p style={{ textAlign: "center", margin: "1rem 0", fontSize: "1.1rem" }}>
+          Tu descarga estará lista en un instante
+        </p>
+      </GlobalModal>
 
     </div>
   );
