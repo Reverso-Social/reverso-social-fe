@@ -1,196 +1,235 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { servicesData } from "../../data/serviceData";
 import { servicesDetailedData } from "../../data/servicesDetailedData";
-import { FaBalanceScale, FaArrowLeft, FaCheckCircle } from "react-icons/fa";
+import { FaBalanceScale, FaShieldAlt, FaHandsHelping, FaEnvelope, FaArrowLeft, FaCheck } from "react-icons/fa";
 import { PiMoneyFill } from "react-icons/pi";
 import { GiGraduateCap } from "react-icons/gi";
 import { BsHouses } from "react-icons/bs";
 import "./ServiceDetails.scss";
 
-// Mapa de iconos
 const iconMap = {
   FaBalanceScale: <FaBalanceScale />,
   PiMoneyFill: <PiMoneyFill />,
   GiGraduateCap: <GiGraduateCap />,
   BsHouses: <BsHouses />,
+  FaShieldAlt: <FaShieldAlt />,
+  FaHandsHelping: <FaHandsHelping />,
+  FaEnvelope: <FaEnvelope />,
+  RainbowFlagEmoji: <span style={{ fontSize: '4rem' }}>🏳️‍🌈</span>,
 };
 
 const ServiceDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const service = servicesDetailedData[id];
+  
+  let selectedService = null;
+  let categoryName = "";
+  
+  for (const category of servicesData) {
+    const service = category.services.find(s => s.id === parseInt(id));
+    if (service) {
+      selectedService = service;
+      categoryName = category.category;
+      break;
+    }
+  }
 
-  if (!service) {
-    return (
-      <div className="service-details">
-        <div className="service-details__container">
-          <h1>Servicio no encontrado</h1>
-          <button 
-            onClick={() => navigate('/')}
-            className="service-details__back-button"
-          >
-            <FaArrowLeft /> Volver al inicio
-          </button>
-        </div>
-      </div>
-    );
+  const serviceDetails = servicesDetailedData[parseInt(id)];
+
+  if (!selectedService || !serviceDetails) {
+    return <div>Servicio no encontrado</div>;
   }
 
   return (
     <div className="service-details">
-      {/* Hero Section */}
-      <section className="service-details__hero">
+      <div className="service-details__hero">
         <div className="service-details__hero-content">
           <button 
-            onClick={() => navigate('/')}
             className="service-details__back-link"
-            aria-label="Volver al inicio"
+            onClick={() => navigate('/#servicios')}
           >
-            <FaArrowLeft /> Volver
+            <FaArrowLeft /> Volver a Servicios
           </button>
-          
+
           <div className="service-details__hero-icon">
-            {iconMap[service.iconName]}
+            {iconMap[selectedService.iconName]}
           </div>
           
-          <span className="service-details__category">{service.category}</span>
-          <h1 className="service-details__title">{service.title}</h1>
-          <p className="service-details__description">{service.fullDescription}</p>
-          
-          {service.legalNote && (
+          <span className="service-details__category">{categoryName}</span>
+          <h1 className="service-details__title">{serviceDetails.title}</h1>
+          <p className="service-details__description">
+            {serviceDetails.fullDescription}
+          </p>
+
+          {serviceDetails.legalNote && (
             <div className="service-details__legal-note">
-              {service.legalNote}
+              {serviceDetails.legalNote}
             </div>
           )}
         </div>
-      </section>
+      </div>
 
-      {/* Content Section */}
-      <section className="service-details__content">
+      <div className="service-details__content">
         <div className="service-details__container">
           
-          {/* Features */}
-          {service.features && (
-            <div className="service-details__section">
-              <h2 className="service-details__section-title">¿Qué incluye?</h2>
+          {serviceDetails.features && (
+            <section className="service-details__section">
+              <h2 className="service-details__section-title">
+                Nuestro Servicio Incluye
+              </h2>
               <div className="service-details__features">
-                {service.features.map((feature, index) => (
+                {serviceDetails.features.map((feature, index) => (
                   <div key={index} className="service-details__feature-card">
                     <div className="service-details__feature-icon">
-                      <FaCheckCircle />
+                      <FaCheck />
                     </div>
                     <div className="service-details__feature-content">
-                      <h3 className="service-details__feature-title">{feature.title}</h3>
-                      <p className="service-details__feature-description">{feature.description}</p>
+                      <h3 className="service-details__feature-title">
+                        {feature.title}
+                      </h3>
+                      {feature.description && (
+                        <p className="service-details__feature-description">
+                          {feature.description}
+                        </p>
+                      )}
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
           )}
 
-          {/* Topics (for training services) */}
-          {service.topics && (
-            <div className="service-details__section">
-              <h2 className="service-details__section-title">Temáticas de Formación</h2>
-              <div className="service-details__features">
-                {service.topics.map((topic, index) => (
-                  <div key={index} className="service-details__feature-card">
-                    <div className="service-details__feature-icon">
-                      <FaCheckCircle />
-                    </div>
-                    <div className="service-details__feature-content">
-                      <h3 className="service-details__feature-title">{topic.title}</h3>
-                      <p className="service-details__feature-description">{topic.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Characteristics */}
-          {service.characteristics && (
-            <div className="service-details__section">
-              <h2 className="service-details__section-title">Características</h2>
+          {serviceDetails.additionalServices && (
+            <section className="service-details__section">
+              <h2 className="service-details__section-title">
+                Servicios Adicionales
+              </h2>
               <div className="service-details__grid">
-                {service.characteristics.map((char, index) => (
+                {serviceDetails.additionalServices.map((service, index) => (
                   <div key={index} className="service-details__grid-card">
-                    <h3 className="service-details__grid-title">{char.title}</h3>
-                    <p className="service-details__grid-description">{char.description}</p>
+                    <h3 className="service-details__grid-title">
+                      {service.title}
+                    </h3>
+                    {service.description && (
+                      <p className="service-details__grid-description">
+                        {service.description}
+                      </p>
+                    )}
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
           )}
 
-          {/* Project Areas */}
-          {service.projectAreas && (
-            <div className="service-details__section">
-              <h2 className="service-details__section-title">Áreas de Intervención</h2>
+          {serviceDetails.topics && (
+            <section className="service-details__section">
+              <h2 className="service-details__section-title">
+                Temáticas de Formación
+              </h2>
               <div className="service-details__features">
-                {service.projectAreas.map((area, index) => (
+                {serviceDetails.topics.map((topic, index) => (
                   <div key={index} className="service-details__feature-card">
                     <div className="service-details__feature-icon">
-                      <FaCheckCircle />
+                      <FaCheck />
                     </div>
                     <div className="service-details__feature-content">
-                      <h3 className="service-details__feature-title">{area.title}</h3>
-                      <p className="service-details__feature-description">{area.description}</p>
+                      <h3 className="service-details__feature-title">
+                        {topic.title}
+                      </h3>
+                      {topic.description && (
+                        <p className="service-details__feature-description">
+                          {topic.description}
+                        </p>
+                      )}
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
           )}
 
-          {/* Services (for Pacto Estado) */}
-          {service.services && (
-            <div className="service-details__section">
-              <h2 className="service-details__section-title">Servicios que Ofrecemos</h2>
-              <div className="service-details__features">
-                {service.services.map((srv, index) => (
-                  <div key={index} className="service-details__feature-card">
-                    <div className="service-details__feature-icon">
-                      <FaCheckCircle />
-                    </div>
-                    <div className="service-details__feature-content">
-                      <h3 className="service-details__feature-title">{srv.title}</h3>
-                      <p className="service-details__feature-description">{srv.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Additional Services */}
-          {service.additionalServices && (
-            <div className="service-details__section">
-              <h2 className="service-details__section-title">Servicios Adicionales</h2>
+          {serviceDetails.characteristics && (
+            <section className="service-details__section">
+              <h2 className="service-details__section-title">
+                Características de la Formación
+              </h2>
               <div className="service-details__grid">
-                {service.additionalServices.map((addService, index) => (
+                {serviceDetails.characteristics.map((char, index) => (
                   <div key={index} className="service-details__grid-card">
-                    <h3 className="service-details__grid-title">{addService.title}</h3>
-                    <p className="service-details__grid-description">{addService.description}</p>
+                    <h3 className="service-details__grid-title">
+                      {char.title}
+                    </h3>
+                    <p className="service-details__grid-description">
+                      {char.description}
+                    </p>
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
           )}
 
-          {/* CTA Section */}
-          <div className="service-details__cta">
-            <h2>¿Interesada en este servicio?</h2>
-            <p>Contáctanos para más información y te asesoraremos personalizadamente</p>
+          {serviceDetails.projectAreas && (
+            <section className="service-details__section">
+              <h2 className="service-details__section-title">
+                Áreas de Intervención
+              </h2>
+              <div className="service-details__features">
+                {serviceDetails.projectAreas.map((area, index) => (
+                  <div key={index} className="service-details__feature-card">
+                    <div className="service-details__feature-icon">
+                      <FaCheck />
+                    </div>
+                    <div className="service-details__feature-content">
+                      <h3 className="service-details__feature-title">
+                        {area.title}
+                      </h3>
+                      {area.description && (
+                        <p className="service-details__feature-description">
+                          {area.description}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {serviceDetails.services && (
+            <section className="service-details__section">
+              <h2 className="service-details__section-title">
+                Servicios que Ofrecemos
+              </h2>
+              <div className="service-details__grid">
+                {serviceDetails.services.map((service, index) => (
+                  <div key={index} className="service-details__grid-card">
+                    <h3 className="service-details__grid-title">
+                      {service.title}
+                    </h3>
+                    <p className="service-details__grid-description">
+                      {service.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <section className="service-details__cta">
+            <h2>¿Interesado en este servicio?</h2>
+            <p>
+              Contáctanos para más información y descubre cómo podemos ayudar a tu organización.
+            </p>
             <button 
-              onClick={() => navigate('/contacto')}
               className="service-details__cta-button"
+              onClick={() => navigate('/contacto')}
             >
-              Contactar ahora
+              Solicitar Información
             </button>
-          </div>
+          </section>
+
         </div>
-      </section>
+      </div>
     </div>
   );
 };
