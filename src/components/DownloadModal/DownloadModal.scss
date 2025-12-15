@@ -63,6 +63,18 @@
     &:focus {
       outline: 2px solid $color-primary;
     }
+
+    &.error {
+      border-color: #d32f2f;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.1);
+    }
+  }
+
+  .error-text {
+    color: #d32f2f;
+    font-size: $font-size-sm;
+    margin-top: -0.5rem;
   }
 }
 

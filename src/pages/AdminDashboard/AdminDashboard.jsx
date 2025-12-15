@@ -40,6 +40,13 @@ export default function AdminDashboard() {
     onConfirm: null,
   });
 
+  const [successModal, setSuccessModal] = useState({
+    open: false,
+    message: "",
+    title: "Éxito",
+  });
+
+
   const {
     contacts,
     contactsLoading,
@@ -153,7 +160,7 @@ export default function AdminDashboard() {
     });
   };
 
-    const openDeleteLeadModal = (lead) => {
+  const openDeleteLeadModal = (lead) => {
     setConfirmModal({
       open: true,
       title: "Eliminar contacto de descarga",
@@ -196,18 +203,41 @@ export default function AdminDashboard() {
     handleResourceSubmit(e);
   };
 
-  const handleBlogFormSubmit = (e) => {
+  const handleBlogSuccess = (blog) => {
+    if (!blog) return;
+    let message = "Operación realizada con éxito";
+
+    if (blog.status === "PUBLISHED") {
+      message = "Entrada publicada con éxito";
+    } else if (blog.status === "DRAFT") {
+      message = "Borrador guardado";
+    } else if (blog.status === "ARCHIVED") {
+      message = "Entrada archivada con éxito";
+    }
+
+    setSuccessModal({ open: true, message, title: null });
+  };
+
+  const handleBlogFormSubmit = async (e) => {
     e.preventDefault();
 
     if (blogFormMode === "edit") {
       setSaveConfirmModal({
         open: true,
-        onConfirm: () => handleBlogSubmit(null),
+        onConfirm: async () => {
+          const result = await handleBlogSubmit(null);
+          if (result && result.success) {
+            handleBlogSuccess(result.blog);
+          }
+        },
       });
       return;
     }
 
-    handleBlogSubmit(e);
+    const result = await handleBlogSubmit(e);
+    if (result && result.success) {
+      handleBlogSuccess(result.blog);
+    }
   };
 
   if (!currentUser) return null;
@@ -811,7 +841,7 @@ export default function AdminDashboard() {
                   totalItems={filteredBlogsCount}
                   pageSize={BLOG_PAGE_SIZE}
                   onPageChange={setBlogPage}
-                  ariaLabel="Paginación de entradas de blog"
+                  ariaLabel="Paginación de blog"
                 />
               </>
             )}
@@ -1025,7 +1055,7 @@ export default function AdminDashboard() {
             {leadsLoading && (
               <p className="admin-status">Cargando leads...</p>
             )}
-            
+
             {leadsError && (
               <p className="admin-status admin-status--error">
                 {leadsError}
@@ -1134,6 +1164,9 @@ export default function AdminDashboard() {
         primaryAction={{
           label: "Guardar cambios",
           onClick: () => {
+            // onConfirm is likely async now, but we just trigger it.
+            // If we want to wait, we need to restructure.
+            // But existing code just calls it.
             if (saveConfirmModal.onConfirm) {
               saveConfirmModal.onConfirm();
             }
@@ -1146,6 +1179,23 @@ export default function AdminDashboard() {
         }}
       >
         <p>¿Seguro que quieres guardar los cambios?</p>
+      </GlobalModal>
+
+      <GlobalModal
+        open={successModal.open}
+        title={successModal.title || null}
+        onClose={() => setSuccessModal({ ...successModal, open: false })}
+        variant="small"
+        closeOnOverlayClick={true}
+        showCloseButton={false}
+        primaryAction={{
+          label: "Aceptar",
+          onClick: () => setSuccessModal({ ...successModal, open: false })
+        }}
+      >
+        <p style={{ textAlign: 'center', fontSize: '1.1rem', marginTop: '0.5rem', marginBottom: '0.5rem' }}>
+          <strong>{successModal.message}</strong>
+        </p>
       </GlobalModal>
     </div>
   );

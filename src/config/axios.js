@@ -41,7 +41,8 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    // Evitar redirect global si el error viene del login (credenciales incorrectas)
+    if (error.response?.status === 401 && !error.config.url.includes('/auth/login')) {
       localStorage.removeItem('reverso_token');
       localStorage.removeItem('reverso_user');
       window.location.href = '/';

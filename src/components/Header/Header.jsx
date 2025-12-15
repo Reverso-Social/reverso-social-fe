@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Header.scss";
 import ContactModal from "../ContactModal/ContactModal";
+import GlobalModal from "../GlobalModal/GlobalModal";
 import NavBar from "../NavBar/NavBar";
 import UserMenu from "../UserMenu/UserMenu";
 import logo from "../../assets/logo/logo.2.svg";
@@ -12,6 +13,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [user, setUser] = useState(null);
+  const [logoutModalOpen, setLogoutModalOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -52,6 +54,7 @@ export default function Header() {
   const handleLogout = () => {
     authService.logout();
     setUser(null);
+    setLogoutModalOpen(true);
     navigate("/");
   };
 
@@ -99,8 +102,8 @@ export default function Header() {
             <NavBar onItemClick={() => setMenuOpen(false)} />
 
             {user ? (
-              <UserMenu 
-                user={user} 
+              <UserMenu
+                user={user}
                 onLogout={handleLogout}
                 isMobile={true}
                 onClose={() => setMenuOpen(false)}
@@ -121,6 +124,20 @@ export default function Header() {
       </header>
 
       <ContactModal open={openModal} onClose={() => setOpenModal(false)} />
+
+      <GlobalModal
+        open={logoutModalOpen}
+        onClose={() => setLogoutModalOpen(false)}
+        title="Sesión cerrada"
+        variant="default"
+        primaryAction={{
+          label: "Entendido",
+          onClick: () => setLogoutModalOpen(false)
+        }}
+        closeOnOverlayClick={true}
+      >
+        <p>Has cerrado sesión correctamente.</p>
+      </GlobalModal>
     </>
   );
 }

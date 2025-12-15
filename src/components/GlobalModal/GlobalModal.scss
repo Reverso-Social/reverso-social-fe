@@ -33,6 +33,21 @@
   &--info {
     border-color: rgba($color-primary, 0.4);
   }
+
+  &--small {
+    max-width: 320px;
+    padding: $space-lg;
+    text-align: center;
+    border-color: rgba($color-primary, 0.2);
+
+    .global-modal__header {
+      justify-content: center;
+    }
+
+    .global-modal__footer {
+      justify-content: center;
+    }
+  }
 }
 
 .global-modal__header {
@@ -143,6 +158,7 @@
     opacity: 0;
     transform: translateY(8px) scale(0.98);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);

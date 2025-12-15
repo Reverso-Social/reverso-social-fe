@@ -11,6 +11,7 @@ export default function GlobalModal({
   variant = "default",
   closeOnOverlayClick = true,
   closeOnEsc = true,
+  showCloseButton = true,
 }) {
   const modalRef = useRef(null);
 
@@ -105,7 +106,7 @@ export default function GlobalModal({
               {title}
             </h2>
           )}
-          {onClose && (
+          {onClose && showCloseButton && (
             <button
               type="button"
               className="global-modal__close-btn"

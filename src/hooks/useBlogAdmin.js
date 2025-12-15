@@ -169,12 +169,13 @@ export default function useBlogAdmin() {
     const errors = validateBlogForm();
     if (Object.keys(errors).length > 0) {
       setBlogFormErrors(errors);
-      return;
+      return { success: false };
     }
 
     setBlogFormLoading(true);
 
     try {
+      let resultBlog;
       if (blogFormMode === "create") {
         const createdBlog = await blogApi.create({
           title: blogForm.title,
@@ -186,6 +187,7 @@ export default function useBlogAdmin() {
         });
 
         setBlogs((prev) => [createdBlog, ...prev]);
+        resultBlog = createdBlog;
       } else if (blogFormMode === "edit" && editingBlogId) {
         const updatedBlog = await blogApi.update(editingBlogId, {
           title: blogForm.title,
@@ -199,9 +201,11 @@ export default function useBlogAdmin() {
         setBlogs((prev) =>
           prev.map((b) => (b.id === editingBlogId ? updatedBlog : b))
         );
+        resultBlog = updatedBlog;
       }
 
       handleCloseBlogForm();
+      return { success: true, blog: resultBlog };
     } catch (error) {
       console.error("Error saving blog:", error);
 
@@ -225,6 +229,7 @@ export default function useBlogAdmin() {
         ...prev,
         submit: errorMessage,
       }));
+      return { success: false };
     } finally {
       setBlogFormLoading(false);
     }
@@ -236,6 +241,7 @@ export default function useBlogAdmin() {
       if (editingBlogId === id) {
         handleCloseBlogForm();
       }
+      return true;
     } catch (error) {
       console.error("Error deleting blog:", error);
       if (error.response) {
@@ -245,6 +251,7 @@ export default function useBlogAdmin() {
           error.response.data
         );
       }
+      return false;
     }
   };
   const filteredBlogs = useMemo(() => {
