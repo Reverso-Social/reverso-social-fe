@@ -1,0 +1,340 @@
+@use "sass:color";
+
+@use '../../styles/variables' as *;
+
+.service-details {
+  min-height: 100vh;
+  font-family: $font-body;
+
+  // Hero Section
+  &__hero {
+    background: linear-gradient(
+      135deg,
+      rgba(177, 137, 255, 0.15) 0%,
+      rgba(154, 178, 237, 0.15) 50%,
+      rgba(92, 225, 230, 0.15) 100%
+    );
+    padding: 4rem 2rem;
+    position: relative;
+  }
+
+  &__hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &__back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: 2px solid $color-lila-light;
+    border-radius: 8px;
+    color: $color-lila-light;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 2rem;
+
+    &:hover {
+      background: $color-lila-light;
+      color: white;
+      transform: translateX(-4px);
+    }
+  }
+
+  &__hero-icon {
+    font-size: 4rem;
+    color: $color-lila-light;
+    margin-bottom: 1rem;
+  }
+
+  &__category {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(
+      90deg,
+      $color-lila-light,
+      $color-turquesa-soft
+    );
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: 3rem;
+    font-weight: 700;
+    color: $color-dark;
+    margin: 1rem 0;
+    line-height: 1.2;
+  }
+
+  &__description {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.6;
+    margin-top: 1rem;
+  }
+
+  &__legal-note {
+    margin-top: 1.5rem;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 193, 7, 0.1);
+    border-left: 4px solid #ffc107;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #856404;
+    text-align: left;
+  }
+
+  // Content Section
+  &__content {
+    padding: 4rem 2rem;
+  }
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__section {
+    margin-bottom: 4rem;
+  }
+
+  &__section-title {
+    font-family: $font-heading;
+    font-size: 2rem;
+    font-weight: 600;
+    color: $color-dark;
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+    
+    &::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(
+        90deg,
+        $color-lila-light,
+        $color-turquesa-soft
+      );
+      margin: 1rem auto 0;
+      border-radius: 2px;
+    }
+  }
+
+  // Features Grid
+  &__features {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  &__feature-card {
+    display: flex;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  &__feature-icon {
+    flex-shrink: 0;
+    font-size: 2rem;
+    color: $color-lila-light;
+  }
+
+  &__feature-content {
+    flex: 1;
+  }
+
+  &__feature-title {
+    font-family: $font-heading;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: $color-dark;
+    margin-bottom: 0.5rem;
+  }
+
+  &__feature-description {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  // Grid for smaller cards
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  &__grid-card {
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  &__grid-title {
+    font-family: $font-heading;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: $color-dark;
+    margin-bottom: 0.75rem;
+  }
+
+  &__grid-description {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  // CTA Section
+  &__cta {
+    margin-top: 4rem;
+    padding: 3rem;
+    background: linear-gradient(
+      135deg,
+      rgba(177, 137, 255, 0.1) 0%,
+      rgba(154, 178, 237, 0.1) 50%,
+      rgba(92, 225, 230, 0.1) 100%
+    );
+    border-radius: 16px;
+    text-align: center;
+
+    h2 {
+      font-family: $font-heading;
+      font-size: 2rem;
+      font-weight: 600;
+      color: $color-dark;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__cta-button {
+    padding: 1rem 2.5rem;
+    background: linear-gradient(
+      90deg,
+      $color-lila-light,
+      $color-turquesa-soft
+    );
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(177, 137, 255, 0.4);
+    }
+  }
+
+  &__back-button {
+    padding: 1rem 2rem;
+    background: $color-lila-light;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:hover {
+      background: color.adjust($color-lila-light, $lightness: -10%, $space: hsl);
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .service-details {
+    &__hero {
+      padding: 2rem 1rem;
+    }
+
+    &__title {
+      font-size: 2rem;
+    }
+
+    &__description {
+      font-size: 1rem;
+    }
+
+    &__hero-icon {
+      font-size: 3rem;
+    }
+
+    &__content {
+      padding: 2rem 1rem;
+    }
+
+    &__section-title {
+      font-size: 1.5rem;
+    }
+
+    &__feature-card {
+      flex-direction: column;
+      padding: 1.5rem;
+    }
+
+    &__feature-icon {
+      font-size: 1.5rem;
+    }
+
+    &__feature-title {
+      font-size: 1.1rem;
+    }
+
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+
+    &__cta {
+      padding: 2rem 1rem;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+}

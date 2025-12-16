@@ -1,11 +1,11 @@
-# Reverso Social – Frontend (Sprint 1)
+# Reverso Social – Frontend
 
-Este repositorio contiene el **frontend del proyecto Reverso Social**, desarrollado con **React (JavaScript)** durante el **Sprint 1**.  
+Este repositorio contiene el **frontend del proyecto Reverso Social**, desarrollado con **React (JavaScript)** .
 En esta primera entrega se construyó la estructura base del proyecto, los componentes principales de la interfaz y los estilos iniciales utilizando **SASS**.
 
 ---
 
-## 🚀 Tecnologías utilizadas
+## Tecnologías utilizadas
 
 - **React JS**
 - **JavaScript (ES6+)**
@@ -16,59 +16,61 @@ En esta primera entrega se construyó la estructura base del proyecto, los compo
 
 ---
 
-## 📁 Estructura del proyecto
+## Estructura del proyecto
 
 La estructura principal del directorio `src/` quedó organizada de la siguiente manera:
 ```
 src
 │
-├── assets/ # Imágenes, íconos, recursos estáticos
+├── api/             # Lógica de llamadas al backend
+├── assets/          # Imágenes, íconos, recursos estáticos
+├── components/      # Componentes reutilizables de la UI
+│   ├── About/
+│   ├── Background/
+│   ├── BlogCard/
+│   ├── ContactDetailModal/
+│   ├── ContactModal/
+│   ├── DownloadModal/
+│   ├── Footer/
+│   ├── GlobalModal/
+│   ├── Header/
+│   ├── Hero/
+│   ├── LoginModal/
+│   ├── NavBar/
+│   ├── Pagination/
+│   ├── ScrollToTop/
+│   ├── SearchBar/
+│   ├── SEO/
+│   ├── ServicesSection/
+│   ├── TeamSection/
+│   └── UserMenu/
 │
-├── components/ # Componentes reutilizables de la UI
-│ ├── About/
-│ ├── Background/
-│ ├── ContactModal/
-│ ├── Footer/
-│ ├── Header/
-│ ├── Hero/
-│ ├── NavBar/
-│ ├── ScrollToTop/
-│ ├── ServicesSection/
-│ └── TeamSection/
+├── config/          # Configuraciones (ej. axios)
+├── data/            # Datos estáticos o mock data
+├── hooks/           # Custom hooks
+├── pages/           # Páginas principales
+│   ├── AdminDashboard/
+│   ├── BlogDetail/
+│   ├── BlogPage/
+│   ├── HomePage/
+│   ├── ResourcesPage/
+│   └── ServiceDetails/
 │
-├── pages/ # Páginas principales
-│ ├── HomePage/
-│ └── ResourcesPage/
+├── styles/          # Estilos globales y configuración SASS
+│   ├── _layout.scss
+│   ├── _mixins.scss
+│   ├── _typography.scss
+│   ├── _variables.scss
+│   └── main.scss
 │
-├── styles/ # Estilos globales y configuración SASS
-│ ├── _layout.scss
-│ ├── _mixins.scss
-│ ├── _typography.scss
-│ ├── _variables.scss
-│ └── main.scss
-│
+├── tests/           # Tests unitarios y de integración
 ├── App.jsx
 ├── main.jsx
-│
-├── index.html
-└── vite.config.js
-Cada componente y página cuenta con sus **dos archivos correspondientes**:  
-- `Nombre.jsx` → Componente funcional  
-- `Nombre.scss` → Estilos específicos del componente
 ```
----
 
-## 🎯 Objetivos del Sprint 1
-
-✔ Crear la estructura base del proyecto con Vite  
-✔ Configurar SASS y crear arquitectura inicial de estilos (variables, mixins, layout, tipografía)  
-✔ Implementar los primeros componentes básicos del landing page  
-✔ Crear las páginas iniciales: **HomePage** y **ResourcesPage**  
-✔ Añadir la navegación principal  
-✔ Dejar preparado el proyecto para escalar en futuros sprints  
-
----
-
+Cada componente y página cuenta con sus **dos archivos correspondientes**:
+- `Nombre.jsx` → Componente funcional
+   - `Nombre.scss` → Estilos específicos del componente
 ## 🖥️ Scripts disponibles
 
 En el directorio raíz puedes ejecutar:
@@ -87,24 +89,62 @@ Sirve la build generada para revisión.
 
 ---
 
-## 🧩 Componentes implementados (Sprint 1)
+## Stack Tecnológico
 
-- Header  
-- NavBar  
-- Hero  
-- About  
-- ServicesSection  
-- TeamSection  
-- ContactModal  
-- Footer  
-- Background  
-- ScrollToTop  
+| Tecnología       | Versión   | Propósito                      |
+|------------------|-----------|--------------------------------|
+| **React**        | ^19.2.0   | Librería principal de UI       |
+| **Vite**         | ^7.2.4    | Bundler y entorno de desarrollo|
+| **SASS**         | ^1.96.0   | Preprocesador CSS              |
+| **React Router** | ^7.10.1   | Enrutamiento                   |
+| **Axios**        | ^1.13.2   | Cliente HTTP                   |
+| **Vitest**       | ^4.0.15   | Framework de Tests             |
 
-Todos cuentan con su respectivo archivo `.jsx` y `.scss`.
+### Backend (Referencia)
+
+El backend de este proyecto está construido con **Java y Spring Boot**.
+
+| Tecnología       | Versión   | Propósito                      |
+|------------------|-----------|--------------------------------|
+| **Java**         | 21        | Lenguaje de programación       |
+| **Spring Boot**  | 3.4.12    | Framework principal            |
+| **PostgreSQL**   | -         | Base de datos relacional       |
+| **Spring Security**| -       | Seguridad y Autenticación      |
+| **JWT**          | 4.4.0     | Tokens (Auth0)                 |
+| **MapStruct**    | 1.5.5     | Mapeo de objetos               |
+| **Lombok**       | 1.18.34   | Reducción de boilerplate       |
 
 ---
 
-## 🖼️ Capturas de pantalla
+##  Instrucciones de Despliegue
+
+Para desplegar la aplicación en un entorno de producción, sigue estos pasos:
+
+1. **Instalar dependencias:**
+   Asegúrate de tener Node.js instalado y ejecuta:
+   ```bash
+   npm install
+   ```
+
+2. **Construir el proyecto:**
+   Genera los archivos estáticos optimizados para producción:
+   ```bash
+   npm run build
+   ```
+   Esto creará una carpeta `dist/` en la raíz del proyecto.
+
+3. **Desplegar:**
+   La carpeta `dist/` contiene todos los archivos estáticos necesarios (HTML, CSS, JS, imágenes).
+   
+   - **Servidor Estático:** Puedes subir el contenido de `dist/` a cualquier servidor web (Apache, Nginx, Vercel, Netlify, etc.).
+   - **Preview Local:** Para verificar que la build funciona correctamente antes de subirla:
+     ```bash
+     npm run preview
+     ```
+
+---
+
+##  Capturas de pantalla
 
 A continuación se añaden algunas capturas del estado del proyecto en este sprint:
 
@@ -118,7 +158,7 @@ A continuación se añaden algunas capturas del estado del proyecto en este spri
 
 ---
 
-## 🛠️ Equipo
+##  Equipo
 
 Frontend colaborativo del proyecto **Reverso Social** — Sprint 1.
 
@@ -132,7 +172,7 @@ Frontend colaborativo del proyecto **Reverso Social** — Sprint 1.
 
 ---
 
-## 📄 Licencia
+## Licencia
 
 Este proyecto es de uso interno para desarrollo académico/profesional del equipo y no posee licencia pública.
 

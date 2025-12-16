@@ -205,6 +205,22 @@
     }
   }
 
+  &__intranet-btn {
+    background: none;
+    border: none;
+    color: rgba($color-dark, 0.7);
+    font-size: $font-size-sm;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-family: $font-body;
+    padding: 0;
+
+    &:hover {
+      color: $color-primary;
+      text-decoration: underline;
+    }
+  }
+
   &__separator {
     color: rgba($color-dark, 0.3);
   }

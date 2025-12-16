@@ -1,53 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams, Link } from "react-router-dom";
+import SEO from "../../components/SEO/SEO";
 import "./BlogDetail.scss";
-import { blogApi } from "../../services/blogApiMock";
+import useFetchPost from "../../hooks/useFetchPost";
+import useBlogUrl from "../../hooks/useBlogUrl";
 
 const BlogDetail = () => {
   const { slug } = useParams();
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const { post, loading, error } = useFetchPost(slug);
+  const { getImageUrl } = useBlogUrl();
 
-  useEffect(() => {
-    blogApi
-      .getPostBySlug(slug)
-      .then((data) => setPost(data))
-      .catch(() => setError("Articulo no encontrado."))
-      .finally(() => setLoading(false));
-  }, [slug]);
+  const imageSrc = getImageUrl(post?.coverImageUrl);
+
+  if (loading) return <p className="blog-status">Cargando artículo...</p>;
+  if (error) return <p className="blog-status blog-status--error">{error}</p>;
 
   return (
     <div className="blog-detail-page">
-      {loading && <p className="blog-status">Cargando articulo...</p>}
-      {error && !loading && <p className="blog-status blog-status--error">{error}</p>}
+      <SEO
+        title={`${post.title} | Reverso Social`}
+        description={post.content ? post.content.substring(0, 160) + "..." : "Artículo en Reverso Social"}
+        name="Reverso Social"
+        type="article"
+      />
+      <section className="blog-detail-hero">
+        <div className="blog-detail-hero__text">
+          <span className="pill-label">{post.category}</span>
+          <h1>{post.title}</h1>
 
-      {post && !loading && (
-        <>
-          <section className="blog-detail-hero">
-            <div className="blog-detail-hero__text">
-              <span className="pill-label">{post.category}</span>
-              <h1>{post.title}</h1>
-              <p className="detail-meta">
-                {post.date} · {post.author} · {post.readingTime} min de lectura
-              </p>
-            </div>
-            <div className="blog-detail-hero__image-wrapper">
-              <img src={post.image} alt={post.title} />
-            </div>
-          </section>
+          <p className="detail-meta">
+            {post.createdAt?.split("T")[0]} · {post.author}
+          </p>
+        </div>
 
-          <section className="blog-detail-content">
-            <p>{post.body}</p>
-          </section>
+        <div className="blog-detail-hero__image-wrapper">
+          {imageSrc && (
+            <img
+              className="blog-detail-image"
+              src={imageSrc}
+              alt={post.title}
+            />
+          )}
+        </div>
+      </section>
 
-          <div className="blog-detail-actions">
-            <Link to="/blog" className="back-link">
-              ← Volver al blog
-            </Link>
-          </div>
-        </>
-      )}
+      <section className="blog-detail-content">
+        <p>{post.content}</p>
+      </section>
+
+      <div className="blog-detail-actions">
+        <Link to="/blog" className="back-link">
+          ← Volver al blog
+        </Link>
+      </div>
     </div>
   );
 };

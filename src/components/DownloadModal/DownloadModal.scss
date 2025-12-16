@@ -1,0 +1,96 @@
+@use "../../styles/variables" as *;
+
+.download-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.download-modal {
+  background: $color-white;
+  padding: $space-xl;
+  border-radius: $radius-base;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 6px 20px $shadow-medium;
+  position: relative;
+}
+
+.download-modal__close {
+  background: none;
+  border: none;
+  position: absolute;
+  top: $space-sm;
+  right: $space-sm;
+  cursor: pointer;
+}
+
+.download-modal__title {
+  font-family: $font-heading;
+  font-size: $font-size-2xl;
+  margin-bottom: $space-md;
+  color: $color-dark;
+}
+
+.download-modal__text {
+  margin-bottom: $space-lg;
+  color: $color-dark;
+}
+
+.download-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+    font-size: $font-size-sm;
+    color: $color-dark;
+  }
+
+  input {
+    padding: $space-sm;
+    border-radius: $radius-base;
+    border: 1px solid $color-silver-dark;
+    font-size: $font-size-base;
+
+    &:focus {
+      outline: 2px solid $color-primary;
+    }
+
+    &.error {
+      border-color: #d32f2f;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.1);
+    }
+  }
+
+  .error-text {
+    color: #d32f2f;
+    font-size: $font-size-sm;
+    margin-top: -0.5rem;
+  }
+}
+
+.download-modal__btn {
+  margin-top: $space-md;
+  padding: $space-sm $space-md;
+  background: linear-gradient(90deg, $color-primary, $color-secondary);
+  color: $color-white;
+  border: none;
+  border-radius: $radius-base;
+  cursor: pointer;
+  font-size: $font-size-base;
+  font-weight: 600;
+  transition: 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

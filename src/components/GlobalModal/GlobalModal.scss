@@ -1,0 +1,207 @@
+@use "sass:color";
+
+@use "../../styles/variables" as *;
+
+.global-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba($color-black, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: $space-md;
+}
+
+.global-modal {
+  width: 100%;
+  max-width: 480px;
+  background-color: $color-white;
+  border-radius: $radius-lg;
+  box-shadow: 0 18px 40px $shadow-soft;
+  border: 1px solid rgba($color-silver-light, 0.9);
+  padding: $space-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  animation: global-modal-enter 0.18s ease-out;
+
+  &--danger {
+    border-color: rgba(#d32f2f, 0.6);
+  }
+
+  &--info {
+    border-color: rgba($color-primary, 0.4);
+  }
+
+  &--small {
+    max-width: 320px;
+    padding: $space-lg;
+    text-align: center;
+    border-color: rgba($color-primary, 0.2);
+
+    .global-modal__header {
+      justify-content: center;
+    }
+
+    .global-modal__footer {
+      justify-content: center;
+    }
+  }
+}
+
+.global-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-md;
+}
+
+.global-modal__title {
+  margin: 0;
+  font-family: $font-heading;
+  font-size: $font-size-xl;
+  color: $color-dark;
+}
+
+.global-modal__close-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: $font-size-xl;
+  line-height: 1;
+  color: $color-silver-dark;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+
+  &:hover {
+    background-color: rgba($color-silver-light, 0.6);
+    color: $color-dark;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.global-modal__body {
+  font-family: $font-body;
+  font-size: $font-size-sm;
+  color: $color-dark;
+}
+
+.global-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-sm;
+  margin-top: $space-sm;
+}
+
+.global-modal__btn {
+  border-radius: $radius-xl;
+  padding: $space-sm $space-lg;
+  font-family: $font-heading;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+  white-space: nowrap;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.global-modal__btn--secondary {
+  border-color: $color-silver-light;
+  background-color: $color-white;
+  color: $color-dark;
+
+  &:hover:not(:disabled) {
+    background-color: rgba($color-silver-light, 0.4);
+  }
+}
+
+.global-modal__btn--primary {
+  border: none;
+  background: linear-gradient(90deg, $color-primary, $color-secondary);
+  color: $color-white;
+  box-shadow: 0 6px 14px rgba($color-primary, 0.4);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba($color-primary, 0.5);
+  }
+}
+
+.global-modal__btn--primary-danger {
+  background: #d32f2f;
+  box-shadow: 0 6px 14px rgba(211, 47, 47, 0.4);
+
+  &:hover:not(:disabled) {
+    background: color.adjust(#d32f2f, $lightness: -4%, $space: hsl);
+    box-shadow: 0 8px 18px rgba(211, 47, 47, 0.5);
+  }
+}
+
+@keyframes global-modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .global-modal {
+    max-width: 95%;
+    padding: $space-md;
+  }
+
+  .global-modal__title {
+    font-size: $font-size-lg;
+  }
+
+  .global-modal__btn {
+    padding: $space-xs $space-md;
+    font-size: $font-size-xs;
+  }
+
+  .global-modal__footer {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+}
+
+@media (min-width: 1440px) {
+  .global-modal {
+    max-width: 560px;
+    padding: $space-xl;
+  }
+
+  .global-modal__title {
+    font-size: $font-size-2xl;
+  }
+
+  .global-modal__body {
+    font-size: $font-size-base;
+  }
+
+  .global-modal__btn {
+    padding: $space-md $space-xl;
+    font-size: $font-size-base;
+  }
+}
