@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./FeaturedBlogPost.scss";
 
-// Duplicating logic to ensure isolation as requested to not risk breaking other components
 const API_ORIGIN = (
     import.meta.env.VITE_API_URL || "http://localhost:8080"
 ).replace(/\/api\/?$/, "");
@@ -26,16 +25,16 @@ const FeaturedBlogPost = ({ post }) => {
 
     const imageSrc = getImageSrc(post.coverImageUrl);
 
-    // Use excerpt if available, otherwise truncate content
+
     const previewText =
         post?.excerpt && post.excerpt.trim().length > 0
             ? post.excerpt
             : post?.content
                 ? post.content
-                    .replace(/[#*`]/g, "") // Remove markdown chars
+                    .replace(/[#*`]/g, "")
                     .replace(/\s+/g, " ")
                     .split(" ")
-                    .slice(0, 55) // Longer preview for featured post
+                    .slice(0, 55)
                     .join(" ")
                     .concat("…")
                 : "";
@@ -55,7 +54,7 @@ const FeaturedBlogPost = ({ post }) => {
                     <img
                         src={imageSrc}
                         alt={post.title}
-                        loading="eager" // Load important image immediately
+                        loading="eager"
                     />
                 )}
             </div>

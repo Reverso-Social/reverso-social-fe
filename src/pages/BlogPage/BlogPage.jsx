@@ -13,7 +13,6 @@ const BlogPage = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    // Backend instruction: fetch latest posts with limit (1 featured + 12 grid)
     blogApi
       .getLatest(13)
       .then((data) => {
@@ -61,14 +60,14 @@ const BlogPage = () => {
 
         {!loading && !error && (
           <>
-            {/* Show Featured Post if available */}
+
             {featuredPost && (
               <div className="blog-featured-section">
                 <FeaturedBlogPost post={featuredPost} />
               </div>
             )}
 
-            {/* Show Grid if there are remaining posts */}
+
             {recentPosts.length > 0 ? (
               <div className="blog-grid">
                 {recentPosts.map((post) => (
@@ -76,7 +75,7 @@ const BlogPage = () => {
                 ))}
               </div>
             ) : (
-              /* Fallback if only 1 post (featured) or 0 posts but no error (though 0 handled by featured check kinda) */
+
               !featuredPost && <p className="blog-status">No hay artículos publicados aún.</p>
             )}
           </>
