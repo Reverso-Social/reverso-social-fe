@@ -67,11 +67,9 @@
   gap: $space-md;
   padding: $space-sm;
   border-radius: $radius-xl;
-  background: linear-gradient(
-    90deg,
-    rgba($color-turquesa-soft, 0.08),
-    rgba($color-lila-light, 0.08)
-  );
+  background: linear-gradient(90deg,
+      rgba($color-turquesa-soft, 0.08),
+      rgba($color-lila-light, 0.08));
   margin-bottom: $space-xl;
 }
 
@@ -215,7 +213,7 @@
     background-color: rgba($color-silver-light, 0.3);
     height: 48px;
   }
-  
+
   td {
     height: 70px;
   }
@@ -225,14 +223,26 @@
     color: $color-dark;
   }
 
+  .admin-table-status-col {
+    width: 140px;
+    text-align: center !important;
+  }
+
+  .admin-table-date-col {
+    width: 120px;
+    text-align: center !important;
+  }
+
   .admin-table-view-col {
-    width: 80px;
-    text-align: center;
+    width: 60px;
+    text-align: center !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 
   .admin-table-actions-col {
     width: 180px;
-    text-align: right;
+    text-align: center !important;
   }
 }
 
@@ -244,7 +254,13 @@
 }
 
 .admin-table-view {
-  text-align: center;
+  text-align: center !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+
+  &>button {
+    margin: 0 auto;
+  }
 }
 
 .admin-view-btn {
@@ -275,7 +291,7 @@
 
 .admin-table-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   gap: $space-xs;
 }
@@ -377,11 +393,9 @@
   padding: $space-xl;
   border-radius: $radius-lg;
   border: 1px solid $color-silver-light;
-  background: linear-gradient(
-    135deg,
-    rgba($color-turquesa-soft, 0.04),
-    rgba($color-lila-light, 0.04)
-  );
+  background: linear-gradient(135deg,
+      rgba($color-turquesa-soft, 0.04),
+      rgba($color-lila-light, 0.04));
 }
 
 .admin-form-header {
@@ -520,8 +534,8 @@
   cursor: pointer;
   border: none;
   display: inline-flex;
-  align-items: center ;
-  justify-content: center ;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 
   &:hover:not(:disabled) {
@@ -623,7 +637,7 @@
     border-radius: 1rem;
   }
 
-  
+
   .admin-primary-btn {
     padding: 0.4rem 1rem;
     font-size: 0.85rem;
