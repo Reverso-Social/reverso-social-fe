@@ -7,6 +7,7 @@ export default function useDownloadLeadsAdmin() {
   const [leadsError, setLeadsError] = useState('');
   const [leadSearch, setLeadSearch] = useState('');
   const [leadPage, setLeadPage] = useState(1);
+  const [sortConfig, setSortConfig] = useState({ key: 'lastDownloadedAt', direction: 'desc' });
   const pageSize = 10;
 
   useEffect(() => {
@@ -18,6 +19,8 @@ export default function useDownloadLeadsAdmin() {
       setLeadsLoading(true);
       setLeadsError('');
       const data = await downloadLeadService.getAllLeads();
+
+
       setLeads(data);
     } catch (err) {
       console.error('Error al cargar leads:', err);
@@ -39,13 +42,49 @@ export default function useDownloadLeadsAdmin() {
     );
   }, [leads, leadSearch]);
 
+  const sortedLeads = useMemo(() => {
+    let sortableLeads = [...filteredLeads];
+    if (sortConfig.key) {
+      sortableLeads.sort((a, b) => {
+        let aValue = a[sortConfig.key];
+        let bValue = b[sortConfig.key];
+
+
+        if (sortConfig.key === 'lastDownloadedAt' || sortConfig.key === 'createdAt') {
+          aValue = new Date(a[sortConfig.key] || a.createdAt);
+          bValue = new Date(b[sortConfig.key] || b.createdAt);
+        }
+
+        if (aValue < bValue) {
+          return sortConfig.direction === 'asc' ? -1 : 1;
+        }
+        if (aValue > bValue) {
+          return sortConfig.direction === 'asc' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sortableLeads;
+  }, [filteredLeads, sortConfig]);
+
+  const requestSort = (key) => {
+    let direction = 'asc';
+    if (
+      sortConfig.key === key &&
+      sortConfig.direction === 'asc'
+    ) {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
+
   const filteredLeadsCount = filteredLeads.length;
 
   const paginatedLeads = useMemo(() => {
     const start = (leadPage - 1) * pageSize;
     const end = start + pageSize;
-    return filteredLeads.slice(start, end);
-  }, [filteredLeads, leadPage]);
+    return sortedLeads.slice(start, end);
+  }, [sortedLeads, leadPage]);
 
   useEffect(() => {
     setLeadPage(1);
@@ -67,13 +106,17 @@ export default function useDownloadLeadsAdmin() {
       return;
     }
 
-    const headers = ['Nombre', 'Email', 'Recurso', 'Fecha'];
-    const rows = filteredLeads.map((lead) => [
-      lead.name,
-      lead.email,
-      lead.resourceTitle,
-      new Date(lead.createdAt).toLocaleDateString('es-ES'),
-    ]);
+    const headers = ['Nombre', 'Email', 'Recurso', 'Fecha Registro', 'Última Descarga'];
+    const rows = filteredLeads.map((lead) => {
+      const lastDownload = lead.lastDownloadedAt || lead.createdAt;
+      return [
+        lead.name,
+        lead.email,
+        lead.resourceTitle,
+        new Date(lead.createdAt).toLocaleDateString('es-ES'),
+        new Date(lastDownload).toLocaleDateString('es-ES')
+      ];
+    });
 
     const csvContent = [
       headers.join(','),
@@ -83,11 +126,11 @@ export default function useDownloadLeadsAdmin() {
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
-    
+
     link.setAttribute('href', url);
     link.setAttribute('download', `leads_descarga_${new Date().toISOString().split('T')[0]}.csv`);
     link.style.visibility = 'hidden';
-    
+
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -107,5 +150,7 @@ export default function useDownloadLeadsAdmin() {
     deleteLead,
     exportLeadsToCSV,
     refreshLeads: fetchLeads,
+    sortConfig,
+    requestSort,
   };
 }

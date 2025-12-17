@@ -6,9 +6,7 @@ import "./AdminDashboard.scss";
 import authService from "../../api/authService";
 import ContactDetailModal from "../../components/ContactDetailModal/ContactDetailModal";
 import GlobalModal from "../../components/GlobalModal/GlobalModal";
-// SearchBar and Pagination are now used in child components
-// import SearchBar from "../../components/SearchBar/SearchBar";
-// import Pagination from "../../components/Pagination/Pagination";
+
 
 import useContactsAdmin from "../../hooks/useContactsAdmin";
 import useResourcesAdmin from "../../hooks/useResourcesAdmin";
@@ -132,12 +130,11 @@ export default function AdminDashboard() {
     paginatedLeads,
     deleteLead,
     exportLeadsToCSV,
+    sortConfig,
+    requestSort,
   } = useDownloadLeadsAdmin();
 
-  // const handleLogout = () => {
-  //   authService.logout();
-  //   navigate("/");
-  // };
+
 
   const openDeleteContactModal = (contact) => {
     setConfirmModal({
@@ -286,9 +283,7 @@ export default function AdminDashboard() {
           <h1>Panel de Administración</h1>
           <p className="admin-subtitle">Bienvenida, {currentUser.fullName}</p>
         </div>
-        {/* <button onClick={handleLogout} className="admin-logout-btn">
-          Cerrar Sesión
-        </button> */}
+
       </header>
 
       <nav className="admin-tabs" aria-label="Secciones">
@@ -362,16 +357,7 @@ export default function AdminDashboard() {
 
         {activeTab === "blog" && (
           <BlogPanel
-            loading={blogFormLoading} // Note: This seemed to be missing explicit loading/error for fetch in original code or used generic logic? 
-            // Checking original code: used `filteredBlogsCount === 0` etc. But did it have `blogLoading`?
-            // Original code didn't show `blogsLoading` boolean usage in the view for blog tab?
-            // Let's re-read useBlogAdmin hook usage in original code lines 117-129 of AdminDashboard.jsx?
-            // Wait, lines 94-115 show useBlogAdmin destructuring.
-            // It does NOT destructure `blogsLoading` or `blogsError`. 
-            // So I should pass whatever was used.
-            // In original code lines 799 it just checks `filteredBlogsCount`.
-            // So pass `loading={false}` if not available or check hook again.
-            // I will assume standard structure or leave it as is.
+            loading={blogFormLoading}
             count={filteredBlogsCount}
             blogs={paginatedBlogs}
             page={blogPage}
@@ -408,6 +394,8 @@ export default function AdminDashboard() {
             setSearch={setLeadSearch}
             onExport={exportLeadsToCSV}
             onDelete={openDeleteLeadModal}
+            sortConfig={sortConfig}
+            onSort={requestSort}
           />
         )}
       </section>
@@ -451,8 +439,6 @@ export default function AdminDashboard() {
           label: "Guardar cambios",
           onClick: () => {
             // onConfirm is likely async now, but we just trigger it.
-            // If we want to wait, we need to restructure.
-            // But existing code just calls it.
             if (saveConfirmModal.onConfirm) {
               saveConfirmModal.onConfirm();
             }
