@@ -1,0 +1,57 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.privacy-policy {
+    padding-top: 120px; // Offset for fixed header
+    padding-bottom: $space-2xl;
+    min-height: 100vh;
+    background-color: $color-white;
+
+    &__container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 $space-xl;
+    }
+
+    &__title {
+        font-family: $font-heading;
+        font-size: $font-size-3xl;
+        color: $color-primary;
+        margin-bottom: $space-xl;
+        text-align: center;
+    }
+
+    &__content {
+        font-family: $font-body;
+        color: $color-dark;
+        line-height: 1.8;
+
+        h2 {
+            font-family: $font-heading;
+            font-size: $font-size-xl;
+            color: $color-secondary;
+            margin-top: $space-xl;
+            margin-bottom: $space-md;
+            border-bottom: 2px solid rgba($color-secondary, 0.2);
+            padding-bottom: $space-xs;
+        }
+
+        p {
+            margin-bottom: $space-md;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: $space-xl;
+            margin-bottom: $space-md;
+
+            li {
+                margin-bottom: $space-xs;
+            }
+        }
+
+        strong {
+            font-weight: 700;
+        }
+    }
+}

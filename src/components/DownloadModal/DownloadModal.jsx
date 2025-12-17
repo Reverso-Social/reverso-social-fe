@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./DownloadModal.scss";
 import { X } from "lucide-react";
 
 export default function DownloadFormModal({ open, onClose, resource, onSubmit }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [hasAcceptedPolicy, setHasAcceptedPolicy] = useState(false);
   const [errors, setErrors] = useState({});
 
   if (!open) return null;
@@ -46,6 +48,11 @@ export default function DownloadFormModal({ open, onClose, resource, onSubmit })
 
     if (nameError || emailError) {
       setErrors({ name: nameError, email: emailError });
+      return;
+    }
+
+    if (!hasAcceptedPolicy) {
+      setErrors({ policy: "Debes aceptar la política de privacidad" });
       return;
     }
 
@@ -97,6 +104,24 @@ export default function DownloadFormModal({ open, onClose, resource, onSubmit })
               className={errors.email ? "error" : ""}
             />
             {errors.email && <span className="error-text">{errors.email}</span>}
+          </label>
+
+          <label className="download-modal__checkbox">
+            <input
+              type="checkbox"
+              checked={hasAcceptedPolicy}
+              onChange={(e) => {
+                setHasAcceptedPolicy(e.target.checked);
+                if (errors.policy) setErrors({ ...errors, policy: "" });
+              }}
+            />
+            <span>
+              Acepto la{" "}
+              <Link to="/politica-privacidad" target="_blank">
+                Política de Protección de Datos y Privacidad
+              </Link>
+            </span>
+            {errors.policy && <span className="error-text" style={{ display: 'block', width: '100%' }}>{errors.policy}</span>}
           </label>
 
           <button type="submit" className="download-modal__btn">

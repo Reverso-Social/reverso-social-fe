@@ -17,13 +17,13 @@ const Footer = () => {
       const authenticated = authService.isAuthenticated();
       setIsAuthenticated(authenticated);
     };
-    
+
     checkAuth();
   }, [location.pathname]);
 
   const handleModalClose = (loginSuccess = false) => {
     setOpenLoginModal(false);
-    
+
     if (loginSuccess) {
       navigate("/admin");
     } else {
@@ -115,13 +115,13 @@ const Footer = () => {
             &copy; 2025 Reverso Social - CIF G22598882. Todos los derechos reservados.
           </p>
           <nav className="footer__legal" aria-label="Enlaces legales y de políticas">
-            <Link to="#privacidad">Política de Privacidad</Link>
+            <Link to="/politica-privacidad">Política de Privacidad</Link>
             <span className="footer__separator">|</span>
             <Link to="#cookies">Cookies</Link>
             <span className="footer__separator">|</span>
             <Link to="#aviso-legal">Aviso Legal</Link>
             <span className="footer__separator">|</span>
-            
+
             {!isAuthenticated && (
               <button onClick={() => setOpenLoginModal(true)} className="footer__intranet-btn">
                 Intranet

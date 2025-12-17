@@ -94,3 +94,30 @@
     opacity: 0.9;
   }
 }
+
+.download-modal__checkbox {
+  display: flex; // Ensure it is flex
+  flex-direction: row !important;
+  justify-content: center; // Center horizontally
+  align-items: flex-start;
+  gap: 0.35rem; // Closer (was 0.5rem)
+  font-size: $font-size-xs !important;
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-top: 0; // Move up (removed top margin)
+    flex-shrink: 0;
+  }
+
+  a {
+    color: $color-primary;
+    text-decoration: underline;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $color-secondary;
+    }
+  }
+}
