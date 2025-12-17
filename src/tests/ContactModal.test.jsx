@@ -61,15 +61,7 @@ describe("ContactModal Component", () => {
       });
     });
 
-    // Validar que se llamó a onClose para cerrar el formulario
     expect(onClose).toHaveBeenCalled();
-
-    // Validar que aparece el modal de éxito (GlobalModal)
-    // Nota: El GlobalModal se renderiza incluso si open=false (manejado por estado interno)
-    // Pero en el test, al llamar a onClose (mock), el componente ContactModal NO se desmonta
-    // porque 'render' mantiene el componente montado con las props iniciales a menos que hagamos rerender.
-    // Sin embargo, el componente usa la prop 'open' para decidir si mostrar el FORMULARIO.
-    // El GlobalModal depende de 'modalState.open'.
 
     expect(screen.queryByText("Mensaje enviado")).not.toBeNull();
     expect(screen.queryByText("¡Gracias por escribirnos! Nos pondremos en contacto contigo pronto.")).not.toBeNull();
