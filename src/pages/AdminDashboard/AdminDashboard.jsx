@@ -119,6 +119,7 @@ export default function AdminDashboard() {
   } = useBlogAdmin();
 
   const {
+    leads,
     leadsLoading,
     leadsError,
     leadSearch,
@@ -332,7 +333,10 @@ export default function AdminDashboard() {
             loading={resourcesLoading}
             error={resourcesError}
             count={filteredResourcesCount}
-            resources={paginatedResources}
+            resources={paginatedResources.map(resource => {
+              const count = leads.filter(l => l.resourceTitle === resource.title).length;
+              return { ...resource, downloadCount: count };
+            })}
             page={resourcePage}
             setPage={setResourcePage}
             pageSize={RESOURCES_PAGE_SIZE}

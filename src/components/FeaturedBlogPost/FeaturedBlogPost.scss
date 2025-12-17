@@ -13,8 +13,9 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
     @media (min-width: 992px) {
-        flex-direction: row;
-        min-height: 480px;
+        display: block; // Change from flex row to block to allow floats
+        min-height: 300px; // Reduce forced height to allow collapsing
+        position: relative; // For absolute positioning of footer and label
     }
 
     &:hover {
@@ -29,8 +30,13 @@
         overflow: hidden;
 
         @media (min-width: 992px) {
-            flex: 1.25;
-            clip-path: polygon(0 0, 100% 0, 92% 100%, 0% 100%);
+            float: left;
+            width: 50%; // Strict 50/50 split
+            height: 450px; // Ensure diagonal coverage
+            border-radius: $radius-xl 0 0 $radius-xl;
+            clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
+            shape-outside: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
+            shape-margin: 4rem; // Increased margin (was $space-3xl which failed)
         }
 
         img {
@@ -69,7 +75,10 @@
         }
 
         @media (min-width: 992px) {
-            padding: $space-2xl $space-2xl $space-2xl 0;
+            display: block;
+            // CRITICAL: 0 left padding to allow text to touch shape-margin
+            padding: $space-2xl $space-2xl 0 0;
+            min-height: auto; // Allow content to dictate final height
         }
     }
 
@@ -87,22 +96,31 @@
         margin-bottom: $space-md;
         width: fit-content;
         box-shadow: $shadow-soft;
+
+        @media (min-width: 992px) {
+            position: absolute;
+            top: $space-2xl; // Align with restored top padding
+            right: $space-2xl;
+            margin-bottom: 0;
+            z-index: 10;
+        }
     }
 
     &__date {
         font-family: $font-body;
         font-size: $font-size-sm;
         color: $color-silver-dark;
-        margin-bottom: $space-sm;
+        margin-bottom: 0;
         display: block;
     }
 
     h2 {
         font-family: $font-heading;
-        font-size: clamp(1.8rem, 3vw, 2.5rem);
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
         line-height: $line-height-heading;
         color: $color-dark;
-        margin-bottom: $space-md;
+        margin-top: $space-sm; // Lower title slightly
+        margin-bottom: 0.25rem;
         font-weight: 800;
     }
 
@@ -111,10 +129,10 @@
         font-size: $font-size-lg;
         color: $color-dark;
         line-height: 1.6;
-        margin-bottom: $space-xl;
+        margin-bottom: $space-sm; // Reduced margin to pull button up
         display: -webkit-box;
-        -webkit-line-clamp: 4;
-        line-clamp: 4;
+        -webkit-line-clamp: 5; // Allow text to fill space
+        line-clamp: 5;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
@@ -124,18 +142,27 @@
         display: flex;
         align-items: center;
         gap: $space-lg;
+
+        @media (min-width: 992px) {
+            position: relative; // Remove absolute positioning
+            bottom: auto;
+            right: auto;
+            left: auto;
+            justify-content: flex-end; // Align right in flow
+            padding-right: $space-2xl; // Match content padding
+        }
     }
 
     &__read-more {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: $space-sm $space-xl;
+        padding: $space-xs $space-lg; // Reduced padding
         background-color: $color-primary;
         color: $color-white;
         font-family: $font-heading;
         font-weight: 700;
-        font-size: $font-size-base;
+        font-size: $font-size-sm; // Reduced font size
         border-radius: 9999px;
         text-decoration: none;
         transition: all 0.2s ease;
