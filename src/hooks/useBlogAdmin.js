@@ -209,7 +209,6 @@ export default function useBlogAdmin() {
         const { status, data } = error.response;
         console.error("Backend error detail (blog):", status, data);
 
-        // Si el backend envía un mensaje específico, úsalo (asumiendo estructura estandar)
         if (data && data.message) {
           errorMessage = data.message;
         } else if (status === 409) {

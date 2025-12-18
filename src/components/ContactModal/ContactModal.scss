@@ -178,13 +178,13 @@
 .contact-modal__checkbox {
   display: flex;
   flex-direction: row;
-  justify-content: center; // Center horizontally
+  justify-content: center;
   align-items: flex-start;
-  gap: 0.35rem; // Closer (was 0.5rem)
+  gap: 0.35rem;
   font-size: 0.85rem;
 
   input[type="checkbox"] {
-    margin-top: 0; // Move up (removed top margin)
+    margin-top: 0;
     width: 16px;
     height: 16px;
     cursor: pointer;

@@ -6,14 +6,12 @@
   min-height: 100vh;
   font-family: $font-body;
 
-  // Hero Section
+
   &__hero {
-    background: linear-gradient(
-      135deg,
-      rgba(177, 137, 255, 0.15) 0%,
-      rgba(154, 178, 237, 0.15) 50%,
-      rgba(92, 225, 230, 0.15) 100%
-    );
+    background: linear-gradient(135deg,
+        rgba(177, 137, 255, 0.15) 0%,
+        rgba(154, 178, 237, 0.15) 50%,
+        rgba(92, 225, 230, 0.15) 100%);
     padding: 4rem 2rem;
     position: relative;
   }
@@ -55,11 +53,9 @@
   &__category {
     display: inline-block;
     padding: 0.5rem 1rem;
-    background: linear-gradient(
-      90deg,
-      $color-lila-light,
-      $color-turquesa-soft
-    );
+    background: linear-gradient(90deg,
+        $color-lila-light,
+        $color-turquesa-soft );
     color: white;
     border-radius: 20px;
     font-size: 0.9rem;
@@ -94,7 +90,7 @@
     text-align: left;
   }
 
-  // Content Section
+
   &__content {
     padding: 4rem 2rem;
   }
@@ -116,23 +112,21 @@
     margin-bottom: 2rem;
     text-align: center;
     position: relative;
-    
+
     &::after {
       content: '';
       display: block;
       width: 80px;
       height: 4px;
-      background: linear-gradient(
-        90deg,
-        $color-lila-light,
-        $color-turquesa-soft
-      );
+      background: linear-gradient(90deg,
+          $color-lila-light,
+          $color-turquesa-soft );
       margin: 1rem auto 0;
       border-radius: 2px;
     }
   }
 
-  // Features Grid
+
   &__features {
     display: grid;
     grid-template-columns: 1fr;
@@ -178,7 +172,7 @@
     line-height: 1.6;
   }
 
-  // Grid for smaller cards
+
   &__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -212,16 +206,14 @@
     line-height: 1.5;
   }
 
-  // CTA Section
+
   &__cta {
     margin-top: 4rem;
     padding: 3rem;
-    background: linear-gradient(
-      135deg,
-      rgba(177, 137, 255, 0.1) 0%,
-      rgba(154, 178, 237, 0.1) 50%,
-      rgba(92, 225, 230, 0.1) 100%
-    );
+    background: linear-gradient(135deg,
+        rgba(177, 137, 255, 0.1) 0%,
+        rgba(154, 178, 237, 0.1) 50%,
+        rgba(92, 225, 230, 0.1) 100%);
     border-radius: 16px;
     text-align: center;
 
@@ -242,11 +234,9 @@
 
   &__cta-button {
     padding: 1rem 2.5rem;
-    background: linear-gradient(
-      90deg,
-      $color-lila-light,
-      $color-turquesa-soft
-    );
+    background: linear-gradient(90deg,
+        $color-lila-light,
+        $color-turquesa-soft );
     color: white;
     border: none;
     border-radius: 50px;
@@ -281,7 +271,7 @@
   }
 }
 
-// Responsive
+
 @media (max-width: 768px) {
   .service-details {
     &__hero {

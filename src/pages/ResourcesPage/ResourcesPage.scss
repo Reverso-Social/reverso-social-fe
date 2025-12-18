@@ -1,6 +1,6 @@
 @use "../../styles/variables" as *;
 
-// Estilos existentes de ResourcesPage...
+
 
 .resources-loading,
 .resources-error,
@@ -57,11 +57,9 @@
 }
 
 .resources-hero {
-  background: linear-gradient(
-    135deg,
-    rgba($color-turquesa-soft, 0.15) 0%,
-    rgba($color-lila-light, 0.15) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba($color-turquesa-soft, 0.15) 0%,
+      rgba($color-lila-light, 0.15) 100%);
   padding: 6rem 2rem 4rem;
   position: relative;
 
@@ -176,11 +174,9 @@
   }
 
   &.turquesa::before {
-    background: linear-gradient(
-      90deg,
-      $color-primary 0%,
-      $color-turquesa-soft 100%
-    );
+    background: linear-gradient(90deg,
+        $color-primary 0%,
+        $color-turquesa-soft 100%);
   }
 
   &.lila::before {
@@ -289,11 +285,9 @@
 .resources-cta {
   text-align: center;
   padding: 4rem 2rem;
-  background: linear-gradient(
-    135deg,
-    rgba($color-turquesa-soft, 0.1) 0%,
-    rgba($color-lila-light, 0.1) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba($color-turquesa-soft, 0.1) 0%,
+      rgba($color-lila-light, 0.1) 100%);
   border-radius: $radius-base;
   margin-top: 2rem;
 

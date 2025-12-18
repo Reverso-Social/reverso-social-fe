@@ -442,7 +442,6 @@ export default function AdminDashboard() {
         primaryAction={{
           label: "Guardar cambios",
           onClick: () => {
-            // onConfirm is likely async now, but we just trigger it.
             if (saveConfirmModal.onConfirm) {
               saveConfirmModal.onConfirm();
             }
