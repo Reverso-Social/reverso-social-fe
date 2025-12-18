@@ -2,9 +2,8 @@ export const servicesDetailedData = {
   1: {
     id: 1,
     title: "Consultoría en Igualdad",
-    category: "Planes de Igualdad", // esto he puesto yo 
+    category: "Planes de Igualdad",
     iconName: "FaBalanceScale",
-    // shortDescription: "Elaboración de Planes de Igualdad cumpliendo con el RD 901/2020 y 902/2020, desde el diagnóstico hasta el seguimiento.",
     fullDescription: "Realizamos Planes de igualdad cumpliendo con el marco normativo establecido por el Real Decreto 901/2020 y 902/2020.",
     features: [
       {
@@ -43,23 +42,18 @@ export const servicesDetailedData = {
       },
       {
         title: "Sistemas predictivos IA en materia de Violencia de género: I+D",
-        // description: "I+D en sistemas predictivos a través de la IA en materia de Violencia de género"
       },
       {
         title: "Informes con impacto de género",
-        // description: "Análisis y evaluación con perspectiva de género"
       },
       {
         title: "Informes y estudios sobre brechas de género",
-        // description: "Investigación y análisis de desigualdades"
       },
       {
         title: "Organización de Jornadas, Seminarios, encuentros, desayunos y cualquier otra actividad enmarcada.",
-        // description: "Jornadas, Seminarios, encuentros, desayunos y cualquier otra actividad enmarcada"
       },
       {
         title: "Integración de la igualdad en políticas de RSC. Asesoramiento en RSC con Perspectiva de Género",
-        // description: "Integración de la igualdad en políticas de Responsabilidad Social Corporativa"
       }
     ]
   },
@@ -74,19 +68,15 @@ export const servicesDetailedData = {
     features: [
       {
         title: "Elaboración de registros retributivos",
-        // description: "Documentación completa y conforme a normativa sobre retribuciones"
       },
       {
         title: "Auditoría salarial con perspectiva de género",
-        // description: "Análisis exhaustivo de la estructura salarial detectando posibles brechas"
       },
       {
         title: "Diseño de sistemas de clasificación profesional igualitarios",
-        // description: "Creación de estructuras de clasificación que garanticen la igualdad"
       },
       {
         title: "Acompañamiento para corregir brechas salariales",
-        // description: "Asesoramiento y seguimiento en la implementación de medidas correctoras"
       }
     ]
   },
@@ -101,28 +91,13 @@ export const servicesDetailedData = {
     features: [
       {
         title: "Redacción, negociación y seguimiento del protocolo",
-        // description: "Elaboración del documento completo adaptado a la empresa"
       },
       {
         title: "Formación a la Comisión designada por la empresa de Prevención e Intervención en caso de acoso sexual y/o por razón de sexo",
-        // description: "Proceso negociador con todas las partes implicadas"
       },
       {
         title: "Provisión en caso necesario de Servicio Técnico de Técnica de Igualdad especializada en Violencias Machistas y Sexuales, así como de Psicóloga especializada en Violencia de Género",
-        // description: "Monitorización continua de la implementación del protocolo"
-      },
-      // {
-      //   title: "Formación a la Comisión",
-      //   description: "Capacitación especializada a la Comisión de Prevención e Intervención en casos de acoso sexual y/o por razón de sexo"
-      // },
-      // {
-      //   title: "Servicio Técnico Especializado",
-      //   description: "Provisión de Técnica de Igualdad especializada en Violencias Machistas y Sexuales"
-      // },
-      // {
-      //   title: "Apoyo Psicológico",
-      //   description: "Servicio de Psicóloga especializada en Violencia de Género cuando sea necesario"
-      // }
+      }
     ]
   },
 
@@ -137,32 +112,22 @@ export const servicesDetailedData = {
     features: [
       {
         title: "Diagnóstico de situación (informe de diversidad)",
-        // description: "Informe de diversidad completo de la organización"
       },
       {
         title: "Evaluación de políticas y protocolos existentes",
-        // description: "Análisis de protocolos y políticas actuales de la empresa"
       },
       {
         title: "Diseño de medidas y objetivos específicos",
-        // description: "Plan personalizado con medidas concretas y alcanzables"
       },
       {
         title: "Protocolos de prevención y actuación frente a la LGTBIfobia",
-        // description: "Medidas preventivas frente a la LGTBIfobia"
       },
       {
         title: "Registro y comunicación interna del protocolo.",
-        // description: "Procedimientos claros de intervención ante situaciones de discriminación"
       },
       {
         title: "Formación especializada  para plantilla y dirección.",
-        // description: "Formalización y difusión del protocolo en la organización"
-      },
-      // {
-      //   title: "Formación especializada",
-      //   description: "Capacitación tanto para plantilla como para dirección"
-      // }
+      }
     ]
   },
 
@@ -176,31 +141,24 @@ export const servicesDetailedData = {
     topics: [
       {
         title: "Formación en materia de igualdad, planes de igualdad y normativa actualizada en la materia.",
-        // description: "Planes de igualdad y normativa actualizada"
       },
       {
         title: "Protocolo de prevención y actuación empresarial frente al acoso sexual y/o por razón de sexo",
-        // description: "Empresarial frente al acoso sexual y/o por razón de sexo"
       },
       {
         title: "Conciliación y corresponsabilidad: más allá de la teoría",
-        // description: "Más allá de la teoría, aplicación práctica"
       },
       {
         title: "Lenguaje y Comunicación Inclusiva en la empresa",
-        // description: "En el entorno empresarial"
       },
       {
         title: "Liderazgo Eficaz de Equipos de trabajo con Perspectiva de Género",
-        // description: "De Equipos de trabajo con Perspectiva de Género"
       },
       {
         title: "Resolución de conflictos organizacionales y toma de decisiones con perspectiva de género",
-        // description: "Organizacionales y toma de decisiones con perspectiva de género"
       },
       {
         title: "Diversidad Sexual y de Género – LGTBI en el entorno laboral. Planes y protocolos LGTBI",
-        // description: "En entornos laborales"
       },
       {
         title: "IA con perspectiva de género en entornos laborales.",
@@ -221,11 +179,7 @@ export const servicesDetailedData = {
       {
         title: "Formaciones presenciales, online, virtuales y/o híbridas",
         description: "Utilizando la pedagogía activa como motor educativo."
-      },
-      // {
-      //   title: "Pedagogía activa",
-      //   description: "Utilizamos la pedagogía activa como motor educativo"
-      // }
+      }
     ]
   },
 
@@ -239,31 +193,14 @@ export const servicesDetailedData = {
     topics: [
       {
         title: "Campañas Publicitarias de Sensibilización y Concienciación",
-        // description: "LGTBI en el entorno laboral. Planes y protocolos LGTBI"
       },
       {
         title: "Coeducación: Actividades socioeducativas de sensibilización y concienciación de las Violencias Machistas, el acoso sexual, por razón de sexo, intercultural y/o LGTBI.",
-        // description: "Prevención y actuación frente al acoso sexual y por razón de sexo"
       },
       {
         title: "Talleres y formación especializada para para colectivos como para profesionales.",
-        // description: "Capacitación específica para miembros de comisiones de igualdad y protocolos"
       }
-    ],
-    // characteristics: [
-    //   {
-    //     title: "Formación ajustada 100%",
-    //     description: "A las necesidades específicas de cada entidad"
-    //   },
-    //   {
-    //     title: "Múltiples modalidades",
-    //     description: "Presencial, online, virtual o híbrida"
-    //   },
-    //   {
-    //     title: "Pedagogía activa",
-    //     description: "Metodología participativa y práctica"
-    //   }
-    // ]
+    ]
   },
 
   7: {
@@ -276,27 +213,21 @@ export const servicesDetailedData = {
     projectAreas: [
       {
         title: "Proyectos en el marco de la soledad no deseada, distintos colectivos (población mayor, otros colectivos vulnerables).",
-        // description: "Proyectos dirigidos a población mayor y otros colectivos vulnerables"
       },
       {
         title: "Procesos sociocomunitarios inclusivos de colectivos en situación de vulnerabilidad social",
-        // description: "Intervención con colectivos en situación de vulnerabilidad social"
       },
       {
         title: "Intervención con mujeres: Empoderamiento Femenino, Inserción Sociolaboral",
-        // description: "Empoderamiento Femenino e Inserción Sociolaboral"
       },
       {
         title: "Lucha contra el acoso escolar por razón de diversidad afectivo-sexual, intercultural, funcional o cualesquiera. Combatir el odio a la juventud diversa desde la prevención.",
-        // description: "Por razón de diversidad afectivo-sexual, intercultural, funcional o cualesquiera. Combatir el odio a la juventud diversa desde la prevención"
       },
-       {
-        title: "Salud con perspectiva de género",
-        // description: "Proyectos de salud integral con enfoque de género"
-       },
       {
-       title: "IA con perspectiva de género e impacto en la juventud.",
-      //  description: "Impacto en la juventud y formación en nuevas tecnologías"
+        title: "Salud con perspectiva de género",
+      },
+      {
+        title: "IA con perspectiva de género e impacto en la juventud.",
       }
     ]
   },

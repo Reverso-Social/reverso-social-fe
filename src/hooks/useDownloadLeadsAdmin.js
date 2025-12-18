@@ -106,13 +106,14 @@ export default function useDownloadLeadsAdmin() {
       return;
     }
 
-    const headers = ['Nombre', 'Email', 'Recurso', 'Fecha Registro', 'Última Descarga'];
+    const headers = ['Nombre', 'Email', 'Recurso', 'Descargas', 'Fecha Registro', 'Última Descarga'];
     const rows = filteredLeads.map((lead) => {
       const lastDownload = lead.lastDownloadedAt || lead.createdAt;
       return [
         lead.name,
         lead.email,
         lead.resourceTitle,
+        lead.downloadCount,
         new Date(lead.createdAt).toLocaleDateString('es-ES'),
         new Date(lastDownload).toLocaleDateString('es-ES')
       ];

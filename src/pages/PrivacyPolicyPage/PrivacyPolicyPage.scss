@@ -2,7 +2,7 @@
 @use '../../styles/mixins' as *;
 
 .privacy-policy {
-    padding-top: 120px; // Offset for fixed header
+    padding-top: 120px;
     padding-bottom: $space-2xl;
     min-height: 100vh;
     background-color: $color-white;
