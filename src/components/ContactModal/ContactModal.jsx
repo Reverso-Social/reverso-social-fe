@@ -13,6 +13,7 @@ export default function ContactModal({ open, onClose }) {
     intereses: "",
   };
 
+
   const [formData, setFormData] = useState(initialForm);
   const [hasAcceptedPolicy, setHasAcceptedPolicy] = useState(false);
   const [errors, setErrors] = useState({});
@@ -45,6 +46,7 @@ export default function ContactModal({ open, onClose }) {
 
     if (!formData.intereses.trim())
       newErrors.intereses = "Cuéntanos tus intereses";
+
 
     if (!hasAcceptedPolicy) {
       newErrors.policy = "Debes aceptar la política de privacidad";
