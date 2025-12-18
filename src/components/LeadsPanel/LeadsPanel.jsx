@@ -91,7 +91,7 @@ const LeadsPanel = ({
                                             </span>
                                         </td>
                                         <td className="admin-table-date-col text-center">
-                                            {new Date(lead.originalCreatedAt || lead.createdAt).toLocaleDateString("es-ES", {
+                                            {new Date(lead.createdAt).toLocaleDateString("es-ES", {
                                                 year: "numeric",
                                                 month: "short",
                                                 day: "numeric",
@@ -113,7 +113,7 @@ const LeadsPanel = ({
                                                                 minute: "2-digit",
                                                             })}
                                                         </span>
-                                                        {isHotLead(lead.originalCreatedAt || lead.createdAt, lead.lastDownloadedAt) && lead.downloadCount > 1 && (
+                                                        {isHotLead(lead.createdAt, lead.lastDownloadedAt) && lead.downloadCount > 1 && (
                                                             <span className="badge badge--warning" style={{ fontSize: '0.75rem', marginTop: '0.25rem', padding: '0.1rem 0.4rem', borderRadius: '4px', backgroundColor: '#fff3cd', color: '#856404' }}>
                                                                 Re-descarga
                                                             </span>

@@ -334,7 +334,9 @@ export default function AdminDashboard() {
             error={resourcesError}
             count={filteredResourcesCount}
             resources={paginatedResources.map(resource => {
-              const count = leads.filter(l => l.resourceTitle === resource.title).length;
+              const count = leads
+                .filter(l => l.resourceTitle === resource.title)
+                .reduce((acc, l) => acc + (l.downloadCount || 0), 0);
               return { ...resource, downloadCount: count };
             })}
             page={resourcePage}
