@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Footer from "../components/Footer/Footer";
+import Footer from "../../components/Footer/Footer";
 
 describe("Footer Component", () => {
   it("renderiza el footer y su contenido principal", () => {
