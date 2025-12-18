@@ -1,5 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+
+import ContactModal from "../components/ContactModal/ContactModal";
+import contactService from "../api/contactService";
 
 // Mock del servicio
 vi.mock("../api/contactService", () => ({
@@ -8,47 +12,85 @@ vi.mock("../api/contactService", () => ({
   },
 }));
 
-import ContactModal from "../components/ContactModal/ContactModal";
-import contactService from "../api/contactService";
+const renderModal = (props = {}) =>
+  render(
+    <MemoryRouter>
+      <ContactModal open={true} onClose={vi.fn()} {...props} />
+    </MemoryRouter>
+  );
 
-describe("ContactModal Component", () => {
+describe("ContactModal", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it("no renderiza nada si open = false", () => {
-    render(<ContactModal open={false} onClose={() => { }} />);
-    const title = screen.queryByText("Contáctanos");
-    expect(title).toBeNull();
+  it("no renderiza el modal si open = false", () => {
+    render(
+      <MemoryRouter>
+        <ContactModal open={false} onClose={() => {}} />
+      </MemoryRouter>
+    );
+
+    expect(screen.queryByText("Contáctanos")).not.toBeInTheDocument();
   });
 
   it("renderiza el modal cuando open = true", () => {
-    render(<ContactModal open={true} onClose={() => { }} />);
-    expect(screen.queryByText("Contáctanos")).not.toBeNull();
-    expect(screen.queryByText("Estamos aquí para escucharte.")).not.toBeNull();
+    renderModal();
+
+    expect(screen.getByText("Contáctanos")).toBeInTheDocument();
+    expect(
+      screen.getByText("Estamos aquí para escucharte.")
+    ).toBeInTheDocument();
   });
 
-  it("muestra errores cuando se envía el formulario vacío", () => {
-    render(<ContactModal open={true} onClose={() => { }} />);
-    const submitBtn = screen.getByRole("button", { name: /enviar/i });
-    fireEvent.click(submitBtn);
+  it("muestra errores si se envía el formulario vacío", () => {
+    renderModal();
 
-    expect(screen.queryByText("El nombre es obligatorio")).not.toBeNull();
-    expect(screen.queryByText("El email es obligatorio")).not.toBeNull();
-    expect(screen.queryByText("Cuéntanos tus intereses")).not.toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: /enviar/i }));
+
+    expect(screen.getByText("El nombre es obligatorio")).toBeInTheDocument();
+    expect(screen.getByText("El email es obligatorio")).toBeInTheDocument();
+    expect(
+      screen.getByText("Cuéntanos tus intereses")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("Debes aceptar la política de privacidad")
+    ).toBeInTheDocument();
   });
 
-  it("guarda datos válidos y muestra mensaje de éxito", async () => {
+  it("envía el formulario correctamente y muestra el modal de éxito", async () => {
     const onClose = vi.fn();
-    render(<ContactModal open={true} onClose={onClose} />);
 
-    fireEvent.change(screen.getByPlaceholderText("Tu nombre completo"), { target: { value: "Ana" } });
-    fireEvent.change(screen.getByPlaceholderText("tu@email.com"), { target: { value: "ana@example.com" } });
-    fireEvent.change(screen.getByPlaceholderText("Organizacion o colectivo"), { target: { value: "Reverso Social" } });
+    render(
+      <MemoryRouter>
+        <ContactModal open={true} onClose={onClose} />
+      </MemoryRouter>
+    );
+
     fireEvent.change(
-      screen.getByPlaceholderText("¿Qué te interesa o en qué podemos colaborar?"),
+      screen.getByPlaceholderText("Tu nombre completo"),
+      { target: { value: "Ana" } }
+    );
+
+    fireEvent.change(
+      screen.getByPlaceholderText("tu@email.com"),
+      { target: { value: "ana@example.com" } }
+    );
+
+    fireEvent.change(
+      screen.getByPlaceholderText("Organizacion o colectivo"),
+      { target: { value: "Reverso Social" } }
+    );
+
+    fireEvent.change(
+      screen.getByPlaceholderText(
+        "¿Qué te interesa o en qué podemos colaborar?"
+      ),
       { target: { value: "Consultoría en igualdad" } }
     );
+
+    // ✔️ Aceptar política (clave)
+    fireEvent.click(screen.getByLabelText(/acepto la/i));
 
     fireEvent.click(screen.getByRole("button", { name: /enviar/i }));
 
@@ -63,26 +105,40 @@ describe("ContactModal Component", () => {
 
     expect(onClose).toHaveBeenCalled();
 
-    expect(screen.queryByText("Mensaje enviado")).not.toBeNull();
-    expect(screen.queryByText("¡Gracias por escribirnos! Nos pondremos en contacto contigo pronto.")).not.toBeNull();
+    await waitFor(() => {
+      expect(screen.getByText("Mensaje enviado")).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          "¡Gracias por escribirnos! Nos pondremos en contacto contigo pronto."
+        )
+      ).toBeInTheDocument();
+    });
   });
 
   it("cierra el modal al hacer click en el overlay", () => {
     const onClose = vi.fn();
-    render(<ContactModal open={true} onClose={onClose} />);
 
-    const overlay = document.querySelector(".contact-modal__overlay");
-    fireEvent.click(overlay);
+    render(
+      <MemoryRouter>
+        <ContactModal open={true} onClose={onClose} />
+      </MemoryRouter>
+    );
+
+    fireEvent.click(document.querySelector(".contact-modal__overlay"));
 
     expect(onClose).toHaveBeenCalled();
   });
 
-  it("cierra el modal al hacer click en la X", () => {
+  it("cierra el modal al hacer click en el botón cerrar", () => {
     const onClose = vi.fn();
-    render(<ContactModal open={true} onClose={onClose} />);
 
-    const closeBtn = document.querySelector(".contact-modal__close");
-    fireEvent.click(closeBtn);
+    render(
+      <MemoryRouter>
+        <ContactModal open={true} onClose={onClose} />
+      </MemoryRouter>
+    );
+
+    fireEvent.click(document.querySelector(".contact-modal__close"));
 
     expect(onClose).toHaveBeenCalled();
   });
