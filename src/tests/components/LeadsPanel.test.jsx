@@ -1,10 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import LeadsPanel from "../../components/LeadsPanel/LeadsPanel";
-import * as authService from "../../api/authService";
-import Pagination from "../../components/Pagination/Pagination";
 
-// Mock authService
+
 vi.mock("../../api/authService", async (importOriginal) => {
   const actual = await importOriginal();
   return {
