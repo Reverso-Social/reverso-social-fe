@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import About from '../components/About/About.jsx';
+import About from '../../components/About/About.jsx';
 
 describe('About Component', () => {
   it('renderiza los 3 títulos de las tarjetas', () => {
