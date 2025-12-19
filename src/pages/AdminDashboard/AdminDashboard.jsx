@@ -6,13 +6,17 @@ import "./AdminDashboard.scss";
 import authService from "../../api/authService";
 import ContactDetailModal from "../../components/ContactDetailModal/ContactDetailModal";
 import GlobalModal from "../../components/GlobalModal/GlobalModal";
-import SearchBar from "../../components/SearchBar/SearchBar";
-import Pagination from "../../components/Pagination/Pagination";
+
 
 import useContactsAdmin from "../../hooks/useContactsAdmin";
 import useResourcesAdmin from "../../hooks/useResourcesAdmin";
 import useBlogAdmin from "../../hooks/useBlogAdmin";
 import useDownloadLeadsAdmin from "../../hooks/useDownloadLeadsAdmin";
+
+import ContactsPanel from "../../components/ContactsPanel/ContactsPanel";
+import ResourcesPanel from "../../components/ResourcesPanel/ResourcesPanel";
+import BlogPanel from "../../components/BlogPanel/BlogPanel";
+import LeadsPanel from "../../components/LeadsPanel/LeadsPanel";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("contactos");
@@ -115,6 +119,7 @@ export default function AdminDashboard() {
   } = useBlogAdmin();
 
   const {
+    leads,
     leadsLoading,
     leadsError,
     leadSearch,
@@ -126,12 +131,11 @@ export default function AdminDashboard() {
     paginatedLeads,
     deleteLead,
     exportLeadsToCSV,
+    sortConfig,
+    requestSort,
   } = useDownloadLeadsAdmin();
 
-  // const handleLogout = () => {
-  //   authService.logout();
-  //   navigate("/");
-  // };
+
 
   const openDeleteContactModal = (contact) => {
     setConfirmModal({
@@ -280,9 +284,7 @@ export default function AdminDashboard() {
           <h1>Panel de Administración</h1>
           <p className="admin-subtitle">Bienvenida, {currentUser.fullName}</p>
         </div>
-        {/* <button onClick={handleLogout} className="admin-logout-btn">
-          Cerrar Sesión
-        </button> */}
+
       </header>
 
       <nav className="admin-tabs" aria-label="Secciones">
@@ -316,845 +318,92 @@ export default function AdminDashboard() {
 
       <section className="admin-content">
         {activeTab === "contactos" && (
-          <div className="admin-panel">
-            <div className="admin-panel-header">
-              <h2>Gestión de Contactos</h2>
-            </div>
-
-            {contactsLoading && (
-              <p className="admin-status">Cargando contactos...</p>
-            )}
-            {contactsError && (
-              <p className="admin-status admin-status--error">
-                {contactsError}
-              </p>
-            )}
-
-            {!contactsLoading && !contactsError && contacts.length === 0 && (
-              <p className="admin-status">No hay contactos disponibles.</p>
-            )}
-
-            {!contactsLoading &&
-              !contactsError &&
-              contacts.length > 0 && (
-                <div className="admin-table-wrapper">
-                  <table className="admin-table">
-                    <thead>
-                      <tr>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Mensaje</th>
-                        <th>Estado</th>
-                        <th>Fecha</th>
-                        <th className="admin-table-view-col">Ver</th>
-                        <th className="admin-table-actions-col">Acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {contacts.map((contact) => (
-                        <tr key={contact.id}>
-                          <td className="admin-table-title">
-                            {contact.fullName}
-                          </td>
-                          <td>{contact.email}</td>
-                          <td className="admin-table-message">
-                            {contact.message}
-                          </td>
-                          <td>
-                            <select
-                              value={contact.status}
-                              onChange={(e) =>
-                                handleContactStatusChange(
-                                  contact.id,
-                                  e.target.value
-                                )
-                              }
-                              className="status-select"
-                            >
-                              <option value="PENDING">Pendiente</option>
-                              <option value="IN_PROGRESS">
-                                En Proceso
-                              </option>
-                              <option value="RESOLVED">Resuelto</option>
-                            </select>
-                          </td>
-                          <td>
-                            {new Date(
-                              contact.createdAt
-                            ).toLocaleDateString()}
-                          </td>
-                          <td className="admin-table-view">
-                            <button
-                              className="admin-view-btn"
-                              onClick={() => handleViewContact(contact)}
-                              aria-label="Ver detalle del contacto"
-                            >
-                              <Eye size={18} />
-                            </button>
-                          </td>
-                          <td className="admin-table-actions">
-                            {authService.isAdmin() && (
-                              <button
-                                className="admin-action-btn admin-action-btn--delete"
-                                onClick={() =>
-                                  openDeleteContactModal(contact)
-                                }
-                              >
-                                Eliminar
-                              </button>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-          </div>
+          <ContactsPanel
+            contacts={contacts}
+            loading={contactsLoading}
+            error={contactsError}
+            onView={handleViewContact}
+            onStatusChange={handleContactStatusChange}
+            onDelete={openDeleteContactModal}
+          />
         )}
 
         {activeTab === "recursos" && (
-          <div className="admin-panel">
-            <div className="admin-panel-header">
-              <h2>Gestión de Recursos</h2>
-              <div className="admin-panel-header-actions">
-                <SearchBar
-                  value={resourceSearch}
-                  onChange={setResourceSearch}
-                  placeholder="Buscar recursos..."
-                  ariaLabel="Buscar recursos por título"
-                />
-                <button
-                  className="admin-primary-btn"
-                  onClick={handleOpenResourceFormCreate}
-                >
-                  + Añadir Recurso
-                </button>
-              </div>
-            </div>
-
-            {resourcesLoading && (
-              <p className="admin-status">Cargando recursos...</p>
-            )}
-            {resourcesError && (
-              <p className="admin-status admin-status--error">
-                {resourcesError}
-              </p>
-            )}
-
-            {!resourcesLoading &&
-              !resourcesError &&
-              filteredResourcesCount === 0 && (
-                <p className="admin-status">
-                  No hay recursos disponibles.
-                </p>
-              )}
-
-            {!resourcesLoading &&
-              !resourcesError &&
-              filteredResourcesCount > 0 && (
-                <>
-                  <div className="admin-table-wrapper">
-                    <table className="admin-table">
-                      <thead>
-                        <tr>
-                          <th>Título</th>
-                          <th>Tipo</th>
-                          <th>Visibilidad</th>
-                          <th>Descargas</th>
-                          <th>Fecha</th>
-                          <th className="admin-table-actions-col">
-                            Acciones
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {paginatedResources.map((resource) => (
-                          <tr key={resource.id}>
-                            <td className="admin-table-title">
-                              {resource.title}
-                            </td>
-                            <td>{resource.type}</td>
-                            <td>
-                              <span
-                                className={`status-pill ${resource.isPublic
-                                  ? "status-pill--public"
-                                  : "status-pill--private"
-                                  }`}
-                              >
-                                {resource.isPublic
-                                  ? "Público"
-                                  : "Privado"}
-                              </span>
-                            </td>
-                            <td>{resource.downloadCount || 0}</td>
-                            <td>
-                              {new Date(
-                                resource.createdAt
-                              ).toLocaleDateString()}
-                            </td>
-                            <td className="admin-table-actions">
-                              <button
-                                className="admin-action-btn"
-                                onClick={() =>
-                                  handleOpenResourceFormEdit(resource)
-                                }
-                              >
-                                Editar
-                              </button>
-                              <button
-                                className="admin-action-btn admin-action-btn--delete"
-                                onClick={() =>
-                                  openDeleteResourceModal(resource)
-                                }
-                              >
-                                Eliminar
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <Pagination
-                    currentPage={resourcePage}
-                    totalItems={filteredResourcesCount}
-                    pageSize={RESOURCES_PAGE_SIZE}
-                    onPageChange={setResourcePage}
-                    ariaLabel="Paginación de recursos"
-                  />
-                </>
-              )}
-
-            {showResourceForm && (
-              <div className="admin-form-wrapper">
-                <div className="admin-form-header">
-                  <h3>
-                    {resourceFormMode === "create"
-                      ? "Añadir Recurso"
-                      : "Editar Recurso"}
-                  </h3>
-                  <button
-                    className="admin-form-close"
-                    onClick={handleCloseResourceForm}
-                  >
-                    ✕
-                  </button>
-                </div>
-
-                <form
-                  className="admin-form"
-                  onSubmit={handleResourceFormSubmit}
-                >
-                  <div className="admin-form-grid">
-                    <div className="admin-form-field">
-                      <label htmlFor="resource-title">Título *</label>
-                      <input
-                        id="resource-title"
-                        name="title"
-                        type="text"
-                        value={resourceForm.title}
-                        onChange={handleResourceFieldChange}
-                        placeholder="Ej. Guía de Igualdad"
-                        disabled={resourceFormLoading}
-                      />
-                      {resourceFormErrors.title && (
-                        <p className="admin-form-error">
-                          {resourceFormErrors.title}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="admin-form-field">
-                      <label htmlFor="resource-type">Tipo *</label>
-                      <select
-                        id="resource-type"
-                        name="type"
-                        value={resourceForm.type}
-                        onChange={handleResourceFieldChange}
-                        disabled={resourceFormLoading}
-                      >
-                        <option value="GUIDE">Guía</option>
-                        <option value="REPORT">Informe</option>
-                        <option value="ARTICLE">Artículo</option>
-                        <option value="VIDEO">Vídeo</option>
-                        <option value="OTHER">Otro</option>
-                      </select>
-                      {resourceFormErrors.type && (
-                        <p className="admin-form-error">
-                          {resourceFormErrors.type}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="admin-form-field admin-form-field--full">
-                      <label htmlFor="resource-description">
-                        Descripción (máximo 50 palabras)
-                      </label>
-                      <textarea
-                        id="resource-description"
-                        name="description"
-                        rows={3}
-                        value={resourceForm.description}
-                        onChange={handleResourceFieldChange}
-                        placeholder="Breve descripción del recurso"
-                        disabled={resourceFormLoading}
-                      />
-                      <div className="admin-form-helper-row">
-                        <span
-                          className={`admin-form-helper-count ${descriptionWordCount > 50
-                            ? "admin-form-helper-count--error"
-                            : ""
-                            }`}
-                        >
-                          {descriptionWordCount}/50 palabras
-                        </span>
-                      </div>
-                      {resourceFormErrors.description && (
-                        <p className="admin-form-error">
-                          {resourceFormErrors.description}
-                        </p>
-                      )}
-                    </div>
-
-                    {/* <div className="admin-form-field">
-                      <label htmlFor="resource-file-url">
-                        URL del archivo *
-                      </label>
-                      <div className="admin-file-upload">
-                        <input
-                          id="resource-file-url"
-                          name="fileUrl"
-                          type="text"
-                          value={resourceForm.fileUrl}
-                          onChange={handleResourceFieldChange}
-                          placeholder="/resources/mi-archivo.pdf"
-                          disabled={resourceFormLoading}
-                        />
-                        <button
-                          type="button"
-                          className="admin-file-upload__button"
-                          disabled={resourceFormLoading}
-                        >
-                          Subir documento
-                        </button>
-                      </div>
-                      {resourceFormErrors.fileUrl && (
-                        <p className="admin-form-error">
-                          {resourceFormErrors.fileUrl}
-                        </p>
-                      )}
-                    </div> */}
-
-                    {/* <div className="admin-form-field">
-                      <label htmlFor="resource-preview-image-url">
-                        URL de imagen
-                      </label>
-                      <div className="admin-file-upload">
-                        <input
-                          id="resource-preview-image-url"
-                          name="previewImageUrl"
-                          type="text"
-                          value={resourceForm.previewImageUrl}
-                          onChange={handleResourceFieldChange}
-                          placeholder="/img/resources/mi-imagen.webp"
-                          disabled={resourceFormLoading}
-                        />
-                        <button
-                          type="button"
-                          className="admin-file-upload__button"
-                          disabled={resourceFormLoading}
-                        >
-                          Subir imagen
-                        </button>
-                      </div>
-                    </div> */}
-
-                    <div className="admin-form-field">
-                      <label htmlFor="resource-file-local">
-                        Documento
-                      </label>
-                      <div className="admin-file-upload">
-                        <input
-                          id="resource-file-local"
-                          name="localFile"
-                          type="file"
-                          accept=".pdf,.doc,.docx,.ppt,.pptx"
-                          onChange={handleLocalFileChange}
-                          disabled={resourceFormLoading}
-                          className="admin-file-upload__input"
-                          style={{ display: "none" }}
-                        />
-                        <label
-                          htmlFor="resource-file-local"
-                          className="admin-file-upload__button"
-                        >
-                          Subir documento
-                        </label>
-                        <span className="admin-file-upload__filename">
-                          {resourceFiles.localFile
-                            ? resourceFiles.localFile.name
-                            : "Ningún archivo seleccionado"}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="admin-form-field">
-                      <label htmlFor="resource-image-local">
-                        Imagen
-                      </label>
-                      <div className="admin-file-upload">
-                        <input
-                          id="resource-image-local"
-                          name="localImage"
-                          type="file"
-                          accept="image/*"
-                          onChange={handleLocalFileChange}
-                          disabled={resourceFormLoading}
-                          className="admin-file-upload__input"
-                          style={{ display: "none" }}
-                        />
-                        <label
-                          htmlFor="resource-image-local"
-                          className="admin-file-upload__button"
-                        >
-                          Subir imagen
-                        </label>
-                        <span className="admin-file-upload__filename">
-                          {resourceFiles.localImage
-                            ? resourceFiles.localImage.name
-                            : "Ninguna imágen seleccionada"}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="admin-form-field admin-form-field--inline">
-                      <input
-                        id="resource-public"
-                        name="isPublic"
-                        type="checkbox"
-                        checked={resourceForm.isPublic}
-                        onChange={handleResourceFieldChange}
-                        disabled={resourceFormLoading}
-                      />
-                      <label htmlFor="resource-public">
-                        Recurso público
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="admin-form-actions">
-                    <button
-                      type="button"
-                      className="admin-secondary-btn"
-                      onClick={handleCloseResourceForm}
-                      disabled={resourceFormLoading}
-                    >
-                      Cancelar
-                    </button>
-                    <button
-                      type="submit"
-                      className="admin-primary-btn"
-                      disabled={resourceFormLoading}
-                    >
-                      {resourceFormLoading
-                        ? "Guardando..."
-                        : resourceFormMode === "create"
-                          ? "Crear Recurso"
-                          : "Guardar Cambios"}
-                    </button>
-                  </div>
-                  {resourceFormErrors.submit && (
-                    <p className="admin-form-error" style={{ marginBottom: '1rem' }}>
-                      {resourceFormErrors.submit}
-                    </p>
-                  )}
-                </form>
-              </div>
-            )}
-          </div>
+          <ResourcesPanel
+            loading={resourcesLoading}
+            error={resourcesError}
+            count={filteredResourcesCount}
+            resources={paginatedResources.map(resource => {
+              const count = leads
+                .filter(l => l.resourceTitle === resource.title)
+                .reduce((acc, l) => acc + (l.downloadCount || 0), 0);
+              return { ...resource, downloadCount: count };
+            })}
+            page={resourcePage}
+            setPage={setResourcePage}
+            pageSize={RESOURCES_PAGE_SIZE}
+            search={resourceSearch}
+            setSearch={setResourceSearch}
+            showForm={showResourceForm}
+            formMode={resourceFormMode}
+            form={resourceForm}
+            formErrors={resourceFormErrors}
+            formLoading={resourceFormLoading}
+            files={resourceFiles}
+            wordCount={descriptionWordCount}
+            onOpenCreate={handleOpenResourceFormCreate}
+            onOpenEdit={handleOpenResourceFormEdit}
+            onCloseForm={handleCloseResourceForm}
+            onFieldChange={handleResourceFieldChange}
+            onFileChange={handleLocalFileChange}
+            onSubmit={handleResourceFormSubmit}
+            onDelete={openDeleteResourceModal}
+          />
         )}
 
         {activeTab === "blog" && (
-          <div className="admin-panel">
-            <div className="admin-panel-header">
-              <h2>Gestión de Blog</h2>
-              <div className="admin-panel-header-actions">
-                <SearchBar
-                  value={blogSearch}
-                  onChange={setBlogSearch}
-                  placeholder="Buscar entradas de blog..."
-                  ariaLabel="Buscar entradas de blog"
-                />
-                <button
-                  className="admin-primary-btn"
-                  onClick={handleOpenBlogFormCreate}
-                >
-                  + Añadir entrada
-                </button>
-              </div>
-            </div>
-
-            {filteredBlogsCount === 0 && (
-              <p className="admin-status">
-                No hay entradas de blog disponibles.
-              </p>
-            )}
-
-            {filteredBlogsCount > 0 && (
-              <>
-                <div className="admin-table-wrapper">
-                  <table className="admin-table">
-                    <thead>
-                      <tr>
-                        <th>Título</th>
-                        <th>Subtítulo</th>
-                        <th>Categoría</th>
-                        <th>Estado</th>
-                        <th>Fecha</th>
-                        <th className="admin-table-actions-col">
-                          Acciones
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {paginatedBlogs.map((blog) => (
-                        <tr key={blog.id}>
-                          <td className="admin-table-title">
-                            {blog.title}
-                          </td>
-                          <td>{blog.subtitle}</td>
-                          <td>{blog.category}</td>
-                          <td>
-                            <span
-                              className={`status-pill ${blog.status === "PUBLISHED"
-                                ? "status-pill--public"
-                                : "status-pill--private"
-                                }`}
-                            >
-                              {blog.status === "PUBLISHED"
-                                ? "Publicado"
-                                : blog.status}
-                            </span>
-                          </td>
-                          <td>
-                            {blog.createdAt
-                              ? new Date(
-                                blog.createdAt
-                              ).toLocaleDateString()
-                              : "-"}
-                          </td>
-                          <td className="admin-table-actions">
-                            <button
-                              className="admin-action-btn"
-                              onClick={() =>
-                                handleOpenBlogFormEdit(blog)
-                              }
-                            >
-                              Editar
-                            </button>
-                            <button
-                              className="admin-action-btn admin-action-btn--delete"
-                              onClick={() => openDeleteBlogModal(blog)}
-                            >
-                              Eliminar
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                <Pagination
-                  currentPage={blogPage}
-                  totalItems={filteredBlogsCount}
-                  pageSize={BLOG_PAGE_SIZE}
-                  onPageChange={setBlogPage}
-                  ariaLabel="Paginación de blog"
-                />
-              </>
-            )}
-
-            {showBlogForm && (
-              <div className="admin-form-wrapper">
-                <div className="admin-form-header">
-                  <h3>
-                    {blogFormMode === "create"
-                      ? "Añadir entrada de blog"
-                      : "Editar entrada de blog"}
-                  </h3>
-                  <button
-                    className="admin-form-close"
-                    onClick={handleCloseBlogForm}
-                  >
-                    ✕
-                  </button>
-                </div>
-
-                <form className="admin-form" onSubmit={handleBlogFormSubmit}>
-                  <div className="admin-form-grid">
-                    <div className="admin-form-field">
-                      <label htmlFor="blog-title">Título *</label>
-                      <input
-                        id="blog-title"
-                        name="title"
-                        type="text"
-                        value={blogForm.title}
-                        onChange={handleBlogFieldChange}
-                        disabled={blogFormLoading}
-                      />
-                      {blogFormErrors.title && (
-                        <p className="admin-form-error">
-                          {blogFormErrors.title}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="admin-form-field">
-                      <label htmlFor="blog-subtitle">Subtítulo</label>
-                      <input
-                        id="blog-subtitle"
-                        name="subtitle"
-                        type="text"
-                        value={blogForm.subtitle}
-                        onChange={handleBlogFieldChange}
-                        disabled={blogFormLoading}
-                      />
-                      {blogFormErrors.subtitle && (
-                        <p className="admin-form-error">
-                          {blogFormErrors.subtitle}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="admin-form-field admin-form-field--full">
-                      <label htmlFor="blog-content">Contenido *</label>
-                      <textarea
-                        id="blog-content"
-                        name="content"
-                        rows={6}
-                        value={blogForm.content}
-                        onChange={handleBlogFieldChange}
-                        disabled={blogFormLoading}
-                      />
-                      {blogFormErrors.content && (
-                        <p className="admin-form-error">
-                          {blogFormErrors.content}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="admin-form-field">
-                      <label htmlFor="blog-category">Categoría *</label>
-                      <input
-                        id="blog-category"
-                        name="category"
-                        type="text"
-                        value={blogForm.category}
-                        onChange={handleBlogFieldChange}
-                        placeholder="Ej. Comunidad"
-                        disabled={blogFormLoading}
-                      />
-                      {blogFormErrors.category && (
-                        <p className="admin-form-error">
-                          {blogFormErrors.category}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="admin-form-field">
-                      <label htmlFor="blog-status">Estado *</label>
-                      <select
-                        id="blog-status"
-                        name="status"
-                        value={blogForm.status}
-                        onChange={handleBlogFieldChange}
-                        disabled={blogFormLoading}
-                      >
-                        <option value="PUBLISHED">Publicado</option>
-                        <option value="DRAFT">Borrador</option>
-                        <option value="ARCHIVED">Archivado</option>
-                      </select>
-                      {blogFormErrors.status && (
-                        <p className="admin-form-error">
-                          {blogFormErrors.status}
-                        </p>
-                      )}
-                    </div>
-
-                    {/* <div className="admin-form-field">
-                      <label htmlFor="blog-image-url">URL de imagen</label>
-                      <input
-                        id="blog-image-url"
-                        name="imageUrl"
-                        type="text"
-                        value={blogForm.imageUrl}
-                        onChange={handleBlogFieldChange}
-                        placeholder="/img/blog/mi-imagen.webp"
-                        disabled={blogFormLoading}
-                      />
-                    </div> */}
-
-                    <div className="admin-form-field">
-                      <label htmlFor="blog-image-local">
-                        Imagen
-                      </label>
-                      <div className="admin-file-upload">
-                        <input
-                          id="blog-image-local"
-                          name="blogLocalImage"
-                          type="file"
-                          accept="image/*"
-                          onChange={handleBlogImageChange}
-                          disabled={blogFormLoading}
-                          className="admin-file-upload__input"
-                          style={{ display: "none" }}
-                        />
-                        <label
-                          htmlFor="blog-image-local"
-                          className="admin-file-upload__button"
-                        >
-                          Subir imagen
-                        </label>
-                        <span className="admin-file-upload__filename">
-                          {blogLocalImage
-                            ? blogLocalImage.name
-                            : "Ningún archivo seleccionado"}
-                        </span>
-                      </div>
-                      {blogFormErrors.image && (
-                        <p className="admin-form-error">
-                          {blogFormErrors.image}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="admin-form-actions">
-                    <button
-                      type="button"
-                      className="admin-secondary-btn"
-                      onClick={handleCloseBlogForm}
-                      disabled={blogFormLoading}
-                    >
-                      Cancelar
-                    </button>
-                    <button
-                      type="submit"
-                      className="admin-primary-btn"
-                      disabled={blogFormLoading}
-                    >
-                      {blogFormMode === "create"
-                        ? "Crear entrada"
-                        : "Guardar cambios"}
-                    </button>
-                  </div>
-                  {blogFormErrors.submit && (
-                    <p className="admin-form-error" style={{ textAlign: "right", marginTop: "1rem" }}>
-                      {blogFormErrors.submit}
-                    </p>
-                  )}
-                </form>
-              </div>
-            )}
-          </div>
+          <BlogPanel
+            loading={blogFormLoading}
+            count={filteredBlogsCount}
+            blogs={paginatedBlogs}
+            page={blogPage}
+            setPage={setBlogPage}
+            pageSize={BLOG_PAGE_SIZE}
+            search={blogSearch}
+            setSearch={setBlogSearch}
+            showForm={showBlogForm}
+            formMode={blogFormMode}
+            form={blogForm}
+            formErrors={blogFormErrors}
+            formLoading={blogFormLoading}
+            localImage={blogLocalImage}
+            onOpenCreate={handleOpenBlogFormCreate}
+            onOpenEdit={handleOpenBlogFormEdit}
+            onCloseForm={handleCloseBlogForm}
+            onFieldChange={handleBlogFieldChange}
+            onImageChange={handleBlogImageChange}
+            onSubmit={handleBlogFormSubmit}
+            onDelete={openDeleteBlogModal}
+          />
         )}
 
         {activeTab === "leads" && (
-          <div className="admin-panel">
-            <div className="admin-panel-header">
-              <h2>Leads de Descarga</h2>
-              <div className="admin-panel-header-actions">
-                <SearchBar
-                  value={leadSearch}
-                  onChange={setLeadSearch}
-                  placeholder="Buscar por nombre, email o recurso..."
-                  ariaLabel="Buscar leads"
-                />
-                <button
-                  className="admin-secondary-btn"
-                  onClick={exportLeadsToCSV}
-                  disabled={filteredLeadsCount === 0}
-                >
-                  📥 Exportar CSV
-                </button>
-              </div>
-            </div>
-
-            {leadsLoading && (
-              <p className="admin-status">Cargando leads...</p>
-            )}
-
-            {leadsError && (
-              <p className="admin-status admin-status--error">
-                {leadsError}
-              </p>
-            )}
-
-            {!leadsLoading && !leadsError && filteredLeadsCount === 0 && (
-              <p className="admin-status">
-                No hay leads de descarga disponibles.
-              </p>
-            )}
-
-            {!leadsLoading && !leadsError && filteredLeadsCount > 0 && (
-              <>
-                <div className="admin-table-wrapper">
-                  <table className="admin-table">
-                    <thead>
-                      <tr>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Recurso Descargado</th>
-                        <th>Fecha</th>
-                        <th className="admin-table-actions-col">Acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {paginatedLeads.map((lead) => (
-                        <tr key={lead.id}>
-                          <td className="admin-table-title">{lead.name}</td>
-                          <td>{lead.email}</td>
-                          <td>{lead.resourceTitle}</td>
-                          <td>
-                            {new Date(lead.createdAt).toLocaleDateString('es-ES', {
-                              year: 'numeric',
-                              month: 'short',
-                              day: 'numeric',
-                              hour: '2-digit',
-                              minute: '2-digit'
-                            })}
-                          </td>
-                          <td className="admin-table-actions">
-                            {authService.isAdmin() && (
-                              <button
-                                className="admin-action-btn admin-action-btn--delete"
-                                onClick={() => openDeleteLeadModal(lead)}
-                              >
-                                Eliminar
-                              </button>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                <Pagination
-                  currentPage={leadPage}
-                  totalItems={filteredLeadsCount}
-                  pageSize={LEADS_PAGE_SIZE}
-                  onPageChange={setLeadPage}
-                  ariaLabel="Paginación de leads"
-                />
-              </>
-            )}
-          </div>
+          <LeadsPanel
+            loading={leadsLoading}
+            error={leadsError}
+            count={filteredLeadsCount}
+            leads={paginatedLeads}
+            page={leadPage}
+            setPage={setLeadPage}
+            pageSize={LEADS_PAGE_SIZE}
+            search={leadSearch}
+            setSearch={setLeadSearch}
+            onExport={exportLeadsToCSV}
+            onDelete={openDeleteLeadModal}
+            sortConfig={sortConfig}
+            onSort={requestSort}
+          />
         )}
-
       </section>
 
       <ContactDetailModal
@@ -1195,9 +444,6 @@ export default function AdminDashboard() {
         primaryAction={{
           label: "Guardar cambios",
           onClick: () => {
-            // onConfirm is likely async now, but we just trigger it.
-            // If we want to wait, we need to restructure.
-            // But existing code just calls it.
             if (saveConfirmModal.onConfirm) {
               saveConfirmModal.onConfirm();
             }

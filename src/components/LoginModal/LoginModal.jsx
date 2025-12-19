@@ -40,10 +40,6 @@ export default function LoginModal({ open, onClose }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user types? Or wait for blur? 
-    // Usually better to clear on type if it was required, but keep format checks for blur.
-    // For now, let's keep inline errors until next blur or clear them. 
-    // Request says "Only show inline required errors when the user leaves a required field empty".
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
@@ -77,9 +73,6 @@ export default function LoginModal({ open, onClose }) {
         onClose(true);
       }, 800);
     } catch (error) {
-      // Show modal for wrong credentials (401/403 usually, or any auth error)
-      setErrorModalOpen(true);
-      // Ensure no inline error or text error is shown for credentials
     } finally {
       setLoading(false);
     }

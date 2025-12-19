@@ -8,6 +8,7 @@ import BlogPage from "./pages/BlogPage/BlogPage";
 import BlogDetail from "./pages/BlogDetail/BlogDetail";
 import ServiceDetails from "./pages/ServiceDetails/ServiceDetails";
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage/PrivacyPolicyPage";
 
 import "./styles/main.scss";
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/blog/:slug" element={<BlogDetail />} />
             <Route path="/servicios/:id" element={<ServiceDetails />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/politica-privacidad" element={<PrivacyPolicyPage />} />
           </Routes>
         </main>
 

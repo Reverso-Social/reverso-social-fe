@@ -1,19 +1,29 @@
 import React, { useEffect, useState } from "react";
 import "./BlogPage.scss";
 import BlogCard from "../../components/BlogCard/BlogCard";
+import FeaturedBlogPost from "../../components/FeaturedBlogPost/FeaturedBlogPost";
 import blogApi from "../../api/blogApi";
 import blogHeroImage from "../../assets/img/group1.webp";
 import Background from "../../components/Background/Background";
 
 const BlogPage = () => {
-  const [posts, setPosts] = useState([]);
+  const [featuredPost, setFeaturedPost] = useState(null);
+  const [recentPosts, setRecentPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     blogApi
-      .getPublished()
-      .then((data) => setPosts(data))
+      .getLatest(13)
+      .then((data) => {
+        if (data && data.length > 0) {
+          setFeaturedPost(data[0]);
+          setRecentPosts(data.slice(1));
+        } else {
+          setFeaturedPost(null);
+          setRecentPosts([]);
+        }
+      })
       .catch(() => setError("No pudimos cargar los artículos."))
       .finally(() => setLoading(false));
   }, []);
@@ -49,11 +59,26 @@ const BlogPage = () => {
         {error && !loading && <p className="blog-status blog-status--error">{error}</p>}
 
         {!loading && !error && (
-          <div className="blog-grid">
-            {posts.map((post) => (
-              <BlogCard key={post.id} post={post} />
-            ))}
-          </div>
+          <>
+
+            {featuredPost && (
+              <div className="blog-featured-section">
+                <FeaturedBlogPost post={featuredPost} />
+              </div>
+            )}
+
+
+            {recentPosts.length > 0 ? (
+              <div className="blog-grid">
+                {recentPosts.map((post) => (
+                  <BlogCard key={post.id} post={post} />
+                ))}
+              </div>
+            ) : (
+
+              !featuredPost && <p className="blog-status">No hay artículos publicados aún.</p>
+            )}
+          </>
         )}
       </section>
     </Background>

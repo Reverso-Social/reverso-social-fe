@@ -6,7 +6,7 @@ import { PiMoneyFill } from "react-icons/pi";
 import { GiGraduateCap } from "react-icons/gi";
 import { BsHouses } from "react-icons/bs";
 
-// Mapa centralizado de iconos
+
 const iconMap = {
   FaBalanceScale: <FaBalanceScale />,
   PiMoneyFill: <PiMoneyFill />,
@@ -36,7 +36,7 @@ const ServiceSection = () => {
               <ServicesCard
                 key={service.id}
                 id={service.id}
-                icon={iconMap[service.iconName]} 
+                icon={iconMap[service.iconName]}
                 title={service.title}
                 description={service.shortDescription}
                 button={

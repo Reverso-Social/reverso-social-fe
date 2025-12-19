@@ -1,30 +1,47 @@
 # Reverso Social – Frontend
 
-Este repositorio contiene el **frontend del proyecto Reverso Social**, desarrollado con **React (JavaScript)** .
-En esta primera entrega se construyó la estructura base del proyecto, los componentes principales de la interfaz y los estilos iniciales utilizando **SASS**.
+This repository contains the **frontend of the Reverso Social project**, developed with **React (JavaScript)**.
+In this initial release, the project structure, main UI components, and initial styles (using **SASS**) have been built.
 
 ---
 
-## Tecnologías utilizadas
+## Technology Stack
 
-- **React JS**
-- **JavaScript (ES6+)**
-- **Vite** como bundler
-- **SASS / SCSS** para los estilos
-- **React Router**
-- **ESLint** para estándares de código
+| Technology       | Version   | Purpose                        |
+|------------------|-----------|--------------------------------|
+| **React**        | ^18.2.0   | Main UI Library                |
+| **Vite**         | ^7.2.4    | Bundler and Dev Environment    |
+| **SASS**         | ^1.96.0   | CSS Preprocessor               |
+| **React Router** | ^7.10.1   | Routing                        |
+| **Axios**        | ^1.13.2   | HTTP Client                    |
+| **Vitest**       | ^4.0.15   | Testing Framework              |
+
+### Backend (Reference)
+
+The backend for this project is built with **Java and Spring Boot**.
+
+| Technology       | Version   | Purpose                        |
+|------------------|-----------|--------------------------------|
+| **Java**         | 21        | Programming Language           |
+| **Spring Boot**  | 3.4.12    | Main Framework                 |
+| **PostgreSQL**   | -         | Relational Database            |
+| **Spring Security**| -       | Security and Authentication    |
+| **JWT**          | 4.4.0     | Tokens (Auth0)                 |
+| **MapStruct**    | 1.5.5     | Object Mapping                 |
+| **Lombok**       | 1.18.34   | Boilerplate Reduction          |
 
 ---
 
-## Estructura del proyecto
+## Project Structure
 
-La estructura principal del directorio `src/` quedó organizada de la siguiente manera:
+The main structure of the `src/` directory is organized as follows:
+
 ```
 src
 │
-├── api/             # Lógica de llamadas al backend
-├── assets/          # Imágenes, íconos, recursos estáticos
-├── components/      # Componentes reutilizables de la UI
+├── api/             # Backend API logic
+├── assets/          # Images, icons, static resources
+├── components/      # Reusable UI components
 │   ├── About/
 │   ├── Background/
 │   ├── BlogCard/
@@ -45,10 +62,10 @@ src
 │   ├── TeamSection/
 │   └── UserMenu/
 │
-├── config/          # Configuraciones (ej. axios)
-├── data/            # Datos estáticos o mock data
+├── config/          # Configurations (e.g., axios)
+├── data/            # Static or mock data
 ├── hooks/           # Custom hooks
-├── pages/           # Páginas principales
+├── pages/           # Main pages
 │   ├── AdminDashboard/
 │   ├── BlogDetail/
 │   ├── BlogPage/
@@ -56,113 +73,73 @@ src
 │   ├── ResourcesPage/
 │   └── ServiceDetails/
 │
-├── styles/          # Estilos globales y configuración SASS
+├── styles/          # Global styles and SASS configuration
 │   ├── _layout.scss
 │   ├── _mixins.scss
 │   ├── _typography.scss
 │   ├── _variables.scss
 │   └── main.scss
 │
-├── tests/           # Tests unitarios y de integración
+├── tests/           # Unit and integration tests
 ├── App.jsx
 ├── main.jsx
 ```
 
-Cada componente y página cuenta con sus **dos archivos correspondientes**:
-- `Nombre.jsx` → Componente funcional
-   - `Nombre.scss` → Estilos específicos del componente
-## 🖥️ Scripts disponibles
+Each component and page follows a **two-file structure**:
+- `Name.jsx` → Functional Component
+- `Name.scss` → Component-specific styles
 
-En el directorio raíz puedes ejecutar:
+## 🖥️ Available Scripts
+
+In the root directory, you can run:
 
 ### `npm install`
-Instala todas las dependencias necesarias del proyecto.
+Installs all necessary project dependencies.
 
 ### `npm run dev`
-Levanta el entorno de desarrollo con Vite.
+Starts the development environment with Vite.
 
 ### `npm run build`
-Genera la versión optimizada para producción.
+Generates the optimized version for production.
 
 ### `npm run preview`
-Sirve la build generada para revisión.
+Serves the generated build for review.
 
 ---
 
-## Stack Tecnológico
+## Deployment Instructions
 
-| Tecnología       | Versión   | Propósito                      |
-|------------------|-----------|--------------------------------|
-| **React**        | ^19.2.0   | Librería principal de UI       |
-| **Vite**         | ^7.2.4    | Bundler y entorno de desarrollo|
-| **SASS**         | ^1.96.0   | Preprocesador CSS              |
-| **React Router** | ^7.10.1   | Enrutamiento                   |
-| **Axios**        | ^1.13.2   | Cliente HTTP                   |
-| **Vitest**       | ^4.0.15   | Framework de Tests             |
+To deploy the application in a production environment, follow these steps:
 
-### Backend (Referencia)
-
-El backend de este proyecto está construido con **Java y Spring Boot**.
-
-| Tecnología       | Versión   | Propósito                      |
-|------------------|-----------|--------------------------------|
-| **Java**         | 21        | Lenguaje de programación       |
-| **Spring Boot**  | 3.4.12    | Framework principal            |
-| **PostgreSQL**   | -         | Base de datos relacional       |
-| **Spring Security**| -       | Seguridad y Autenticación      |
-| **JWT**          | 4.4.0     | Tokens (Auth0)                 |
-| **MapStruct**    | 1.5.5     | Mapeo de objetos               |
-| **Lombok**       | 1.18.34   | Reducción de boilerplate       |
-
----
-
-##  Instrucciones de Despliegue
-
-Para desplegar la aplicación en un entorno de producción, sigue estos pasos:
-
-1. **Instalar dependencias:**
-   Asegúrate de tener Node.js instalado y ejecuta:
+1. **Install dependencies:**
+   Ensure Node.js is installed and run:
    ```bash
    npm install
    ```
 
-2. **Construir el proyecto:**
-   Genera los archivos estáticos optimizados para producción:
+2. **Build the project:**
+   Generate static files optimized for production:
    ```bash
    npm run build
    ```
-   Esto creará una carpeta `dist/` en la raíz del proyecto.
+   This will create a `dist/` folder in the project root.
 
-3. **Desplegar:**
-   La carpeta `dist/` contiene todos los archivos estáticos necesarios (HTML, CSS, JS, imágenes).
+3. **Deploy:**
+   The `dist/` folder contains all necessary static files (HTML, CSS, JS, images).
    
-   - **Servidor Estático:** Puedes subir el contenido de `dist/` a cualquier servidor web (Apache, Nginx, Vercel, Netlify, etc.).
-   - **Preview Local:** Para verificar que la build funciona correctamente antes de subirla:
+   - **Static Server:** You can upload the contents of `dist/` to any web server (Apache, Nginx, Vercel, Netlify, etc.).
+   - **Local Preview:** To verify the build works correctly before uploading:
      ```bash
      npm run preview
      ```
 
 ---
 
-##  Capturas de pantalla
+## Team
 
-A continuación se añaden algunas capturas del estado del proyecto en este sprint:
+**Reverso Social** Collaborative Frontend & Backend Team
 
-<img width="1522" height="903" alt="image" src="https://github.com/user-attachments/assets/b3c165bc-501a-4ee1-872e-d5f2614e5b4c" />
-<img width="1876" height="821" alt="image" src="https://github.com/user-attachments/assets/bedb1f94-2927-4757-96be-66e3348ffd90" />
-<img width="1166" height="624" alt="image" src="https://github.com/user-attachments/assets/502dfb16-93e9-4313-9c65-3aa0b5acc30f" />
-<img width="1372" height="812" alt="image" src="https://github.com/user-attachments/assets/8629fd5c-d0a5-4e02-8a53-50e630df944f" />
-<img width="1505" height="407" alt="image" src="https://github.com/user-attachments/assets/5613f75e-3e07-483d-a455-7f949af9bf01" />
-<img width="823" height="826" alt="image" src="https://github.com/user-attachments/assets/0f1d334e-33d3-4ddc-8283-fed40cacd9f9" />
-
-
----
-
-##  Equipo
-
-Frontend colaborativo del proyecto **Reverso Social** — Sprint 1.
-
-| Nombre | GitHub | LinkedIn |
+| Name | GitHub | LinkedIn |
 |--------|--------|----------|
 | **Angela Bello** | [@AngelaBello-creator](https://github.com/AngelaBello-creator) | [Angela Bello](https://www.linkedin.com/in/angela-bello-developer/) |
 | **Andrea Olivera** | [@andreaonweb](https://github.com/andreaonweb) | [Andrea Olivera Romero](https://www.linkedin.com/in/AndreaOliveraRomero) |
@@ -172,8 +149,14 @@ Frontend colaborativo del proyecto **Reverso Social** — Sprint 1.
 
 ---
 
-## Licencia
+## Screenshots
 
-Este proyecto es de uso interno para desarrollo académico/profesional del equipo y no posee licencia pública.
+Below are some screenshots of the project state:
 
----
+<img width="100%" alt="Project Preview" src="src/assets/docs/Preview_Project.svg" />
+
+
+
+## License
+
+This project is for internal use for the team's academic/professional development and does not have a public license.

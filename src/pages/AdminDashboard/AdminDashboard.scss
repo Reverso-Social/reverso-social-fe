@@ -1,5 +1,4 @@
 @use "sass:color";
-
 @use "../../styles/variables" as *;
 
 .admin-dashboard {
@@ -9,8 +8,6 @@
   background-color: $color-white;
   margin-top: $space-xl;
 }
-
-
 
 .admin-header {
   margin-bottom: $space-2xl;
@@ -39,8 +36,6 @@
   }
 }
 
-
-
 .admin-logout-btn {
   border: 2px solid #d32f2f;
   background-color: $color-white;
@@ -66,19 +61,15 @@
   }
 }
 
-
-
 .admin-tabs {
   display: inline-flex;
   align-items: center;
   gap: $space-md;
   padding: $space-sm;
   border-radius: $radius-xl;
-  background: linear-gradient(
-    90deg,
-    rgba($color-turquesa-soft, 0.08),
-    rgba($color-lila-light, 0.08)
-  );
+  background: linear-gradient(90deg,
+      rgba($color-turquesa-soft, 0.08),
+      rgba($color-lila-light, 0.08));
   margin-bottom: $space-xl;
 }
 
@@ -207,7 +198,7 @@
 
   th,
   td {
-    padding: $space-md $space-sm;
+    padding: $space-sm $space-sm;
     text-align: left;
     border-bottom: 1px solid $color-silver-light;
     vertical-align: middle;
@@ -220,6 +211,11 @@
     text-transform: uppercase;
     letter-spacing: 0.04em;
     background-color: rgba($color-silver-light, 0.3);
+    height: 48px;
+  }
+
+  td {
+    height: 70px;
   }
 
   .admin-table-title {
@@ -227,14 +223,26 @@
     color: $color-dark;
   }
 
+  .admin-table-status-col {
+    width: 140px;
+    text-align: center !important;
+  }
+
+  .admin-table-date-col {
+    width: 120px;
+    text-align: center !important;
+  }
+
   .admin-table-view-col {
-    width: 80px;
-    text-align: center;
+    width: 60px;
+    text-align: center !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 
   .admin-table-actions-col {
     width: 180px;
-    text-align: right;
+    text-align: center !important;
   }
 }
 
@@ -246,7 +254,13 @@
 }
 
 .admin-table-view {
-  text-align: center;
+  text-align: center !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+
+  &>button {
+    margin: 0 auto;
+  }
 }
 
 .admin-view-btn {
@@ -260,6 +274,9 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
+  width: 36px;
+  height: 36px;
+
 
   &:hover {
     background-color: rgba($color-primary, 0.1);
@@ -274,7 +291,7 @@
 
 .admin-table-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   gap: $space-xs;
 }
@@ -283,12 +300,16 @@
   border-radius: $radius-base;
   border: 1px solid $color-silver-light;
   background-color: $color-white;
-  padding: 0.4rem 0.8rem;
+  padding: 0.5rem 1rem;
   font-size: $font-size-xs;
   cursor: pointer;
   color: $color-dark;
   transition: all 0.15s ease;
   white-space: nowrap;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover:not(:disabled) {
     background-color: rgba($color-primary, 0.08);
@@ -341,6 +362,9 @@
   font-family: $font-body;
   font-size: $font-size-sm;
   cursor: pointer;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
 
   &:focus {
     border-color: $color-primary;
@@ -369,11 +393,9 @@
   padding: $space-xl;
   border-radius: $radius-lg;
   border: 1px solid $color-silver-light;
-  background: linear-gradient(
-    135deg,
-    rgba($color-turquesa-soft, 0.04),
-    rgba($color-lila-light, 0.04)
-  );
+  background: linear-gradient(135deg,
+      rgba($color-turquesa-soft, 0.04),
+      rgba($color-lila-light, 0.04));
 }
 
 .admin-form-header {
@@ -512,8 +534,8 @@
   cursor: pointer;
   border: none;
   display: inline-flex;
-  align-items: center ;
-  justify-content: center ;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 
   &:hover:not(:disabled) {
@@ -593,45 +615,7 @@
   }
 }
 
-/* RESPONSIVE */
 
-// @media (max-width: 768px) {
-//   .admin-dashboard {
-//     padding: $space-xl $space-sm $space-xl;
-//   }
-
-//   .admin-content {
-//     padding: $space-lg $space-md;
-//   }
-
-//   .admin-table th,
-//   .admin-table td {
-//     padding: $space-sm $space-xs;
-//   }
-
-//   /Botones de subir archivo/imagen más pequeños en mobile */
-//   .admin-file-upload__button {
-//     padding: $space-xs $space-sm;   // más pequeño
-//     font-size: 1rem;       // texto más pequeño
-//     border-radius: 2rem;    // más compacto
-//   }
-// }
-
-// @media (min-width: 1440px) {
-//   .admin-dashboard {
-//     max-width: 1400px;
-//     padding: $space-2xl $space-xl $space-2xl;
-//   }
-
-//   .admin-content {
-//     padding: $space-2xl;
-//   }
-
-//   .admin-table th,
-//   .admin-table td {
-//     padding: $space-md $space-md;
-//   }
-// }
 
 @media (max-width: 768px) {
   .admin-dashboard {
@@ -653,7 +637,7 @@
     border-radius: 1rem;
   }
 
-  
+
   .admin-primary-btn {
     padding: 0.4rem 1rem;
     font-size: 0.85rem;

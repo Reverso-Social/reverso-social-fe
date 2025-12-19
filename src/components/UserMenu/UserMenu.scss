@@ -35,7 +35,7 @@
 
 .user-menu__chevron {
   transition: transform 0.2s ease;
-  
+
   &--open {
     transform: rotate(180deg);
   }
@@ -58,6 +58,7 @@
     opacity: 0;
     transform: translateY(-8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -130,7 +131,7 @@
   }
 }
 
-// Versión mobile
+
 .user-menu-mobile {
   display: flex;
   flex-direction: column;

@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import "./ContactModal.scss";
 import { X, User, Mail, Building2, Heart } from "lucide-react";
 import contactService from "../../api/contactService";
@@ -12,7 +13,9 @@ export default function ContactModal({ open, onClose }) {
     intereses: "",
   };
 
+
   const [formData, setFormData] = useState(initialForm);
+  const [hasAcceptedPolicy, setHasAcceptedPolicy] = useState(false);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [modalState, setModalState] = useState({
@@ -43,6 +46,11 @@ export default function ContactModal({ open, onClose }) {
 
     if (!formData.intereses.trim())
       newErrors.intereses = "Cuéntanos tus intereses";
+
+
+    if (!hasAcceptedPolicy) {
+      newErrors.policy = "Debes aceptar la política de privacidad";
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -183,6 +191,25 @@ export default function ContactModal({ open, onClose }) {
                   <span className="error-text">{errors.intereses}</span>
                 )}
               </div>
+
+              <div className="contact-modal__field contact-modal__checkbox">
+                <input
+                  type="checkbox"
+                  id="contact-policy"
+                  checked={hasAcceptedPolicy}
+                  onChange={(e) => {
+                    setHasAcceptedPolicy(e.target.checked);
+                    if (errors.policy) setErrors({ ...errors, policy: "" });
+                  }}
+                />
+                <label htmlFor="contact-policy">
+                  Acepto la{" "}
+                  <Link to="/politica-privacidad" target="_blank" rel="noopener noreferrer">
+                    Política de Protección de Datos y Privacidad
+                  </Link>
+                </label>
+              </div>
+              {errors.policy && <span className="error-text" style={{ display: 'block', marginTop: '-1rem', marginBottom: '1rem' }}>{errors.policy}</span>}
 
               <button type="submit" className="contact-modal__submit" disabled={loading}>
                 {loading ? "Enviando..." : "Enviar"}

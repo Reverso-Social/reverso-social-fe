@@ -55,6 +55,16 @@ const ServiceDetails = () => {
     return <div>Servicio no encontrado</div>;
   }
 
+  const handleBackToServices = () => {
+    navigate('/');
+    setTimeout(() => {
+      const servicesSection = document.getElementById('servicios');
+      if (servicesSection) {
+        servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  };
+
   return (
     <div className="service-details">
       <ContactModal
@@ -66,7 +76,7 @@ const ServiceDetails = () => {
         <div className="service-details__hero-content">
           <button 
             className="service-details__back-link"
-            onClick={() => navigate('/#servicios')}
+            onClick={handleBackToServices}
           >
             <FaArrowLeft /> Volver a Servicios
           </button>
@@ -255,5 +265,3 @@ const ServiceDetails = () => {
 };
 
 export default ServiceDetails;
-
-
