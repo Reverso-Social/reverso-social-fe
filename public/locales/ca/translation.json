@@ -1,0 +1,57 @@
+{
+    "nav": {
+        "aboutUs": "Sobre Nosaltres",
+        "whatWeDo": "Què Fem",
+        "resources": "Recursos",
+        "advocacy": "Incidència",
+        "blog": "Blog"
+    },
+    "hero": {
+        "title": "Som una entitat feminista d'incidència sociopolítica",
+        "description": "Hem vingut a resoldre les teves necessitats i a fer que el canvi a millor succeeixi.",
+        "cta": "Coneix-nos"
+    },
+    "header": {
+        "toggleMenu": "Obrir o tancar menú de navegació",
+        "logoutTitle": "Sessió tancada",
+        "logoutMessage": "Has tancat sessió correctament."
+    },
+    "footer": {
+        "brand": "Reverso Social",
+        "description": "Consultoria Social de Gènere compromesa amb la transformació feminista de la societat.",
+        "navigation": "Navegació",
+        "contact": "Contacte",
+        "followUs": "Segueix-nos",
+        "copyright": "© 2025 Reverso Social - CIF G22598882. Tots els drets reservats.",
+        "privacyPolicy": "Política de Privacitat",
+        "cookies": "Cookies",
+        "legalNotice": "Avís Legal",
+        "intranet": "Intranet"
+    },
+    "userMenu": {
+        "user": "Usuari",
+        "dashboard": "Tauler de control",
+        "logout": "Tancar sessió",
+        "backLink": "Tornar a Inici"
+    },
+    "blog": {
+        "label": "El nostre blog",
+        "title": "Notícies i",
+        "titleHighlight": "actualitat",
+        "subtitle": "Explora articles, anàlisis i novetats sobre incidència social i política.",
+        "loading": "Carregant articles...",
+        "errorLoading": "No hem pogut carregar els articles.",
+        "empty": "No hi ha articles publicats encara."
+    },
+    "common": {
+        "loading": "Carregant...",
+        "submit": "Enviar",
+        "cancel": "Cancel·lar",
+        "close": "Tancar",
+        "save": "Desar",
+        "delete": "Eliminar",
+        "edit": "Editar",
+        "search": "Cercar",
+        "searchPlaceholder": "Cercar..."
+    }
+}

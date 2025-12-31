@@ -1,14 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./Header.scss";
 import ContactModal from "../ContactModal/ContactModal";
 import GlobalModal from "../GlobalModal/GlobalModal";
 import NavBar from "../NavBar/NavBar";
 import UserMenu from "../UserMenu/UserMenu";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 import logo from "../../assets/logo/logo.2.svg";
 import authService from "../../api/authService";
 
 export default function Header() {
+  const { t } = useTranslation('translation');
   const [openModal, setOpenModal] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -68,6 +71,7 @@ export default function Header() {
           </Link>
 
           <div className="header-right nav-desktop">
+            <LanguageSwitcher />
             <NavBar />
             {user ? (
               <UserMenu user={user} onLogout={handleLogout} />
@@ -76,14 +80,14 @@ export default function Header() {
                 className="header-contact-btn"
                 onClick={() => setOpenModal(true)}
               >
-                Contáctanos
+                {t('footer.contact')}
               </button>
             )}
           </div>
 
           <button
             className={`menu-toggle ${menuOpen ? "open" : ""}`}
-            aria-label="Abrir o cerrar menú de navegación"
+            aria-label={t('header.toggleMenu')}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((prev) => !prev)}
@@ -99,6 +103,7 @@ export default function Header() {
           className={`mobile-menu ${menuOpen ? "mobile-menu--open" : ""}`}
         >
           <div className="mobile-menu__inner">
+            <LanguageSwitcher />
             <NavBar onItemClick={() => setMenuOpen(false)} />
 
             {user ? (
@@ -116,7 +121,7 @@ export default function Header() {
                   setMenuOpen(false);
                 }}
               >
-                Contáctanos
+                {t('footer.contact')}
               </button>
             )}
           </div>
@@ -128,15 +133,15 @@ export default function Header() {
       <GlobalModal
         open={logoutModalOpen}
         onClose={() => setLogoutModalOpen(false)}
-        title="Sesión cerrada"
+        title={t('header.logoutTitle')}
         variant="default"
         primaryAction={{
-          label: "Entendido",
+          label: t('common.close'),
           onClick: () => setLogoutModalOpen(false)
         }}
         closeOnOverlayClick={true}
       >
-        <p>Has cerrado sesión correctamente.</p>
+        <p>{t('header.logoutMessage')}</p>
       </GlobalModal>
     </>
   );

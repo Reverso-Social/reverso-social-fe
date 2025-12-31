@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import "./BlogPage.scss";
 import BlogCard from "../../components/BlogCard/BlogCard";
 import FeaturedBlogPost from "../../components/FeaturedBlogPost/FeaturedBlogPost";
@@ -7,6 +8,7 @@ import blogHeroImage from "../../assets/img/group1.webp";
 import Background from "../../components/Background/Background";
 
 const BlogPage = () => {
+  const { t } = useTranslation('blog');
   const [featuredPost, setFeaturedPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,7 +26,7 @@ const BlogPage = () => {
           setRecentPosts([]);
         }
       })
-      .catch(() => setError("No pudimos cargar los artículos."))
+      .catch(() => setError(t('errorLoading')))
       .finally(() => setLoading(false));
   }, []);
 
@@ -33,12 +35,12 @@ const BlogPage = () => {
       <section className="blog-hero">
         <div className="blog-hero__content">
           <div className="blog-hero__text">
-            <span className="pill-label">Nuestro blog</span>
+            <span className="pill-label">{t('label')}</span>
             <h1>
-              Noticias y <span className="gradient-text">actualidad</span>
+              {t('title')} <span className="gradient-text">{t('titleHighlight')}</span>
             </h1>
             <p>
-              Explora artículos, análisis y novedades sobre incidencia social y política.
+              {t('subtitle')}
             </p>
           </div>
 
@@ -55,7 +57,7 @@ const BlogPage = () => {
       </section>
 
       <section className="blog-grid-container">
-        {loading && <p className="blog-status">Cargando artículos...</p>}
+        {loading && <p className="blog-status">{t('loading')}</p>}
         {error && !loading && <p className="blog-status blog-status--error">{error}</p>}
 
         {!loading && !error && (
@@ -76,7 +78,7 @@ const BlogPage = () => {
               </div>
             ) : (
 
-              !featuredPost && <p className="blog-status">No hay artículos publicados aún.</p>
+              !featuredPost && <p className="blog-status">{t('empty')}</p>
             )}
           </>
         )}

@@ -1,0 +1,9 @@
+{
+    "label": "Nuestro blog",
+    "title": "Noticias y",
+    "titleHighlight": "actualidad",
+    "subtitle": "Explora artículos, análisis y novedades sobre incidencia social y política.",
+    "loading": "Cargando artículos...",
+    "errorLoading": "No pudimos cargar los artículos.",
+    "empty": "No hay artículos publicados aún."
+}

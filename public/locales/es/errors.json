@@ -1,0 +1,12 @@
+{
+    "UNKNOWN_ERROR": "Ha ocurrido un error inesperado. Por favor, intenta de nuevo.",
+    "NETWORK_ERROR": "Error de conexión. Verifica tu conexión a internet.",
+    "EMAIL_ALREADY_EXISTS": "Este email ya está registrado.",
+    "INVALID_CREDENTIALS": "Credenciales inválidas. Verifica tu email y contraseña.",
+    "USER_NOT_FOUND": "Usuario no encontrado.",
+    "UNAUTHORIZED": "No tienes permisos para realizar esta acción.",
+    "FORBIDDEN": "Acceso denegado.",
+    "RESOURCE_NOT_FOUND": "Recurso no encontrado.",
+    "VALIDATION_ERROR": "Error de validación. Verifica los datos ingresados.",
+    "SERVER_ERROR": "Error del servidor. Por favor, intenta más tarde."
+}

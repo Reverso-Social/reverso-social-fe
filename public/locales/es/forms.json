@@ -1,0 +1,43 @@
+{
+    "contact": {
+        "title": "Contáctanos",
+        "subtitle": "Estamos aquí para escucharte.",
+        "name": "Nombre",
+        "namePlaceholder": "Tu nombre completo",
+        "email": "Email",
+        "emailPlaceholder": "tu@email.com",
+        "entity": "Entidad (opcional)",
+        "entityPlaceholder": "Organización o colectivo",
+        "interests": "Intereses",
+        "interestsPlaceholder": "¿Qué te interesa o en qué podemos colaborar?",
+        "submit": "Enviar",
+        "submitting": "Enviando...",
+        "close": "Cerrar",
+        "acceptPolicy": "Acepto la",
+        "privacyPolicy": "Política de Protección de Datos y Privacidad"
+    },
+    "download": {
+        "title": "Antes de descargar…",
+        "description": "Déjanos tu nombre y correo electrónico para acceder al recurso 💌",
+        "name": "Nombre",
+        "email": "Correo electrónico",
+        "submit": "Continuar y descargar →",
+        "acceptPolicy": "Acepto la",
+        "privacyPolicy": "Política de Protección de Datos y Privacidad"
+    },
+    "validation": {
+        "nameRequired": "El nombre es obligatorio",
+        "emailRequired": "El email es obligatorio",
+        "emailInvalid": "Formato de email inválido",
+        "interestsRequired": "Cuéntanos tus intereses",
+        "policyRequired": "Debes aceptar la política de privacidad"
+    },
+    "success": {
+        "contactSent": "Mensaje enviado",
+        "contactMessage": "¡Gracias por escribirnos! Nos pondremos en contacto contigo pronto."
+    },
+    "errors": {
+        "contactFailed": "Error de envío",
+        "contactMessage": "No pudimos enviar tu mensaje. Por favor, verifica tu conexión e intenta de nuevo."
+    }
+}

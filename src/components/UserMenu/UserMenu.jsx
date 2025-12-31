@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { User, LayoutDashboard, LogOut, ChevronDown } from "lucide-react";
 import "./UserMenu.scss";
 
-export default function UserMenu({ user, onLogout, isMobile = false, onClose = () => {} }) {
+export default function UserMenu({ user, onLogout, isMobile = false, onClose = () => { } }) {
+  const { t } = useTranslation('translation');
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -39,19 +41,19 @@ export default function UserMenu({ user, onLogout, isMobile = false, onClose = (
   if (isMobile) {
     return (
       <div className="user-menu-mobile">
-        <button 
+        <button
           className="user-menu-mobile__btn"
           onClick={handleDashboardClick}
         >
           <LayoutDashboard size={18} />
-          Dashboard
+          {t('userMenu.dashboard')}
         </button>
-        <button 
+        <button
           className="user-menu-mobile__btn user-menu-mobile__btn--logout"
           onClick={handleLogoutClick}
         >
           <LogOut size={18} />
-          Cerrar Sesión
+          {t('userMenu.logout')}
         </button>
       </div>
     );
@@ -66,7 +68,7 @@ export default function UserMenu({ user, onLogout, isMobile = false, onClose = (
         aria-haspopup="true"
       >
         <User size={20} />
-        <span>Usuario</span>
+        <span>{t('userMenu.user')}</span>
         <ChevronDown size={16} className={`user-menu__chevron ${isOpen ? "user-menu__chevron--open" : ""}`} />
       </button>
 
@@ -76,25 +78,25 @@ export default function UserMenu({ user, onLogout, isMobile = false, onClose = (
             <p className="user-menu__name">{user.fullName}</p>
             <p className="user-menu__email">{user.email}</p>
           </div>
-          
+
           <div className="user-menu__divider" />
-          
-          <button 
+
+          <button
             className="user-menu__item"
             onClick={handleDashboardClick}
           >
             <LayoutDashboard size={18} />
-            Dashboard
+            {t('userMenu.dashboard')}
           </button>
-          
+
           <div className="user-menu__divider" />
-          
-          <button 
+
+          <button
             className="user-menu__item user-menu__item--logout"
             onClick={handleLogoutClick}
           >
             <LogOut size={18} />
-            Cerrar Sesión
+            {t('userMenu.logout')}
           </button>
         </div>
       )}

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import SearchBar from "../SearchBar/SearchBar";
 import Pagination from "../Pagination/Pagination";
 
@@ -27,28 +28,29 @@ const ResourcesPanel = ({
     onSubmit,
     onDelete,
 }) => {
+    const { t } = useTranslation('admin');
     return (
         <div className="admin-panel">
             <div className="admin-panel-header">
-                <h2>Gestión de Recursos</h2>
+                <h2>{t('resources.title')}</h2>
                 <div className="admin-panel-header-actions">
                     <SearchBar
                         value={search}
                         onChange={setSearch}
-                        placeholder="Buscar recursos..."
-                        ariaLabel="Buscar recursos por título"
+                        placeholder={t('resources.search')}
+                        ariaLabel={t('resources.searchPlaceholder')}
                     />
                     <button className="admin-primary-btn" onClick={onOpenCreate}>
-                        + Añadir Recurso
+                        {t('resources.add')}
                     </button>
                 </div>
             </div>
 
-            {loading && <p className="admin-status">Cargando recursos...</p>}
+            {loading && <p className="admin-status">{t('resources.loading')}</p>}
             {error && <p className="admin-status admin-status--error">{error}</p>}
 
             {!loading && !error && count === 0 && (
-                <p className="admin-status">No hay recursos disponibles.</p>
+                <p className="admin-status">{t('resources.empty')}</p>
             )}
 
             {!loading && !error && count > 0 && (
@@ -57,12 +59,12 @@ const ResourcesPanel = ({
                         <table className="admin-table">
                             <thead>
                                 <tr>
-                                    <th>Título</th>
-                                    <th>Tipo</th>
-                                    <th className="admin-table-status-col text-center">Visibilidad</th>
-                                    <th className="text-center">Descargas</th>
-                                    <th className="admin-table-date-col text-center">Fecha</th>
-                                    <th className="admin-table-actions-col text-center">Acciones</th>
+                                    <th>{t('resources.tableTitle')}</th>
+                                    <th>{t('resources.tableType')}</th>
+                                    <th className="admin-table-status-col text-center">{t('resources.tableVisibility')}</th>
+                                    <th className="text-center">{t('resources.tableDownloads')}</th>
+                                    <th className="admin-table-date-col text-center">{t('resources.tableDate')}</th>
+                                    <th className="admin-table-actions-col text-center">{t('resources.tableActions')}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -77,7 +79,7 @@ const ResourcesPanel = ({
                                                     : "status-pill--private"
                                                     }`}
                                             >
-                                                {resource.isPublic ? "Público" : "Privado"}
+                                                {resource.isPublic ? t('resources.visibilityPublic') : t('resources.visibilityPrivate')}
                                             </span>
                                         </td>
                                         <td className="text-center">{resource.downloadCount || 0}</td>
@@ -89,13 +91,13 @@ const ResourcesPanel = ({
                                                 className="admin-action-btn"
                                                 onClick={() => onOpenEdit(resource)}
                                             >
-                                                Editar
+                                                {t('resources.edit')}
                                             </button>
                                             <button
                                                 className="admin-action-btn admin-action-btn--delete"
                                                 onClick={() => onDelete(resource)}
                                             >
-                                                Eliminar
+                                                {t('resources.delete')}
                                             </button>
                                         </td>
                                     </tr>
@@ -118,7 +120,7 @@ const ResourcesPanel = ({
                 <div className="admin-form-wrapper">
                     <div className="admin-form-header">
                         <h3>
-                            {formMode === "create" ? "Añadir Recurso" : "Editar Recurso"}
+                            {formMode === "create" ? t('resources.formTitleAdd') : t('resources.formTitleEdit')}
                         </h3>
                         <button className="admin-form-close" onClick={onCloseForm}>
                             ✕
@@ -128,14 +130,14 @@ const ResourcesPanel = ({
                     <form className="admin-form" onSubmit={onSubmit}>
                         <div className="admin-form-grid">
                             <div className="admin-form-field">
-                                <label htmlFor="resource-title">Título *</label>
+                                <label htmlFor="resource-title">{t('resources.fieldTitle')} *</label>
                                 <input
                                     id="resource-title"
                                     name="title"
                                     type="text"
                                     value={form.title}
                                     onChange={onFieldChange}
-                                    placeholder="Ej. Guía de Igualdad"
+                                    placeholder={t('resources.fieldTitlePlaceholder')}
                                     disabled={formLoading}
                                 />
                                 {formErrors.title && (
@@ -144,7 +146,7 @@ const ResourcesPanel = ({
                             </div>
 
                             <div className="admin-form-field">
-                                <label htmlFor="resource-type">Tipo *</label>
+                                <label htmlFor="resource-type">{t('resources.fieldType')} *</label>
                                 <select
                                     id="resource-type"
                                     name="type"
@@ -152,11 +154,11 @@ const ResourcesPanel = ({
                                     onChange={onFieldChange}
                                     disabled={formLoading}
                                 >
-                                    <option value="GUIDE">Guía</option>
-                                    <option value="REPORT">Informe</option>
-                                    <option value="ARTICLE">Artículo</option>
-                                    <option value="VIDEO">Vídeo</option>
-                                    <option value="OTHER">Otro</option>
+                                    <option value="GUIDE">{t('resources.typeGuide')}</option>
+                                    <option value="REPORT">{t('resources.typeReport')}</option>
+                                    <option value="ARTICLE">{t('resources.typeArticle')}</option>
+                                    <option value="VIDEO">{t('resources.typeVideo')}</option>
+                                    <option value="OTHER">{t('resources.typeOther')}</option>
                                 </select>
                                 {formErrors.type && (
                                     <p className="admin-form-error">{formErrors.type}</p>
@@ -165,7 +167,7 @@ const ResourcesPanel = ({
 
                             <div className="admin-form-field admin-form-field--full">
                                 <label htmlFor="resource-description">
-                                    Descripción (máximo 50 palabras)
+                                    {t('resources.fieldDescription')}
                                 </label>
                                 <textarea
                                     id="resource-description"
@@ -173,7 +175,7 @@ const ResourcesPanel = ({
                                     rows={3}
                                     value={form.description}
                                     onChange={onFieldChange}
-                                    placeholder="Breve descripción del recurso"
+                                    placeholder={t('resources.fieldDescriptionPlaceholder')}
                                     disabled={formLoading}
                                 />
                                 <div className="admin-form-helper-row">
@@ -181,7 +183,7 @@ const ResourcesPanel = ({
                                         className={`admin-form-helper-count ${wordCount > 50 ? "admin-form-helper-count--error" : ""
                                             }`}
                                     >
-                                        {wordCount}/50 palabras
+                                        {t('resources.wordsCount', { count: wordCount })}
                                     </span>
                                 </div>
                                 {formErrors.description && (
@@ -190,7 +192,7 @@ const ResourcesPanel = ({
                             </div>
 
                             <div className="admin-form-field">
-                                <label htmlFor="resource-file-local">Documento</label>
+                                <label htmlFor="resource-file-local">{t('resources.fieldDocument')}</label>
                                 <div className="admin-file-upload">
                                     <input
                                         id="resource-file-local"
@@ -206,18 +208,18 @@ const ResourcesPanel = ({
                                         htmlFor="resource-file-local"
                                         className="admin-file-upload__button"
                                     >
-                                        Subir documento
+                                        {t('resources.uploadDocument')}
                                     </label>
                                     <span className="admin-file-upload__filename">
                                         {files.localFile
                                             ? files.localFile.name
-                                            : "Ningún archivo seleccionado"}
+                                            : t('resources.noFileSelected')}
                                     </span>
                                 </div>
                             </div>
 
                             <div className="admin-form-field">
-                                <label htmlFor="resource-image-local">Imagen</label>
+                                <label htmlFor="resource-image-local">{t('resources.fieldImage')}</label>
                                 <div className="admin-file-upload">
                                     <input
                                         id="resource-image-local"
@@ -233,12 +235,12 @@ const ResourcesPanel = ({
                                         htmlFor="resource-image-local"
                                         className="admin-file-upload__button"
                                     >
-                                        Subir imagen
+                                        {t('resources.uploadImage')}
                                     </label>
                                     <span className="admin-file-upload__filename">
                                         {files.localImage
                                             ? files.localImage.name
-                                            : "Ninguna imágen seleccionada"}
+                                            : t('resources.noImageSelected')}
                                     </span>
                                 </div>
                             </div>
@@ -252,7 +254,7 @@ const ResourcesPanel = ({
                                     onChange={onFieldChange}
                                     disabled={formLoading}
                                 />
-                                <label htmlFor="resource-public">Recurso público</label>
+                                <label htmlFor="resource-public">{t('resources.fieldPublic')}</label>
                             </div>
                         </div>
 
@@ -263,7 +265,7 @@ const ResourcesPanel = ({
                                 onClick={onCloseForm}
                                 disabled={formLoading}
                             >
-                                Cancelar
+                                {t('resources.cancel')}
                             </button>
                             <button
                                 type="submit"
@@ -271,10 +273,10 @@ const ResourcesPanel = ({
                                 disabled={formLoading}
                             >
                                 {formLoading
-                                    ? "Guardando..."
+                                    ? t('resources.saving')
                                     : formMode === "create"
-                                        ? "Crear Recurso"
-                                        : "Guardar Cambios"}
+                                        ? t('resources.create')
+                                        : t('resources.save')}
                             </button>
                         </div>
                         {formErrors.submit && (

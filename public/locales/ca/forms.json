@@ -1,0 +1,43 @@
+{
+    "contact": {
+        "title": "Contacta'ns",
+        "subtitle": "Som aquí per escoltar-te.",
+        "name": "Nom",
+        "namePlaceholder": "El teu nom complet",
+        "email": "Correu electrònic",
+        "emailPlaceholder": "el.teu@email.com",
+        "entity": "Entitat (opcional)",
+        "entityPlaceholder": "Organització o col·lectiu",
+        "interests": "Interessos",
+        "interestsPlaceholder": "Què t'interessa o en què podem col·laborar?",
+        "submit": "Enviar",
+        "submitting": "Enviant...",
+        "close": "Tancar",
+        "acceptPolicy": "Accepto la",
+        "privacyPolicy": "Política de Protecció de Dades i Privacitat"
+    },
+    "download": {
+        "title": "Abans de descarregar…",
+        "description": "Deixa'ns el teu nom i correu electrònic per accedir al recurs 💌",
+        "name": "Nom",
+        "email": "Correu electrònic",
+        "submit": "Continuar i descarregar →",
+        "acceptPolicy": "Accepto la",
+        "privacyPolicy": "Política de Protecció de Dades i Privacitat"
+    },
+    "validation": {
+        "nameRequired": "El nom és obligatori",
+        "emailRequired": "El correu electrònic és obligatori",
+        "emailInvalid": "Format de correu electrònic invàlid",
+        "interestsRequired": "Explica'ns els teus interessos",
+        "policyRequired": "Has d'acceptar la política de privacitat"
+    },
+    "success": {
+        "contactSent": "Missatge enviat",
+        "contactMessage": "Gràcies per escriure'ns! Ens posarem en contacte amb tu aviat."
+    },
+    "errors": {
+        "contactFailed": "Error d'enviament",
+        "contactMessage": "No hem pogut enviar el teu missatge. Si us plau, verifica la teva connexió i torna-ho a intentar."
+    }
+}

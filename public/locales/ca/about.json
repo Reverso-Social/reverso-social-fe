@@ -1,0 +1,33 @@
+{
+    "heading": "Sobre",
+    "brandHighlight": "Reverso Social",
+    "subtitle": "Perícia Feminista per al Canvi",
+    "description": "Som un equip de dones amb àmplia experiència en polítiques públiques, consultoria especialitzada i formació transformadora en igualtat. Una entitat de nova generació compromesa amb la justícia social.",
+    "vision": {
+        "title": "Visió",
+        "fullTitle": "La Nostra Visió",
+        "content": "Des de Reverso Social cerquem construir una visió que vagi més enllà del compliment normatiu o la implantació interna de mesures d'igualtat. El nostre propòsit és transformar estructures socials, influir en polítiques públiques i generar canvis estructurals culturals duradors que ajudin a construir societats més justes i equitatives, on la igualtat real primi.",
+        "emphasis": "ÉS UNA VISIÓ POSSIBLE"
+    },
+    "mision": {
+        "title": "Missió",
+        "fullTitle": "La Nostra Missió",
+        "content": "Ser un agent catalitzador de transformacions socials que garanteixin la igualtat real i la justícia social, impulsant polítiques, pràctiques institucionals i canvis culturals que redueixin desigualtats estructurals i fomentin societats més inclusives, diverses i democràtiques."
+    },
+    "valores": {
+        "title": "Valors",
+        "fullTitle": "Valors Fonamentals",
+        "items": [
+            "Transformació estructural",
+            "Incidència sociopolítica",
+            "Enfocament en drets humans i justícia social",
+            "Construcció d'aliances",
+            "Impacte mesurable i sostenible",
+            "Diversitat com a motor d'innovació i cohesió"
+        ]
+    },
+    "ariaExpanded": "expandit",
+    "ariaCollapsed": "col·lapsat",
+    "ariaPressToExpand": "Prem per expandir",
+    "ariaPressToCollapse": "Prem per col·lapsar"
+}

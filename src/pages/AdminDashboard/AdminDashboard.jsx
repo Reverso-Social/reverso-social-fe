@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Eye } from "lucide-react";
 import "./AdminDashboard.scss";
 
@@ -19,6 +20,7 @@ import BlogPanel from "../../components/BlogPanel/BlogPanel";
 import LeadsPanel from "../../components/LeadsPanel/LeadsPanel";
 
 export default function AdminDashboard() {
+  const { t } = useTranslation('admin');
   const [activeTab, setActiveTab] = useState("contactos");
   const navigate = useNavigate();
 
@@ -47,13 +49,13 @@ export default function AdminDashboard() {
   const [successModal, setSuccessModal] = useState({
     open: false,
     message: "",
-    title: "Éxito",
+    title: t('modals.successTitle'),
   });
 
   const [errorModal, setErrorModal] = useState({
     open: false,
     message: "",
-    title: "Error",
+    title: t('modals.errorTitle'),
   });
 
 
@@ -160,7 +162,7 @@ export default function AdminDashboard() {
         if (!result.success) {
           setErrorModal({
             open: true,
-            title: "Error al eliminar",
+            title: t('modals.errorDelete'),
             message: result.error || "No se pudo eliminar el recurso. Inténtalo de nuevo."
           });
         }
@@ -219,8 +221,8 @@ export default function AdminDashboard() {
           if (!result.success) {
             setErrorModal({
               open: true,
-              title: "Error al guardar",
-              message: result.error || "No se pudieron guardar los cambios"
+              title: t('modals.errorSave'),
+              message: result.error || t('modals.errorSaveMessage')
             });
           }
         },
@@ -232,8 +234,8 @@ export default function AdminDashboard() {
     if (!result.success) {
       setErrorModal({
         open: true,
-        title: "Error al guardar",
-        message: result.error || "No se pudo crear el recurso"
+        title: t('modals.errorSave'),
+        message: result.error || t('modals.errorCreateMessage')
       });
     }
   };
@@ -281,38 +283,38 @@ export default function AdminDashboard() {
     <div className="admin-dashboard">
       <header className="admin-header">
         <div>
-          <h1>Panel de Administración</h1>
-          <p className="admin-subtitle">Bienvenida, {currentUser.fullName}</p>
+          <h1>{t('dashboard.title')}</h1>
+          <p className="admin-subtitle">{t('dashboard.welcome', { name: currentUser.fullName })}</p>
         </div>
 
       </header>
 
-      <nav className="admin-tabs" aria-label="Secciones">
+      <nav className="admin-tabs" aria-label={t('dashboard.sections')}>
         <button
           className={`admin-tab ${activeTab === "contactos" ? "is-active" : ""
             }`}
           onClick={() => setActiveTab("contactos")}
         >
-          Consultas
+          {t('dashboard.tabs.contacts')}
         </button>
         <button
           className={`admin-tab ${activeTab === "recursos" ? "is-active" : ""
             }`}
           onClick={() => setActiveTab("recursos")}
         >
-          Recursos
+          {t('dashboard.tabs.resources')}
         </button>
         <button
           className={`admin-tab ${activeTab === "blog" ? "is-active" : ""}`}
           onClick={() => setActiveTab("blog")}
         >
-          Blog
+          {t('dashboard.tabs.blog')}
         </button>
         <button
           className={`admin-tab ${activeTab === "leads" ? "is-active" : ""}`}
           onClick={() => setActiveTab("leads")}
         >
-          Descargas
+          {t('dashboard.tabs.leads')}
         </button>
       </nav>
 

@@ -9,10 +9,20 @@ const ScrollToTop = () => {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.scrollY > 300) {
-        setIsVisible(true);
+      const footerEl = document.querySelector('footer');
+      const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+
+      if (footerEl) {
+        const footerTop = footerEl.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        if (window.scrollY > 300 && footerTop > windowHeight * 0.5) {
+          setIsVisible(true);
+        } else {
+          setIsVisible(false);
+        }
       } else {
-        setIsVisible(false);
+        setIsVisible(window.scrollY > 300);
       }
     };
 

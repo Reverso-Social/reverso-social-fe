@@ -1,0 +1,16 @@
+{
+    "title": "Leads de Descarga",
+    "exportButton": "📥 Exportar CSV",
+    "searchPlaceholder": "Buscar por email o recurso...",
+    "searchAriaLabel": "Buscar leads",
+    "loadingMessage": "Cargando leads...",
+    "emptyState": "No hay leads disponibles.",
+    "tableEmail": "Email",
+    "tableResource": "Recurso",
+    "tableCount": "Nº Descargas",
+    "tableFirstDownload": "Primera Descarga",
+    "tableLastDownload": "Última Descarga",
+    "tableActions": "Acciones",
+    "deleteButton": "Eliminar",
+    "paginationLabel": "Paginación de leads"
+}

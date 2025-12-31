@@ -1,0 +1,159 @@
+{
+    "seoTitle": "Política de Privacidad | Reverso Social",
+    "seoDescription": "Política de Protección de Datos y Privacidad de Reverso Social.",
+    "pageTitle": "Política de Protección de Datos y Privacidad",
+    "sections": {
+        "responsible": {
+            "title": "1. Responsable del tratamiento",
+            "name": "Reverso Social (reversosocial.org)",
+            "cif": "G22598882",
+            "address": "C/ Blas de Otero, 69, 11ºD, *** (Madrid, España) ***COMPLETAR/VERIFICAR CÓDIGO POSTAL***",
+            "email": "reversocial@reversocial.org",
+            "dpo": "***INDICAR SI EXISTE (NOMBRE/ENTIDAD Y EMAIL)***",
+            "dpoNote": "Si Reverso Social no dispone de DPD/DPO, este apartado puede eliminarse.",
+            "compliance": "Reverso Social trata los datos personales conforme al Reglamento (UE) 2016/679 (RGPD) y a la Ley Orgánica 3/2018 (LOPDGDD)."
+        },
+        "dataCollected": {
+            "title": "2. Qué datos recogemos",
+            "intro": "Según el formulario o canal de contacto, Reverso Social puede tratar:",
+            "items": [
+                {
+                    "label": "Datos identificativos y de contacto:",
+                    "description": "nombre (si se solicita), correo electrónico."
+                },
+                {
+                    "label": "Datos de la comunicación:",
+                    "description": "el mensaje que envíes y la información que incluyas."
+                },
+                {
+                    "label": "Datos técnicos mínimos:",
+                    "description": "***COMPLETAR SI HAY ANALÍTICA/LOGS/SEGURIDAD*** (por ejemplo, IP, navegador, logs del servidor, solo cuando sea necesario para seguridad y funcionamiento)."
+                }
+            ],
+            "footer": "Se solicitarán únicamente los datos adecuados, pertinentes y limitados a lo necesario."
+        },
+        "dataSource": {
+            "title": "3. Dónde se recogen tus datos",
+            "intro": "Tus datos se recogen a través de:",
+            "items": [
+                "Formularios del sitio web (por ejemplo, contacto, suscripción, descarga de recursos, etc.) ***ADAPTAR A LOS FORMULARIOS REALES***.",
+                "Email enviado a reversocial@reversocial.org.",
+                "***OTROS CANALES (si existen): redes sociales, eventos, etc.***."
+            ]
+        },
+        "purposes": {
+            "title": "4. Finalidades del tratamiento",
+            "intro": "Reverso Social utilizará los datos personales para:",
+            "items": [
+                "Atender solicitudes y responder consultas.",
+                "Gestionar el contacto contigo por correo electrónico (seguimiento de tu solicitud).",
+                "Enviar comunicaciones por email sobre servicios de Reverso Social, únicamente con tu autorización cuando sea necesaria (información y ofertas de servicios propios).",
+                "***OTRAS FINALIDADES (si existen): gestión de inscripciones, voluntariado, donaciones, cuenta de usuario, etc.***."
+            ],
+            "footer": "Reverso Social no traslada tus datos a terceros para que los usen con sus propias finalidades comerciales."
+        },
+        "legalBasis": {
+            "title": "5. Base jurídica del tratamiento",
+            "intro": "Las bases legales aplicables, según el caso, son:",
+            "items": [
+                {
+                    "label": "Consentimiento de la persona interesada",
+                    "description": "(por ejemplo, cuando marcas la casilla para recibir información por email o te suscribes) (art. 6.1.a RGPD)."
+                },
+                {
+                    "label": "Aplicación de medidas precontractuales o gestión de una solicitud",
+                    "description": "(cuando nos contactas para pedir información o servicios) (art. 6.1.b RGPD)."
+                },
+                {
+                    "label": "Cumplimiento de obligaciones legales",
+                    "description": "(art. 6.1.c RGPD), si correspondiera."
+                },
+                {
+                    "label": "Comunicaciones comerciales por email:",
+                    "description": "el envío de comunicaciones publicitarias o promocionales por correo electrónico está regulado por la LSSI y, con carácter general, requiere que hayan sido solicitadas o expresamente autorizadas."
+                }
+            ],
+            "footer": "Puedes retirar tu consentimiento en cualquier momento (ver apartado \"Derechos\")."
+        },
+        "recipients": {
+            "title": "6. Destinatarios, encargados del tratamiento y ausencia de cesiones",
+            "intro": "Reverso Social no cede datos a terceros para sus propias finalidades.",
+            "middleText": "Para operar el sitio web y gestionar comunicaciones, pueden intervenir proveedores que actúan como encargados del tratamiento, bajo contrato y siguiendo instrucciones de Reverso Social.",
+            "processorsList": "Encargados del tratamiento (lista):",
+            "processors": [
+                {
+                    "label": "Hosting/servidores:",
+                    "value": "***NOMBRE DEL PROVEEDOR, PAÍS/REGIÓN, URL***"
+                },
+                {
+                    "label": "Email/SMTP o plataforma de mailing:",
+                    "value": "***NOMBRE DEL PROVEEDOR, PAÍS/REGIÓN, URL***"
+                },
+                {
+                    "label": "Analítica/cookies (si aplica):",
+                    "value": "***NOMBRE, FINALIDAD***"
+                },
+                {
+                    "label": "Otros:",
+                    "value": "***COMPLETAR***"
+                }
+            ]
+        },
+        "internationalTransfers": {
+            "title": "7. Transferencias internacionales",
+            "intro": "Con carácter general, Reverso Social ***INDICAR SI***:",
+            "options": [
+                "(Opción A) No realiza transferencias internacionales fuera del Espacio Económico Europeo.",
+                "(Opción B) Sí puede realizar transferencias (por ejemplo, si algún proveedor aloja datos fuera del EEE). En ese caso, se indicarán los proveedores implicados y las garantías aplicables (por ejemplo, cláusulas contractuales tipo u otros mecanismos previstos por el RGPD)."
+            ]
+        },
+        "retention": {
+            "title": "8. Plazos de conservación",
+            "intro": "Los datos se conservarán:",
+            "items": [
+                "Durante el tiempo necesario para atender tu solicitud y realizar seguimiento.",
+                "Si has autorizado comunicaciones por email, hasta que retires tu consentimiento o solicites la baja.",
+                "Posteriormente, durante los plazos necesarios para cumplimiento legal o atención de posibles responsabilidades."
+            ],
+            "criteria": "Criterios concretos de conservación:",
+            "criteriaValue": "***COMPLETAR (por ejemplo: X meses/años)***."
+        },
+        "rights": {
+            "title": "9. Derechos de las personas usuarias y cómo ejercerlos",
+            "intro": "Puedes ejercer tus derechos de:",
+            "rightsList": [
+                "Acceso, rectificación, supresión, oposición, limitación, portabilidad, y otros previstos por la normativa aplicable."
+            ],
+            "exerciseIntro": "Para ejercerlos, escribe a reversocial@reversocial.org indicando:",
+            "exerciseItems": [
+                "\"Ejercicio de derechos de protección de datos\"",
+                "Tu solicitud concreta",
+                "***INDICAR SI SE SOLICITARÁ DOCUMENTO PARA VERIFICAR IDENTIDAD*** (recomendable: solo si es necesario)"
+            ],
+            "complaint": "Si consideras que tus derechos no han sido atendidos, puedes presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD).",
+            "catalonia": "En Cataluña, la APDCAT ofrece información y recursos sobre RGPD y protección de datos."
+        },
+        "security": {
+            "title": "10. Seguridad de la información",
+            "intro": "Reverso Social aplica medidas técnicas y organizativas razonables para proteger los datos personales frente a acceso no autorizado, pérdida, alteración o divulgación indebida.",
+            "measures": "Medidas específicas implementadas:",
+            "measuresValue": "***COMPLETAR (por ejemplo: cifrado en tránsito HTTPS, control de accesos, copias de seguridad, registros, etc.)***."
+        },
+        "minors": {
+            "title": "11. Menores de edad",
+            "content": "Los servicios de Reverso Social no están dirigidos a menores. Si el tratamiento se basara en el consentimiento, se aplicarán las reglas vigentes en España sobre consentimiento de menores, y en particular las limitaciones para menores de 14 años en tratamientos basados en consentimiento."
+        },
+        "cookies": {
+            "title": "12. Cookies y enlaces a terceros",
+            "policy": "Política de cookies:",
+            "policyValue": "***INDICAR SI EXISTE POLÍTICA DE COOKIES Y ENLAZARLA***.",
+            "thirdParty": "Si el sitio incluye enlaces a páginas de terceros, Reverso Social no se responsabiliza de sus políticas de privacidad. Se recomienda revisarlas antes de facilitar datos."
+        },
+        "changes": {
+            "title": "13. Cambios en la política",
+            "content": "Reverso Social puede actualizar esta política para adaptarla a cambios legales o a mejoras del servicio. La fecha de última actualización será indicada al final.",
+            "lastUpdate": "Última actualización:",
+            "lastUpdateValue": "***DD/MM/AAAA***."
+        }
+    }
+}

@@ -1,0 +1,33 @@
+{
+    "heading": "Sobre",
+    "brandHighlight": "Reverso Social",
+    "subtitle": "Pericia Feminista para el Cambio",
+    "description": "Somos un equipo de mujeres con amplia experiencia en políticas públicas, consultoría especializada y formación transformadora en igualdad. Una entidad de nueva generación comprometida con la justicia social.",
+    "vision": {
+        "title": "Visión",
+        "fullTitle": "Nuestra Visión",
+        "content": "Desde Reverso Social buscamos construir una visión que vaya más allá del cumplimiento normativo o la implantación interna de medidas de igualdad. Nuestro propósito es transformar estructuras sociales, influir en políticas públicas y generar cambios estructurales culturales duraderos que ayuden a construir sociedades más justas y equitativas, donde la igualdad real prime.",
+        "emphasis": "ES UNA VISIÓN POSIBLE"
+    },
+    "mision": {
+        "title": "Misión",
+        "fullTitle": "Nuestra Misión",
+        "content": "Ser un agente catalizador de transformaciones sociales que garanticen la igualdad real y la justicia social, impulsando políticas, prácticas institucionales y cambios culturales que reduzcan desigualdades estructurales y fomenten sociedades más inclusivas, diversas y democráticas."
+    },
+    "valores": {
+        "title": "Valores",
+        "fullTitle": "Valores Fundamentales",
+        "items": [
+            "Transformación estructural",
+            "Incidencia sociopolítica",
+            "Enfoque en derechos humanos y justicia social",
+            "Construcción de alianzas",
+            "Impacto medible y sostenible",
+            "Diversidad como motor de innovación y cohesión"
+        ]
+    },
+    "ariaExpanded": "expandido",
+    "ariaCollapsed": "colapsado",
+    "ariaPressToExpand": "Presiona para expandir",
+    "ariaPressToCollapse": "Presiona para colapsar"
+}

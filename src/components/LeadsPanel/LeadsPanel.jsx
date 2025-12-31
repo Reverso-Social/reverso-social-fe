@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import SearchBar from "../SearchBar/SearchBar";
 import Pagination from "../Pagination/Pagination";
 import authService from "../../api/authService";
@@ -18,6 +19,7 @@ const LeadsPanel = ({
     sortConfig,
     onSort,
 }) => {
+    const { t } = useTranslation('leadsPanel');
     const getSortIndicator = (key) => {
         if (!sortConfig || sortConfig.key !== key) return null;
         return sortConfig.direction === 'asc' ? ' ▲' : ' ▼';
@@ -34,30 +36,30 @@ const LeadsPanel = ({
     return (
         <div className="admin-panel">
             <div className="admin-panel-header">
-                <h2>Leads de Descarga</h2>
+                <h2>{t('title')}</h2>
                 <div className="admin-panel-header-actions">
                     <SearchBar
                         value={search}
                         onChange={setSearch}
-                        placeholder="Buscar por nombre, email o recurso..."
-                        ariaLabel="Buscar leads"
+                        placeholder={t('searchPlaceholder')}
+                        ariaLabel={t('searchAriaLabel')}
                     />
                     <button
                         className="admin-secondary-btn"
                         onClick={onExport}
                         disabled={count === 0}
                     >
-                        📥 Exportar CSV
+                        {t('exportButton')}
                     </button>
                 </div>
             </div>
 
-            {loading && <p className="admin-status">Cargando leads...</p>}
+            {loading && <p className="admin-status">{t('loadingMessage')}</p>}
 
             {error && <p className="admin-status admin-status--error">{error}</p>}
 
             {!loading && !error && count === 0 && (
-                <p className="admin-status">No hay leads de descarga disponibles.</p>
+                <p className="admin-status">{t('emptyState')}</p>
             )}
 
             {!loading && !error && count > 0 && (
@@ -67,16 +69,16 @@ const LeadsPanel = ({
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Email</th>
+                                    <th>{t('tableEmail')}</th>
                                     <th>Recurso Descargado</th>
-                                    <th className=" text-center">Nº Descargas</th>
+                                    <th className=" text-center">{t('tableCount')}</th>
                                     <th className="admin-table-date-col text-center" onClick={() => onSort('createdAt')} style={{ cursor: 'pointer' }}>
                                         Fecha Registro {getSortIndicator('createdAt')}
                                     </th>
                                     <th className="admin-table-date-col text-center" onClick={() => onSort('lastDownloadedAt')} style={{ cursor: 'pointer' }}>
                                         Última Descarga {getSortIndicator('lastDownloadedAt')}
                                     </th>
-                                    <th className="admin-table-actions-col text-center">Acciones</th>
+                                    <th className="admin-table-actions-col text-center">{t('tableActions')}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -128,7 +130,7 @@ const LeadsPanel = ({
                                                     className="admin-action-btn admin-action-btn--delete"
                                                     onClick={() => onDelete(lead)}
                                                 >
-                                                    Eliminar
+                                                    {t('deleteButton')}
                                                 </button>
                                             )}
                                         </td>
@@ -143,7 +145,7 @@ const LeadsPanel = ({
                         totalItems={count}
                         pageSize={pageSize}
                         onPageChange={setPage}
-                        ariaLabel="Paginación de leads"
+                        ariaLabel={t('paginationLabel')}
                     />
                 </>
             )}

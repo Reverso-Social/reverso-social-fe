@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Eye } from "lucide-react";
 import authService from "../../api/authService";
 
@@ -10,17 +11,18 @@ const ContactsPanel = ({
     onStatusChange,
     onDelete,
 }) => {
+    const { t } = useTranslation('admin');
     return (
         <div className="admin-panel">
             <div className="admin-panel-header">
-                <h2>Gestión de Contactos</h2>
+                <h2>{t('contacts.title')}</h2>
             </div>
 
-            {loading && <p className="admin-status">Cargando contactos...</p>}
+            {loading && <p className="admin-status">{t('contacts.loading')}</p>}
             {error && <p className="admin-status admin-status--error">{error}</p>}
 
             {!loading && !error && contacts.length === 0 && (
-                <p className="admin-status">No hay contactos disponibles.</p>
+                <p className="admin-status">{t('contacts.empty')}</p>
             )}
 
             {!loading && !error && contacts.length > 0 && (

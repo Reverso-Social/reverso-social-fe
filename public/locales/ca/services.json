@@ -1,0 +1,293 @@
+{
+    "heading": "Serveis Integrals amb",
+    "headingHighlight": "Impacte Real",
+    "btnMore": "Més informació",
+    "serviceNotFound": "Servei no trobat",
+    "backToServices": "Tornar a Serveis",
+    "services": {
+        "service1": {
+            "title": "Consultoria en Igualtat",
+            "description": "Realitzem Plans d'igualtat complint amb el marc normatiu establert pel Reial Decret 901/2020 i 902/2020.",
+            "category": "Plans d'Igualtat"
+        },
+        "service2": {
+            "title": "Igualtat Retributiva",
+            "description": "Realitzem informes d'Auditoria Retributiva complint amb el marc normatiu establert pel Reial Decret 902/2020.",
+            "category": "Consultoria de Gènere"
+        },
+        "service3": {
+            "title": "Assetjament Sexual i per Raó de Sexe",
+            "description": "Realitzem Protocols contra l'Assetjament Sexual i per raó de sexe complint amb la normativa actualment vigent",
+            "category": "Protocols d'Actuació"
+        },
+        "service4": {
+            "title": "Protocols LGTBI+",
+            "description": "Realitzem Protocols i Plans LGTBI+ d'acord amb la Llei 4/2023 i en línia amb els principis d'inclusió i no discriminació.",
+            "category": "Protocols d'Actuació"
+        },
+        "service5": {
+            "title": "Formació",
+            "description": "Realitzem tot tipus de formació relacionada amb la matèria que ens ocupa ajustant-nos al 100 x 100 a les necessitats de la seva entitat.",
+            "category": "Formació Especialitzada"
+        },
+        "service6": {
+            "title": "Pacte Estat Violència de Gènere",
+            "description": "Ajudem a la seva entitat a gestionar i desenvolupar projectes dins dels Fons del Pacte d'Estat contra la Violència de Gènere del nostre país.",
+            "category": "Formació Especialitzada"
+        },
+        "service7": {
+            "title": "Gestió projectes socials",
+            "description": "Desenvolupem, gestionem i avaluem projectes socials i comunitaris dirigits a administració pública i col·laboracions institucionals amb perspectiva de gènere inclusiva.",
+            "category": "Projectes Sociocomunitaris"
+        },
+        "service8": {
+            "title": "Contacta'ns per saber més sobre els nostres Serveis",
+            "description": "",
+            "category": "Projectes Sociocomunitaris"
+        }
+    },
+    "serviceDetails": {
+        "service1": {
+            "iconName": "FaBalanceScale",
+            "title": "Consultoria en Igualtat",
+            "fullDescription": "Realitzem Plans d'igualtat complint amb el marc normatiu establert pel Reial Decret 901/2020 i 902/2020.",
+            "features": [
+                {
+                    "title": "Auditoria prèvia de diagnòstic de situació",
+                    "description": " "
+                },
+                {
+                    "title": "Disseny de mesures adaptades a la realitat de l'empresa",
+                    "description": " "
+                },
+                {
+                    "title": "Negociació amb la representació legal de les persones treballadores i suport en els processos negociadors.",
+                    "description": ""
+                },
+                {
+                    "title": "Redacció del Pla d'Igualtat",
+                    "description": ""
+                },
+                {
+                    "title": "Registre a REGCON",
+                    "description": ""
+                },
+                {
+                    "title": "Formació per a la Comissió Paritària de Negociació i a la plantilla",
+                    "description": ""
+                },
+                {
+                    "title": "Seguiment i avaluació anual",
+                    "description": "Monitorització contínua i avaluació del compliment del pla"
+                }
+            ],
+            "additionalServices": [
+                {
+                    "title": "Investigació: Estudis de gènere així com d'impacte social amb perspectiva de gènere",
+                    "description": ""
+                },
+                {
+                    "title": "Sistemes predictius IA en matèria de Violència de gènere: R+D"
+                },
+                {
+                    "title": "Informes amb impacte de gènere"
+                },
+                {
+                    "title": "Informes i estudis sobre bretxes de gènere"
+                },
+                {
+                    "title": "Organització de Jornades, Seminaris, trobades, esmorzars i qualsevol altra activitat emmarcada."
+                },
+                {
+                    "title": "Integració de la igualtat en polítiques de RSC. Assessorament en RSC amb Perspectiva de Gènere"
+                }
+            ]
+        },
+        "service2": {
+            "iconName": "PiMoneyFill",
+            "title": "Igualtat Retributiva",
+            "fullDescription": "Realitzem informes d'Auditoria Retributiva complint amb el marc normatiu establert pel Reial Decret 902/2020.",
+            "features": [
+                {
+                    "title": "Elaboració de registres retributius"
+                },
+                {
+                    "title": "Auditoria salarial amb perspectiva de gènere"
+                },
+                {
+                    "title": "Disseny de sistemes de classificació professional igualitaris"
+                },
+                {
+                    "title": "Acompanyament per corregir bretxes salarials"
+                }
+            ]
+        },
+        "service3": {
+            "iconName": "FaShieldAlt",
+            "title": "Assetjament Sexual i per Raó de Sexe",
+            "fullDescription": "Realitzem Protocols contra l'Assetjament Sexual i per raó de sexe complint amb la normativa actualment vigent.",
+            "features": [
+                {
+                    "title": "Redacció, negociació i seguiment del protocol"
+                },
+                {
+                    "title": "Formació a la Comissió designada per l'empresa de Prevenció i Intervenció en cas d'assetjament sexual i/o per raó de sexe"
+                },
+                {
+                    "title": "Provisió en cas necessari de Servei Tècnic de Tècnica d'Igualtat especialitzada en Violències Masclistes i Sexuals, així com de Psicòloga especialitzada en Violència de Gènere"
+                }
+            ]
+        },
+        "service4": {
+            "iconName": "RainbowFlagEmoji",
+            "title": "Protocols LGTBI+",
+            "fullDescription": "Realitzem Protocols i Plans LGTBI+ d'acord amb la Llei 4/2023 i en línia amb els principis d'inclusió i no discriminació.",
+            "legalNote": "📍 Obligatori per a empreses de més de 50 persones treballadores segons Llei 4/2023, art. 15.",
+            "features": [
+                {
+                    "title": "Diagnòstic de situació (informe de diversitat)"
+                },
+                {
+                    "title": "Avaluació de polítiques i protocols existents"
+                },
+                {
+                    "title": "Disseny de mesures i objectius específics"
+                },
+                {
+                    "title": "Protocols de prevenció i actuació enfront de la LGTBIfòbia"
+                },
+                {
+                    "title": "Registre i comunicació interna del protocol."
+                },
+                {
+                    "title": "Formació especialitzada per a plantilla i direcció."
+                }
+            ]
+        },
+        "service5": {
+            "iconName": "GiGraduateCap",
+            "title": "Formació",
+            "fullDescription": "Realitzem tot tipus de formació relacionada amb la matèria que ens ocupa ajustant-nos al 100 x 100 a les necessitats de la seva entitat.",
+            "topics": [
+                {
+                    "title": "Formació en matèria d'igualtat, plans d'igualtat i normativa actualitzada en la matèria."
+                },
+                {
+                    "title": "Protocol de prevenció i actuació empresarial enfront de l'assetjament sexual i/o per raó de sexe"
+                },
+                {
+                    "title": "Conciliació i corresponsabilitat: més enllà de la teoria"
+                },
+                {
+                    "title": "Llenguatge i Comunicació Inclusiva a l'empresa"
+                },
+                {
+                    "title": "Lideratge Eficaç d'Equips de treball amb Perspectiva de Gènere"
+                },
+                {
+                    "title": "Resolució de conflictes organitzacionals i presa de decisions amb perspectiva de gènere"
+                },
+                {
+                    "title": "Diversitat Sexual i de Gènere – LGTBI en l'entorn laboral. Plans i protocols LGTBI"
+                },
+                {
+                    "title": "IA amb perspectiva de gènere en entorns laborals."
+                },
+                {
+                    "title": "Qualsevol altra formació que l'empresa necessiti en les matèries que ens ocupen."
+                }
+            ],
+            "characteristics": [
+                {
+                    "title": "Capacitacions totalment adaptades",
+                    "description": "Per nivells (direcció/càrrecs polítics/quadres sindicals, comandaments superiors, comandaments intermedis, personal tècnic, resta de plantilla). "
+                },
+                {
+                    "title": "Disseny personalitzat",
+                    "description": "De la formació segons la mida, sector i cultura empresarial, tant en modalitat, durada, metodologia, etc."
+                },
+                {
+                    "title": "Formacions presencials, online, virtuals i/o híbrides",
+                    "description": "Utilitzant la pedagogia activa com a motor educatiu."
+                }
+            ]
+        },
+        "service6": {
+            "iconName": "FaHandsHelping",
+            "title": "Pacte estat Violència de Gènere",
+            "fullDescription": "Ajudem a la seva entitat a gestionar i desenvolupar projectes dins dels Fons del Pacte d'Estat contra la Violència de Gènere del nostre país.",
+            "topics": [
+                {
+                    "title": "Campanyes Publicitàries de Sensibilització i Conscienciació"
+                },
+                {
+                    "title": "Coeducació: Activitats socioeducatives de sensibilització i conscienciació de les Violències Masclistes, l'assetjament sexual, per raó de sexe, intercultural i/o LGTBI."
+                },
+                {
+                    "title": "Tallers i formació especialitzada per a col·lectius com per a professionals."
+                }
+            ]
+        },
+        "service7": {
+            "iconName": "BsHouses",
+            "title": "Gestió de Projectes Socials",
+            "fullDescription": "Desenvolupem, gestionem i avaluem projectes socials i comunitaris dirigits a administració pública i col·laboracions institucionals amb perspectiva de gènere inclusiva:",
+            "projectAreas": [
+                {
+                    "title": "Projectes en el marc de la solitud no desitjada, diferents col·lectius (població gran, altres col·lectius vulnerables)."
+                },
+                {
+                    "title": "Processos sociocomunitaris inclusius de col·lectius en situació de vulnerabilitat social"
+                },
+                {
+                    "title": "Intervenció amb dones: Apoderament Femení, Inserció Sociolaboral"
+                },
+                {
+                    "title": "Lluita contra l'assetjament escolar per raó de diversitat afectiu-sexual, intercultural, funcional o qualssevulla. Combatre l'odi a la joventut diversa des de la prevenció."
+                },
+                {
+                    "title": "Salut amb perspectiva de gènere"
+                },
+                {
+                    "title": "IA amb perspectiva de gènere i impacte en la joventut."
+                }
+            ]
+        },
+        "service8": {
+            "iconName": "FaEnvelope",
+            "title": "Pacte Estat Violència de Gènere",
+            "fullDescription": "Ajudem a la seva entitat a gestionar i desenvolupar projectes dins dels Fons del Pacte d'Estat contra la Violència de Gènere del nostre país.",
+            "services": [
+                {
+                    "title": "Campanyes Publicitàries",
+                    "description": "De Sensibilització i Conscienciació sobre violències masclistes"
+                },
+                {
+                    "title": "Coeducació",
+                    "description": "Activitats socioeducatives de sensibilització i conscienciació de les Violències Masclistes, l'assetjament sexual, per raó de sexe, intercultural i/o LGTBI"
+                },
+                {
+                    "title": "Protocols de Coordinació",
+                    "description": "Protocols municipals o mancomunats de Prevenció i Actuació contra les Violències Masclistes"
+                },
+                {
+                    "title": "Tallers i formació especialitzada",
+                    "description": "Tant per a col·lectius com per a professionals de l'àmbit"
+                }
+            ]
+        }
+    },
+    "sections": {
+        "serviceIncludes": "El Nostre Servei Inclou",
+        "additionalServices": "Serveis Addicionals",
+        "trainingTopics": "Temàtiques de Formació",
+        "trainingFeatures": "Característiques de la Formació",
+        "interventionAreas": "Àrees d'Intervenció",
+        "servicesOffered": "Serveis que Oferim"
+    },
+    "cta": {
+        "title": "Interessat en aquest servei?",
+        "description": "Contacta'ns per a més informació i descobreix com podem ajudar a la teva organització.",
+        "button": "Sol·licitar Informació"
+    }
+}

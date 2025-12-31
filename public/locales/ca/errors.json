@@ -1,0 +1,12 @@
+{
+    "UNKNOWN_ERROR": "S'ha produït un error inesperat. Si us plau, torna-ho a intentar.",
+    "NETWORK_ERROR": "Error de connexió. Verifica la teva connexió a internet.",
+    "EMAIL_ALREADY_EXISTS": "Aquest correu electrònic ja està registrat.",
+    "INVALID_CREDENTIALS": "Credencials invàlides. Verifica el teu correu i contrasenya.",
+    "USER_NOT_FOUND": "Usuari no trobat.",
+    "UNAUTHORIZED": "No tens permisos per realitzar aquesta acció.",
+    "FORBIDDEN": "Accés denegat.",
+    "RESOURCE_NOT_FOUND": "Recurs no trobat.",
+    "VALIDATION_ERROR": "Error de validació. Verifica les dades introduïdes.",
+    "SERVER_ERROR": "Error del servidor. Si us plau, intenta-ho més tard."
+}

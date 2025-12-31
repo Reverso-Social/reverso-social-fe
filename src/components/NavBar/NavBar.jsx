@@ -1,17 +1,19 @@
 import React from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./NavBar.scss";
 
 export default function NavBar({ onItemClick = () => { } }) {
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation('translation');
 
   const navLinks = [
-    { label: "Sobre Nosotras", path: "/", hash: "sobre-nosotros" },
-    { label: "Qué Hacemos", path: "/", hash: "servicios" },
-    { label: "Recursos", path: "/recursos", hash: null },
-    { label: "Incidencia", path: "/", hash: "incidencia" },
-    { label: "Blog", path: "/blog", hash: null },
+    { label: t('nav.aboutUs'), path: "/", hash: "sobre-nosotros" },
+    { label: t('nav.whatWeDo'), path: "/", hash: "servicios" },
+    { label: t('nav.resources'), path: "/recursos", hash: null },
+    { label: t('nav.advocacy'), path: "/", hash: "incidencia" },
+    { label: t('nav.blog'), path: "/blog", hash: null },
   ];
 
   const handleScrollToSection = (sectionId) => {
