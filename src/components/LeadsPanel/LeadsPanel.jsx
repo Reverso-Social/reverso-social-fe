@@ -68,15 +68,15 @@ const LeadsPanel = ({
                         <table className="admin-table">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
+                                    <th>{t('tableName')}</th>
                                     <th>{t('tableEmail')}</th>
-                                    <th>Recurso Descargado</th>
+                                    <th>{t('tableResource')}</th>
                                     <th className=" text-center">{t('tableCount')}</th>
                                     <th className="admin-table-date-col text-center" onClick={() => onSort('createdAt')} style={{ cursor: 'pointer' }}>
-                                        Fecha Registro {getSortIndicator('createdAt')}
+                                        {t('tableFirstDownload')} {getSortIndicator('createdAt')}
                                     </th>
                                     <th className="admin-table-date-col text-center" onClick={() => onSort('lastDownloadedAt')} style={{ cursor: 'pointer' }}>
-                                        Última Descarga {getSortIndicator('lastDownloadedAt')}
+                                        {t('tableLastDownload')} {getSortIndicator('lastDownloadedAt')}
                                     </th>
                                     <th className="admin-table-actions-col text-center">{t('tableActions')}</th>
                                 </tr>

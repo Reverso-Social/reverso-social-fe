@@ -66,6 +66,9 @@
   padding: $space-xl;
   box-shadow: $shadow-soft;
   margin-bottom: $space-lg;
+  white-space: pre-line;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .blog-detail-actions {

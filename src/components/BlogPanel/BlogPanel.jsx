@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import SearchBar from "../SearchBar/SearchBar";
 import Pagination from "../Pagination/Pagination";
@@ -28,6 +28,24 @@ const BlogPanel = ({
     onDelete,
 }) => {
     const { t } = useTranslation('blogPanel');
+    const formRef = useRef(null);
+
+    useEffect(() => {
+        if (showForm && formRef.current) {
+            setTimeout(() => {
+                formRef.current.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                const titleInput = formRef.current.querySelector('input[name="title"]');
+                if (titleInput) {
+                    titleInput.focus();
+                }
+            }, 100);
+        }
+    }, [showForm]);
+
     return (
         <div className="admin-panel">
             <div className="admin-panel-header">
@@ -117,7 +135,7 @@ const BlogPanel = ({
             )}
 
             {showForm && (
-                <div className="admin-form-wrapper">
+                <div ref={formRef} className="admin-form-wrapper">
                     <div className="admin-form-header">
                         <h3>
                             {formMode === "create"

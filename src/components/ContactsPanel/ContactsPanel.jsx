@@ -30,13 +30,13 @@ const ContactsPanel = ({
                     <table className="admin-table">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Email</th>
-                                <th>Mensaje</th>
-                                <th className="admin-table-status-col text-center">Estado</th>
-                                <th className="admin-table-date-col text-center">Fecha</th>
-                                <th className="admin-table-view-col text-center">Ver</th>
-                                <th className="admin-table-actions-col text-center">Acciones</th>
+                                <th>{t('contacts.tableName')}</th>
+                                <th>{t('contacts.tableEmail')}</th>
+                                <th>{t('contacts.tableMessage')}</th>
+                                <th className="admin-table-status-col text-center">{t('contacts.tableStatus')}</th>
+                                <th className="admin-table-date-col text-center">{t('contacts.tableDate')}</th>
+                                <th className="admin-table-view-col text-center">{t('contacts.tableView')}</th>
+                                <th className="admin-table-actions-col text-center">{t('contacts.tableActions')}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,9 +51,9 @@ const ContactsPanel = ({
                                             onChange={(e) => onStatusChange(contact.id, e.target.value)}
                                             className="status-select"
                                         >
-                                            <option value="PENDING">Pendiente</option>
-                                            <option value="IN_PROGRESS">En Proceso</option>
-                                            <option value="RESOLVED">Resuelto</option>
+                                            <option value="PENDING">{t('contacts.statusPending')}</option>
+                                            <option value="IN_PROGRESS">{t('contacts.statusInProgress')}</option>
+                                            <option value="RESOLVED">{t('contacts.statusResolved')}</option>
                                         </select>
                                     </td>
                                     <td className="admin-table-date-col text-center">
@@ -63,7 +63,7 @@ const ContactsPanel = ({
                                         <button
                                             className="admin-view-btn"
                                             onClick={() => onView(contact)}
-                                            aria-label="Ver detalle del contacto"
+                                            aria-label={t('contacts.viewDetailAriaLabel')}
                                         >
                                             <Eye size={18} />
                                         </button>
@@ -74,7 +74,7 @@ const ContactsPanel = ({
                                                 className="admin-action-btn admin-action-btn--delete"
                                                 onClick={() => onDelete(contact)}
                                             >
-                                                Eliminar
+                                                {t('contacts.deleteButton')}
                                             </button>
                                         )}
                                     </td>

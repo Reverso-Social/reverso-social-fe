@@ -20,7 +20,7 @@ import BlogPanel from "../../components/BlogPanel/BlogPanel";
 import LeadsPanel from "../../components/LeadsPanel/LeadsPanel";
 
 export default function AdminDashboard() {
-  const { t } = useTranslation('admin');
+  const { t } = useTranslation(['admin', 'translation']);
   const [activeTab, setActiveTab] = useState("contactos");
   const navigate = useNavigate();
 
@@ -142,9 +142,9 @@ export default function AdminDashboard() {
   const openDeleteContactModal = (contact) => {
     setConfirmModal({
       open: true,
-      title: "Eliminar contacto",
-      description: `¿Seguro que quieres eliminar el contacto «${contact.fullName}»? Esta acción no se puede deshacer.`,
-      confirmLabel: "Eliminar",
+      title: t('admin:modals.deleteContact'),
+      description: t('admin:modals.deleteContactConfirm', { name: contact.fullName }),
+      confirmLabel: t('admin:modals.deleteAction'),
       variant: "danger",
       onConfirm: () => deleteContact(contact.id),
     });
@@ -153,17 +153,17 @@ export default function AdminDashboard() {
   const openDeleteResourceModal = (resource) => {
     setConfirmModal({
       open: true,
-      title: "Eliminar recurso",
-      description: `¿Seguro que quieres eliminar el recurso «${resource.title}»? Esta acción no se puede deshacer.`,
-      confirmLabel: "Eliminar",
+      title: t('admin:modals.deleteResource'),
+      description: t('admin:modals.deleteResourceConfirm', { title: resource.title }),
+      confirmLabel: t('admin:modals.deleteAction'),
       variant: "danger",
       onConfirm: async () => {
         const result = await deleteResource(resource.id);
         if (!result.success) {
           setErrorModal({
             open: true,
-            title: t('modals.errorDelete'),
-            message: result.error || "No se pudo eliminar el recurso. Inténtalo de nuevo."
+            title: t('admin:modals.errorDelete'),
+            message: result.error || t('admin:modals.errorSaveMessage')
           });
         }
       },
@@ -173,9 +173,9 @@ export default function AdminDashboard() {
   const openDeleteBlogModal = (blog) => {
     setConfirmModal({
       open: true,
-      title: "Eliminar entrada de blog",
-      description: `¿Seguro que quieres eliminar la entrada «${blog.title}»? Esta acción no se puede deshacer.`,
-      confirmLabel: "Eliminar",
+      title: t('admin:modals.deleteBlog'),
+      description: t('admin:modals.deleteBlogConfirm', { title: blog.title }),
+      confirmLabel: t('admin:modals.deleteAction'),
       variant: "danger",
       onConfirm: () => deleteBlog(blog.id),
     });
@@ -184,9 +184,9 @@ export default function AdminDashboard() {
   const openDeleteLeadModal = (lead) => {
     setConfirmModal({
       open: true,
-      title: "Eliminar contacto de descarga",
-      description: `¿Seguro que quieres eliminar el lead de «${lead.name}» (${lead.email})? Esta acción no se puede deshacer.`,
-      confirmLabel: "Eliminar",
+      title: t('admin:modals.deleteLead'),
+      description: t('admin:modals.deleteLeadConfirm', { name: lead.name, email: lead.email }),
+      confirmLabel: t('admin:modals.deleteAction'),
       variant: "danger",
       onConfirm: () => deleteLead(lead.id),
     });
@@ -242,14 +242,14 @@ export default function AdminDashboard() {
 
   const handleBlogSuccess = (blog) => {
     if (!blog) return;
-    let message = "Operación realizada con éxito";
+    let message = t('admin:modals.successGeneric');
 
     if (blog.status === "PUBLISHED") {
-      message = "Entrada publicada con éxito";
+      message = t('admin:modals.successPublished');
     } else if (blog.status === "DRAFT") {
-      message = "Borrador guardado";
+      message = t('admin:modals.successDraft');
     } else if (blog.status === "ARCHIVED") {
-      message = "Entrada archivada con éxito";
+      message = t('admin:modals.successArchived');
     }
 
     setSuccessModal({ open: true, message, title: null });
@@ -421,16 +421,17 @@ export default function AdminDashboard() {
         variant={confirmModal.variant}
         closeOnOverlayClick={false}
         primaryAction={{
-          label: confirmModal.confirmLabel || "Confirmar",
+          label: confirmModal.confirmLabel || t('admin:modals.confirmButton'),
           onClick: () => {
             if (confirmModal.onConfirm) {
               confirmModal.onConfirm();
             }
             closeConfirmModal();
           },
+          disabled: false,
         }}
         secondaryAction={{
-          label: "Cancelar",
+          label: t('admin:modals.cancelButton'),
           onClick: closeConfirmModal,
         }}
       >
@@ -444,20 +445,18 @@ export default function AdminDashboard() {
         variant="default"
         closeOnOverlayClick={false}
         primaryAction={{
-          label: "Guardar cambios",
+          label: t('admin:modals.saveChangesButton'),
           onClick: () => {
-            if (saveConfirmModal.onConfirm) {
-              saveConfirmModal.onConfirm();
-            }
-            closeSaveConfirmModal();
+            saveConfirmModal.onConfirm();
+            setSaveConfirmModal({ open: false, onConfirm: null });
           },
         }}
         secondaryAction={{
-          label: "Cancelar",
-          onClick: closeSaveConfirmModal,
+          label: t('admin:modals.cancelButton'),
+          onClick: () => setSaveConfirmModal({ open: false, onConfirm: null }),
         }}
       >
-        <p>¿Seguro que quieres guardar los cambios?</p>
+        <p>{t('admin:modals.saveConfirm')}</p>
       </GlobalModal>
 
       <GlobalModal
@@ -468,7 +467,7 @@ export default function AdminDashboard() {
         closeOnOverlayClick={true}
         showCloseButton={false}
         primaryAction={{
-          label: "Aceptar",
+          label: t('admin:modals.acceptButton'),
           onClick: () => setSuccessModal({ ...successModal, open: false })
         }}
       >
@@ -485,7 +484,7 @@ export default function AdminDashboard() {
         closeOnOverlayClick={true}
         showCloseButton={true}
         primaryAction={{
-          label: "Cerrar",
+          label: t('admin:modals.closeButton'),
           onClick: () => setErrorModal({ ...errorModal, open: false })
         }}
       >
