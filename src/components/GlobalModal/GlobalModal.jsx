@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import "./GlobalModal.scss";
 
 export default function GlobalModal({
@@ -13,6 +14,7 @@ export default function GlobalModal({
   closeOnEsc = true,
   showCloseButton = true,
 }) {
+  const { t } = useTranslation('translation');
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -110,7 +112,7 @@ export default function GlobalModal({
               type="button"
               className="global-modal__close-btn"
               onClick={onClose}
-              aria-label="Cerrar ventana"
+              aria-label={t('common.closeWindow')}
             >
               ✕
             </button>

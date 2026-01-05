@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import ServicesCard from "./ServicesCard";
 import "./ServicesSection.scss";
 import { servicesData } from "../../data/serviceData";
@@ -20,12 +21,13 @@ const iconMap = {
 };
 
 const ServiceSection = () => {
+  const { t } = useTranslation('services');
   return (
     <div className="service-section" id="servicios">
       <header className="about__intro">
         <h2 id="about-heading" className="about__title">
-          Servicios Integrales con{" "}
-          <span className="about__title--highlight">Impacto Real</span>
+          {t('heading')}{" "}
+          <span className="about__title--highlight">{t('headingHighlight')}</span>
         </h2>
       </header>
 
@@ -37,11 +39,11 @@ const ServiceSection = () => {
                 key={service.id}
                 id={service.id}
                 icon={iconMap[service.iconName]}
-                title={service.title}
-                description={service.shortDescription}
+                title={t(`services.service${service.id}.title`)}
+                description={t(`services.service${service.id}.description`)}
                 button={
                   <>
-                    Más información <FaArrowRight />
+                    {t('btnMore')} <FaArrowRight />
                   </>
                 }
               />

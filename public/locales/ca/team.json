@@ -1,0 +1,22 @@
+{
+    "title": "Hola!",
+    "titleHighlight": "som:",
+    "description": "Tres camins paral·lels que durant més de 20 anys ens hem dedicat a la igualtat, a la diversitat, a la inclusió social, a la coordinació i gestió de projectes, a la formació i a la consultoria que han bifurcat en aquest projecte que aborda tots els àmbits laborals, empresarials, socials i educatius relacionat amb igualtat, gènere i diversitat.",
+    "skills": {
+        "lola": [
+            "Desenvolupament Organitzacional",
+            "Docència",
+            "Antropologia"
+        ],
+        "pilar": [
+            "Psicologia",
+            "Igualtat",
+            "Formació i Consultoria"
+        ],
+        "susana": [
+            "Psicologia",
+            "Salut Mental",
+            "Intervenció Social"
+        ]
+    }
+}

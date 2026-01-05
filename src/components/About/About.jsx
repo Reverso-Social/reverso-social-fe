@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './About.scss';
 import MisionIcon from '../../assets/Icons/Vision.svg';
 import VisionIcon from '../../assets/Icons/Visionnn.svg';
 import ValoresIcon from '../../assets/Icons/Diamond.svg';
 
 const About = () => {
+  const { t } = useTranslation('about');
   const [expandedCard, setExpandedCard] = useState(null);
 
   const handleCardClick = (cardId) => {
@@ -26,41 +28,37 @@ const About = () => {
   const cardsData = [
     {
       id: 'vision',
-      title: 'Visión',
+      title: t('vision.title'),
       icon: VisionIcon,
       color: 'turquesa',
-      fullTitle: 'Nuestra Visión',
+      fullTitle: t('vision.fullTitle'),
       content: (
         <>
-          Desde Reverso Social buscamos construir una visión que vaya más allá del cumplimiento normativo o la implantación interna de medidas de igualdad. Nuestro propósito es transformar estructuras sociales, influir en políticas públicas y generar cambios estructurales culturales duraderos que ayuden a construir sociedades más justas y equitativas, donde la igualdad real prime.
+          {t('vision.content')}
           <br />
-          <strong>ES UNA VISIÓN POSIBLE</strong>
+          <strong>{t('vision.emphasis')}</strong>
         </>
       )
     },
     {
       id: 'mision',
-      title: 'Misión',
+      title: t('mision.title'),
       icon: MisionIcon,
       color: 'lila',
-      fullTitle: 'Nuestra Misión',
-      content:
-        'Ser un agente catalizador de transformaciones sociales que garanticen la igualdad real y la justicia social, impulsando políticas, prácticas institucionales y cambios culturales que reduzcan desigualdades estructurales y fomenten sociedades más inclusivas, diversas y democráticas.'
+      fullTitle: t('mision.fullTitle'),
+      content: t('mision.content')
     },
     {
       id: 'valores',
-      title: 'Valores',
+      title: t('valores.title'),
       icon: ValoresIcon,
       color: 'azul',
-      fullTitle: 'Valores Fundamentales',
+      fullTitle: t('valores.fullTitle'),
       content: (
         <ul>
-          <li>Transformación estructural</li>
-          <li>Incidencia sociopolítica</li>
-          <li>Enfoque en derechos humanos y justicia social</li>
-          <li>Construcción de alianzas</li>
-          <li>Impacto medible y sostenible</li>
-          <li>Diversidad como motor de innovación y cohesión</li>
+          {t('valores.items', { returnObjects: true }).map((item, idx) => (
+            <li key={idx}>{item}</li>
+          ))}
         </ul>
       )
     }
@@ -70,12 +68,11 @@ const About = () => {
     <section className="about" id="sobre-nosotros" aria-labelledby="about-heading">
       <header className="about__intro">
         <h2 id="about-heading" className="about__title">
-          Sobre <span className="about__title--highlight">Reverso Social</span>
+          {t('heading')} <span className="about__title--highlight">{t('brandHighlight')}</span>
         </h2>
-        <p className="about__subtitle">Pericia Feminista para el Cambio</p>
+        <p className="about__subtitle">{t('subtitle')}</p>
         <p className="about__description">
-          Somos un equipo de mujeres con amplia experiencia en políticas públicas, consultoría especializada 
-          y formación transformadora en igualdad. Una entidad de nueva generación comprometida con la justicia social.
+          {t('description')}
         </p>
       </header>
 
@@ -83,9 +80,8 @@ const About = () => {
         {cardsData.map((card) => (
           <li key={card.id} className="about__cards-item">
             <article
-              className={`about-card about-card--${card.color} ${
-                expandedCard === card.id ? 'about-card--expanded' : ''
-              }`}
+              className={`about-card about-card--${card.color} ${expandedCard === card.id ? 'about-card--expanded' : ''
+                }`}
               onClick={() => handleCardClick(card.id)}
               onMouseEnter={() => handleMouseEnter(card.id)}
               onMouseLeave={handleMouseLeave}
@@ -98,20 +94,20 @@ const About = () => {
               tabIndex={0}
               role="button"
               aria-expanded={expandedCard === card.id}
-              aria-label={`${card.title}: ${expandedCard === card.id ? 'expandido' : 'colapsado'}. Presiona para ${expandedCard === card.id ? 'colapsar' : 'expandir'}`}
+              aria-label={`${card.title}: ${expandedCard === card.id ? t('ariaExpanded') : t('ariaCollapsed')}. ${expandedCard === card.id ? t('ariaPressToCollapse') : t('ariaPressToExpand')}`}
             >
               <div className="about-card__inner">
                 <header className="about-card__front">
-                  <img 
-                    src={card.icon} 
-                    alt="" 
+                  <img
+                    src={card.icon}
+                    alt=""
                     className="about-card__icon"
                     aria-hidden="true"
                   />
                   <h3 className="about-card__title">{card.title}</h3>
                 </header>
-                
-                <section 
+
+                <section
                   className="about-card__back"
                   aria-hidden={expandedCard !== card.id}
                 >

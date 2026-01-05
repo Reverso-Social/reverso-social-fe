@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./ResourcesPage.scss";
 import { IoNewspaperSharp } from "react-icons/io5";
 import { FaChartBar, FaClipboard, FaPhotoVideo } from "react-icons/fa";
@@ -29,6 +30,7 @@ const resourceColors = {
 };
 
 export default function ResourcesPage() {
+  const { t } = useTranslation('resources');
   const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -47,7 +49,7 @@ export default function ResourcesPage() {
       setResources(data);
     } catch (err) {
       console.error("Error al cargar recursos:", err);
-      setError("No se pudieron cargar los recursos");
+      setError(t('error'));
     } finally {
       setLoading(false);
     }
@@ -99,20 +101,20 @@ export default function ResourcesPage() {
         if (url) {
           window.open(url, "_blank");
         } else {
-          alert("Recurso guardado, pero el archivo no está disponible temporalmente.");
+          alert(t('modals.resourceUnavailable'));
         }
         setDownloadSuccessModal(false);
       }, 3000);
 
     } catch (error) {
       console.error("Error al guardar lead:", error.response?.data || error);
-      alert("Hubo un error al guardar tus datos. Por favor, intenta de nuevo.");
+      alert(t('modals.errorSavingLead'));
     }
   };
 
   const handleDownload = (resource) => {
     if (!resource.isPublic && !isAuthenticated) {
-      alert("Este recurso requiere registro. Por favor, inicia sesión para acceder.");
+      alert(t('modals.requiresAuth'));
       return;
     }
 
@@ -131,14 +133,13 @@ export default function ResourcesPage() {
       <section className="resources-hero">
         <div className="resources-hero-content">
           <Link to="/" className="back-link">
-            ← Volver al inicio
+            {t('hero.backLink')}
           </Link>
           <h1 className="resources-hero-title">
-            <span className="title-gradient">Recursos</span> para el cambio
+            <span className="title-gradient">{t('hero.title')}</span>{' '}{t('hero.titleSuffix')}
           </h1>
           <p className="resources-hero-subtitle">
-            Herramientas, guías y materiales para impulsar la igualdad en tu
-            organización
+            {t('hero.subtitle')}
           </p>
         </div>
       </section>
@@ -148,7 +149,7 @@ export default function ResourcesPage() {
           {loading && (
             <div className="resources-loading">
               <div className="spinner"></div>
-              <p>Cargando recursos...</p>
+              <p>{t('loading')}</p>
             </div>
           )}
 
@@ -160,7 +161,7 @@ export default function ResourcesPage() {
 
           {!loading && !error && resources.length === 0 && (
             <div className="resources-empty">
-              <p>No hay recursos disponibles en este momento.</p>
+              <p>{t('empty')}</p>
             </div>
           )}
 
@@ -168,8 +169,7 @@ export default function ResourcesPage() {
             <>
               <div className="resources-filter">
                 <p className="resources-count">
-                  {resources.length} recurso{resources.length !== 1 ? "s" : ""} disponible
-                  {resources.length !== 1 ? "s" : ""}
+                  {t(resources.length === 1 ? 'count' : 'count_plural', { count: resources.length })}
                 </p>
               </div>
 
@@ -185,7 +185,7 @@ export default function ResourcesPage() {
                       </div>
                       <span className="resource-type">{resource.type}</span>
                       {!resource.isPublic && (
-                        <span className="resource-badge">🔒 Privado</span>
+                        <span className="resource-badge">{t('private')}</span>
                       )}
                     </div>
 
@@ -194,7 +194,7 @@ export default function ResourcesPage() {
 
                     {resource.downloadCount > 0 && (
                       <p className="resource-downloads">
-                        {resource.downloadCount} descarga{resource.downloadCount !== 1 ? "s" : ""}
+                        {resource.downloadCount} {t(resource.downloadCount === 1 ? 'download' : 'download_plural')}
                       </p>
                     )}
 
@@ -208,8 +208,8 @@ export default function ResourcesPage() {
                       }}
                     >
                       {resource.isPublic || isAuthenticated
-                        ? "Descargar"
-                        : "Solicitar acceso"}
+                        ? t('btnDownload')
+                        : t('btnRequestAccess')}
                       <span className="btn-arrow">→</span>
                     </button>
                   </article>
@@ -219,14 +219,14 @@ export default function ResourcesPage() {
           )}
 
           <div className="resources-cta">
-            <h2>¿No encuentras lo que buscas?</h2>
-            <p>Podemos crear recursos personalizados para tu organización</p>
+            <h2>{t('cta.title')}</h2>
+            <p>{t('cta.description')}</p>
             <button
               className="cta-btn"
               onClick={() => setIsContactOpen(true)}
               type="button"
             >
-              Contáctanos
+              {t('cta.button')}
             </button>
           </div>
         </div>
@@ -241,13 +241,13 @@ export default function ResourcesPage() {
 
       <GlobalModal
         open={downloadSuccessModal}
-        title="¡Descarga iniciada!"
+        title={t('modals.downloadSuccess')}
         variant="small"
         showCloseButton={false}
         onClose={() => setDownloadSuccessModal(false)}
       >
         <p style={{ textAlign: "center", margin: "1rem 0", fontSize: "1.1rem" }}>
-          Tu descarga estará lista en un instante
+          {t('modals.downloadReady')}
         </p>
       </GlobalModal>
 

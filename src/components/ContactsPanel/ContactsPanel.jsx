@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Eye } from "lucide-react";
 import authService from "../../api/authService";
 
@@ -10,17 +11,18 @@ const ContactsPanel = ({
     onStatusChange,
     onDelete,
 }) => {
+    const { t } = useTranslation('admin');
     return (
         <div className="admin-panel">
             <div className="admin-panel-header">
-                <h2>Gestión de Contactos</h2>
+                <h2>{t('contacts.title')}</h2>
             </div>
 
-            {loading && <p className="admin-status">Cargando contactos...</p>}
+            {loading && <p className="admin-status">{t('contacts.loading')}</p>}
             {error && <p className="admin-status admin-status--error">{error}</p>}
 
             {!loading && !error && contacts.length === 0 && (
-                <p className="admin-status">No hay contactos disponibles.</p>
+                <p className="admin-status">{t('contacts.empty')}</p>
             )}
 
             {!loading && !error && contacts.length > 0 && (
@@ -28,13 +30,13 @@ const ContactsPanel = ({
                     <table className="admin-table">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Email</th>
-                                <th>Mensaje</th>
-                                <th className="admin-table-status-col text-center">Estado</th>
-                                <th className="admin-table-date-col text-center">Fecha</th>
-                                <th className="admin-table-view-col text-center">Ver</th>
-                                <th className="admin-table-actions-col text-center">Acciones</th>
+                                <th>{t('contacts.tableName')}</th>
+                                <th>{t('contacts.tableEmail')}</th>
+                                <th>{t('contacts.tableMessage')}</th>
+                                <th className="admin-table-status-col text-center">{t('contacts.tableStatus')}</th>
+                                <th className="admin-table-date-col text-center">{t('contacts.tableDate')}</th>
+                                <th className="admin-table-view-col text-center">{t('contacts.tableView')}</th>
+                                <th className="admin-table-actions-col text-center">{t('contacts.tableActions')}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,9 +51,9 @@ const ContactsPanel = ({
                                             onChange={(e) => onStatusChange(contact.id, e.target.value)}
                                             className="status-select"
                                         >
-                                            <option value="PENDING">Pendiente</option>
-                                            <option value="IN_PROGRESS">En Proceso</option>
-                                            <option value="RESOLVED">Resuelto</option>
+                                            <option value="PENDING">{t('contacts.statusPending')}</option>
+                                            <option value="IN_PROGRESS">{t('contacts.statusInProgress')}</option>
+                                            <option value="RESOLVED">{t('contacts.statusResolved')}</option>
                                         </select>
                                     </td>
                                     <td className="admin-table-date-col text-center">
@@ -61,7 +63,7 @@ const ContactsPanel = ({
                                         <button
                                             className="admin-view-btn"
                                             onClick={() => onView(contact)}
-                                            aria-label="Ver detalle del contacto"
+                                            aria-label={t('contacts.viewDetailAriaLabel')}
                                         >
                                             <Eye size={18} />
                                         </button>
@@ -72,7 +74,7 @@ const ContactsPanel = ({
                                                 className="admin-action-btn admin-action-btn--delete"
                                                 onClick={() => onDelete(contact)}
                                             >
-                                                Eliminar
+                                                {t('contacts.deleteButton')}
                                             </button>
                                         )}
                                     </td>

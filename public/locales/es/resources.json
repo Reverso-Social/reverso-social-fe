@@ -1,0 +1,31 @@
+{
+    "hero": {
+        "backLink": "← Volver al inicio",
+        "title": "Recursos",
+        "titleSuffix": "para el cambio",
+        "subtitle": "Herramientas, guías y materiales para impulsar la igualdad en tu organización"
+    },
+    "loading": "Cargando recursos...",
+    "error": "No se pudieron cargar los recursos",
+    "empty": "No hay recursos disponibles en este momento.",
+    "count": "{{count}} recurso disponible",
+    "count_plural": "{{count}} recursos disponibles",
+    "download": "descarga",
+    "download_plural": "descargas",
+    "private": "🔒 Privado",
+    "btnDownload": "Descargar",
+    "btnRequestAccess": "Solicitar acceso",
+    "cta": {
+        "title": "¿No encuentras lo que buscas?",
+        "description": "Podemos crear recursos personalizados para tu organización",
+        "button": "Contáctanos"
+    },
+    "modals": {
+        "downloadSuccess": "¡Descarga iniciada!",
+        "downloadReady": "Tu descarga estará lista en un instante",
+        "requiresAuth": "Este recurso requiere registro. Por favor, inicia sesión para acceder.",
+        "errorSavingLead": "Hubo un error al guardar tus datos. Por favor, intenta de nuevo.",
+        "resourceUnavailable": "Recurso guardado, pero el archivo no está disponible temporalmente."
+    },
+    "contactDefault": "Hola, me interesa hablar sobre recursos personalizados para mi organización."
+}

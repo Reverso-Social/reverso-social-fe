@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Eye } from "lucide-react";
 import "./AdminDashboard.scss";
 
@@ -19,6 +20,7 @@ import BlogPanel from "../../components/BlogPanel/BlogPanel";
 import LeadsPanel from "../../components/LeadsPanel/LeadsPanel";
 
 export default function AdminDashboard() {
+  const { t } = useTranslation(['admin', 'translation']);
   const [activeTab, setActiveTab] = useState("contactos");
   const navigate = useNavigate();
 
@@ -47,13 +49,13 @@ export default function AdminDashboard() {
   const [successModal, setSuccessModal] = useState({
     open: false,
     message: "",
-    title: "Éxito",
+    title: t('modals.successTitle'),
   });
 
   const [errorModal, setErrorModal] = useState({
     open: false,
     message: "",
-    title: "Error",
+    title: t('modals.errorTitle'),
   });
 
 
@@ -140,9 +142,9 @@ export default function AdminDashboard() {
   const openDeleteContactModal = (contact) => {
     setConfirmModal({
       open: true,
-      title: "Eliminar contacto",
-      description: `¿Seguro que quieres eliminar el contacto «${contact.fullName}»? Esta acción no se puede deshacer.`,
-      confirmLabel: "Eliminar",
+      title: t('admin:modals.deleteContact'),
+      description: t('admin:modals.deleteContactConfirm', { name: contact.fullName }),
+      confirmLabel: t('admin:modals.deleteAction'),
       variant: "danger",
       onConfirm: () => deleteContact(contact.id),
     });
@@ -151,17 +153,17 @@ export default function AdminDashboard() {
   const openDeleteResourceModal = (resource) => {
     setConfirmModal({
       open: true,
-      title: "Eliminar recurso",
-      description: `¿Seguro que quieres eliminar el recurso «${resource.title}»? Esta acción no se puede deshacer.`,
-      confirmLabel: "Eliminar",
+      title: t('admin:modals.deleteResource'),
+      description: t('admin:modals.deleteResourceConfirm', { title: resource.title }),
+      confirmLabel: t('admin:modals.deleteAction'),
       variant: "danger",
       onConfirm: async () => {
         const result = await deleteResource(resource.id);
         if (!result.success) {
           setErrorModal({
             open: true,
-            title: "Error al eliminar",
-            message: result.error || "No se pudo eliminar el recurso. Inténtalo de nuevo."
+            title: t('admin:modals.errorDelete'),
+            message: result.error || t('admin:modals.errorSaveMessage')
           });
         }
       },
@@ -171,9 +173,9 @@ export default function AdminDashboard() {
   const openDeleteBlogModal = (blog) => {
     setConfirmModal({
       open: true,
-      title: "Eliminar entrada de blog",
-      description: `¿Seguro que quieres eliminar la entrada «${blog.title}»? Esta acción no se puede deshacer.`,
-      confirmLabel: "Eliminar",
+      title: t('admin:modals.deleteBlog'),
+      description: t('admin:modals.deleteBlogConfirm', { title: blog.title }),
+      confirmLabel: t('admin:modals.deleteAction'),
       variant: "danger",
       onConfirm: () => deleteBlog(blog.id),
     });
@@ -182,9 +184,9 @@ export default function AdminDashboard() {
   const openDeleteLeadModal = (lead) => {
     setConfirmModal({
       open: true,
-      title: "Eliminar contacto de descarga",
-      description: `¿Seguro que quieres eliminar el lead de «${lead.name}» (${lead.email})? Esta acción no se puede deshacer.`,
-      confirmLabel: "Eliminar",
+      title: t('admin:modals.deleteLead'),
+      description: t('admin:modals.deleteLeadConfirm', { name: lead.name, email: lead.email }),
+      confirmLabel: t('admin:modals.deleteAction'),
       variant: "danger",
       onConfirm: () => deleteLead(lead.id),
     });
@@ -219,8 +221,8 @@ export default function AdminDashboard() {
           if (!result.success) {
             setErrorModal({
               open: true,
-              title: "Error al guardar",
-              message: result.error || "No se pudieron guardar los cambios"
+              title: t('modals.errorSave'),
+              message: result.error || t('modals.errorSaveMessage')
             });
           }
         },
@@ -232,22 +234,22 @@ export default function AdminDashboard() {
     if (!result.success) {
       setErrorModal({
         open: true,
-        title: "Error al guardar",
-        message: result.error || "No se pudo crear el recurso"
+        title: t('modals.errorSave'),
+        message: result.error || t('modals.errorCreateMessage')
       });
     }
   };
 
   const handleBlogSuccess = (blog) => {
     if (!blog) return;
-    let message = "Operación realizada con éxito";
+    let message = t('admin:modals.successGeneric');
 
     if (blog.status === "PUBLISHED") {
-      message = "Entrada publicada con éxito";
+      message = t('admin:modals.successPublished');
     } else if (blog.status === "DRAFT") {
-      message = "Borrador guardado";
+      message = t('admin:modals.successDraft');
     } else if (blog.status === "ARCHIVED") {
-      message = "Entrada archivada con éxito";
+      message = t('admin:modals.successArchived');
     }
 
     setSuccessModal({ open: true, message, title: null });
@@ -281,38 +283,38 @@ export default function AdminDashboard() {
     <div className="admin-dashboard">
       <header className="admin-header">
         <div>
-          <h1>Panel de Administración</h1>
-          <p className="admin-subtitle">Bienvenida, {currentUser.fullName}</p>
+          <h1>{t('dashboard.title')}</h1>
+          <p className="admin-subtitle">{t('dashboard.welcome', { name: currentUser.fullName })}</p>
         </div>
 
       </header>
 
-      <nav className="admin-tabs" aria-label="Secciones">
+      <nav className="admin-tabs" aria-label={t('dashboard.sections')}>
         <button
           className={`admin-tab ${activeTab === "contactos" ? "is-active" : ""
             }`}
           onClick={() => setActiveTab("contactos")}
         >
-          Consultas
+          {t('dashboard.tabs.contacts')}
         </button>
         <button
           className={`admin-tab ${activeTab === "recursos" ? "is-active" : ""
             }`}
           onClick={() => setActiveTab("recursos")}
         >
-          Recursos
+          {t('dashboard.tabs.resources')}
         </button>
         <button
           className={`admin-tab ${activeTab === "blog" ? "is-active" : ""}`}
           onClick={() => setActiveTab("blog")}
         >
-          Blog
+          {t('dashboard.tabs.blog')}
         </button>
         <button
           className={`admin-tab ${activeTab === "leads" ? "is-active" : ""}`}
           onClick={() => setActiveTab("leads")}
         >
-          Descargas
+          {t('dashboard.tabs.leads')}
         </button>
       </nav>
 
@@ -419,16 +421,17 @@ export default function AdminDashboard() {
         variant={confirmModal.variant}
         closeOnOverlayClick={false}
         primaryAction={{
-          label: confirmModal.confirmLabel || "Confirmar",
+          label: confirmModal.confirmLabel || t('admin:modals.confirmButton'),
           onClick: () => {
             if (confirmModal.onConfirm) {
               confirmModal.onConfirm();
             }
             closeConfirmModal();
           },
+          disabled: false,
         }}
         secondaryAction={{
-          label: "Cancelar",
+          label: t('admin:modals.cancelButton'),
           onClick: closeConfirmModal,
         }}
       >
@@ -442,20 +445,18 @@ export default function AdminDashboard() {
         variant="default"
         closeOnOverlayClick={false}
         primaryAction={{
-          label: "Guardar cambios",
+          label: t('admin:modals.saveChangesButton'),
           onClick: () => {
-            if (saveConfirmModal.onConfirm) {
-              saveConfirmModal.onConfirm();
-            }
-            closeSaveConfirmModal();
+            saveConfirmModal.onConfirm();
+            setSaveConfirmModal({ open: false, onConfirm: null });
           },
         }}
         secondaryAction={{
-          label: "Cancelar",
-          onClick: closeSaveConfirmModal,
+          label: t('admin:modals.cancelButton'),
+          onClick: () => setSaveConfirmModal({ open: false, onConfirm: null }),
         }}
       >
-        <p>¿Seguro que quieres guardar los cambios?</p>
+        <p>{t('admin:modals.saveConfirm')}</p>
       </GlobalModal>
 
       <GlobalModal
@@ -466,7 +467,7 @@ export default function AdminDashboard() {
         closeOnOverlayClick={true}
         showCloseButton={false}
         primaryAction={{
-          label: "Aceptar",
+          label: t('admin:modals.acceptButton'),
           onClick: () => setSuccessModal({ ...successModal, open: false })
         }}
       >
@@ -483,7 +484,7 @@ export default function AdminDashboard() {
         closeOnOverlayClick={true}
         showCloseButton={true}
         primaryAction={{
-          label: "Cerrar",
+          label: t('admin:modals.closeButton'),
           onClick: () => setErrorModal({ ...errorModal, open: false })
         }}
       >

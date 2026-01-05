@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./DownloadModal.scss";
 import { X } from "lucide-react";
 
 export default function DownloadFormModal({ open, onClose, resource, onSubmit }) {
+  const { t } = useTranslation('forms');
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [hasAcceptedPolicy, setHasAcceptedPolicy] = useState(false);
@@ -14,13 +16,13 @@ export default function DownloadFormModal({ open, onClose, resource, onSubmit })
   const validateField = (fieldName, value) => {
     let error = "";
     if (fieldName === "name") {
-      if (!value.trim()) error = "El nombre es obligatorio";
+      if (!value.trim()) error = t('validation.nameRequired');
     }
     if (fieldName === "email") {
       if (!value.trim()) {
-        error = "El email es obligatorio";
+        error = t('validation.emailRequired');
       } else if (!/\S+@\S+\.\S+/.test(value)) {
-        error = "Formato de email inválido";
+        error = t('validation.emailInvalid');
       }
     }
     return error;
@@ -52,7 +54,7 @@ export default function DownloadFormModal({ open, onClose, resource, onSubmit })
     }
 
     if (!hasAcceptedPolicy) {
-      setErrors({ policy: "Debes aceptar la política de privacidad" });
+      setErrors({ policy: t('validation.policyRequired') });
       return;
     }
 
@@ -70,16 +72,16 @@ export default function DownloadFormModal({ open, onClose, resource, onSubmit })
         </button>
 
         <h2 className="download-modal__title">
-          Antes de descargar…
+          {t('download.title')}
         </h2>
 
         <p className="download-modal__text">
-          Déjanos tu nombre y correo electrónico para acceder al recurso 💌
+          {t('download.description')}
         </p>
 
         <form className="download-modal__form" onSubmit={handleSubmit} noValidate>
           <label>
-            Nombre
+            {t('download.name')}
             <input
               type="text"
               name="name"
@@ -93,7 +95,7 @@ export default function DownloadFormModal({ open, onClose, resource, onSubmit })
           </label>
 
           <label>
-            Correo electrónico
+            {t('download.email')}
             <input
               type="email"
               name="email"
@@ -116,16 +118,16 @@ export default function DownloadFormModal({ open, onClose, resource, onSubmit })
               }}
             />
             <span>
-              Acepto la{" "}
+              {t('download.acceptPolicy')}{" "}
               <Link to="/politica-privacidad" target="_blank">
-                Política de Protección de Datos y Privacidad
+                {t('download.privacyPolicy')}
               </Link>
             </span>
             {errors.policy && <span className="error-text" style={{ display: 'block', width: '100%' }}>{errors.policy}</span>}
           </label>
 
           <button type="submit" className="download-modal__btn">
-            Continuar y descargar →
+            {t('download.submit')}
           </button>
         </form>
       </div>

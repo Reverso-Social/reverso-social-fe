@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import SearchBar from "../SearchBar/SearchBar";
 import Pagination from "../Pagination/Pagination";
 
@@ -26,25 +27,44 @@ const BlogPanel = ({
     onSubmit,
     onDelete,
 }) => {
+    const { t } = useTranslation('blogPanel');
+    const formRef = useRef(null);
+
+    useEffect(() => {
+        if (showForm && formRef.current) {
+            setTimeout(() => {
+                formRef.current.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                const titleInput = formRef.current.querySelector('input[name="title"]');
+                if (titleInput) {
+                    titleInput.focus();
+                }
+            }, 100);
+        }
+    }, [showForm]);
+
     return (
         <div className="admin-panel">
             <div className="admin-panel-header">
-                <h2>Gestión de Blog</h2>
+                <h2>{t('title')}</h2>
                 <div className="admin-panel-header-actions">
                     <SearchBar
                         value={search}
                         onChange={setSearch}
-                        placeholder="Buscar entradas de blog..."
-                        ariaLabel="Buscar entradas de blog"
+                        placeholder={t('searchPlaceholder')}
+                        ariaLabel={t('searchAriaLabel')}
                     />
                     <button className="admin-primary-btn" onClick={onOpenCreate}>
-                        + Añadir entrada
+                        {t('addButton')}
                     </button>
                 </div>
             </div>
 
             {!loading && !error && count === 0 && (
-                <p className="admin-status">No hay entradas de blog disponibles.</p>
+                <p className="admin-status">{t('emptyState')}</p>
             )}
 
             {count > 0 && (
@@ -53,12 +73,12 @@ const BlogPanel = ({
                         <table className="admin-table">
                             <thead>
                                 <tr>
-                                    <th>Título</th>
-                                    <th>Subtítulo</th>
-                                    <th>Categoría</th>
-                                    <th className="admin-table-status-col text-center">Estado</th>
-                                    <th className="admin-table-date-col text-center">Fecha</th>
-                                    <th className="admin-table-actions-col text-center">Acciones</th>
+                                    <th>{t('tableTitle')}</th>
+                                    <th>{t('tableSubtitle')}</th>
+                                    <th>{t('tableCategory')}</th>
+                                    <th className="admin-table-status-col text-center">{t('tableStatus')}</th>
+                                    <th className="admin-table-date-col text-center">{t('tableDate')}</th>
+                                    <th className="admin-table-actions-col text-center">{t('tableActions')}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,7 +95,7 @@ const BlogPanel = ({
                                                     }`}
                                             >
                                                 {blog.status === "PUBLISHED"
-                                                    ? "Publicado"
+                                                    ? t('statusPublished')
                                                     : blog.status}
                                             </span>
                                         </td>
@@ -89,13 +109,13 @@ const BlogPanel = ({
                                                 className="admin-action-btn"
                                                 onClick={() => onOpenEdit(blog)}
                                             >
-                                                Editar
+                                                {t('editButton')}
                                             </button>
                                             <button
                                                 className="admin-action-btn admin-action-btn--delete"
                                                 onClick={() => onDelete(blog)}
                                             >
-                                                Eliminar
+                                                {t('deleteButton')}
                                             </button>
                                         </td>
                                     </tr>
@@ -109,28 +129,28 @@ const BlogPanel = ({
                         totalItems={count}
                         pageSize={pageSize}
                         onPageChange={setPage}
-                        ariaLabel="Paginación de blog"
+                        ariaLabel={t('paginationLabel')}
                     />
                 </>
             )}
 
             {showForm && (
-                <div className="admin-form-wrapper">
+                <div ref={formRef} className="admin-form-wrapper">
                     <div className="admin-form-header">
                         <h3>
                             {formMode === "create"
-                                ? "Añadir entrada de blog"
-                                : "Editar entrada de blog"}
+                                ? t('addModalTitle')
+                                : t('editModalTitle')}
                         </h3>
                         <button className="admin-form-close" onClick={onCloseForm}>
-                            ✕
+                            {t('closeButton')}
                         </button>
                     </div>
 
                     <form className="admin-form" onSubmit={onSubmit}>
                         <div className="admin-form-grid">
                             <div className="admin-form-field">
-                                <label htmlFor="blog-title">Título *</label>
+                                <label htmlFor="blog-title">{t('formTitle')}</label>
                                 <input
                                     id="blog-title"
                                     name="title"
@@ -145,7 +165,7 @@ const BlogPanel = ({
                             </div>
 
                             <div className="admin-form-field">
-                                <label htmlFor="blog-subtitle">Subtítulo</label>
+                                <label htmlFor="blog-subtitle">{t('formSubtitle')}</label>
                                 <input
                                     id="blog-subtitle"
                                     name="subtitle"
@@ -160,7 +180,7 @@ const BlogPanel = ({
                             </div>
 
                             <div className="admin-form-field admin-form-field--full">
-                                <label htmlFor="blog-content">Contenido *</label>
+                                <label htmlFor="blog-content">{t('formContent')}</label>
                                 <textarea
                                     id="blog-content"
                                     name="content"
@@ -175,14 +195,14 @@ const BlogPanel = ({
                             </div>
 
                             <div className="admin-form-field">
-                                <label htmlFor="blog-category">Categoría *</label>
+                                <label htmlFor="blog-category">{t('formCategory')}</label>
                                 <input
                                     id="blog-category"
                                     name="category"
                                     type="text"
                                     value={form.category}
                                     onChange={onFieldChange}
-                                    placeholder="Ej. Comunidad"
+                                    placeholder={t('formCategoryPlaceholder')}
                                     disabled={formLoading}
                                 />
                                 {formErrors.category && (
@@ -191,7 +211,7 @@ const BlogPanel = ({
                             </div>
 
                             <div className="admin-form-field">
-                                <label htmlFor="blog-status">Estado *</label>
+                                <label htmlFor="blog-status">{t('formStatus')}</label>
                                 <select
                                     id="blog-status"
                                     name="status"
@@ -199,9 +219,9 @@ const BlogPanel = ({
                                     onChange={onFieldChange}
                                     disabled={formLoading}
                                 >
-                                    <option value="PUBLISHED">Publicado</option>
-                                    <option value="DRAFT">Borrador</option>
-                                    <option value="ARCHIVED">Archivado</option>
+                                    <option value="PUBLISHED">{t('formStatusPublished')}</option>
+                                    <option value="DRAFT">{t('formStatusDraft')}</option>
+                                    <option value="ARCHIVED">{t('formStatusArchived')}</option>
                                 </select>
                                 {formErrors.status && (
                                     <p className="admin-form-error">{formErrors.status}</p>
@@ -209,7 +229,7 @@ const BlogPanel = ({
                             </div>
 
                             <div className="admin-form-field">
-                                <label htmlFor="blog-image-local">Imagen</label>
+                                <label htmlFor="blog-image-local">{t('formImage')}</label>
                                 <div className="admin-file-upload">
                                     <input
                                         id="blog-image-local"
@@ -225,12 +245,12 @@ const BlogPanel = ({
                                         htmlFor="blog-image-local"
                                         className="admin-file-upload__button"
                                     >
-                                        Subir imagen
+                                        {t('uploadImageButton')}
                                     </label>
                                     <span className="admin-file-upload__filename">
                                         {localImage
                                             ? localImage.name
-                                            : "Ningún archivo seleccionado"}
+                                            : t('noFileSelected')}
                                     </span>
                                 </div>
                                 {formErrors.image && (
@@ -246,14 +266,14 @@ const BlogPanel = ({
                                 onClick={onCloseForm}
                                 disabled={formLoading}
                             >
-                                Cancelar
+                                {t('cancelButton')}
                             </button>
                             <button
                                 type="submit"
                                 className="admin-primary-btn"
                                 disabled={formLoading}
                             >
-                                {formMode === "create" ? "Crear entrada" : "Guardar cambios"}
+                                {formMode === "create" ? t('createButton') : t('saveButton')}
                             </button>
                         </div>
                         {formErrors.submit && (

@@ -1,0 +1,49 @@
+.language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &__btn {
+        background: none;
+        border: none;
+        color: inherit;
+        font-size: 0.875rem;
+        font-weight: 500;
+        padding: 0.25rem 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-radius: 0.25rem;
+        opacity: 0.6;
+
+        &:hover {
+            opacity: 1;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        &:focus-visible {
+            outline: 2px solid currentColor;
+            outline-offset: 2px;
+        }
+
+        &.active {
+            opacity: 1;
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+    }
+
+    &__separator {
+        opacity: 0.4;
+        font-size: 0.875rem;
+        user-select: none;
+    }
+}

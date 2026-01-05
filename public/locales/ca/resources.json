@@ -1,0 +1,31 @@
+{
+    "hero": {
+        "backLink": "← Tornar a l'inici",
+        "title": "Recursos",
+        "titleSuffix": "per al canvi",
+        "subtitle": "Eines, guies i materials per impulsar la igualtat a la teva organització"
+    },
+    "loading": "Carregant recursos...",
+    "error": "No s'han pogut carregar els recursos",
+    "empty": "No hi ha recursos disponibles en aquest moment.",
+    "count": "{{count}} recurs disponible",
+    "count_plural": "{{count}} recursos disponibles",
+    "download": "descàrrega",
+    "download_plural": "descàrregues",
+    "private": "🔒 Privat",
+    "btnDownload": "Descarregar",
+    "btnRequestAccess": "Sol·licitar accés",
+    "cta": {
+        "title": "No trobes el que busques?",
+        "description": "Podem crear recursos personalitzats per a la teva organització",
+        "button": "Contacta'ns"
+    },
+    "modals": {
+        "downloadSuccess": "Descàrrega iniciada!",
+        "downloadReady": "La teva descàrrega estarà llesta en un instant",
+        "requiresAuth": "Aquest recurs requereix registre. Si us plau, inicia sessió per accedir.",
+        "errorSavingLead": "Hi ha hagut un error en desar les teves dades. Si us plau, torna-ho a intentar.",
+        "resourceUnavailable": "Recurs desat, però el fitxer no està disponible temporalment."
+    },
+    "contactDefault": "Hola, m'interessa parlar sobre recursos personalitzats per a la meva organització."
+}

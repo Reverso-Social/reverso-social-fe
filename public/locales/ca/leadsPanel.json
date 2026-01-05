@@ -1,0 +1,17 @@
+{
+    "title": "Leads de Descàrrega",
+    "exportButton": "📥 Exportar CSV",
+    "searchPlaceholder": "Cercar per email o recurs...",
+    "searchAriaLabel": "Cercar leads",
+    "loadingMessage": "Carregant leads...",
+    "emptyState": "No hi ha leads disponibles.",
+    "tableName": "Nom",
+    "tableEmail": "Email",
+    "tableResource": "Recurs Descarregat",
+    "tableCount": "Nº Descàrregues",
+    "tableFirstDownload": "Data Registre",
+    "tableLastDownload": "Última Descàrrega",
+    "tableActions": "Accions",
+    "deleteButton": "Eliminar",
+    "paginationLabel": "Paginació de leads"
+}

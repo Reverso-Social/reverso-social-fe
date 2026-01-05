@@ -1,0 +1,22 @@
+{
+    "title": "¡Hola!",
+    "titleHighlight": "somos:",
+    "description": "Tres caminos paralelos que durante más de 20 años nos hemos dedicado a la igualdad, a la diversidad, a la inclusión social, a la coordinación y gestión de proyectos, a la formación y a la consultoría que han bifurcado en este proyecto que aborda todos los ámbitos laborales, empresariales, sociales y educativos relacionado con igualdad, género y diversidad.",
+    "skills": {
+        "lola": [
+            "Desarrollo Organizacional",
+            "Docencia",
+            "Antropología"
+        ],
+        "pilar": [
+            "Psicología",
+            "Igualdad",
+            "Formación y Consultoría"
+        ],
+        "susana": [
+            "Psicología",
+            "Salud Mental",
+            "Intervención Social"
+        ]
+    }
+}

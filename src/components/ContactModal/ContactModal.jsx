@@ -1,11 +1,13 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./ContactModal.scss";
 import { X, User, Mail, Building2, Heart } from "lucide-react";
 import contactService from "../../api/contactService";
 import GlobalModal from "../GlobalModal/GlobalModal";
 
 export default function ContactModal({ open, onClose }) {
+  const { t } = useTranslation('forms');
   const initialForm = {
     nombre: "",
     email: "",
@@ -39,17 +41,17 @@ export default function ContactModal({ open, onClose }) {
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.nombre.trim()) newErrors.nombre = "El nombre es obligatorio";
-    if (!formData.email.trim()) newErrors.email = "El email es obligatorio";
+    if (!formData.nombre.trim()) newErrors.nombre = t('validation.nameRequired');
+    if (!formData.email.trim()) newErrors.email = t('validation.emailRequired');
     else if (!/\S+@\S+\.\S+/.test(formData.email))
-      newErrors.email = "Formato de email inválido";
+      newErrors.email = t('validation.emailInvalid');
 
     if (!formData.intereses.trim())
-      newErrors.intereses = "Cuéntanos tus intereses";
+      newErrors.intereses = t('validation.interestsRequired');
 
 
     if (!hasAcceptedPolicy) {
-      newErrors.policy = "Debes aceptar la política de privacidad";
+      newErrors.policy = t('validation.policyRequired');
     }
 
     setErrors(newErrors);
@@ -73,8 +75,8 @@ export default function ContactModal({ open, onClose }) {
       setModalState({
         open: true,
         type: "success",
-        title: "Mensaje enviado",
-        message: "¡Gracias por escribirnos! Nos pondremos en contacto contigo pronto."
+        title: t('success.contactSent'),
+        message: t('success.contactMessage')
       });
 
     } catch (error) {
@@ -82,8 +84,8 @@ export default function ContactModal({ open, onClose }) {
       setModalState({
         open: true,
         type: "error",
-        title: "Error de envío",
-        message: "No pudimos enviar tu mensaje. Por favor, verifica tu conexión e intenta de nuevo."
+        title: t('errors.contactFailed'),
+        message: t('errors.contactMessage')
       });
     } finally {
       setLoading(false);
@@ -109,12 +111,12 @@ export default function ContactModal({ open, onClose }) {
               <X size={22} />
             </button>
 
-            <h2 className="contact-modal__title">Contáctanos</h2>
-            <p className="contact-modal__subtitle">Estamos aquí para escucharte.</p>
+            <h2 className="contact-modal__title">{t('contact.title')}</h2>
+            <p className="contact-modal__subtitle">{t('contact.subtitle')}</p>
 
             <form className="contact-modal__form" onSubmit={handleSubmit}>
               <div className="contact-modal__field">
-                <label htmlFor="contact-nombre">Nombre</label>
+                <label htmlFor="contact-nombre">{t('contact.name')}</label>
                 <div
                   className={`contact-modal__input-wrapper ${errors.nombre ? "error" : ""}`}
                 >
@@ -122,7 +124,7 @@ export default function ContactModal({ open, onClose }) {
                   <input
                     id="contact-nombre"
                     type="text"
-                    placeholder="Tu nombre completo"
+                    placeholder={t('contact.namePlaceholder')}
                     value={formData.nombre}
                     onChange={(e) =>
                       setFormData({ ...formData, nombre: e.target.value })
@@ -134,7 +136,7 @@ export default function ContactModal({ open, onClose }) {
               </div>
 
               <div className="contact-modal__field">
-                <label htmlFor="contact-email">Email</label>
+                <label htmlFor="contact-email">{t('contact.email')}</label>
                 <div
                   className={`contact-modal__input-wrapper ${errors.email ? "error" : ""}`}
                 >
@@ -142,7 +144,7 @@ export default function ContactModal({ open, onClose }) {
                   <input
                     id="contact-email"
                     type="email"
-                    placeholder="tu@email.com"
+                    placeholder={t('contact.emailPlaceholder')}
                     value={formData.email}
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
@@ -154,13 +156,13 @@ export default function ContactModal({ open, onClose }) {
               </div>
 
               <div className="contact-modal__field">
-                <label htmlFor="contact-entidad">Entidad (opcional)</label>
+                <label htmlFor="contact-entidad">{t('contact.entity')}</label>
                 <div className="contact-modal__input-wrapper">
                   <Building2 className="icon" size={20} />
                   <input
                     id="contact-entidad"
                     type="text"
-                    placeholder="Organizacion o colectivo"
+                    placeholder={t('contact.entityPlaceholder')}
                     value={formData.entidad}
                     onChange={(e) =>
                       setFormData({ ...formData, entidad: e.target.value })
@@ -171,7 +173,7 @@ export default function ContactModal({ open, onClose }) {
               </div>
 
               <div className="contact-modal__field">
-                <label htmlFor="contact-intereses">Intereses</label>
+                <label htmlFor="contact-intereses">{t('contact.interests')}</label>
                 <div
                   className={`contact-modal__textarea-wrapper ${errors.intereses ? "error" : ""}`}
                 >
@@ -179,7 +181,7 @@ export default function ContactModal({ open, onClose }) {
                   <textarea
                     id="contact-intereses"
                     rows="3"
-                    placeholder="¿Qué te interesa o en qué podemos colaborar?"
+                    placeholder={t('contact.interestsPlaceholder')}
                     value={formData.intereses}
                     onChange={(e) =>
                       setFormData({ ...formData, intereses: e.target.value })
@@ -203,16 +205,16 @@ export default function ContactModal({ open, onClose }) {
                   }}
                 />
                 <label htmlFor="contact-policy">
-                  Acepto la{" "}
+                  {t('contact.acceptPolicy')}{" "}
                   <Link to="/politica-privacidad" target="_blank" rel="noopener noreferrer">
-                    Política de Protección de Datos y Privacidad
+                    {t('contact.privacyPolicy')}
                   </Link>
                 </label>
               </div>
               {errors.policy && <span className="error-text" style={{ display: 'block', marginTop: '-1rem', marginBottom: '1rem' }}>{errors.policy}</span>}
 
               <button type="submit" className="contact-modal__submit" disabled={loading}>
-                {loading ? "Enviando..." : "Enviar"}
+                {loading ? t('contact.submitting') : t('contact.submit')}
               </button>
             </form>
           </div>

@@ -1,0 +1,9 @@
+{
+    "label": "El nostre blog",
+    "title": "Notícies i",
+    "titleHighlight": "actualitat",
+    "subtitle": "Explora articles, anàlisis i novetats sobre incidència social i política.",
+    "loading": "Carregant articles...",
+    "errorLoading": "No hem pogut carregar els articles.",
+    "empty": "No hi ha articles publicats encara."
+}

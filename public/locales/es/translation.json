@@ -1,0 +1,48 @@
+{
+    "nav": {
+        "aboutUs": "Sobre Nosotras",
+        "whatWeDo": "Qué Hacemos",
+        "resources": "Recursos",
+        "advocacy": "Incidencia",
+        "blog": "Blog"
+    },
+    "hero": {
+        "title": "Somos una entidad feminista de incidencia sociopolítica",
+        "description": "Hemos venido a resolver tus necesidades y a hacer que el cambio a mejor suceda.",
+        "cta": "Conócenos"
+    },
+    "header": {
+        "toggleMenu": "Abrir o cerrar menú de navegación",
+        "logoutTitle": "Sesión cerrada",
+        "logoutMessage": "Has cerrado sesión correctamente."
+    },
+    "footer": {
+        "brand": "Reverso Social",
+        "description": "Consultoría Social de Género comprometida con la transformación feminista de la sociedad.",
+        "navigation": "Navegación",
+        "contact": "Contacto",
+        "followUs": "Síguenos",
+        "copyright": "© 2025 Reverso Social - CIF G22598882. Todos los derechos reservados.",
+        "privacyPolicy": "Política de Privacidad",
+        "cookies": "Cookies",
+        "legalNotice": "Aviso Legal",
+        "intranet": "Intranet"
+    },
+    "userMenu": {
+        "user": "Usuario",
+        "dashboard": "Panel de control",
+        "logout": "Cerrar sesión"
+    },
+    "common": {
+        "loading": "Cargando...",
+        "submit": "Enviar",
+        "cancel": "Cancelar",
+        "close": "Cerrar",
+        "closeWindow": "Cerrar ventana",
+        "save": "Guardar",
+        "delete": "Eliminar",
+        "edit": "Editar",
+        "search": "Buscar",
+        "searchPlaceholder": "Buscar..."
+    }
+}

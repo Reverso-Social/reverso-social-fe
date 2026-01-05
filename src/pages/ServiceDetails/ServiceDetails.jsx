@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { servicesData } from "../../data/serviceData";
-import { servicesDetailedData } from "../../data/servicesDetailedData";
+import { useTranslation } from "react-i18next";
 import { FaBalanceScale, FaShieldAlt, FaHandsHelping, FaEnvelope, FaArrowLeft, FaCheck } from "react-icons/fa";
 import { PiMoneyFill } from "react-icons/pi";
 import { GiGraduateCap } from "react-icons/gi";
@@ -21,6 +20,7 @@ const iconMap = {
 };
 
 const ServiceDetails = () => {
+  const { t } = useTranslation('services');
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -36,23 +36,12 @@ const ServiceDetails = () => {
       document.body.style.overflow = previousOverflow;
     };
   }, [isContactOpen]);
-  
-  let selectedService = null;
-  let categoryName = "";
-  
-  for (const category of servicesData) {
-    const service = category.services.find(s => s.id === parseInt(id));
-    if (service) {
-      selectedService = service;
-      categoryName = category.category;
-      break;
-    }
-  }
 
-  const serviceDetails = servicesDetailedData[parseInt(id)];
+  const serviceDetails = t(`serviceDetails.service${id}`, { returnObjects: true });
+  const iconName = serviceDetails?.iconName || 'FaBalanceScale';
 
-  if (!selectedService || !serviceDetails) {
-    return <div>Servicio no encontrado</div>;
+  if (!serviceDetails || !serviceDetails.title) {
+    return <div>{t('serviceNotFound')}</div>;
   }
 
   const handleBackToServices = () => {
@@ -74,26 +63,26 @@ const ServiceDetails = () => {
 
       <div className="service-details__hero">
         <div className="service-details__hero-content">
-          <button 
+          <button
             className="service-details__back-link"
             onClick={handleBackToServices}
           >
-            <FaArrowLeft /> Volver a Servicios
+            <FaArrowLeft /> {t('backToServices')}
           </button>
 
           <div className="service-details__hero-icon">
-            {iconMap[selectedService.iconName]}
+            {iconMap[iconName]}
           </div>
-          
-          <span className="service-details__category">{categoryName}</span>
-          <h1 className="service-details__title">{serviceDetails.title}</h1>
+
+          <span className="service-details__category">{t(`services.service${id}.category`)}</span>
+          <h1 className="service-details__title">{t(`serviceDetails.service${id}.title`)}</h1>
           <p className="service-details__description">
-            {serviceDetails.fullDescription}
+            {t(`serviceDetails.service${id}.fullDescription`)}
           </p>
 
           {serviceDetails.legalNote && (
             <div className="service-details__legal-note">
-              {serviceDetails.legalNote}
+              {t(`serviceDetails.service${id}.legalNote`)}
             </div>
           )}
         </div>
@@ -101,11 +90,11 @@ const ServiceDetails = () => {
 
       <div className="service-details__content">
         <div className="service-details__container">
-          
+
           {serviceDetails.features && (
             <section className="service-details__section">
               <h2 className="service-details__section-title">
-                Nuestro Servicio Incluye
+                {t('sections.serviceIncludes')}
               </h2>
               <div className="service-details__features">
                 {serviceDetails.features.map((feature, index) => (
@@ -132,7 +121,7 @@ const ServiceDetails = () => {
           {serviceDetails.additionalServices && (
             <section className="service-details__section">
               <h2 className="service-details__section-title">
-                Servicios Adicionales
+                {t('sections.additionalServices')}
               </h2>
               <div className="service-details__grid">
                 {serviceDetails.additionalServices.map((service, index) => (
@@ -154,7 +143,7 @@ const ServiceDetails = () => {
           {serviceDetails.topics && (
             <section className="service-details__section">
               <h2 className="service-details__section-title">
-                Temáticas de Formación
+                {t('sections.trainingTopics')}
               </h2>
               <div className="service-details__features">
                 {serviceDetails.topics.map((topic, index) => (
@@ -181,7 +170,7 @@ const ServiceDetails = () => {
           {serviceDetails.characteristics && (
             <section className="service-details__section">
               <h2 className="service-details__section-title">
-                Características de la Formación
+                {t('sections.trainingFeatures')}
               </h2>
               <div className="service-details__grid">
                 {serviceDetails.characteristics.map((char, index) => (
@@ -201,7 +190,7 @@ const ServiceDetails = () => {
           {serviceDetails.projectAreas && (
             <section className="service-details__section">
               <h2 className="service-details__section-title">
-                Áreas de Intervención
+                {t('sections.interventionAreas')}
               </h2>
               <div className="service-details__features">
                 {serviceDetails.projectAreas.map((area, index) => (
@@ -228,7 +217,7 @@ const ServiceDetails = () => {
           {serviceDetails.services && (
             <section className="service-details__section">
               <h2 className="service-details__section-title">
-                Servicios que Ofrecemos
+                {t('sections.servicesOffered')}
               </h2>
               <div className="service-details__grid">
                 {serviceDetails.services.map((service, index) => (
@@ -246,15 +235,15 @@ const ServiceDetails = () => {
           )}
 
           <section className="service-details__cta">
-            <h2>¿Interesado en este servicio?</h2>
+            <h2>{t('cta.title')}</h2>
             <p>
-              Contáctanos para más información y descubre cómo podemos ayudar a tu organización.
+              {t('cta.description')}
             </p>
-            <button 
+            <button
               className="service-details__cta-button"
               onClick={() => setIsContactOpen(true)}
             >
-              Solicitar Información
+              {t('cta.button')}
             </button>
           </section>
 
